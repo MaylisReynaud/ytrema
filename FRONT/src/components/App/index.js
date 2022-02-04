@@ -2,7 +2,7 @@
 import React from 'react';
 
 // == Import
-import ytrema from '/home/maylis/ytrema/FRONT/src/assets/logo-ytrema-site.png';
+import ytrema from './logo-ytrema-site.png';
 import './styles.css';
 
 // == Composant
