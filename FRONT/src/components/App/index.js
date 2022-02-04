@@ -2,14 +2,14 @@
 import React from 'react';
 
 // == Import
-import reactLogo from './react-logo.svg';
+import ytrema from '/home/maylis/ytrema/FRONT/src/assets/ytrema.png';
 import './styles.css';
 
 // == Composant
 const App = () => (
   <div className="app">
-    <img src={reactLogo} alt="react logo" />
-    <h1>Composant : App</h1>
+    <img src={ytrema} alt="ÿtrema logo" />
+    <h1>Bienvenue sur ÿ tréma</h1>
   </div>
 );
 
