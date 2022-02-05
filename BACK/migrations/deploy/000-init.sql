@@ -1,15 +1,126 @@
 -- Deploy ytrema:000-init to pg
 
-BEGIN;
+BEGIN; 
 
-CREATE TABLE nurse(
+DROP TABLE IF EXISTS "user", "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern";
+
+CREATE TABLE user(
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    siren_code TEXT NOT NULL UNIQUE,
-    firstname TEXT NOT NULL,
-    lastname TEXT NOT NULL,
+    pseudo TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
-    phone_number TEXT NOT NULL
+    chest_measurement INT CONSTRAINT POSITIVE INTEGER,
+    waist_measurement INT CONSTRAINT POSITIVE INTEGER,
+    hip_measurement INT CONSTRAINT POSITIVE INTEGER,
+    role INT NOT NULL DEFAULT MEMBER,
+    avatar TEXT DEFAULT
+);
+
+CREATE TABLE haberdashery(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    website TEXT,
+    haberdashery TEXT NOT NULL,
+    quantity INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    size INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    unity TEXT NOT NULL DEFAULT,
+    price NUMERIC NOT NULL CONSTRAINT POSITIVE NUMERIC,
+    color TEXT NOT NULL,
+    precise_color TEXT,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE review(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    content TEXT NOT NULL,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE fabric(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    website TEXT,
+    designer TEXT NOT NULL,
+    color TEXT NOT NULL,
+    precise_color TEXT,
+    fabric TEXT NOT NULL,
+    composition TEXT,
+    weight INT CONSTRAINT POSITIVE INTEGER,
+    quantity INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    width INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    price NUMERIC NOT NULL CONSTRAINT POSITIVE NUMERIC,
+    photo TEXT,    
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE haberdashery(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    website TEXT,
+    haberdashery TEXT NOT NULL,
+    quantity INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    size INT NOT NULL CONSTRAINT POSITIVE INTEGER,
+    unity TEXT NOT NULL DEFAULT,
+    price NUMERIC NOT NULL CONSTRAINT POSITIVE NUMERIC,
+    color TEXT NOT NULL,
+    precise_color TEXT,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE review(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    content TEXT NOT NULL,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE project(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    cost_price NUMERIC NOT NULL CONSTRAINT POSITIVE NUMERIC,
+    date TIMESTAMPTZ NOT NULL DEFAULT NOW,
+    status TEXT NOT NULL,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE pattern(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    website TEXT,
+    brand TEXT NOT NULL,
+    clothing TEXT NOT NULL,
+    gender TEXT NOT NULL CONSTRAINT VALUE,
+    price NUMERIC NOT NULL CONSTRAINT POSITIVE NUMERIC,
+    personal_notes TEXT,
+    format TEXT NOT NULL,
+    pdf_instructions TEXT,
+    photo TEXT,
+    user_id INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+);
+
+CREATE TABLE photo(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    photo TEXT,
+    personal_notes TEXT,
+    project_id INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE
+);
+
+
+CREATE TABLE project_has_haberdashery(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    project_id ENTITY INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
+    haberdashery_id ENTITY INT NOT NULL REFERENCES "haberdashery"("id") ON DELETE CASCADE,
+);
+
+CREATE TABLE project_has_fabric(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    project_id ENTITY INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
+    fabric_id ENTITY INT NOT NULL REFERENCES "fabric"("id") ON DELETE CASCADE,
+);
+
+CREATE TABLE project_has_pattern(
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    project_id ENTITY INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
+    pattern_id ENTITY INT NOT NULL REFERENCES "pattern"("id") ON DELETE CASCADE,
 );
 
 COMMIT;
