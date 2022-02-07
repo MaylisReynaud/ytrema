@@ -2,8 +2,12 @@
 
 BEGIN;
 
-INSERT INTO nurse(id, siren_code, firstname, lastname, email, password, phone_number)
+INSERT INTO "user"("id", "pseudo", "email", "password", "chest_measurement", "waist_measurement", "hip_measurement")
     OVERRIDING SYSTEM VALUE
-    VALUES(1, '917222465', 'Olivier', 'Raynal', 'olivier.raynal@gmail.com', 'gyefgecz', '0612345678');
+    VALUES(1, 'Jean59', 'jean59.tada@gmail.com', 'Passw12ord/', 90, 60, 90);
+
+INSERT INTO "project"("id", "name", "cost_price", "status", "user_id")
+    OVERRIDING SYSTEM VALUE
+    VALUES(1, 'pull-over pour mamie', 30.94, 'découpe patron', 1);
 
 ROLLBACK;
