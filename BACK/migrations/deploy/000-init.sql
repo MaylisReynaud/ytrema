@@ -26,6 +26,8 @@ CREATE TABLE "haberdashery"(
     "name" TEXT NOT NULL,
     "website" TEXT,
     "haberdashery" TEXT NOT NULL,
+    "color" TEXT NOT NULL,
+    "precise_color" TEXT,
     "quantity" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "size" POSITIVE_INTEGER NOT NULL,
