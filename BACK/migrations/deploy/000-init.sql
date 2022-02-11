@@ -29,6 +29,8 @@ CREATE TABLE "haberdashery"(
     "quantity" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "size" POSITIVE_INTEGER NOT NULL,
+    "color" TEXT NOT NULL,
+    "precise_color" TEXT,
     "unity" TEXT NOT NULL DEFAULT 'cm',
     "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
 );
