@@ -26,14 +26,13 @@ CREATE TABLE "haberdashery"(
     "name" TEXT NOT NULL,
     "website" TEXT,
     "haberdashery" TEXT NOT NULL,
-    "color" TEXT NOT NULL,
-    "precise_color" TEXT,
     "quantity" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "size" POSITIVE_INTEGER NOT NULL,
+    "unity" TEXT NOT NULL DEFAULT 'cm',
     "color" TEXT NOT NULL,
     "precise_color" TEXT,
-    "unity" TEXT NOT NULL DEFAULT 'cm',
+    "photo" TEXT,
     "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
 );
 
