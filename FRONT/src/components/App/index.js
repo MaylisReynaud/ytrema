@@ -1,14 +1,17 @@
 // == Import npm
 import React from 'react';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
 // == Import
-import ytrema from './logo-ytrema-site.png';
-import './styles.css';
+import styled from "styled-components";
+
+
 
 // == Composant
 const App = () => (
   <div className="app">
-    <img src={ytrema} alt="ÿtrema logo" />
+  
+   
     <h1>Bienvenue sur ÿ tréma</h1>
   </div>
 );
