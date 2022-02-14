@@ -1,18 +1,23 @@
 // == Import npm
 import React from 'react';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
 
 // == Import
-import styled from "styled-components";
+import Navbar from '../Navbar';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 
-
+import './styles.css';
+import { FontStyles } from '../../fonts/fontStyles';
 
 // == Composant
 const App = () => (
   <div className="app">
+    <FontStyles/>
+    <Router>
+      <Navbar/>
+      <h1>Bienvenue sur ÿ tréma</h1>
+    </Router>
   
-   
-    <h1>Bienvenue sur ÿ tréma</h1>
   </div>
 );
 
