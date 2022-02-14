@@ -7,9 +7,9 @@ DROP DOMAIN IF EXISTS POSITIVE_INTEGER, POSITIVE_NUMERIC;
 CREATE DOMAIN POSITIVE_INTEGER AS TEXT CHECK(VALUE ~ '^[1-9]\d*$');
 CREATE DOMAIN POSITIVE_NUMERIC AS NUMERIC(5,2) CHECK(VALUE >= 0);
 
-DROP TABLE IF EXISTS "user", "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern";
+DROP TABLE IF EXISTS "member", "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern";
 
-CREATE TABLE "user"(
+CREATE TABLE "member"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "pseudo" TEXT NOT NULL UNIQUE,
     "email" TEXT NOT NULL UNIQUE,
@@ -33,13 +33,14 @@ CREATE TABLE "haberdashery"(
     "color" TEXT NOT NULL,
     "precise_color" TEXT,
     "photo" TEXT,
-    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+    "is_cut" BOOLEAN,
+    "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "review"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "content" TEXT NOT NULL,
-    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+    "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "fabric"(
@@ -56,7 +57,7 @@ CREATE TABLE "fabric"(
     "width" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "photo" TEXT,    
-    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+    "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "project"(
@@ -65,7 +66,7 @@ CREATE TABLE "project"(
     "cost_price" POSITIVE_NUMERIC NOT NULL,
     "date" TIMESTAMPTZ NOT NULL DEFAULT NOW() CHECK ("date" >= NOW()),
     "status" TEXT NOT NULL,
-    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+    "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "pattern"(
@@ -80,7 +81,7 @@ CREATE TABLE "pattern"(
     "format" TEXT NOT NULL CHECK ("format" = 'paper' OR "format" = 'pdf'),
     "pdf_instructions" TEXT,
     "photo" TEXT,
-    "user_id" INT NOT NULL REFERENCES "user"("id") ON DELETE CASCADE
+    "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
 CREATE TABLE "photo"(
@@ -93,13 +94,15 @@ CREATE TABLE "photo"(
 CREATE TABLE "project_has_haberdashery"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
-    "haberdashery_id" INT NOT NULL REFERENCES "haberdashery"("id") ON DELETE CASCADE
+    "haberdashery_id" INT NOT NULL REFERENCES "haberdashery"("id") ON DELETE CASCADE,
+    "used_size" POSITIVE_INTEGER NOT NULL
 );
 
 CREATE TABLE "project_has_fabric"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
-    "fabric_id" INT NOT NULL REFERENCES "fabric"("id") ON DELETE CASCADE
+    "fabric_id" INT NOT NULL REFERENCES "fabric"("id") ON DELETE CASCADE,
+    "used_size" POSITIVE_INTEGER NOT NULL
 );
 
 CREATE TABLE "project_has_pattern"(
