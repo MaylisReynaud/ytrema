@@ -12,8 +12,9 @@ export const NavbarContainer = styled.nav`
     width: 100%;
     height: ${(props) => (props.extendNavbar ? "100vh" : "80px")};
     box-shadow: 0 1px 3px rgba(15, 15, 15, 0.13);
-    background-color: #ffc43d;
     display: flex;
+    align-items: center;
+    padding: 0 1.5em;
     flex-direction: column;
 
     @media (min-width: 700px) {
@@ -22,21 +23,18 @@ export const NavbarContainer = styled.nav`
 `;
 
 export const LeftContainer = styled.div`
-    flex: 20%;
     display: flex;
-    justify-content: flex-start;
-    padding-left: 2%;
-    background-color: #fff;
+`;
+
+export const MiddleContainer = styled.div`
+    display: flex;
+    flex: 2;
+    height: 100%;
+    justify-content: center;
 `;
 
 export const RightContainer = styled.div`
-    flex: 80%;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 5%;
-    background-color: #fff;
-
 `;
 
 export const NavbarInnerContainer = styled.div`
@@ -70,8 +68,7 @@ export const NavbarLinkExtended = styled(Link)`
 `;
 
 export const Logo = styled.img`
-    margin: 10px;
-    max-width: 180px;
+    max-width: 200px;
     height: auto;
 `;
 export const OpenLinksButton = styled.button`

@@ -11,8 +11,8 @@ import {
     Logo,
     OpenLinksButton,
     NavbarLinkExtended
-} from "../styles/Navbar.style";
-import LogoImg from '../assets/ytrema.png';
+} from "./Navbar.style";
+import LogoImg from '../../assets/logo-ytrema-site.png';
 
  
 function Navbar () {
