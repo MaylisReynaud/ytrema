@@ -1,12 +1,11 @@
-import React from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const ConnectionContainer = styled.div`
+export const ConnectionContainer = styled.div`
   display: flex;
   margin-left: 10px;
 `;
 
-const RegisterButton = styled.button`
+export const RegisterButton = styled.button`
   border: 0;
   outline: 0;
   padding: 8px 1em;
@@ -14,23 +13,26 @@ const RegisterButton = styled.button`
   font-size: 13px;
   font-weight: 600;
   border-radius: 20px;
-  background-color: #2a9d8f;
-  background-image: linear-gradient(to right, transparent 0%, #ffc43d 100%);
+  background: #ffb347; 
+  background-image: linear-gradient(to right, transparent 0%, #ffcc33 100%);
+  
+  //background-color: #2a9d8f;
+  //background-image: linear-gradient(to right, transparent 0%, #ffc43d 100%);
   transition: all 240ms ease-in-out;
   cursor: pointer;
   &:hover {
-    background-color: #ffc43d;
+    background-color: #43cea2;
   }
   &:not(:last-of-type) {
     margin-right: 7px;
   }
 `;
 
-const LoginButton = styled.button`
+export const LoginButton = styled.button`
   border: 0;
   outline: 0;
   padding: 8px 1em;
-  color: #222;
+  color: #264653;
   font-size: 13px;
   font-weight: 600;
   border-radius: 20px;
@@ -46,12 +48,3 @@ const LoginButton = styled.button`
     margin-right: 7px;
   }
 `;
-
-export function Connection(props) {
-  return (
-    <ConnectionContainer>
-      <RegisterButton>Register</RegisterButton>
-      <LoginButton>Login</LoginButton>
-    </ConnectionContainer>
-  );
-}

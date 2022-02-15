@@ -1,11 +1,6 @@
-import { motion } from "framer-motion";
-import React from "react";
-import styled from "styled-components";
-
-const Button = styled.div`
-  z-index: 99;
-  cursor: pointer;
-`;
+import { motion } from 'framer-motion';
+import React from 'react';
+import { Button } from './style';
 
 const Path = (props) => (
   <motion.path
