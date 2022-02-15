@@ -1,16 +1,16 @@
 // == Import npm
 import React from 'react';
-import { Navbar } from "./components/Navbar";
-import { Test } from "./components/Test";
+import Navbar from './components/Navbar';
+
 
 // == Import
 import './App.scss';
-console.log (Test);
+
 // == Composant
 const App = () => {
   return (
     <div className="app">
-    <Test />
+    <Navbar />
    </div>
   )
 };
