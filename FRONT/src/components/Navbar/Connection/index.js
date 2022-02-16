@@ -10,8 +10,8 @@ import {
 export function Connection(props) {
   return (
     <ConnectionContainer>
-      <RegisterButton>Register</RegisterButton>
-      <LoginButton>Login</LoginButton>
+      <RegisterButton>S'enregistrer</RegisterButton>
+      <LoginButton>Se connecter</LoginButton>
     </ConnectionContainer>
   );
 }

@@ -10,19 +10,19 @@ export function NavLinks(props) {
   return (
     <NavLinksContainer>
       <LinksWrapper>
-        <LinkItem>
-          <Link href="#">About us</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="#">How it works</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="#">Explore</Link>
-        </LinkItem>
-        <LinkItem>
-          <Link href="#">Impact</Link>
-        </LinkItem>
-      </LinksWrapper>
+          <LinkItem>
+            <Link href="/tissus">Tissus</Link>
+          </LinkItem>
+          <LinkItem>
+            <Link href="/mercerie">Mercerie</Link>
+          </LinkItem>
+          <LinkItem>
+            <Link href="/patrons">Patrons</Link>
+          </LinkItem>
+          <LinkItem>
+            <Link href="/projets ">Projets</Link>
+          </LinkItem>
+        </LinksWrapper>
     </NavLinksContainer>
   );
 }

@@ -16,18 +16,32 @@ export const LinksWrapper = styled.ul`
   width: 100%;
   flex-direction: column;
   position: fixed;
-  top: 65px;
-  left: 0;
+  top: 60px;
+  left : 30px;
 `;
 
 export const LinkItem = styled.li`
   width: 100%;
-  padding: 0 1.1em;
+  padding: 1em 1.3em;
   color: #222;
   font-weight: 500;
   font-size: 16px;
   display: flex;
   margin-bottom: 10px;
+  /* height: 100%; */
+  /* padding: 0 1.3em;
+  color: #222;
+  font-weight: 500;
+  font-size: 16px; */
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-top: 2px solid transparent;
+  transition: all 220ms ease-in-out;
+  &:hover {
+    border-bottom: 2px solid #ffc43d;
+    color: #ffc43d;
+  }
 `;
 
 export const Link = styled.a`

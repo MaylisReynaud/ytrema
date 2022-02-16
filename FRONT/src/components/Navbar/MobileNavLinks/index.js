@@ -18,16 +18,16 @@ export function MobileNavLinks(props) {
       {isOpen && (
         <LinksWrapper>
           <LinkItem>
-            <Link href="#">About us</Link>
+            <Link href="/tissus">Tissus</Link>
           </LinkItem>
           <LinkItem>
-            <Link href="#">How it works</Link>
+            <Link href="/mercerie">Mercerie</Link>
           </LinkItem>
           <LinkItem>
-            <Link href="#">Explore</Link>
+            <Link href="/patrons">Patrons</Link>
           </LinkItem>
           <LinkItem>
-            <Link href="#">Impact</Link>
+            <Link href="/projets ">Projets</Link>
           </LinkItem>
           <Marginer />
           <Connection />

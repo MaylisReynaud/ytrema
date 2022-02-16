@@ -6,7 +6,7 @@ export function Logo(props) {
   return (
     <LogoWrapper>
       <LogoImg>
-        <img src={YtremaLogo} alt="ÿ tréma logo" />
+        <img src={YtremaLogo} alt="ÿ tréma logo" href="/" />
       </LogoImg>
     </LogoWrapper>
   );
