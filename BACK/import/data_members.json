@@ -1,0 +1,22 @@
+[
+    {
+        "pseudo": "mays",
+        "email": "mays@ytrema.fr",
+        "password": 1,
+        "chest_measurement": 87,
+        "waist_measurement": 74,
+        "hip_measurement": 98,
+        "role": 1,
+        "avatar": "https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Blank&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=Default&mouthType=Default&skinColor=Brown"
+    },
+    {
+        "pseudo": "lailo",
+        "email": "lailo@ytrema.fr",
+        "password": 2,
+        "chest_measurement": 90,
+        "waist_measurement": 75,
+        "hip_measurement": 100,
+        "role": 1,
+        "avatar": "link basic avatar"
+    }
+]

@@ -33,7 +33,7 @@ CREATE TABLE "haberdashery"(
     "color" TEXT NOT NULL,
     "precise_color" TEXT,
     "photo" TEXT,
-    "is_cut" BOOLEAN,
+    "is_cut" BOOLEAN NOT NULL,
     "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 

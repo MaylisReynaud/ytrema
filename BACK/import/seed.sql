@@ -2,16 +2,7 @@ BEGIN;
 -- -----------------------------------------
 -- delete all the rows from the tables below 
 -- -----------------------------------------
-TRUNCATE TABLE "member", "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern" RESTART IDENTITY;
-
--- ------------------------------------
--- loading data in "member" table
--- ------------------------------------
-INSERT INTO "member"("id", "pseudo", "email", "password", "chest_measurement", "waist_measurement", "hip_measurement", "role", "avatar")
-    OVERRIDING SYSTEM VALUE
-    VALUES
-    (1, 'mays', 'mays@ytrema.fr', '$2b$10$FBddqSNdpHcUOSIYHAntQ.U3tq9IiRN5GtRkOuONqW20ZQWiFheSm', 87, 74, 98, DEFAULT, 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Blank&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=Default&mouthType=Default&skinColor=Brown'), -- Validate12!
-    (2, 'lailo', 'lailo@ytrema.fr', '$2b$10$KlARDdOB/Fv7nnJv.saGnOQDmo1U2lpMZBgkZxd8zcR37D5HPZOC', 90, 75, 100, DEFAULT, DEFAULT); -- Validate!!!
+TRUNCATE TABLE  "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern" RESTART IDENTITY;
 
 -- ------------------------------------
 -- loading data in "haberdashery" table

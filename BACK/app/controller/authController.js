@@ -12,7 +12,6 @@ const authController = {
             const memberInfo = request.body;
             
             // Hash password
-            console.log(typeof saltRounds);
             const hashedPwd = bcrypt.hashSync(memberInfo.password, Number(saltRounds));
 
             // Replace the password by hashed password
