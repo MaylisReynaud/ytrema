@@ -11,11 +11,20 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// routes auth
-// router.post('/login', authController.handleLoginForm);
+// auth router
+router.post('/login', authController.handleLoginForm);
 router.post('/signup', authController.handleSignForm);
 
-// router.use('auth');
+router.use(auth);
+
+// member router
+// haberdashery router
+// review router
+// fabric router
+// project router
+// pattern router
+// photo router
+
 
 // handleError
 router.use(errorController.error404);
