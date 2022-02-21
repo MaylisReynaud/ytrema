@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import  { Apparel } from '@styled-icons/zondicons';
+import { BookOpen } from '@styled-icons/fa-solid';
 
 export const NavLinksContainer = styled.div`
   height: 100%;
@@ -33,6 +35,7 @@ export const LinkItem = styled.li`
   color: #222;
   font-weight: 500;
   font-size: 16px; */
+  
   align-items: center;
   justify-content: center;
   display: flex;
@@ -43,6 +46,13 @@ export const LinkItem = styled.li`
     color: #ffc43d;
   }
 `;
+
+export const ImgSpan = styled.span`
+  width: 30px;
+  height:30px; 
+  margin-right: 1em;
+`;
+
 
 export const Link = styled.a`
   text-decoration: none;

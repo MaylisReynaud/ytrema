@@ -5,8 +5,14 @@ import { NavLinksContainer,
          LinksWrapper,
          LinkItem,
          Link,
-         Marginer
+         Marginer,
+         ImgSpan
 } from './style';
+import  { Apparel } from '@styled-icons/zondicons';
+import { BookOpen } from '@styled-icons/fa-solid';
+import { Scroll } from '@styled-icons/fa-solid/Scroll';
+import { Flower1 } from '@styled-icons/bootstrap';
+
 
 
 export function MobileNavLinks(props) {
@@ -18,15 +24,27 @@ export function MobileNavLinks(props) {
       {isOpen && (
         <LinksWrapper>
           <LinkItem>
+            <ImgSpan>
+              <Scroll />
+            </ImgSpan>
             <Link href="/tissus">Tissus</Link>
           </LinkItem>
           <LinkItem>
+            <ImgSpan>
+              <Flower1 />
+            </ImgSpan>
             <Link href="/mercerie">Mercerie</Link>
           </LinkItem>
           <LinkItem>
+            <ImgSpan>
+              <BookOpen />
+            </ImgSpan>
             <Link href="/patrons">Patrons</Link>
           </LinkItem>
           <LinkItem>
+            <ImgSpan>
+              <Apparel />
+            </ImgSpan>
             <Link href="/projets ">Projets</Link>
           </LinkItem>
           <Marginer />
