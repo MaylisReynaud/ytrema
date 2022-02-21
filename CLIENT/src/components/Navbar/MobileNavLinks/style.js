@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import  { Apparel } from '@styled-icons/zondicons';
-import { BookOpen } from '@styled-icons/fa-solid';
+// import { Link, NavLink } from 'react-router-dom';
+
 
 export const NavLinksContainer = styled.div`
   height: 100%;
@@ -54,10 +54,16 @@ export const ImgSpan = styled.span`
 `;
 
 
+// export const LinkNav = styled(Link)`
+//   text-decoration: none;
+//   color: inherit;
+//   font-size: inherit;
+// `;
+
 export const Link = styled.a`
   text-decoration: none;
-  color: inherit;
-  font-size: inherit;
+   color: inherit;
+   font-size: inherit;
 `;
 
 export const Marginer = styled.div`

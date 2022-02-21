@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavLinksContainer, 
+import { BottomNavLinksContainer, 
          LinksWrapper,
          LinkItem,
-         Links,
+         Link,         
          ImgContainer,
          ScrollIcon,
          FlowerIcon,
@@ -13,43 +13,43 @@ import { NavLinksContainer,
 
 
 
-export function NavLinks(props) {
+export function MobileBottomNavLinks(props) {
   return (
-    <NavLinksContainer>
+    <BottomNavLinksContainer>
       <LinksWrapper>
           <LinkItem>
-            <Links to="/tissus">
+            <Link href="/tissus">
               <ImgContainer>
                 <ScrollIcon />
               </ImgContainer>
               Tissus
-            </Links>
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/mercerie">
+            <Link href="/mercerie">
               <ImgContainer>
                 <FlowerIcon />
               </ImgContainer>
               Mercerie
-            </Links>
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/patrons">
+            <Link href="/patrons">
               <ImgContainer>
                 <BookOpenIcon />
               </ImgContainer>
               Patrons
-            </Links>
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/projets ">
+            <Link href="/projets ">
               <ImgContainer>
                 <ApparelIcon />
               </ImgContainer>
               Projets
-            </Links>
+            </Link>
           </LinkItem>
         </LinksWrapper>
-    </NavLinksContainer>
+    </BottomNavLinksContainer>
   );
 }

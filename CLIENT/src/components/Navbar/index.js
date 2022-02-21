@@ -8,24 +8,31 @@ import { MobileNavLinks } from '../Navbar/MobileNavLinks';
 import { NavbarContainer,
          LeftSection,
          MiddleSection,
-         RightSection
+         RightSection,
 } from './style';
 
 
 export function Navbar(props) {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   return (
-    <NavbarContainer>
-      <LeftSection>
-        <Logo />
-      </LeftSection>
-      <MiddleSection>{!isMobile && <NavLinks />}</MiddleSection>
-      <RightSection>
-        {!isMobile && <Connection />}
-        {isMobile && <MobileNavLinks />}
-      </RightSection>
-    </NavbarContainer>
-  );
-}
+ 
+     <NavbarContainer>
+        <LeftSection>
+          <Logo />
+        </LeftSection>
+        <MiddleSection>{!isMobile && <NavLinks />}</MiddleSection>
+        <RightSection>
+          {!isMobile && <Connection />}
+          {isMobile && <MobileNavLinks />}
+        </RightSection>
+      </NavbarContainer>
+     
+ 
+     
+  
+
+    
+  );   
+};
 
 

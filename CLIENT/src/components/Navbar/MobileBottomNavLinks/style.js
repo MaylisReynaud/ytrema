@@ -3,22 +3,27 @@ import  { Apparel } from '@styled-icons/zondicons';
 import { BookOpen } from '@styled-icons/fa-solid';
 import { Scroll } from '@styled-icons/fa-solid/Scroll';
 import { Flower1 } from '@styled-icons/bootstrap';
-import {NavLink, Link} from 'react-router-dom'
 
 
-export const NavLinksContainer = styled.div`
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+export const BottomNavLinksContainer = styled.div`
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
 `;
 
 export const LinksWrapper = styled.ul`
-  display: flex;
+  /* display: flex; */
+  position: relative;
+  box-shadow: 2px #222;
   margin: 0 auto;
   padding: 0.5em 0.5em;
   height: 100%;
   list-style: none;
+  display:flex;
 `;
 
 
@@ -30,13 +35,14 @@ export const LinkItem = styled.li`
   font-weight: 500;
   font-size: 14px;
   transition: all 220ms ease-in-out;
+  display: list-item inline;
   &:hover {
     color: #ffc43d;
   }
 `;
 
 
-export const Links = styled.a`
+export const Link = styled.a`
   text-decoration: none;
   color: inherit;
   font-size: inherit;
@@ -46,7 +52,6 @@ export const Links = styled.a`
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
 `;
 
 export const ImgContainer = styled.div`
