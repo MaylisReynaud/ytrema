@@ -40,6 +40,8 @@ export const Links = styled.a`
   text-decoration: none;
   color: inherit;
   font-size: inherit;
+  font-family: 'ProximaNova-Regular';
+  font-weight: 600;
   width: 30px;
   height: 30px;
   text-align: center;

@@ -7,7 +7,8 @@ import { BottomNavLinksContainer,
          ScrollIcon,
          FlowerIcon,
          BookOpenIcon,
-         ApparelIcon
+         ApparelIcon,
+         PersonIcon
 } from './style';
 
 
@@ -47,6 +48,14 @@ export function MobileBottomNavLinks(props) {
                 <ApparelIcon />
               </ImgContainer>
               Projets
+            </Link>
+          </LinkItem>
+          <LinkItem>
+            <Link href="/mon-compte ">
+              <ImgContainer>
+                <PersonIcon />
+              </ImgContainer>
+              Maÿlis
             </Link>
           </LinkItem>
         </LinksWrapper>

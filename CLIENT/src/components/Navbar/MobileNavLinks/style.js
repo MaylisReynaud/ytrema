@@ -25,7 +25,7 @@ export const LinksWrapper = styled.ul`
 export const LinkItem = styled.li`
   width: 100%;
   padding: 1em 1.3em;
-  color: #222;
+  color: #264653;
   font-weight: 500;
   font-size: 16px;
   display: flex;
@@ -62,8 +62,10 @@ export const ImgSpan = styled.span`
 
 export const Link = styled.a`
   text-decoration: none;
-   color: inherit;
-   font-size: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-family: 'ProximaNova-Regular';
+  font-weight: 600;
 `;
 
 export const Marginer = styled.div`

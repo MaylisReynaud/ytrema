@@ -13,7 +13,9 @@ export const RegisterButton = styled.button`
   padding: 8px 1em;
   color: #fff;
   font-size: 13px;
+  font-family: 'ProximaNova-Regular';
   font-weight: 600;
+  letter-spacing: 1px;
   border-radius: 20px;
   background: #ffb347; 
   background-image: linear-gradient(to right, transparent 0%, #ffcc33 100%);
@@ -36,7 +38,9 @@ export const LoginButton = styled.button`
   padding: 8px 1em;
   color: #ffc43d;
   font-size: 13px;
+  font-family: 'ProximaNova-Regular';
   font-weight: 600;
+  letter-spacing: 1px;
   border-radius: 20px;
   background-color: transparent;
   border: 2px solid #ffc43d;

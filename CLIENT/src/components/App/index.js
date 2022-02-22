@@ -1,14 +1,14 @@
 // == Import npm
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Navbar } from './components/Navbar';
-import { DeviceSize } from '../src/components/Navbar/Responsive';
-import { MobileBottomNavLinks } from './components/Navbar/MobileBottomNavLinks';
+import { Navbar } from '../Navbar';
+import { DeviceSize } from '../Navbar/Responsive';
+import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 
 
 
 // == Import
-import './App.scss';
+import './style';
 
 // == Composant
 const App = () => {
