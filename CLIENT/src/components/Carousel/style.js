@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { DeviceSize } from '../Navbar/Responsive';
 
 export const Slide = styled.div`
     /* height: 100vw !important; */
@@ -6,6 +7,11 @@ export const Slide = styled.div`
 
 export const SlideImg = styled.img`
     height:100%;
+    @media screen and (max-width:600px) { 
+        width: 100vw !important;
+        height: 40vh;
+        object-fit: cover;
+  }
 `;
 
 export const SlideOverlay = styled.div`

@@ -8,7 +8,7 @@ export const sliderData = [
         alt: 'tissuthèque',
         header: 'DIGITALISEZ VOTRE',
         title: 'TISSUTHEQUE',
-        text: 'Accédez à tout moment à votre stock de tissus classé par type, couleurs, designers ...',
+        text: 'Accédez à tout moment à votre stock de tissus classé par types, couleurs, designers ...',
         button: 'Je crée ma tissuthèque'
     },
     {
@@ -17,7 +17,7 @@ export const sliderData = [
         alt: 'merceriethèque',
         header: 'DIGITALISEZ VOTRE',
         title: 'MERCERIETHEQUE',
-        text: "Accédez à tout moment à votre stock d'articles de mercerie classé par type, couleurs, designers... ",
+        text: "Accédez à tout moment à votre stock d'articles de mercerie classé par types, couleurs, designers... ",
         button: 'Je crée ma merceriethèque'
     },
     {
@@ -26,7 +26,7 @@ export const sliderData = [
         alt: 'patronthèque',
         header: 'DIGITALISEZ VOTRE',
         title: 'PATRONTHEQUE',
-        text: 'Accédez à tout moment à votre librairie de patrons classée par type, designer, genre...',
+        text: 'Accédez à tout moment à votre librairie de patrons classée par types, designers, genres...',
         button: 'Je crée ma patronthèque'
     },
     {
