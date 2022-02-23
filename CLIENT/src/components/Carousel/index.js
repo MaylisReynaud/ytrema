@@ -14,6 +14,7 @@ import { sliderData } from '../../utils/sliderData';
 
 
 
+
 export function Slider() {
     
     // const sliderData = [
@@ -56,12 +57,19 @@ export function Slider() {
     // ];
 
   return (
+      
     <Carousel
         autoPlay
         interval={5000}
+        transitionTime={500}
+        swipeScrollTolerance={5}
         infiniteLoop
         showStatus={false}
         showThumbs={false}
+        stopOnHover={true}
+        swipeable={true}
+        dynamicHeight={true}
+        animationHandler={'fade'}
     >
         {sliderData.map(slide => (
             <Slide key={slide.id}>
@@ -82,7 +90,6 @@ export function Slider() {
                     </SlideButton>
                 </SlideButtonContainer>
                 </SlideOverlay>
-
             </Slide>
         ))}
     </Carousel>

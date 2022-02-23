@@ -8,8 +8,8 @@ export const Slide = styled.div`
 export const SlideImg = styled.img`
     height:100%;
     @media screen and (max-width:600px) { 
-        width: 100vw !important;
-        height: 40vh;
+        width: 100vw ;
+        height: 35vh;
         object-fit: cover;
   }
 `;

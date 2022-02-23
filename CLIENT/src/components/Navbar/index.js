@@ -26,12 +26,7 @@ export function Navbar(props) {
           {isMobile && <MobileNavLinks />}
         </RightSection>
       </NavbarContainer>
-     
- 
-     
   
-
-    
   );   
 };
 
