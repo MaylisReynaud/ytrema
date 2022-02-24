@@ -29,7 +29,7 @@ const App = () => {
         <MobileBottomNavLinks />
       </AppContainer>
     }
-     {isTablet &&  <Homepage />}
+     {isTablet && <Homepage />}
 
      </div>
   )

@@ -5,34 +5,35 @@ import { EmojiHand } from '@styled-icons/fluentui-system-regular';
 
 export const BoxContainer = styled.div`
 width: 100%;
-height: 100%;
+min-height: 320px;
 display: flex;
 flex-direction: column;
 background-color: #fff;
+/* box-shadow: 0 0 2px rgba(15, 15, 15, 0.28); */
 position: relative;
 overflow: hidden;
 `;
 
 export const TopContainer = styled.div`
   width: 100%;
-  height: 180px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 1.8rem;
-  padding-top: 5em;
+  padding-bottom: 5em;
 `;
 
 export const BackDrop = styled(motion.div)`
-  width: 160%;
+  width: 190%;
   height: 550px;
   position: absolute;
   display: flex;
   flex-direction: column;
-  border-radius: 0% 0% 50% 70%;
+  border-radius: 50%;
   transform: rotate(150deg);
-  top: -30px;
-  left: -20px;
+  top: -400px;
+  left: -85px;
   background: rgb(241, 196, 15);
   background: linear-gradient(
     58deg,
@@ -43,7 +44,6 @@ export const BackDrop = styled(motion.div)`
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  /* margin-top: 2rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,18 +51,19 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderText = styled.h2`
-  font-size: 2rem;
+  font-size: 30px;
   /* font-weight: 600; */
   line-height: 1.24;
   text-align: center;
   color: #fff;
   z-index: 10;
+  /* margin: 0; */
 `;
 export const EmojiSunglasses1 = styled(EmojiSunglasses)`
   width: 25px;
   height:25px;
   color: #fff;
-  z-index:13;
+  z-index:11;
   margin: 0.5rem;
 `;
 
@@ -70,7 +71,7 @@ export const EmojiHello = styled(EmojiHand)`
   width: 25px;
   height:25px;
   color: #fff;
-  z-index:12;
+  z-index:11;
   margin: 0.5rem;
 `;
 
@@ -79,7 +80,7 @@ export const SmallText = styled.h5`
   font-family: "ProximaNova-Regular"; 
   text-align: center;
   font-weight: 550;
-  font-size: 1.1rem;
+  font-size: 12px;
   z-index: 10;
   margin: 0;
   margin-top: 5px;
@@ -88,23 +89,22 @@ export const SmallText = styled.h5`
 export const InnerContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  padding: 10rem;
+  padding: 0 1.8em;
 `;
 
 export const backdropVariants = {
   expanded: {
-    width: "190%",
-    height: "2050px",
-    borderRadius: "55% 55% 0 0",
-    transform: "rotate(-5deg)",
+    width: "233%",
+    height: "1050px",
+    borderRadius: "20%",
+    transform: "rotate(60deg)",
   },
   collapsed: {
-    width: "110%",
-    height: "302px",
-    borderRadius: "55% 55% 0 0",
-    transform: "rotate(180deg)",
+    width: "160%",
+    height: "550px",
+    borderRadius: "50%",
+    transform: "rotate(60deg)",
   },
 };
 

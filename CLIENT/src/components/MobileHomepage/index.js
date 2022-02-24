@@ -1,6 +1,6 @@
 import React from 'react';
 import { Slider } from '../Carousel';
-import { RegisterBox } from '../RegisterBox';
+import { MobileRegisterBox } from '../MobileRegisterBox';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../Navbar/Responsive';
 
@@ -10,7 +10,7 @@ export function MobileHomepage (props) {
     return (
         <>
         {isMobile && <Slider />}
-        {isMobile && <RegisterBox />}
+        {isMobile && <MobileRegisterBox />}
         </>
     )
 };

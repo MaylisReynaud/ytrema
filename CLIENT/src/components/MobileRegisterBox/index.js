@@ -15,7 +15,7 @@ import { TopContainer,
          EmojiHello
  } from './style';
 
-export function RegisterBox(props) {
+export function MobileRegisterBox(props) {
   const [isExpanded, setExpanded] = useState(false);
   const [active, setActive] = useState("signin");
 

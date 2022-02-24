@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import styled from "styled-components";
 
 export const BoxContainer = styled.div`
   width: 100%;
@@ -10,7 +9,7 @@ export const BoxContainer = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
@@ -52,12 +51,11 @@ export const Input = styled.input`
   }
 `;
 
-export const SubmitButton = styled(motion.button)`
-  width: 50%;
-  padding: 11px;
+export const SubmitButton = styled.button`
+  width: 100%;
+  padding: 11px 40%;
   color: #fff;
-  font-family: "ProximaNova-Regular";
-  font-size: 1.2rem;
+  font-size: 15px;
   font-weight: 600;
   border: none;
   border-radius: 100px 100px 100px 100px;

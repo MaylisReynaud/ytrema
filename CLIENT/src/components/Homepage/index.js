@@ -1,6 +1,7 @@
 import React from 'react';
 import { Slider } from '../Carousel';
-import { RegisterBox } from '../RegisterBox';
+import { Registrationpage } from '../Registrationpage';
+
 
 
 
@@ -8,8 +9,9 @@ export function Homepage (props) {
     
     return (
        
-        <Slider />
+        // <Slider />
+        <Registrationpage />
     
-      
+    
     )
 };

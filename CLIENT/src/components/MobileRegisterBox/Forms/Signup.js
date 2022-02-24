@@ -10,32 +10,27 @@ import {
 import { Marginer } from '../Marginer';
 import { RegisterContext } from '../registerContext';
 
-export function LoginForm(props) {
-  const { switchToSignup } = useContext(RegisterContext);
+export function SignupForm(props) {
+  const { switchToSignin } = useContext(RegisterContext);
 
   return (
     <BoxContainer>
       <FormContainer>
+        <Input type="text" placeholder="Pseudo" />
         <Input type="email" placeholder="Email" />
-        <Input type="password" placeholder="Password" />
+        <Input type="password" placeholder="Mot de passe" />
+        <Input type="password" placeholder="Confirmez votre mot de passe" />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
-      <MutedLink href="#">Mot de passe oublié?</MutedLink>
-      <Marginer direction="vertical" margin="1.6em" />
-      <SubmitButton 
-        type="submit"
-        whileHover={{scale: 1.15}}
-        whileTap={{scale: 0.95}}
-      >
-        S'enregister
-      </SubmitButton>
+      <SubmitButton type="submit">S'enregistrer</SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
-        Vous n'avez pas de compte?{" "}
-        <BoldLink href="#" onClick={switchToSignup}>
-          Créer un compte
+        Déjà inscrit ?
+        <BoldLink href="#" onClick={switchToSignin}>
+          Se connecter
         </BoldLink>
       </MutedLink>
     </BoxContainer>
   );
 }
+
