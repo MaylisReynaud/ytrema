@@ -112,4 +112,5 @@ export const expandingTransition = {
   type: "spring",
   duration: 2.3,
   stiffness: 30,
+  delay: 0.1,
 };
