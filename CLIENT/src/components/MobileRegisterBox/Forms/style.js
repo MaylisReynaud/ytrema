@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from 'framer-motion';
 
 export const BoxContainer = styled.div`
   width: 100%;
@@ -51,9 +52,9 @@ export const Input = styled.input`
   }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled(motion.button)`
   width: 100%;
-  padding: 11px 40%;
+  padding: 11px;
   color: #fff;
   font-size: 15px;
   font-weight: 600;

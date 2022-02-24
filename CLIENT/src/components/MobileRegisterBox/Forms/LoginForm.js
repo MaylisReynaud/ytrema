@@ -22,7 +22,13 @@ export function LoginForm(props) {
       <Marginer direction="vertical" margin={10} />
       <MutedLink href="#">Mot de passe oublié?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
-      <SubmitButton type="submit">S'enregister'</SubmitButton>
+      <SubmitButton 
+        type="submit"
+        whileHover={{scale: 1.15}}
+        whileTap={{scale: 0.95}}
+      >
+        Se connecter
+      </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Vous n'avez pas de compte?{" "}

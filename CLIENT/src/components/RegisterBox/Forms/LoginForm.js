@@ -27,7 +27,7 @@ export function LoginForm(props) {
         whileHover={{scale: 1.15}}
         whileTap={{scale: 0.95}}
       >
-        S'enregister
+        Se connecter
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">

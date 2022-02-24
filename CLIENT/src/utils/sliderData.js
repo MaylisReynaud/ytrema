@@ -1,10 +1,14 @@
+import mercerie from '../assets/images/carousel/mercerie.png';
+import patron from '../assets/images/carousel/patron.png';
+import projet from '../assets/images/carousel/projet.png';
+import tissus from '../assets/images/carousel/tissus.png';
 
 
 //'http://react-responsive-carousel.js.org/assets/1.jpeg'
 export const sliderData = [
     {
         id: 1,
-        image: 'http://react-responsive-carousel.js.org/assets/5.jpeg',
+        image: 'http://react-responsive-carousel.js.org/assets/1.jpeg',
         alt: 'tissuthèque',
         header: 'DIGITALISEZ VOTRE',
         title: 'TISSUTHEQUE',

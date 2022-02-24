@@ -22,7 +22,13 @@ export function SignupForm(props) {
         <Input type="password" placeholder="Confirmez votre mot de passe" />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
-      <SubmitButton type="submit">S'enregistrer</SubmitButton>
+      <SubmitButton 
+        type="submit"
+        whileHover={{scale: 1.15}}
+        whileTap={{scale: 0.95}}
+      >
+        S'enregistrer
+      </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Déjà inscrit ?
