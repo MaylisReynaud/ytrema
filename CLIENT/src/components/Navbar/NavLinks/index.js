@@ -1,13 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { NavLinksContainer, 
          LinksWrapper,
          LinkItem,
-         Links,
+         LinkStyle,
          ImgContainer,
          ScrollIcon,
          FlowerIcon,
          BookOpenIcon,
-         ApparelIcon
+         ApparelIcon,
+
 } from './style';
 
 
@@ -18,36 +20,48 @@ export function NavLinks(props) {
     <NavLinksContainer>
       <LinksWrapper>
           <LinkItem>
-            <Links to="/tissus">
+            <Link 
+              to="/tissus"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <ScrollIcon />
               </ImgContainer>
               Tissus
-            </Links>
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/mercerie">
-              <ImgContainer>
-                <FlowerIcon />
-              </ImgContainer>
-              Mercerie
-            </Links>
+            <Link 
+                to="/mercerie"
+                style={LinkStyle}
+              >
+                <ImgContainer>
+                  <FlowerIcon />
+                </ImgContainer>
+                Mercerie
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/patrons">
+            <Link
+              to="/patrons"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <BookOpenIcon />
               </ImgContainer>
               Patrons
-            </Links>
+            </Link>
           </LinkItem>
           <LinkItem>
-            <Links to="/projets ">
+            <Link 
+                to="/projets"
+                style={LinkStyle}
+              >
               <ImgContainer>
                 <ApparelIcon />
               </ImgContainer>
               Projets
-            </Links>
+            </Link>
           </LinkItem>
         </LinksWrapper>
     </NavLinksContainer>

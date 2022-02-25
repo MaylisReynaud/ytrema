@@ -44,6 +44,20 @@ export const ImgOverlayText = styled.h2`
     top: 2rem;
     text-align: center;
     margin: 1rem;
+    font-family: "ProximaNova-Regular"; 
+    /* font-style: bold italic; */
+    font-size: 2rem;
+    line-height: 2.5rem;
+    text-transform: lowercase;
+
+    &&::first-letter{
+        text-transform: uppercase;
+    } 
+`;
+
+export const ImgOverlayTypedText = styled.span`
+
+    color: #ffc43d;
     font-family: 'Dala Floda Web Roman No. 2 Regular'; 
     /* font-style: bold italic; */
     font-size: 2rem;
@@ -52,8 +66,5 @@ export const ImgOverlayText = styled.h2`
 
     &&::first-letter{
         text-transform: uppercase;
-    }
-
-
-    
+    } 
 `;

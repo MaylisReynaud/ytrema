@@ -46,18 +46,31 @@ export const LinkItem = styled.li`
 `;
 
 
-export const Link = styled.a`
-  text-decoration: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: 'ProximaNova-Regular';
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+export const LinkStyle = {
+  textDecoration: 'none',
+  color: 'inherit',
+  fontSize: 'inherit',
+  fontFamily: 'ProximaNova-Regular',
+  width: '30px',
+  height: '30px',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
+
+export const ActiveLinkStyle = {
+  textDecoration: 'none',
+  color: '#ffc43d',
+  fontSize: 'inherit',
+  fontFamily: 'ProximaNova-Regular',
+  width: '30px',
+  height: '30px',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
 
 export const ImgContainer = styled.div`
   width: 25px;

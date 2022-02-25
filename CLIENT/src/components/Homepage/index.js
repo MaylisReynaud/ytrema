@@ -8,10 +8,12 @@ import { Registrationpage } from '../Registrationpage';
 export function Homepage (props) {
     
     return (
-       
-        // <Slider />
-        <Registrationpage />
+       <>
+        <Slider />
+        {/* <Registrationpage /> */}
     
+       </>
+        
     
     )
 };

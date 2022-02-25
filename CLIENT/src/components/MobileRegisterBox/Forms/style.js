@@ -72,3 +72,14 @@ export const SubmitButton = styled(motion.button)`
     filter: brightness(1.03);
   }
 `;
+
+export const buttonVariants = {
+  hover: {
+    scale: 1.15,
+    textShadow: '0px 0px 8px rgb(255, 255, 255)',
+    boxShadow: '0px 0px 8px rgb(255, 255, 255)',
+  },
+  tap :{
+    scale: 0.95,
+  }
+};

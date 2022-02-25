@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BottomNavLinksContainer, 
          LinksWrapper,
          LinkItem,
-         Link,         
+         LinkStyle, 
+         ActiveLinkStyle,        
          ImgContainer,
          ScrollIcon,
          FlowerIcon,
@@ -10,16 +11,21 @@ import { BottomNavLinksContainer,
          ApparelIcon,
          PersonIcon
 } from './style';
+import { Link } from 'react-router-dom';
 
 
 
 
 export function MobileBottomNavLinks(props) {
+  // const [isActive, setIsActive] = useState(false);
   return (
     <BottomNavLinksContainer>
       <LinksWrapper>
           <LinkItem>
-            <Link href="/tissus">
+            <Link 
+              to="/tissus"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <ScrollIcon />
               </ImgContainer>
@@ -27,7 +33,14 @@ export function MobileBottomNavLinks(props) {
             </Link>
           </LinkItem>
           <LinkItem>
-            <Link href="/mercerie">
+          <Link 
+              to="/mercerie"
+              style={LinkStyle}
+              // onClick={() => {
+              //   setIsActive(true)
+              // }}
+              // activeStyle={ActiveLinkStyle}
+            >
               <ImgContainer>
                 <FlowerIcon />
               </ImgContainer>
@@ -35,7 +48,10 @@ export function MobileBottomNavLinks(props) {
             </Link>
           </LinkItem>
           <LinkItem>
-            <Link href="/patrons">
+          <Link 
+              to="/patrons"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <BookOpenIcon />
               </ImgContainer>
@@ -43,7 +59,10 @@ export function MobileBottomNavLinks(props) {
             </Link>
           </LinkItem>
           <LinkItem>
-            <Link href="/projets ">
+          <Link 
+              to="/projets"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <ApparelIcon />
               </ImgContainer>
@@ -51,7 +70,10 @@ export function MobileBottomNavLinks(props) {
             </Link>
           </LinkItem>
           <LinkItem>
-            <Link href="/mon-compte ">
+          <Link 
+              to="/profile"
+              style={LinkStyle}
+            >
               <ImgContainer>
                 <PersonIcon />
               </ImgContainer>

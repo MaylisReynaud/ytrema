@@ -36,20 +36,22 @@ export const LinkItem = styled.li`
 `;
 
 
-export const Links = styled.a`
-  text-decoration: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: 'ProximaNova-Regular';
-  font-weight: 600;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-`;
+export const LinkStyle = {
+  textDecoration: 'none',
+  color: 'inherit',
+  fontSize: 'inherit',
+  fontFamily: 'ProximaNova-Regular',
+  fontWeight: '600',
+  width: '30px',
+  height: '30px',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  cursor: 'pointer',
+};
+
+
 
 export const ImgContainer = styled.div`
   width: 25px;

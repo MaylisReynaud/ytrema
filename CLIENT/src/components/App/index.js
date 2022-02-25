@@ -1,5 +1,6 @@
 // == Import npm
 import React from 'react';
+import {  Route, Routes, Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { Navbar } from '../Navbar';
 import { DeviceSize } from '../Navbar/Responsive';
@@ -8,6 +9,7 @@ import { Homepage } from '../Homepage';
 import { MobileHomepage } from '../MobileHomepage';
 import { AppContainer } from './style';
 import { MobileNavLinks } from '../Navbar/MobileNavLinks';
+import { Registrationpage } from '../Registrationpage';
 
 
 
@@ -21,17 +23,24 @@ const App = () => {
   const isTablet = useMediaQuery({ minWidth: DeviceSize.tablet });
  
   return (
-    <div className="app">
-      <Navbar />
+    <>
+        <Navbar/>
+          <Routes>
+            { isTablet && <Route  path='/' element={<Homepage />} /> }
+            { isMobile && <Route  path='/' element={<MobileHomepage />} /> }
+            <Route  path='/connexion' element={<Registrationpage />} />
+            <Route  path='/inscription' element={<Registrationpage />} />
+          </Routes>
+
+    
     {isMobile && 
       <AppContainer>
         <MobileHomepage />
         <MobileBottomNavLinks />
       </AppContainer>
     }
-     {isTablet && <Homepage />}
 
-     </div>
+  </>
   )
 };
 

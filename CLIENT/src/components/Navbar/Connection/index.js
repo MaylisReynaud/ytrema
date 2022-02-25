@@ -1,17 +1,39 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   ConnectionContainer,
   RegisterButton,
-  LoginButton
+  LoginButton,
+  buttonVariants
 } from './style';
 
 
 
 export function Connection(props) {
+  let navigate = useNavigate();
   return (
     <ConnectionContainer>
-      <RegisterButton>S'enregistrer</RegisterButton>
-      <LoginButton>Se connecter</LoginButton>
+      <RegisterButton 
+        variants={buttonVariants}
+        whileHover='hover'
+        whileTap='tap'
+        onClick={() => {
+          navigate('/inscription');
+        }}
+      >
+        S'inscrire
+      </RegisterButton>
+      <LoginButton
+        variants={buttonVariants}
+        whileHover='hover'
+        whileTap='tap'
+        onClick={() => {
+          navigate('/connexion');
+        }}
+      >
+        Se connecter
+      </LoginButton>
     </ConnectionContainer>
   );
 }

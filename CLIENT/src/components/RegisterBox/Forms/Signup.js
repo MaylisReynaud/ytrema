@@ -6,6 +6,7 @@ import {
   Input,
   MutedLink,
   SubmitButton,
+  buttonVariants
 } from './style';
 import { Marginer } from '../Marginer';
 import { RegisterContext } from '../registerContext';
@@ -24,10 +25,11 @@ export function SignupForm(props) {
       <Marginer direction="vertical" margin={10} />
       <SubmitButton 
         type="submit"
-        whileHover={{scale: 1.15}}
-        whileTap={{scale: 0.95}}
+        variants={buttonVariants}
+        whileHover='hover'
+        whileTap='tap'
       >
-        S'enregistrer
+        S'inscrire
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
