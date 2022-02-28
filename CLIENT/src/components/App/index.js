@@ -6,9 +6,9 @@ import { Navbar } from '../Navbar';
 import { DeviceSize } from '../Navbar/Responsive';
 import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 import { Homepage } from '../Homepage';
-import { MobileHomepage } from '../MobileHomepage';
+
 import { AppContainer } from './style';
-import { MobileNavLinks } from '../Navbar/MobileNavLinks';
+
 import { Registrationpage } from '../Registrationpage';
 
 
@@ -26,8 +26,7 @@ const App = () => {
     <>
         <Navbar/>
           <Routes>
-            { isTablet && <Route  path='/' element={<Homepage />} /> }
-            { isMobile && <Route  path='/' element={<MobileHomepage />} /> }
+            <Route  path='/' element={<Homepage />} /> 
             <Route  path='/connexion' element={<Registrationpage />} />
             <Route  path='/inscription' element={<Registrationpage />} />
           </Routes>
@@ -35,7 +34,6 @@ const App = () => {
     
     {isMobile && 
       <AppContainer>
-        <MobileHomepage />
         <MobileBottomNavLinks />
       </AppContainer>
     }

@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { motion } from 'framer-motion';
 
+
 export const BoxContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 1rem;
 `;
 
 export const FormContainer = styled.form`
@@ -16,30 +17,30 @@ export const FormContainer = styled.form`
   box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
 `;
 
-export const MutedLink = styled.a`
-  font-size: 11px;
+export const MutedLink = styled.div`
+  font-size: 0.7rem;
   color: rgba(200, 200, 200, 0.8);
   font-weight: 500;
   text-decoration: none;
 `;
 
 export const BoldLink = styled.a`
-  font-size: 11px;
+  font-size: 0.7rem;
   color: rgb(241, 196, 15);
   font-weight: 500;
   text-decoration: none;
-  margin: 0 4px;
+  margin: 0 0.4rem;
 `;
 
 export const Input = styled.input`
   width: 100%;
-  height: 42px;
+  height: 2.5rem;
   outline: none;
   border: 1px solid rgba(200, 200, 200, 0.3);
-  padding: 0px 10px;
+  padding: 0rem 1rem;
   border-bottom: 1.4px solid transparent;
   transition: all 200ms ease-in-out;
-  font-size: 12px;
+  font-size: 0.8rem;
   &::placeholder {
     color: rgba(200, 200, 200, 1);
   }
@@ -54,9 +55,9 @@ export const Input = styled.input`
 
 export const SubmitButton = styled(motion.button)`
   width: 100%;
-  padding: 11px;
+  padding: 0.8rem;
   color: #fff;
-  font-size: 15px;
+  font-size: 1.1rem;
   font-weight: 600;
   border: none;
   border-radius: 100px 100px 100px 100px;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { EmojiSunglasses } from '@styled-icons/bootstrap';
 import { EmojiHand } from '@styled-icons/fluentui-system-regular';
+import { DeviceSize } from '../Navbar/Responsive';
 
 export const BoxContainer = styled.div`
 width: 100%;
@@ -11,11 +12,15 @@ flex-direction: column;
 background-color: #fff;
 position: relative;
 overflow: hidden;
+@media screen and (max-width:${DeviceSize.mobile}) {
+  min-height: 320px;
+  margin-top: 0.1rem;
+  }
 `;
 
 export const TopContainer = styled.div`
   width: 100%;
-  height: 180px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,6 +44,13 @@ export const BackDrop = styled(motion.div)`
     rgba(241, 196, 15, 1) 20%,
     rgba(243, 172, 18, 1) 100%
   );
+  @media screen and (max-width:${DeviceSize.mobile}) {
+    width: 190%;
+    border-radius: 50%;
+    transform: rotate(150deg);
+    top: -400px;
+    left: -85px;
+  }
 `;
 
 export const HeaderContainer = styled.div`
@@ -83,6 +95,12 @@ export const SmallText = styled.h5`
   z-index: 10;
   margin: 0;
   margin-top: 5px;
+
+  @media screen and (max-width:${DeviceSize.mobile}) {
+    margin-top: 0.4rem;
+    padding-left: 2.8rem;
+  }
+  
 `;
 
 export const InnerContainer = styled.div`
@@ -91,6 +109,10 @@ export const InnerContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 10rem;
+
+  @media screen and (max-width:${DeviceSize.mobile}) {
+    padding: 0 1.8em;
+  }
 `;
 
 export const backdropVariants = {
@@ -105,6 +127,21 @@ export const backdropVariants = {
     height: "302px",
     borderRadius: "55% 55% 0 0",
     transform: "rotate(180deg)",
+  },
+};
+
+export const backdropVariantsMobile = {
+  expanded: {
+    width: "233%",
+    height: "1050px",
+    borderRadius: "20%",
+    transform: "rotate(60deg)",
+  },
+  collapsed: {
+    width: "160%",
+    height: "550px",
+    borderRadius: "50%",
+    transform: "rotate(60deg)",
   },
 };
 

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import  { Connection }  from '../Connection';
 import { MenuToggle } from '../MenuToggle';
 import { NavLinksContainer,
          LinksWrapper,
          LinkItem,
-         Link,
          Marginer,
+         LinkStyle,
          ImgSpan
 } from './style';
 import  { Apparel } from '@styled-icons/zondicons';
@@ -28,31 +29,56 @@ export function MobileNavLinks(props) {
             <ImgSpan>
               <Scroll />
             </ImgSpan>
-            <Link href="/tissus">Tissus</Link>
+            <Link 
+              to ="/tissus"
+              style={LinkStyle}
+            >
+              Tissus
+            </Link>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Flower1 />
             </ImgSpan>
-            <Link href="/mercerie">Mercerie</Link>
+            <Link 
+              to="/mercerie"
+              style={LinkStyle}
+            >
+              Mercerie
+            </Link>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <BookOpen />
             </ImgSpan>
-            <Link href="/patrons">Patrons</Link>
+            <Link 
+              to="/patrons"
+              style={LinkStyle}
+            >
+              Patrons
+            </Link>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Apparel />
             </ImgSpan>
-            <Link href="/projets ">Projets</Link>
+            <Link 
+              to="/projets "
+              style={LinkStyle}
+            >
+              Projets
+            </Link>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Person />
             </ImgSpan>
-            <Link href="/mon-compte ">Maÿlis</Link>
+            <Link 
+              to="/mon-compte "
+              style={LinkStyle}
+            >
+              Maÿlis
+            </Link>
           </LinkItem>
           <Marginer />
           <Connection />

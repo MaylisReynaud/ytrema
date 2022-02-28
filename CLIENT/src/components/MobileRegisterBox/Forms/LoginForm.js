@@ -32,9 +32,9 @@ export function LoginForm(props) {
         Se connecter
       </SubmitButton>
       <Marginer direction="vertical" margin="1em" />
-      <MutedLink href="#">
+      <MutedLink >
         Vous n'avez pas de compte?{" "}
-        <BoldLink href="#" onClick={switchToSignup}>
+        <BoldLink to="#" onClick={switchToSignup}>
           Créer un compte
         </BoldLink>
       </MutedLink>

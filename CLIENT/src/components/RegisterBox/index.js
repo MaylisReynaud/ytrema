@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { LoginForm } from './Forms/LoginForm';
 import { RegisterContext } from './registerContext';
+import { useMediaQuery } from 'react-responsive';
 import { SignupForm } from './Forms/Signup';
 import { TopContainer,
          BoxContainer,
@@ -12,12 +13,15 @@ import { TopContainer,
          backdropVariants,
          expandingTransition,
          EmojiSunglasses1,
-         EmojiHello
+         EmojiHello,
+         backdropVariantsMobile
  } from './style';
+ import { DeviceSize } from '../Navbar/Responsive';
 
 export function RegisterBox(props) {
   const [isExpanded, setExpanded] = useState(false);
   const [active, setActive] = useState("signin");
+  const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
 
   const playExpandingAnimation = () => {
     setExpanded(true);
@@ -49,7 +53,7 @@ export function RegisterBox(props) {
           <BackDrop
             initial={false}
             animate={isExpanded ? "expanded" : "collapsed"}
-            variants={backdropVariants}
+            variants={isMobile ? backdropVariantsMobile : backdropVariants}
             transition={expandingTransition}
           />
           {active === "signin" && (

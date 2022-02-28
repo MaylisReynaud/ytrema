@@ -12,6 +12,7 @@ background-color: #fff;
 /* box-shadow: 0 0 2px rgba(15, 15, 15, 0.28); */
 position: relative;
 overflow: hidden;
+margin-top: 0.1rem;
 `;
 
 export const TopContainer = styled.div`
@@ -48,10 +49,11 @@ export const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: 'Dala Floda Web Roman No. 2 Regular';
+  padding-top:1rem;
 `;
 
 export const HeaderText = styled.h2`
-  font-size: 30px;
+  font-size: 2rem;
   /* font-weight: 600; */
   line-height: 1.24;
   text-align: center;
@@ -80,10 +82,11 @@ export const SmallText = styled.h5`
   font-family: "ProximaNova-Regular"; 
   text-align: center;
   font-weight: 550;
-  font-size: 12px;
+  font-size: 1rem;
   z-index: 10;
   margin: 0;
-  margin-top: 5px;
+  margin-top: 0.4rem;
+  padding-left: 2.8rem;
 `;
 
 export const InnerContainer = styled.div`

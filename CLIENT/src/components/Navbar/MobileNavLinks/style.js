@@ -54,19 +54,15 @@ export const ImgSpan = styled.span`
 `;
 
 
-// export const LinkNav = styled(Link)`
-//   text-decoration: none;
-//   color: inherit;
-//   font-size: inherit;
-// `;
+export const LinkStyle = {
+  textDecoration: 'none',
+  color: 'inherit',
+  fontSize: 'inherit',
+  fontFamily: 'ProximaNova-Regular',
+  fontWeight: '600',
+  cursor: 'pointer',
+};
 
-export const Link = styled.a`
-  text-decoration: none;
-  color: inherit;
-  font-size: inherit;
-  font-family: 'ProximaNova-Regular';
-  font-weight: 600;
-`;
 
 export const Marginer = styled.div`
   height: 2em;
