@@ -8,11 +8,13 @@ import { Container,
         RegistrationImg,
 } from './style';
 import Typed from 'typed.js';
-import {RegisterBox} from '../RegisterBox';
-
+import { useMediaQuery } from 'react-responsive';
+import {RegisterBox} from './RegisterBox';
+import { DeviceSize } from '../Navbar/Responsive';
 import ImgCouture from '../../assets/images/registration-couture.jpg';
 
 export function Registrationpage() {
+  const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   const word = useRef(null);
   useEffect (() => {
       const typed = new Typed(word.current, {
@@ -29,7 +31,9 @@ export function Registrationpage() {
       };
   }, []);
   return (
-    <Container>
+    <>
+    {!isMobile &&
+      <Container>
         <ImgContainer>
           <ImgOverlay>
             <ImgOverlayText>
@@ -41,8 +45,10 @@ export function Registrationpage() {
         <RegistrationContainer>
           <RegisterBox />
         </RegistrationContainer>
-    </Container>
+    </Container> }
+    </>
+    
+    
   )
 }
 
-//            REJOIGNEZ LE GANG DES COUTURIERS CONNECTÉS & DONNEZ UN NOUVEL ÉLAN À VOS PROJETS COUTURE !

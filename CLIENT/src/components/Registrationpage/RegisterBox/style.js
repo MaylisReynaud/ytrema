@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { EmojiSunglasses } from '@styled-icons/bootstrap';
 import { EmojiHand } from '@styled-icons/fluentui-system-regular';
-import { DeviceSize } from '../Navbar/Responsive';
+import { DeviceSize } from '../../Navbar/Responsive';
 
 export const BoxContainer = styled.div`
 width: 100%;
@@ -12,7 +12,7 @@ flex-direction: column;
 background-color: #fff;
 position: relative;
 overflow: hidden;
-@media screen and (max-width:${DeviceSize.mobile}) {
+@media  (max-width:${DeviceSize.mobile}px) {
   min-height: 320px;
   margin-top: 0.1rem;
   }
@@ -25,7 +25,7 @@ export const TopContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 1.8rem;
-  padding-top: 5em;
+  padding-top: 1rem;
 `;
 
 export const BackDrop = styled(motion.div)`
@@ -44,12 +44,12 @@ export const BackDrop = styled(motion.div)`
     rgba(241, 196, 15, 1) 20%,
     rgba(243, 172, 18, 1) 100%
   );
-  @media screen and (max-width:${DeviceSize.mobile}) {
+  @media screen and (max-width:${DeviceSize.mobile}px) {
     width: 190%;
     border-radius: 50%;
     transform: rotate(150deg);
     top: -400px;
-    left: -85px;
+    left: -90px;
   }
 `;
 
@@ -96,8 +96,8 @@ export const SmallText = styled.h5`
   margin: 0;
   margin-top: 5px;
 
-  @media screen and (max-width:${DeviceSize.mobile}) {
-    margin-top: 0.4rem;
+  @media screen and (max-width:${DeviceSize.mobile}px) {
+    margin-top: 0.2rem;
     padding-left: 2.8rem;
   }
   
@@ -110,7 +110,7 @@ export const InnerContainer = styled.div`
   flex-direction: column;
   padding: 10rem;
 
-  @media screen and (max-width:${DeviceSize.mobile}) {
+  @media screen and (max-width:${DeviceSize.mobile}px) {
     padding: 0 1.8em;
   }
 `;

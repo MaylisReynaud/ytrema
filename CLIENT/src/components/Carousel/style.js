@@ -23,24 +23,24 @@ export const SlideOverlay = styled.div`
     padding: 0.4rem;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.53);
-    color: #242634;
+    color: ${props => props.theme.darkblue};
 `;
 
 export const SlideOverlayH2 = styled.h2`
-    font-family: 'Inconsolata';
+    font-family: ${props => props.theme.subtitleFont};
     font-size: 1.3rem;
     margin: 0.4rem;
 `;
 
 export const SlideOverlayH1 = styled.h1`
-    font-family: 'Dala Floda Web Roman No. 2 Regular';
+    font-family: ${props => props.theme.titleFont};
     font-size: 2rem;
     font-weight: bold;
     margin: 0.4rem;
 `;
 
 export const SlideOverlayText = styled.p`
-    font-family: 'ProximaNova-Regular';
+    font-family: ${props => props.theme.textFont};
     font-size: 1.3rem;
     margin: 0.4rem;
 `;
@@ -55,17 +55,17 @@ export const SlideButton = styled.button`
     border: 0;
     outline: 0;
     padding: 8px 1em;
-    color: #242634;
+    color: ${props => props.theme.darkblue};
     font-size: 13px;
-    font-family: 'ProximaNova-Regular';
+    font-family: ${props => props.theme.textFont};
     font-weight: 600;
     letter-spacing: 1px;
     border-radius: 20px;
-    background-color: #ffc43d;;
+    background-color: ${props => props.theme.yellow};
     transition: all 240ms ease-in-out;
     cursor: pointer;
         &:hover {
-            color:#ffc43d;
-            background-color: #2a9d8f;
-  }
+            color: ${props => props.theme.yellow};
+            background-color: ${props => props.theme.green};
+        }
 `;

@@ -4,12 +4,13 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { FontStyles } from '../src/style/fontStyles';
 import { Reset } from '../src/style/styled-reset';
+import  { theme } from './style/theme';
 
 
 // == Import : local
 // Composants
 import App from '../src/components/App';
-import GlobalStyle from './style/globalStyle';
+import { ThemeProvider } from "styled-components";
 
 // == Render
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
@@ -18,8 +19,9 @@ const rootReactElement = (
     <BrowserRouter>
         <Reset />
         <FontStyles />
-        <GlobalStyle />
-        <App />
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
     </BrowserRouter>
 
 )

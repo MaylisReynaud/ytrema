@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
+import {DeviceSize} from '../../../Navbar/Responsive';
 
 export const BoxContainer = styled.div`
   width: 100%;
@@ -11,13 +11,17 @@ export const BoxContainer = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  width: 100%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
+  @media screen and (max-width:${DeviceSize.mobile}) {
+    width: 100%
+  }
 `;
 
 export const MutedLink = styled.div`
+  font-family: 'ProximaNova-Regular';
   font-size: 0.7rem;
   color: rgba(200, 200, 200, 0.8);
   font-weight: 500;
@@ -25,6 +29,7 @@ export const MutedLink = styled.div`
 `;
 
 export const BoldLink = styled.a`
+  font-family: 'ProximaNova-Regular';
   font-size: 0.7rem;
   color: rgb(241, 196, 15);
   font-weight: 500;
@@ -54,9 +59,10 @@ export const Input = styled.input`
 `;
 
 export const SubmitButton = styled(motion.button)`
-  width: 100%;
+  width: 50%;
   padding: 0.8rem;
   color: #fff;
+  font-family: "ProximaNova-Regular";
   font-size: 1.1rem;
   font-weight: 600;
   border: none;
@@ -72,15 +78,20 @@ export const SubmitButton = styled(motion.button)`
   &:hover {
     filter: brightness(1.03);
   }
-`;
-
-export const buttonVariants = {
-  hover: {
-    scale: 1.15,
-    textShadow: '0px 0px 8px rgb(255, 255, 255)',
-    boxShadow: '0px 0px 8px rgb(255, 255, 255)',
-  },
-  tap :{
-    scale: 0.95,
+  @media screen and (max-width:${DeviceSize.mobile}) {
+    width: 100%
   }
-};
+  `;
+
+  export const buttonVariants = {
+    hover: {
+      scale: 1.15,
+      textShadow: '0px 0px 8px rgb(255, 255, 255)',
+      boxShadow: '0px 0px 8px rgb(255, 255, 255)',
+    },
+    tap :{
+      scale: 0.95,
+    }
+  };
+
+  
