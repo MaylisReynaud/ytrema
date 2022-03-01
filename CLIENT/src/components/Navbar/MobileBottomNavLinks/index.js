@@ -17,8 +17,10 @@ import { Link } from 'react-router-dom';
 
 
 export function MobileBottomNavLinks(props) {
+  // console.log(LinkStyle);
   // const [isActive, setIsActive] = useState(false);
   return (
+    
     <BottomNavLinksContainer>
       <LinksWrapper>
           <LinkItem>
@@ -29,6 +31,7 @@ export function MobileBottomNavLinks(props) {
               <ImgContainer>
                 <ScrollIcon />
               </ImgContainer>
+              
               Tissus
             </Link>
           </LinkItem>

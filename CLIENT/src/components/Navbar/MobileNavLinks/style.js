@@ -14,7 +14,7 @@ export const LinksWrapper = styled.ul`
   display: flex;
   height: 100%;
   list-style: none;
-  background-color: #fff;
+  background-color: ${props => props.theme.color4};
   width: 100%;
   flex-direction: column;
   position: fixed;
@@ -25,25 +25,19 @@ export const LinksWrapper = styled.ul`
 export const LinkItem = styled.li`
   width: 100%;
   padding: 1em 1.3em;
-  color: #264653;
+  color: ${props => props.theme.color3};
   font-weight: 500;
   font-size: 16px;
   display: flex;
   margin-bottom: 10px;
-  /* height: 100%; */
-  /* padding: 0 1.3em;
-  color: #222;
-  font-weight: 500;
-  font-size: 16px; */
-  
   align-items: center;
   justify-content: center;
   display: flex;
   border-top: 2px solid transparent;
   transition: all 220ms ease-in-out;
   &:hover {
-    border-bottom: 2px solid #ffc43d;
-    color: #ffc43d;
+    border-bottom: 2px solid ${props => props.theme.color1};
+    color: ${props => props.theme.color1};
   }
 `;
 

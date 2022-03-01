@@ -23,24 +23,24 @@ export const SlideOverlay = styled.div`
     padding: 0.4rem;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.53);
-    color: ${props => props.theme.darkblue};
+    color: ${props => props.theme.color5};
 `;
 
 export const SlideOverlayH2 = styled.h2`
-    font-family: ${props => props.theme.subtitleFont};
+    font-family: '${props => props.theme.subtitleFont}';
     font-size: 1.3rem;
     margin: 0.4rem;
 `;
 
 export const SlideOverlayH1 = styled.h1`
-    font-family: ${props => props.theme.titleFont};
+    font-family: '${props => props.theme.titleFont}';
     font-size: 2rem;
     font-weight: bold;
     margin: 0.4rem;
 `;
 
 export const SlideOverlayText = styled.p`
-    font-family: ${props => props.theme.textFont};
+    font-family: '${props => props.theme.textFont}';
     font-size: 1.3rem;
     margin: 0.4rem;
 `;
@@ -55,17 +55,17 @@ export const SlideButton = styled.button`
     border: 0;
     outline: 0;
     padding: 8px 1em;
-    color: ${props => props.theme.darkblue};
+    color: ${props => props.theme.color5};
     font-size: 13px;
-    font-family: ${props => props.theme.textFont};
+    font-family: '${props => props.theme.textFont}';
     font-weight: 600;
     letter-spacing: 1px;
     border-radius: 20px;
-    background-color: ${props => props.theme.yellow};
+    background-color: ${props => props.theme.color1};
     transition: all 240ms ease-in-out;
     cursor: pointer;
         &:hover {
-            color: ${props => props.theme.yellow};
-            background-color: ${props => props.theme.green};
+            color: ${props => props.theme.color1};
+            background-color: ${props => props.theme.color2};
         }
 `;

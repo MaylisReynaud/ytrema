@@ -14,9 +14,7 @@ export const BottomNavLinksContainer = styled.div`
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: #242634;
- 
-
+    background-color: ${props => props.theme.color5};
 `;
 
 export const LinksWrapper = styled.ul`
@@ -37,16 +35,16 @@ export const LinksWrapper = styled.ul`
 export const LinkItem = styled.li`
   height: 100%;
   margin: 0 22px;
-  color: #fff;
+  color: ${props => props.theme.color4};
   font-size: 14px;
   transition: all 220ms ease-in-out;
    &:hover {
-    color: #ffc43d;
+    color: ${props => props.theme.color1};
   }
 `;
 
 
-export const LinkStyle = {
+export const LinkStyle = (props => ({
   textDecoration: 'none',
   color: 'inherit',
   fontSize: 'inherit',
@@ -57,7 +55,7 @@ export const LinkStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-};
+}));
 
 export const ActiveLinkStyle = {
   textDecoration: 'none',

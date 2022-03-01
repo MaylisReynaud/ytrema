@@ -21,7 +21,7 @@ export const FormContainer = styled.form`
 `;
 
 export const MutedLink = styled.div`
-  font-family: 'ProximaNova-Regular';
+  font-family: '${props => props.theme.textFont}';
   font-size: 0.7rem;
   color: rgba(200, 200, 200, 0.8);
   font-weight: 500;
@@ -29,7 +29,7 @@ export const MutedLink = styled.div`
 `;
 
 export const BoldLink = styled.a`
-  font-family: 'ProximaNova-Regular';
+  font-family: '${props => props.theme.textFont}';
   font-size: 0.7rem;
   color: rgb(241, 196, 15);
   font-weight: 500;
@@ -62,7 +62,7 @@ export const SubmitButton = styled(motion.button)`
   width: 50%;
   padding: 0.8rem;
   color: #fff;
-  font-family: "ProximaNova-Regular";
+  font-family: '${props => props.theme.textFont}';
   font-size: 1.1rem;
   font-weight: 600;
   border: none;

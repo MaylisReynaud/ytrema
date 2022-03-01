@@ -40,11 +40,11 @@ export const ImgOverlay = styled.div`
 export const ImgOverlayText = styled.h2`
     z-index: 100;
     position: absolute;
-    color: white;
+    color: ${props => props.theme.color4};
     top: 2rem;
     text-align: center;
     margin: 1rem;
-    font-family: "ProximaNova-Regular"; 
+    font-family: '${props => props.theme.textFont}'; 
     /* font-style: bold italic; */
     font-size: 2rem;
     line-height: 2.5rem;
@@ -57,8 +57,8 @@ export const ImgOverlayText = styled.h2`
 
 export const ImgOverlayTypedText = styled.span`
 
-    color: #ffc43d;
-    font-family: 'Dala Floda Web Roman No. 2 Regular'; 
+    color: ${props => props.theme.color1};
+    font-family: '${props => props.theme.titleFont}'; 
     /* font-style: bold italic; */
     font-size: 2rem;
     line-height: 2.5rem;

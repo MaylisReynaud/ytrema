@@ -26,12 +26,12 @@ export const LinksWrapper = styled.ul`
 export const LinkItem = styled.li`
   height: 100%;
   margin: 0 2em;
-  color: #264653;
+  color: ${props => props.theme.color3};
   font-weight: 500;
   font-size: 14px;
   transition: all 220ms ease-in-out;
   &:hover {
-    color: #ffc43d;
+    color: ${props => props.theme.color1};
   }
 `;
 

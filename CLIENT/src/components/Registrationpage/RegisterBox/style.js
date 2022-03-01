@@ -9,7 +9,7 @@ width: 100%;
 height: 100%;
 display: flex;
 flex-direction: column;
-background-color: #fff;
+background-color: ${props => props.theme.color4};
 position: relative;
 overflow: hidden;
 @media  (max-width:${DeviceSize.mobile}px) {
@@ -59,7 +59,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Dala Floda Web Roman No. 2 Regular';
+  font-family: '${props => props.theme.titleFont}';
 `;
 
 export const HeaderText = styled.h2`
@@ -67,13 +67,13 @@ export const HeaderText = styled.h2`
   /* font-weight: 600; */
   line-height: 1.24;
   text-align: center;
-  color: #fff;
+  color: ${props => props.theme.color4};
   z-index: 10;
 `;
 export const EmojiSunglasses1 = styled(EmojiSunglasses)`
   width: 25px;
   height:25px;
-  color: #fff;
+  color: ${props => props.theme.color4};
   z-index:13;
   margin: 0.5rem;
 `;
@@ -81,14 +81,14 @@ export const EmojiSunglasses1 = styled(EmojiSunglasses)`
 export const EmojiHello = styled(EmojiHand)`
   width: 25px;
   height:25px;
-  color: #fff;
+  color: ${props => props.theme.color4};
   z-index:12;
   margin: 0.5rem;
 `;
 
 export const SmallText = styled.h5`
-  color: #fff;
-  font-family: "ProximaNova-Regular"; 
+  color: ${props => props.theme.color4};
+  font-family: '${props => props.theme.textFont}';
   text-align: center;
   font-weight: 550;
   font-size: 1.1rem;
