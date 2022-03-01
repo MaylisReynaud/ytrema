@@ -44,7 +44,7 @@ export const LinkItem = styled.li`
 `;
 
 
-export const LinkStyle = (props => ({
+export const LinkStyle = {
   textDecoration: 'none',
   color: 'inherit',
   fontSize: 'inherit',
@@ -55,7 +55,7 @@ export const LinkStyle = (props => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-}));
+};
 
 export const ActiveLinkStyle = {
   textDecoration: 'none',

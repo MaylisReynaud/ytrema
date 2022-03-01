@@ -11,6 +11,7 @@ export const NavLinksContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color:${props => props.theme.color4};
 `;
 
 export const LinksWrapper = styled.ul`
@@ -49,6 +50,19 @@ export const LinkStyle = {
   flexDirection: 'column',
   alignItems: 'center',
   cursor: 'pointer',
+};
+
+export const ActiveLinkStyle = {
+  textDecoration: 'none',
+  color: '#ffc43d',
+  fontSize: 'inherit',
+  fontFamily: 'ProximaNova-Regular',
+  width: '30px',
+  height: '30px',
+  textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 };
 
 

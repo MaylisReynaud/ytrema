@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 
 
 export function MobileBottomNavLinks(props) {
-  // console.log(LinkStyle);
+  // console.log(props);
   // const [isActive, setIsActive] = useState(false);
   return (
     
