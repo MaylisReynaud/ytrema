@@ -6,7 +6,7 @@ import { Navbar } from '../Navbar';
 import { DeviceSize } from '../Navbar/Responsive';
 import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 import { Homepage } from '../Homepage';
-
+import { Footer } from '../Footer';
 import { AppContainer } from './style';
 
 import { Registrationpage } from '../Registrationpage';
@@ -30,6 +30,7 @@ const App = () => {
             <Route  path='/connexion' element={<Registrationpage />} />
             <Route  path='/inscription' element={<Registrationpage />} />
           </Routes>
+          {!isMobile && <Footer />}
 
     
     {isMobile && 

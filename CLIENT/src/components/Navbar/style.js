@@ -16,7 +16,6 @@ padding: 0 1.5em;
 position: sticky;
 top:0;
 background-color: ${props => props.theme.color4};
-
 `;
 
 export const LeftSection = styled.div`
