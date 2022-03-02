@@ -7,7 +7,7 @@ import { DeviceSize } from '../Navbar/Responsive';
 import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 import { Homepage } from '../Homepage';
 import { Footer } from '../Footer';
-import { AppContainer } from './style';
+import { AppContainer, MobileAppContainer } from './style';
 
 import { Registrationpage } from '../Registrationpage';
 
@@ -24,23 +24,26 @@ const App = () => {
  
   return (
     <>
-        <Navbar/>
-          <Routes>
-            <Route  path='/' element={<Homepage />} /> 
-            <Route  path='/connexion' element={<Registrationpage />} />
-            <Route  path='/inscription' element={<Registrationpage />} />
-            {/* <Route  path='/equipe' element={<Equipe />} />
-            <Route  path='/contact' element={<Contact />} />
-            <Route  path='/mentionslegales' element={<Contact />} /> */}
+    <AppContainer>
+      <Navbar/>
+            <Routes>
+              <Route  path='/' element={<Homepage />} /> 
+              <Route  path='/connexion' element={<Registrationpage />} />
+              <Route  path='/inscription' element={<Registrationpage />} />
+              {/* <Route  path='/equipe' element={<Equipe />} />
+              <Route  path='/contact' element={<Contact />} />
+              <Route  path='/mentionslegales' element={<Contact />} /> */}
 
-          </Routes>
-          {!isMobile && <Footer />}
+            </Routes>
+            {!isMobile && <Footer />}
 
+    </AppContainer>
+        
     
     {isMobile && 
-      <AppContainer>
+      <MobileAppContainer>
         <MobileBottomNavLinks />
-      </AppContainer>
+      </MobileAppContainer>
     }
 
   </>

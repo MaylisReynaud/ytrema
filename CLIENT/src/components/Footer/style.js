@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.div`
     /* display: flex; */
-    position: absolute ;
+    position: fixed ;
     bottom:0;
+    left:0;
     width: 100%;
     height: 12%;
     background-color: ${props => props.theme.color2};
@@ -36,11 +37,6 @@ export const LinkItem = styled.li`
   /* padding: 0.1em 0.4em; */
   /* transition: all 220ms ease-in-out; */
   cursor: pointer;
- 
-    
-    
-    
-  }
 `;
 
 export const StyledLink = styled(Link)`
