@@ -29,6 +29,10 @@ const App = () => {
             <Route  path='/' element={<Homepage />} /> 
             <Route  path='/connexion' element={<Registrationpage />} />
             <Route  path='/inscription' element={<Registrationpage />} />
+            {/* <Route  path='/equipe' element={<Equipe />} />
+            <Route  path='/contact' element={<Contact />} />
+            <Route  path='/mentionslegales' element={<Contact />} /> */}
+
           </Routes>
           {!isMobile && <Footer />}
 
