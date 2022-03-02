@@ -10,6 +10,7 @@ import { Footer } from '../Footer';
 import { AppContainer, MobileAppContainer } from './style';
 
 import { Registrationpage } from '../Registrationpage';
+import { Fabric } from '../Fabric';
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
               <Route  path='/' element={<Homepage />} /> 
               <Route  path='/connexion' element={<Registrationpage />} />
               <Route  path='/inscription' element={<Registrationpage />} />
+              <Route  path='/tissus' element={<Fabric />} />
               {/* <Route  path='/equipe' element={<Equipe />} />
               <Route  path='/contact' element={<Contact />} />
               <Route  path='/mentionslegales' element={<Contact />} /> */}
