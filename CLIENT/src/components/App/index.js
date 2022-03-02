@@ -10,7 +10,9 @@ import { Footer } from '../Footer';
 import { AppContainer, MobileAppContainer } from './style';
 
 import { Registrationpage } from '../Registrationpage';
-import { Fabric } from '../Fabric';
+import { Fabric } from '../ArticlesPage/Fabric';
+import { Haberdashery } from '../ArticlesPage/Haberdashery';
+import { Pattern } from '../ArticlesPage/Pattern';
 
 
 
@@ -32,6 +34,8 @@ const App = () => {
               <Route  path='/connexion' element={<Registrationpage />} />
               <Route  path='/inscription' element={<Registrationpage />} />
               <Route  path='/tissus' element={<Fabric />} />
+              <Route  path='/mercerie' element={<Haberdashery />} />
+              <Route  path='/patrons' element={<Pattern />} />
               {/* <Route  path='/equipe' element={<Equipe />} />
               <Route  path='/contact' element={<Contact />} />
               <Route  path='/mentionslegales' element={<Contact />} /> */}

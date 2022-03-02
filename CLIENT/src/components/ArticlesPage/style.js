@@ -15,7 +15,6 @@ export const Container = styled.div`
     flex-direction: column;
     height: 100vh;
     width:100%;
-    background-color: #ddd;
 `;
 
 export const TopContainer = styled.div`
@@ -24,7 +23,6 @@ export const TopContainer = styled.div`
     justify-content: space-evenly;
     height: 10vh;
     width:100%;
-    background-color: #222;
     margin:0;
 `;
 
@@ -77,6 +75,12 @@ export const FiltersButton = styled(motion.button)`
   &:hover {
     transition: all, 240ms ease-in-out;
     color: ${props => props.theme.color4};
+    background: rgb(241, 196, 15);
+    background: linear-gradient(
+      58deg,
+      rgba(241, 196, 15, 1) 20%,
+      rgba(243, 172, 18, 1) 100%
+    );
   }
   &:not(:last-of-type) {
     margin-right: 7px;
@@ -84,8 +88,8 @@ export const FiltersButton = styled(motion.button)`
 `;
 
 export const FilterSpan = styled.span`
-    height: 20px;
-    width: 20px;
+    height: 1.3rem;
+    width: 1.3rem;
     margin-right: 0.3rem;
 `;
 
@@ -99,3 +103,44 @@ export const buttonVariants = {
       scale: 0.95,
     }
   };
+
+export const CardsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    height:100vh;
+    width:100%;
+    
+  `;
+
+export const CardContainer = styled.div`
+background-color: #fff;
+display: flex;
+flex-direction: column;
+height:25%;
+width:45%;
+margin: .5rem;
+/* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+`;
+
+export const CardImg = styled.img`
+background-color: yellow;
+height:65%;
+width:100%;
+`;
+
+export const CardText = styled.h3`
+background-color: ${props => props.theme.color4};
+height:35%;
+width:100%;
+text-align: center;
+padding: 0 .3rem;
+display: flex;
+align-items: center;
+font : 0.9rem/1.5 '${props => props.theme.textFont}';
+color: ${props => props.theme.color5};
+border-bottom: 2px solid ${props => props.theme.color1};
+`;

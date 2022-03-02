@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { DeviceSize } from '../Navbar/Responsive';
+import { DeviceSize } from '../../Navbar/Responsive';
 import { Container, 
          Title,
          TopContainer,
@@ -8,22 +8,27 @@ import { Container,
          FiltersButton,
          buttonVariants,
          FilterSpan,
-} from './style';
+         CardsContainer,
+         CardContainer,
+         CardImg,
+         CardText,
+} from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
+import { fabricData } from '../../../utils/fabricData';
 
-export function Fabric (props) {
+export function Pattern (props) {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   return (
     <>
         <Title>
-        MA TISSUTHÈQUE 
+        MA PATRONTHÈQUE 
         </Title>
         <Container>
             <TopContainer>
                 <RegisterArticleButton
                     style= {buttonVariants} 
                 >
-                    Enregistrer un tissu
+                    Enregistrer un patron
                 </RegisterArticleButton>
                 <FiltersButton
                     style= {buttonVariants}
@@ -34,6 +39,17 @@ export function Fabric (props) {
                         Filtres
                 </FiltersButton>
             </TopContainer>
+            <CardsContainer>
+                {fabricData.map(fabric => (
+                    <CardContainer key={fabric.id} >
+                    <CardImg src={fabric.image} alt={fabric.alt}/>
+                    <CardText>
+                       {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                    </CardText>
+                </CardContainer>
+                ))}
+                
+            </CardsContainer>
         </Container>
     </>
   )
