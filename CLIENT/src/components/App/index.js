@@ -6,8 +6,8 @@ import { Navbar } from '../Navbar';
 import { DeviceSize } from '../Navbar/Responsive';
 import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 import { Homepage } from '../Homepage';
-
-import { AppContainer } from './style';
+import { Footer } from '../Footer';
+import { AppContainer, MobileAppContainer } from './style';
 
 import { Registrationpage } from '../Registrationpage';
 
@@ -24,18 +24,26 @@ const App = () => {
  
   return (
     <>
-        <Navbar/>
-          <Routes>
-            <Route  path='/' element={<Homepage />} /> 
-            <Route  path='/connexion' element={<Registrationpage />} />
-            <Route  path='/inscription' element={<Registrationpage />} />
-          </Routes>
+    <AppContainer>
+      <Navbar/>
+            <Routes>
+              <Route  path='/' element={<Homepage />} /> 
+              <Route  path='/connexion' element={<Registrationpage />} />
+              <Route  path='/inscription' element={<Registrationpage />} />
+              {/* <Route  path='/equipe' element={<Equipe />} />
+              <Route  path='/contact' element={<Contact />} />
+              <Route  path='/mentionslegales' element={<Contact />} /> */}
 
+            </Routes>
+            {!isMobile && <Footer />}
+
+    </AppContainer>
+        
     
     {isMobile && 
-      <AppContainer>
+      <MobileAppContainer>
         <MobileBottomNavLinks />
-      </AppContainer>
+      </MobileAppContainer>
     }
 
   </>

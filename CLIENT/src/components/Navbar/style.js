@@ -9,13 +9,16 @@ height: 100%;
 export const NavbarContainer = styled.div`
 width: 100%;
 height: 60px;
+position: sticky;
+top:0;
+overflow: hidden;
 box-shadow: 0 1px 3px rgba(15, 15, 15, 0.13);
 display: flex;
 align-items: center;
 padding: 0 1.5em;
-position: sticky;
-top:0;
+
 background-color: ${props => props.theme.color4};
+z-index: 200;
 
 `;
 
