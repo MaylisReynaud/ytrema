@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
+
+import { FabricModal } from './FabricModal';
 import { Container, 
          Title,
          TopContainer,
@@ -16,20 +18,32 @@ import { Container,
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { fabricData } from '../../../utils/fabricData';
 
+
 export function Fabric (props) {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
+    const [showModal, setShowModal] = useState(false);
+    const openModal = () => {
+        setShowModal(prev=> !prev)
+    };
+
   return (
     <>
         <Title>
         MA TISSUTHÈQUE 
         </Title>
+        {isMobile && (
         <Container>
             <TopContainer>
                 <RegisterArticleButton
                     style= {buttonVariants} 
+                    onClick= {openModal}
                 >
                     Enregistrer un tissu
                 </RegisterArticleButton>
+                <FabricModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                />
                 <FiltersButton
                     style= {buttonVariants}
                 >
@@ -51,6 +65,7 @@ export function Fabric (props) {
                 
             </CardsContainer>
         </Container>
+        )}
     </>
   )
 ;}
