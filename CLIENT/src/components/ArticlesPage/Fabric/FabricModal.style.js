@@ -46,6 +46,15 @@ export const ModalContent = styled.div`
     line-height: 1.8;
     color: #141414;
 
+    h1 {
+        font-family: '${props => props.theme.titleFont}';
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+        color: ${props => props.theme.color5}
+    }
+
     p {
         margin-bottom: 1rem;
     }

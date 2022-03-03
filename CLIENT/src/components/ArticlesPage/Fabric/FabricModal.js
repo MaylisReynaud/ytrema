@@ -1,7 +1,6 @@
 
 import React, {useRef, useEffect, useCallback } from 'react';
 import { Background,
-         dropIn,
          Container,
          ModalWrapper,
          ModalContent,
@@ -43,14 +42,13 @@ export const FabricModal = ({showModal, setShowModal}) => {
                     showModal={showModal}
                 >
                     <ModalContent>
-                        <h1>Are your ready?</h1>
-                        <p> hola mi nina como estas ?</p>
-                        <button>Join now</button>
+                        <h1>J'ENREGISTRE MON TISSU</h1>
+                       
+                        <button>Enregistrer</button>
                     </ModalContent>
                     <CloseModalButton 
                         aria-label='Close modal'
                         onClick={() => setShowModal(prev => !prev)}
-                        // variants={dropIn}
                     />  
                 </ModalWrapper>
             </Background>
