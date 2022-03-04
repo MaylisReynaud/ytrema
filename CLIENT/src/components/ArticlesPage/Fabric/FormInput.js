@@ -1,13 +1,24 @@
 import React from 'react';
-import { FabricForm, InputForm, LabelForm } from './FormInput.style';
+import { FabricForm, 
+         InputForm, 
+         LabelForm,
+         ErrorMessage 
+        } from './FormInput.style';
 
-function FormInput() {
+function FormInput(props) {
+    const {label,ErrorMessage, onChange, id, ...inputProps} = props;
   return (
     <FabricForm>
         <LabelForm>
-            Username
+            {label}
         </LabelForm>
-        <InputForm />
+        <InputForm
+            {...inputProps}
+            onChange={onChange}
+        />
+        <ErrorMessage>
+            {ErrorMessage}
+        </ErrorMessage>
     </FabricForm>
   
   )

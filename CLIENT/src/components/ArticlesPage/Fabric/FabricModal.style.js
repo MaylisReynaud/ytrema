@@ -25,12 +25,11 @@ export const Background = styled.div`
 
 export const ModalWrapper = styled.div`
     width: 800px;
-    height: 500px;
+    height:80vh;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-    background: #fff;
     color: #000;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
+    background-color: ${props => props.theme.color2};     
+
     position: relative;
     z-index:10;
     border-radius: 10px;
@@ -41,29 +40,20 @@ export const ModalWrapper = styled.div`
 export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
+    /* grid-template-columns: 1fr 1fr; */
     justify-content: center;
     align-items: center;
     line-height: 1.8;
-    color: #141414;
+    color: ${props => props.theme.color4};
+    margin-top: 1rem;
+    
 
     h1 {
         font-family: '${props => props.theme.titleFont}';
         font-weight: bold;
-        margin-top: 1rem;
         margin-right: 1.5rem;
         font-size: 1.5rem;
-        color: ${props => props.theme.color5}
-    }
-
-    p {
-        margin-bottom: 1rem;
-    }
-
-    button {
-        padding: 10px 24px;
-        background: #141414;
-        color: #fff;
-        border: none
+        color: ${props => props.theme.color4};
     }
 `;
 
