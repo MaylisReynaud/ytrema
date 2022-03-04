@@ -6,6 +6,7 @@ import { Background,
          ModalContent,
          CloseModalButton
 } from './FabricModal.style';
+import { FabricForm } from './FabricForm';
 
 
 export const FabricModal = ({showModal, setShowModal}) => {
@@ -43,7 +44,7 @@ export const FabricModal = ({showModal, setShowModal}) => {
                 >
                     <ModalContent>
                         <h1>J'ENREGISTRE MON TISSU</h1>
-                       
+                        <FabricForm />
                         <button>Enregistrer</button>
                     </ModalContent>
                     <CloseModalButton 
