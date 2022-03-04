@@ -59,6 +59,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@reduxjs/toolkit": "^1.7.2",
     "babel-plugin-macros": "^3.1.0",
+    "formik": "^2.2.9",
     "framer-motion": "4.1.17",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -74,6 +75,7 @@
     "styled-components": "^5.3.3",
     "styled-icons": "^10.45.0",
     "styled-reset": "^4.3.4",
-    "typed.js": "^2.0.12"
+    "typed.js": "^2.0.12",
+    "yup": "^0.32.11"
   }
 }
