@@ -7,6 +7,7 @@ import FormInput from './FormInput';
 export function FabricForm() {
 
     const [values, setValues] = useState ({
+      fabricPicture: '',
       fabricName: '',
       website: '',
       designerName: '',
@@ -21,89 +22,114 @@ export function FabricForm() {
     });
 
     const inputs = [
-
       {
         id: 1,
-        name:'fabricName',
-        type:'text',
-        placeholder:'nom du tissu',
-        label:'Nom du tissu'
-
+        name:'fabricPicture',
+        type:'file',
+        accept:'image/*',
+        placeholder:'Photo du tissu',
+        label:'Photo du tissu',
+        errorMessage:'Doit être un fichier de type image',
+        required: true
       },
       {
         id: 2,
-        name:'website',
+        name:'fabricName',
         type:'text',
-        placeholder:'site web ou magasin',
-        label:'Site web ou magasin'
-
+        placeholder:'nom du tissu',
+        label:'Nom du tissu',
+        errorMessage:'Le nom du tissu doit comporter entre 2 et 50 caractères',
+        pattern:'^[A-Za-z0-9]{2,50}$',
+        required: true
       },
       {
         id: 3,
-        name:'designerName',
+        name:'website',
         type:'text',
-        placeholder:'nom du designer',
-        label:'Nom du designer'
+        placeholder:'site web ou magasin',
+        label:'Site web ou magasin',
+        errorMessage:'',
+        required: true
 
       },
       {
         id: 4,
-        name:'color',
+        name:'designerName',
         type:'text',
-        placeholder:'couleur',
-        label:'Couleur'
+        placeholder:'nom du designer',
+        label:'Nom du designer',
+        errorMessage:'Le nom du designer doit comporter entre 2 et 30 caractères',
+        required: true
       },
       {
         id: 5,
-        name:'preciseColor',
-        type:'text',
-        placeholder:'couleur précise',
-        label:'Couleur précise'
+        name:'color',
+        type:'select',
+        placeholder:'couleur',
+        label:'Couleur',
+        errorMessage:'Sélectionnez une couleur principale',
+        required: true
       },
       {
         id: 6,
-        name:'fabricType',
+        name:'preciseColor',
         type:'text',
-        placeholder:'type de tissu',
-        label:'Type de tissu'
-
+        placeholder:'couleur précise',
+        label:'Couleur précise',
+        errorMessage:'Maximum 30 caractères et ne doit pas contenir de caractères spéciaux'
       },
       {
         id: 7,
-        name:'composition',
+        name:'fabricType',
         type:'text',
-        placeholder:'composition',
-        label:'Composition'
-
+        placeholder:'type de tissu',
+        label:'Type de tissu',
+        errorMessage:'Sélectionnez un type de tissu',
+        required: true
       },
       {
         id: 8,
+        name:'composition',
+        type:'text',
+        placeholder:'composition',
+        label:'Composition',
+        errorMessage:'Maximum 80 caractères'
+      },
+      {
+        id: 9,
         name:'weight',
         type:'number',
         placeholder:'poids en gramme',
         label:'Poids en gramme',
-      },
-      {
-        id: 9,
-        name:'quantity',
-        type:'number',
-        placeholder:'quantité en cm',
-        label:'Quantité en cm'
-
+        errorMessage:'entrez un nombre entre 10 et 600'
       },
       {
         id: 10,
-        name:'width',
+        name:'quantity',
         type:'number',
-        placeholder:'laize en cm',
-        label:'Laize en cm'
+        placeholder:'quantité en cm',
+        label:'Quantité en cm',
+        errorMessage:'entrez un nombre entre 10 et 1000',
+        required: true
+
       },
       {
         id: 11,
+        name:'width',
+        type:'number',
+        placeholder:'laize en cm',
+        label:'Laize en cm',
+        errorMessage:'entrez un nombre entre 10 et 400',
+        required: true
+      },
+      {
+        id: 12,
         name:'price',
         type:'number',
         placeholder:'prix au mètre en euros',
         label:'Prix au mètre',
+        errorMessage:'entrez un nombre entre 1 et 200',
+        required: true
       },
     ];
 
@@ -113,6 +139,8 @@ export function FabricForm() {
       event.preventDefault();
      
     };
+
+
 
     const onChange= (event) => {
       setValues({...values, [event.target.name]: event.target.value });

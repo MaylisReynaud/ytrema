@@ -1,24 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { InputContainer, 
          InputForm, 
-         LabelForm
+         LabelForm,
+         ErrorMessage
         } from './FormInput.style';
 
 function FormInput(props) {
-   
-    const  { label, onChange, id, ...inputProps } = props;
+   const [focused, setFocused] = useState(false);
+    const  { label, onChange, id, errorMessage, ...inputProps } = props;
+
+    const handleFocus = (event) => {
+      setFocused(true);
+    };
 
   return (
-    <InputContainer>
+    <>
+        <InputContainer>
         <LabelForm>
             {label}
         </LabelForm>
         <InputForm 
             {...inputProps}
             onChange={onChange}
+            onBlur={handleFocus}
+            onFocus={() => inputProps.name === 'price' && setFocused(true) }
+            focused={focused.toString()}
         />
+            <ErrorMessage>
+              {errorMessage}
+            </ErrorMessage>
     </InputContainer>
-  
+
+  </>
   );
 };
 

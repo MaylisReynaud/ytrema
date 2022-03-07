@@ -45,9 +45,9 @@ export const ModalContent = styled.div`
     align-items: center;
     line-height: 1.8;
     color: ${props => props.theme.color4};
-    margin-top: 1rem;
+
     overflow: hidden;
-    height:88vh;
+    height:86vh;
     
 
     h1 {
@@ -61,6 +61,7 @@ export const ModalContent = styled.div`
 
 export const CloseModalButton = styled(Close)`
     cursor: pointer;
+    color: ${props => props.theme.color4};
     position: absolute;
     top: 20px;
     right: 20px;
