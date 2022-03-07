@@ -1,34 +1,25 @@
-import React, {useState} from 'react';
-import { FabricForm, 
+import React from 'react';
+import { InputContainer, 
          InputForm, 
-         LabelForm,
-
+         LabelForm
         } from './FormInput.style';
 
 function FormInput(props) {
-    const [focused, setFocused] = useState(false);
-    const {label, onChange, id, ...inputProps} = props;
-    const handleFocus = (event) => {
-        setFocused(true);
-    };
+   
+    const  { label, onChange, id, ...inputProps } = props;
 
   return (
-    <FabricForm>
+    <InputContainer>
         <LabelForm>
             {label}
         </LabelForm>
-        <InputForm
+        <InputForm 
             {...inputProps}
             onChange={onChange}
-            onBlur={handleFocus}
-            focused={focused.toString()}
         />
-        {/* <ErrorMessage>
-            {ErrorMessage}
-        </ErrorMessage> */}
-    </FabricForm>
+    </InputContainer>
   
-  )
+  );
 };
 
 export default FormInput;

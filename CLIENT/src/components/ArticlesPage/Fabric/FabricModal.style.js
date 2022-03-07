@@ -46,6 +46,8 @@ export const ModalContent = styled.div`
     line-height: 1.8;
     color: ${props => props.theme.color4};
     margin-top: 1rem;
+    overflow: hidden;
+    height:88vh;
     
 
     h1 {

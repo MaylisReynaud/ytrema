@@ -68,5 +68,8 @@ export function Fabric (props) {
         )}
     </>
   )
-;}
+};
+
+
+
 

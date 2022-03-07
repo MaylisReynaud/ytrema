@@ -1,7 +1,9 @@
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 
-export const FabricForm = styled.div`
-
+export const InputContainer = styled.div`
+    display: flex;
+    flex-direction:column;
+    width: 300px;
 `;
 
 export const LabelForm = styled.label`
@@ -9,22 +11,13 @@ export const LabelForm = styled.label`
 `;
 
 export const InputForm = styled.input`
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    width: 280px;
+    /* display: flex;
+    flex-direction: column; */
+    padding: 10px;
+    width: 80%;
     border-radius: 5px;
-    
-    /* &input:invalid[focused='true'] ~ span{
-    display: block;
-} */
+    border:none;
 `;
 
-export const ErrorMessage = styled.span`
-    font-size: 0.8rem;
-    padding: 2px;
-    color: red;
-    display: none
-`;
 
 
