@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 export const FabricForm = styled.div`
 
@@ -14,9 +14,17 @@ export const InputForm = styled.input`
     padding: 5px;
     width: 280px;
     border-radius: 5px;
+    
+    /* &input:invalid[focused='true'] ~ span{
+    display: block;
+} */
 `;
 
 export const ErrorMessage = styled.span`
-
+    font-size: 0.8rem;
+    padding: 2px;
+    color: red;
+    display: none
 `;
+
 

@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FabricForm, 
          InputForm, 
          LabelForm,
-         ErrorMessage 
+
         } from './FormInput.style';
 
 function FormInput(props) {
-    const {label,ErrorMessage, onChange, id, ...inputProps} = props;
+    const [focused, setFocused] = useState(false);
+    const {label, onChange, id, ...inputProps} = props;
+    const handleFocus = (event) => {
+        setFocused(true);
+    };
+
   return (
     <FabricForm>
         <LabelForm>
@@ -15,10 +20,12 @@ function FormInput(props) {
         <InputForm
             {...inputProps}
             onChange={onChange}
+            onBlur={handleFocus}
+            focused={focused.toString()}
         />
-        <ErrorMessage>
+        {/* <ErrorMessage>
             {ErrorMessage}
-        </ErrorMessage>
+        </ErrorMessage> */}
     </FabricForm>
   
   )
