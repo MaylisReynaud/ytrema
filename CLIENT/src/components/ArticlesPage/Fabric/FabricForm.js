@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FormContainer, 
          ButtonForm, 
         InputContainer,
+        DefaultFabricPicture,
         FabricPicture
       } from './FabricForm.style';
 import FormInput from './FormInput';
@@ -189,7 +190,7 @@ export function FabricForm() {
         {values.fabricPicture ? 
           <FabricPicture src={preview} alt="default fabric picture" />
           :
-          <FabricPicture src={YtremaLogo} alt="default fabric picture" />
+          <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
         }
         {inputs.map((input) => (
           <FormInput

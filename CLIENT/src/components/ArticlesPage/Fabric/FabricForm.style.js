@@ -1,15 +1,14 @@
-import styled from 'styled-components';
+
+import styled, {css} from 'styled-components';
 
 export const FormContainer = styled.form`
     display: flex;
     flex-direction:column;
     font-family:'${props => props.theme.textFont}';
     overflow:hidden;
-    height:77vh
+    height:77vh;
 `;
-export const FabricImage = styled.img`
-    height: 80%;
-`;
+
 export const InputContainer = styled.div`
     display: flex;
     align-items: center;    
@@ -18,12 +17,20 @@ export const InputContainer = styled.div`
     overflow-y:scroll;
     flex-direction: column;
 `;
-
-export const FabricPicture = styled.img`
-    height: 60px;
+export const DefaultFabricPictureStyle = css`
+    height: 20%;
     display:flex;
     justify-content:center;
+    border: none;
 `;
+export const DefaultFabricPicture = styled.img`
+   ${DefaultFabricPictureStyle}
+`;
+export const FabricPicture = styled.img`
+    ${DefaultFabricPictureStyle};
+    border: 2px solid ${props => props.theme.color4};
+`;
+
 
 export const ButtonForm = styled.button`
     width:100%;

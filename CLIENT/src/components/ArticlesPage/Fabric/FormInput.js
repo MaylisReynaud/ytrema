@@ -24,7 +24,7 @@ function FormInput(props) {
             onChange={onChange}
             onBlur={handleFocus}
             onFocus={() => inputProps.name === 'price' && setFocused(true) }
-            focused={focused.toString()}
+            // focused={focused.toString()}
         />
             <ErrorMessage>
               {errorMessage}
