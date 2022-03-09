@@ -10,12 +10,13 @@ export const InputContainer = styled.div`
 export const LabelForm = styled.label`
     font-size: '${props => props.theme.textFont}';
     color: ${props => props.theme.color3};
+    text-align: left;
 `;
 export const ErrorMessage = styled.span`
     color: red;
     font-size: 12px;
     padding: 3px;
-    display: none;
+    /* display: none; */
 `;
 
 export const InputForm = styled.input`
@@ -24,10 +25,10 @@ export const InputForm = styled.input`
     border-radius: 5px;
     border:none;
 
-    &:invalid[focused="true"]{
+    &:invalid{
     border: 1px solid red;
     }
-    &:invalid[focused="true"] ~ ${ErrorMessage} {
+    &:invalid ~ ${ErrorMessage} {
     display: block;
     }
 `;

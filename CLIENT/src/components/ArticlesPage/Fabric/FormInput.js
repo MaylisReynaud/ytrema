@@ -6,8 +6,9 @@ import { InputContainer,
         } from './FormInput.style';
 
 function FormInput(props) {
-   const [focused, setFocused] = useState(false);
+   
     const  { label, onChange, id, errorMessage, ...inputProps } = props;
+    console.log(props, 'nous sommes dans le forminput');
 
     const handleFocus = (event) => {
       setFocused(true);
@@ -22,13 +23,16 @@ function FormInput(props) {
         <InputForm 
             {...inputProps}
             onChange={onChange}
-            onBlur={handleFocus}
-            onFocus={() => inputProps.name === 'price' && setFocused(true) }
+            // onBlur={handleFocus}
+            // onFocus={() => inputProps.name === 'price' && setFocused(true) }
             // focused={focused.toString()}
+            
         />
-            <ErrorMessage>
+          <ErrorMessage>
               {errorMessage}
             </ErrorMessage>
+   
+            
     </InputContainer>
 
   </>

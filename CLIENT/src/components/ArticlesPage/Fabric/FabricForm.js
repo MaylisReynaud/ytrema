@@ -21,10 +21,10 @@ export function FabricForm() {
       preciseColor:'',
       fabricType: '',
       composition: '',
-      weight: ' ',
-      quantity: ' ',
-      width:' ',
-      price: ' ',
+      weight: '',
+      quantity: '',
+      width:'',
+      price: '',
     });
 
     const inputs = [
@@ -179,7 +179,6 @@ export function FabricForm() {
       
       };
       
-    console.log(values);
 
   return (
     <>

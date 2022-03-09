@@ -25,7 +25,6 @@ export function LoginForm(props) {
       <Marginer direction="vertical" margin="1.6em" />
       <SubmitButton 
         type="submit"
-        type="submit"
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"
