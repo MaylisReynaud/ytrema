@@ -7,11 +7,22 @@ export const FormContainer = styled.form`
     overflow:hidden;
     height:77vh
 `;
-
+export const FabricImage = styled.img`
+    height: 80%;
+`;
 export const InputContainer = styled.div`
+    display: flex;
+    align-items: center;    
     height: 80%;
     font-family:'${props => props.theme.textFont}';
     overflow-y:scroll;
+    flex-direction: column;
+`;
+
+export const FabricPicture = styled.img`
+    height: 60px;
+    display:flex;
+    justify-content:center;
 `;
 
 export const ButtonForm = styled.button`

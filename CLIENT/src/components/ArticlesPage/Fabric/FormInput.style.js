@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const InputContainer = styled.div`
     display: flex;
     flex-direction:column;
+    align-items: center;
     width: 300px;
 `;
 
@@ -25,7 +26,7 @@ export const InputForm = styled.input`
 
     &:invalid[focused="true"]{
     border: 1px solid red;
-    };
+    }
     &:invalid[focused="true"] ~ ${ErrorMessage} {
     display: block;
     }
