@@ -24,13 +24,29 @@ export const InputForm = styled.input`
     width: 80%;
     border-radius: 5px;
     border:1px solid grey;
-
-    &:invalid{
-    border: 1px solid red;
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button{
+        opacity:1
+    }    
+    :focus{
+        border: 1px solid yellow;
     }
+
+    /* &:invalid{
+    border: 1px solid red;
+    } */
     /* &:invalid ~ ${ErrorMessage} {
     display: block;
     } */
+    /* font-size: 18px;
+  padding: 10px;
+  margin: 10px;
+  background: papayawhip;
+  border: none;
+  border-radius: 3px; */
+  ::placeholder {
+    color: grey;
+  }
 `;
 
 export const SelectForm = styled.select`
@@ -39,9 +55,9 @@ export const SelectForm = styled.select`
     border-radius: 5px;
     border:1px solid grey;
 
-    &:invalid{
+    /* &:invalid{
     border: 1px solid red;
-    }
+    } */
 
 `;
 

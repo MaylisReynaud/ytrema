@@ -32,7 +32,7 @@ export function FabricForm() {
         id: 1,
         name:'fabricPicture',
         type:'file',
-        accept:'.png, .jpg, .jpeg',
+        accept:'image/*',
         placeholder:'Photo du tissu',
         label:'Photo du tissu',
         errorMessage:'Doit être un fichier de type image',
@@ -112,18 +112,23 @@ export function FabricForm() {
       {
         id: 9,
         name:'weight',
-        type:'number',
+        type:"number",
         placeholder:'poids en gramme',
         label:'Poids en gramme',
-        pattern: '^[1-9]$|^[1-9][0-9]$|^(600)$',
+        min: 10,
+        max: 600,
+        // pattern: '^[1-9]$|^[1-9][0-9]$|^(600)$',
         errorMessage:'entrez un nombre entre 10 et 600'
       },
       {
         id: 10,
         name:'quantity',
-        type:'number',
+        type:"number",
         placeholder:'quantité en cm',
         label:'Quantité en cm',
+        min: 10,
+        max: 1000,
+        step: 10,
         errorMessage:'entrez un nombre entre 10 et 1000',
         required: true
 
@@ -131,48 +136,53 @@ export function FabricForm() {
       {
         id: 11,
         name:'width',
-        type:'number',
+        type:"number",
         placeholder:'laize en cm',
         label:'Laize en cm',
+        min: 10,
+        max: 400,
+        step: 5,
         errorMessage:'entrez un nombre entre 10 et 400',
         required: true
       },
       {
         id: 12,
         name:'price',
-        type:'number',
+        type:"number",
         placeholder:'prix au mètre en euros',
         label:'Prix au mètre',
+        min: 1,
+        max: 200,
         errorMessage:'entrez un nombre entre 1 et 200',
         required: true
       },
     ];
-
-    const [selectedFile, setSelectedFile] = useState()
-    const [preview, setPreview] = useState()
+    const [focused, setFocused] = useState(false);
+    const [selectedFile, setSelectedFile] = useState();
+    const [preview, setPreview] = useState();
 
     // create a preview as a side effect, whenever selected file is changed
     useEffect(() => {
         if (!selectedFile) {
-            setPreview(undefined)
+            setPreview(undefined);
             return
         }
 
-        const objectUrl = URL.createObjectURL(selectedFile)
-        setPreview(objectUrl)
+        const objectUrl = URL.createObjectURL(selectedFile);
+        setPreview(objectUrl);
 
         // free memory when ever this component is unmounted
-        return () => URL.revokeObjectURL(objectUrl)
-    }, [selectedFile])
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedFile]);
 
     const onSelectFile = e => {
         if (!e.target.files || e.target.files.length === 0) {
-            setSelectedFile(undefined)
+            setSelectedFile(undefined);
             return
         }
 
         // I've kept this example simple by using the first image instead of multiple
-        setSelectedFile(e.target.files[0])
+        setSelectedFile(e.target.files[0]);
     }
 
     const handleSubmit = (event) => {

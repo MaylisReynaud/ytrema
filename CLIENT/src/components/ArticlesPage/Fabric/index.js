@@ -65,7 +65,8 @@ export function Fabric (props) {
                 
             </CardsContainer>
         </Container>
-        )}
+        )
+        }
     </>
   )
 };

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef} from 'react';
 import { InputContainer, 
          InputForm, 
          LabelForm,
@@ -7,16 +7,19 @@ import { InputContainer,
         } from './Input.style';
 
 function FormInput(props) {
-   
-    const  { label, onChange, id, type, options, htmlFor, errorMessage, ...inputProps } = props;
-    console.log(props, 'nous sommes dans le forminput');
-
-    const handleFocus = (event) => {
-      setFocused(true);
+    const inputElement = useRef(null);
+  
+    const handleFocus =() => {
+      inputElement.current.focus();
+      console.log(inputElement.current.focus(), 'inputElement');
     };
+
+    const  { type, label, onChange, id, options, htmlFor, errorMessage, ...inputProps } = props;
+ 
 
   return (
     <>
+
         <InputContainer>
         <LabelForm
           htmlFor={htmlFor}
@@ -26,17 +29,24 @@ function FormInput(props) {
         {type === 'select' ?
           <SelectForm
           {...inputProps}
+            type={type}
+            ref={inputElement}
             onChange={onChange}
-            id='color'
+            id={htmlFor}
+            onFocus={handleFocus}
           >
             {options.map((option, index) => 
-             <option value={option}>{option}</option>
+             <option key={index} value={option} >{option}</option>
             )}
           </SelectForm> : 
+          
           <InputForm 
             {...inputProps}
             onChange={onChange}
-            // focused={focused.toString()}
+            type={type}
+            ref={inputElement}
+            onFocus={handleFocus}
+            
         />
       }
           <ErrorMessage>
