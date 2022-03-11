@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import { InputContainer, 
          InputForm, 
          LabelForm,
+         SelectForm,
          ErrorMessage
-        } from './FormInput.style';
+        } from './Input.style';
 
 function FormInput(props) {
    
-    const  { label, onChange, id, errorMessage, ...inputProps } = props;
+    const  { label, onChange, id, type, options, htmlFor, errorMessage, ...inputProps } = props;
     console.log(props, 'nous sommes dans le forminput');
 
     const handleFocus = (event) => {
@@ -17,17 +18,27 @@ function FormInput(props) {
   return (
     <>
         <InputContainer>
-        <LabelForm>
+        <LabelForm
+          htmlFor={htmlFor}
+        >
             {label}
         </LabelForm>
-        <InputForm 
+        {type === 'select' ?
+          <SelectForm
+          {...inputProps}
+            onChange={onChange}
+            id='color'
+          >
+            {options.map((option, index) => 
+             <option value={option}>{option}</option>
+            )}
+          </SelectForm> : 
+          <InputForm 
             {...inputProps}
             onChange={onChange}
-            // onBlur={handleFocus}
-            // onFocus={() => inputProps.name === 'price' && setFocused(true) }
             // focused={focused.toString()}
-            
         />
+      }
           <ErrorMessage>
               {errorMessage}
             </ErrorMessage>

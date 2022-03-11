@@ -5,8 +5,8 @@ import { Background,
          ModalWrapper,
          ModalContent,
          CloseModalButton
-} from './FabricModal.style';
-import { FabricForm } from './FabricForm';
+} from './Modal.style';
+import { FabricForm } from '../Form';
 
 
 export const FabricModal = ({showModal, setShowModal}) => {

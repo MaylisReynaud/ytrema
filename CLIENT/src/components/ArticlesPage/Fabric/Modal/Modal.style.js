@@ -28,7 +28,7 @@ export const ModalWrapper = styled.div`
     height:80vh;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     color: #000;
-    background-color: ${props => props.theme.color2};     
+    background-color: ${props => props.theme.color4};     
 
     position: relative;
     z-index:10;
@@ -44,7 +44,7 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     line-height: 1.8;
-    color: ${props => props.theme.color4};
+    color: ${props => props.theme.color5};
 
     overflow: hidden;
     height:86vh;
@@ -55,13 +55,13 @@ export const ModalContent = styled.div`
         font-weight: bold;
         margin-right: 1.5rem;
         font-size: 1.5rem;
-        color: ${props => props.theme.color4};
+        color: ${props => props.theme.color3};
     }
 `;
 
 export const CloseModalButton = styled(Close)`
     cursor: pointer;
-    color: ${props => props.theme.color4};
+    color: ${props => props.theme.color5};
     position: absolute;
     top: 20px;
     right: 20px;

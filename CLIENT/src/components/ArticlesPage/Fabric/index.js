@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 
-import { FabricModal } from './FabricModal';
+import { FabricModal } from './Modal';
 import { Container, 
          Title,
          TopContainer,

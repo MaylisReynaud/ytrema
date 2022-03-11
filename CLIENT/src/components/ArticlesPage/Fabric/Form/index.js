@@ -4,9 +4,9 @@ import { FormContainer,
         InputContainer,
         DefaultFabricPicture,
         FabricPicture
-      } from './FabricForm.style';
-import FormInput from './FormInput';
-import YtremaLogo from '../../../assets/images/logo.png';
+      } from './Form.style';
+import FormInput from '../Input';
+import YtremaLogo from '../../../../../src/assets/images/logo.png';
 
 
 
@@ -32,7 +32,7 @@ export function FabricForm() {
         id: 1,
         name:'fabricPicture',
         type:'file',
-        accept:'image/*',
+        accept:'.png, .jpg, .jpeg',
         placeholder:'Photo du tissu',
         label:'Photo du tissu',
         errorMessage:'Doit être un fichier de type image',
@@ -54,7 +54,8 @@ export function FabricForm() {
         type:'text',
         placeholder:'site web ou magasin',
         label:'Site web ou magasin',
-        errorMessage:'',
+        errorMessage:'Ce champ doit comporter entre 2 et 50 caractères',
+        pattern:'^[A-Za-z0-9]{2,50}$',
         required: true
 
       },
@@ -65,6 +66,7 @@ export function FabricForm() {
         placeholder:'nom du designer',
         label:'Nom du designer',
         errorMessage:'Le nom du designer doit comporter entre 2 et 30 caractères',
+        pattern: '^[A-Za-z0-9]{2,30}$',
         required: true
       },
       {
@@ -73,6 +75,8 @@ export function FabricForm() {
         type:'select',
         placeholder:'couleur',
         label:'Couleur',
+        htmlFor: 'color',
+        optionsList: ['bleu','rouge', 'orange', 'jaune', 'vert', 'rose', 'violet', 'marron', 'gris', 'noir', 'blanc', 'multicolore', 'beige', 'or', 'argent'],
         errorMessage:'Sélectionnez une couleur principale',
         required: true
       },
@@ -82,14 +86,17 @@ export function FabricForm() {
         type:'text',
         placeholder:'couleur précise',
         label:'Couleur précise',
+        pattern: '^[A-Za-z0-9 ]{2,30}$',
         errorMessage:'Maximum 30 caractères et ne doit pas contenir de caractères spéciaux'
       },
       {
         id: 7,
         name:'fabricType',
-        type:'text',
+        type:'select',
         placeholder:'type de tissu',
         label:'Type de tissu',
+        htmlFor: 'fabricType',
+        optionsList: [ 'batiste','bords-côtes', 'broderie anglaise', 'canvas', 'chambray', 'crêpe', 'cretonne', 'cuir', 'dentelle', 'denim', 'coton enduit', 'éponge', 'flanelle', 'imitation fourrure', 'gabardine', 'gaze, double gaz', 'jacquard', 'jersey', 'toile de jute', 'laine bouillie', 'liège', 'lin', 'lycra', 'maille', 'matelassé', 'minky', 'mousseline', 'nicky', 'organza', 'popeline', 'polaire', 'pul', 'organza', 'sergé de coton', 'simili cuir', 'suédine', 'soie', 'sweat/molleton',  'tartan', 'tencel', 'thermocollant/entoilage', 'toile cirée', 'tulle', 'twill', 'velours', 'viscose', 'voile de coton', 'wax africain' ],
         errorMessage:'Sélectionnez un type de tissu',
         required: true
       },
@@ -99,6 +106,7 @@ export function FabricForm() {
         type:'text',
         placeholder:'composition',
         label:'Composition',
+        pattern: '^[A-Za-z0-9_\-\/\%\.\,]{1,80}$',
         errorMessage:'Maximum 80 caractères'
       },
       {
@@ -107,6 +115,7 @@ export function FabricForm() {
         type:'number',
         placeholder:'poids en gramme',
         label:'Poids en gramme',
+        pattern: '^[1-9]$|^[1-9][0-9]$|^(600)$',
         errorMessage:'entrez un nombre entre 10 et 600'
       },
       {
@@ -172,6 +181,7 @@ export function FabricForm() {
 
     const onChange= (event) => {
       setValues({...values, [event.target.name]: event.target.value });
+      //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
       if (event.target.name === 'fabricPicture') {
         onSelectFile(event);
 
@@ -197,6 +207,7 @@ export function FabricForm() {
             {...input}
             value={values[input.name]}
             onChange={onChange}
+            options={input.optionsList}
           />
         ) )}
       </InputContainer>

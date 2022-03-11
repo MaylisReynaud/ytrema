@@ -23,17 +23,27 @@ export const InputForm = styled.input`
     padding: 10px;
     width: 80%;
     border-radius: 5px;
-    border:none;
+    border:1px solid grey;
 
     &:invalid{
     border: 1px solid red;
     }
-    &:invalid ~ ${ErrorMessage} {
+    /* &:invalid ~ ${ErrorMessage} {
     display: block;
-    }
+    } */
 `;
 
+export const SelectForm = styled.select`
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border:1px solid grey;
 
+    &:invalid{
+    border: 1px solid red;
+    }
+
+`;
 
     /* &input:invalid[focused='true'] ~ span {
         display: block
