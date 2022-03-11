@@ -106,7 +106,7 @@ export function FabricForm() {
         type:'text',
         placeholder:'composition',
         label:'Composition',
-        pattern: '^[A-Za-z0-9_\-\/\%\.\,]{1,80}$',
+        pattern: '^[A-Za-z0-9_\\-\\/\\%\\.\\,]{1,80}$',
         errorMessage:'Maximum 80 caractères'
       },
       {

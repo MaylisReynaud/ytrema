@@ -49,7 +49,6 @@ const App = () => {
     {isMobile && 
   
       <MobileAppContainer>
-        <input type="number" min="2" max="10"></input>
         <MobileBottomNavLinks />
       </MobileAppContainer>
     }
