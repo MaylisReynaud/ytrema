@@ -49,8 +49,7 @@ function FormInput(props) {
   return (
     <>
       <InputContainer>
-        <LabelForm htmlFor={htmlFor}>{label}</LabelForm>
-        {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        <LabelForm htmlFor={htmlFor}>{label}</LabelForm>   
         {type === "select" ? (
           <SelectForm
             {...inputProps}
@@ -77,6 +76,7 @@ function FormInput(props) {
             className={isError && 'input-false'}
           />
         )}
+        {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
       </InputContainer>
     </>
   );

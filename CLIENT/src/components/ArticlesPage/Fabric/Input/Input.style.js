@@ -1,69 +1,62 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
 `;
 
 export const LabelForm = styled.label`
-  font-size: "${(props) => props.theme.textFont}";
-  color: ${(props) => props.theme.color3};
-  text-align: left;
+    font-size: "${(props) => props.theme.textFont}";
+    color: ${(props) => props.theme.color3};
+    text-align: left;
 `;
 export const ErrorMessage = styled.span`
-  color: red;
-  font-size: 12px;
-  padding: 3px;
+    width: 80%;
+    padding: 10px;
+    color: red;
+    font-size: 13px;
+    line-height: 1.2;
   /* display: none; */
 `;
 
 export const InputForm = styled.input`
-  padding: 10px;
-  width: 80%;
-  border-radius: 5px;
-  border: 1px solid grey;
-  ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
-    opacity: 1;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid grey;
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+        opacity: 1;
   }
-  :focus {
-    border: 1px solid yellow;
+    :focus {
+        border: 2px solid ${(props) => props.theme.color3};
   }
   &[class~="input-false"] {
-    border: 1px solid red;
-    background-color: #ffe0d3;
+        border: 1px solid red;
+        background-color: #ffe0d3;
   }
-
-  /* &:invalid{
-    border: 1px solid red;
-    } */
-  /* &:invalid ~ ${ErrorMessage} {
-    display: block;
-    } */
-  /* font-size: 18px;
-  padding: 10px;
-  margin: 10px;
-  background: papayawhip;
-  border: none;
-  border-radius: 3px; */
-  ::placeholder {
-    color: grey;
-  }
+    ::placeholder {
+        color: grey;
+    }
 `;
 
 export const SelectForm = styled.select`
-  padding: 10px;
-  width: 80%;
-  border-radius: 5px;
-  border: 1px solid grey;
-
-  /* &:invalid{
-    border: 1px solid red;
-    } */
+    display: inline-block;
+    outline: none;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid grey;
+    :hover{
+        color: ${(props) => props.theme.color3};
+    }
+    :focus {
+        border: 2px solid ${(props) => props.theme.color3};
+    }
+    ::placeholder {
+            color: grey;
+        }
 `;
 
-/* &input:invalid[focused='true'] ~ span {
-        display: block
-    } */

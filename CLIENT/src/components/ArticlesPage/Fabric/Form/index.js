@@ -42,20 +42,20 @@ export function FabricForm() {
         id: 2,
         name:'fabricName',
         type:'text',
-        placeholder:'nom du tissu',
+        placeholder:'ex: Tissu Avena',
         label:'Nom du tissu',
-        errorMessage:'Le nom du tissu doit comporter entre 2 et 50 caractères',
-        pattern:'^[A-Za-z0-9]{2,50}$',
+        errorMessage:'Le nom du tissu doit comporter entre 2 et 50 caractères, sans caractères spéciaux',
+        pattern:"^[\\w\\xc0-\\xff' ']{2,30}$",
         required: true
       },
       {
         id: 3,
         name:'website',
         type:'text',
-        placeholder:'site web ou magasin',
+        placeholder:'ex: www.sudocoud.fr ou Sudocoud',
         label:'Site web ou magasin',
         errorMessage:'Ce champ doit comporter entre 2 et 50 caractères',
-        pattern:'^[A-Za-z0-9]{2,50}$',
+        pattern:"^[\\w\\xc0-\\xff' ']{2,30}$",
         required: true
 
       },
@@ -63,10 +63,10 @@ export function FabricForm() {
         id: 4,
         name:'designerName',
         type:'text',
-        placeholder:'nom du designer',
+        placeholder:'ex: Églantine et Zoé',
         label:'Nom du designer',
         errorMessage:'Le nom du designer doit comporter entre 2 et 30 caractères',
-        pattern: '^[A-Za-z0-9]{2,30}$',
+        pattern: "^[\\w\\xc0-\\xff' ']{2,30}$",
         required: true
       },
       {
@@ -84,10 +84,10 @@ export function FabricForm() {
         id: 6,
         name:'preciseColor',
         type:'text',
-        placeholder:'couleur précise',
+        placeholder:'ex: rose poudré ou ex:#FCDEDC',
         label:'Couleur précise',
-        pattern: '^[A-Za-z0-9 ]{2,30}$',
-        errorMessage:'Maximum 30 caractères et ne doit pas contenir de caractères spéciaux'
+        pattern: "^#?[\\w\\xc0-\\xff' ']{2,30}$",
+        errorMessage:'Maximum 30 caractères alphanumérique ou code couleur hexa'
       },
       {
         id: 7,
@@ -104,32 +104,33 @@ export function FabricForm() {
         id: 8,
         name:'composition',
         type:'text',
-        placeholder:'composition',
+        placeholder:'ex: 90% coton, 10% viscose',
         label:'Composition',
-        pattern: '^[A-Za-z0-9_\\-\\/\\%\\.\\,]{1,80}$',
-        errorMessage:'Maximum 80 caractères'
+        pattern: "^(\\d{1,3}[%]{1}\\s{1}[a-zA-Z-\\xc0-\\xff]{3,15}\\s?[-.,]?\\s?){1,4}$",
+        errorMessage:"Maximum 80 caractères alphanumériques avec comme séparateurs ', - .' Ne pas mettre d'espace entre le chiffre et le % : ex: 10%"
       },
       {
         id: 9,
         name:'weight',
         type:"number",
-        placeholder:'poids en gramme',
+        placeholder:'ex: 420',
         label:'Poids en gramme',
         min: 10,
         max: 600,
-        // pattern: '^[1-9]$|^[1-9][0-9]$|^(600)$',
+        pattern: '^1[0-9]$|^[2-9][0-9]$|^[1-5]{1}[0-9]{2}$|^(600)$',
         errorMessage:'entrez un nombre entre 10 et 600'
       },
       {
         id: 10,
         name:'quantity',
         type:"number",
-        placeholder:'quantité en cm',
+        placeholder:'ex: 130',
         label:'Quantité en cm',
         min: 10,
         max: 1000,
         step: 10,
-        errorMessage:'entrez un nombre entre 10 et 1000',
+        pattern: '^10[0]?$|^[2-9]{1}[0]{1,3}$|^[1-9]{2}[0]{1}$|^(1000)$',
+        errorMessage:'entrez un nombre entre 10 et 1000 avec des étapes de 10',
         required: true
 
       },
@@ -137,11 +138,12 @@ export function FabricForm() {
         id: 11,
         name:'width',
         type:"number",
-        placeholder:'laize en cm',
+        placeholder:'ex: 145',
         label:'Laize en cm',
         min: 10,
         max: 400,
         step: 5,
+        pattern: '^10[0,5]?$|^[2-9]{1}[0,5]{1}$|^[1-3]{1}[0-9]{1}[0,5]{1}$|^(400)$',
         errorMessage:'entrez un nombre entre 10 et 400',
         required: true
       },
@@ -149,15 +151,16 @@ export function FabricForm() {
         id: 12,
         name:'price',
         type:"number",
-        placeholder:'prix au mètre en euros',
+        placeholder:'ex: 12.50',
         label:'Prix au mètre',
         min: 1,
         max: 200,
+        pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',
         errorMessage:'entrez un nombre entre 1 et 200',
         required: true
       },
     ];
-    const [focused, setFocused] = useState(false);
+    // const [focused, setFocused] = useState(false);
     const [selectedFile, setSelectedFile] = useState();
     const [preview, setPreview] = useState();
 
