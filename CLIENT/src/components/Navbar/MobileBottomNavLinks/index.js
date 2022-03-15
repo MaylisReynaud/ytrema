@@ -11,77 +11,72 @@ import { BottomNavLinksContainer,
          ApparelIcon,
          PersonIcon
 } from './style';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 
 
 
 export function MobileBottomNavLinks(props) {
-  // console.log(props);
-  // const [isActive, setIsActive] = useState(false);
   return (
     
     <BottomNavLinksContainer>
       <LinksWrapper>
           <LinkItem>
-            <Link 
+            <NavLink 
               to="/tissus"
-              style={LinkStyle}
+              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
             >
               <ImgContainer>
                 <ScrollIcon />
               </ImgContainer>
               
               Tissus
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
-          <Link 
+          <NavLink 
               to="/mercerie"
-              style={LinkStyle}
-              // onClick={() => {
-              //   setIsActive(true)
-              // }}
-              // activeStyle={ActiveLinkStyle}
+              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
             >
+              
               <ImgContainer>
                 <FlowerIcon />
               </ImgContainer>
               Mercerie
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
-          <Link 
+          <NavLink 
               to="/patrons"
-              style={LinkStyle}
+              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
             >
               <ImgContainer>
                 <BookOpenIcon />
               </ImgContainer>
               Patrons
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
-          <Link 
+          <NavLink 
               to="/projets"
-              style={LinkStyle}
+              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
             >
               <ImgContainer>
                 <ApparelIcon />
               </ImgContainer>
               Projets
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
-          <Link 
+            <NavLink
               to="/profile"
-              style={LinkStyle}
+              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
             >
               <ImgContainer>
                 <PersonIcon />
               </ImgContainer>
               Maÿlis
-            </Link>
+            </NavLink>
           </LinkItem>
         </LinksWrapper>
     </BottomNavLinksContainer>

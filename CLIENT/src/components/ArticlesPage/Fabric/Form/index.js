@@ -178,14 +178,14 @@ export function FabricForm() {
         return () => URL.revokeObjectURL(objectUrl);
     }, [selectedFile]);
 
-    const onSelectFile = e => {
-        if (!e.target.files || e.target.files.length === 0) {
+    const onSelectFile = event => {
+        if (!event.target.files || event.target.files.length === 0) {
             setSelectedFile(undefined);
             return
         }
 
         // I've kept this example simple by using the first image instead of multiple
-        setSelectedFile(e.target.files[0]);
+        setSelectedFile(event.target.files[0]);
     }
 
     const handleSubmit = (event) => {

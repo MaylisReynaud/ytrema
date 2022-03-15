@@ -17,10 +17,10 @@ export function SignupForm(props) {
   return (
     <BoxContainer>
       <FormContainer>
-        <Input type="text" placeholder="Pseudo" />
-        <Input type="email" placeholder="Email" />
-        <Input type="password" placeholder="Mot de passe" />
-        <Input type="password" placeholder="Confirmez votre mot de passe" />
+        <Input name="pseudo" type="text" placeholder="Pseudo" />
+        <Input name="email" type="email" placeholder="Email" />
+        <Input name="password" type="password" placeholder="Mot de passe" autoComplete='on' />
+        <Input name="checkPassword" type="password" placeholder="Confirmez votre mot de passe" />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <SubmitButton 

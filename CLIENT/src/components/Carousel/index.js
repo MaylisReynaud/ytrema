@@ -30,7 +30,6 @@ export function Slider() {
             stopOnHover={true}
             showIndicators={false}
             swipeable={true}
-            
             dynamicHeight={true}
             animationHandler={'fade'}
         >
