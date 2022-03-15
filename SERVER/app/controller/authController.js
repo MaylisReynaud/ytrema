@@ -51,6 +51,15 @@ const authController = {
         try {
             const memberInfo = request.body;
 
+            // Is password and checkPassword matching ?
+            // If not, throw an error 409
+            if (memberInfo.password !== memberInfo.checkPassword) {
+                response.locals.type = 409;
+                response.locals.conflict =
+                `Les saisies dans les champs 'mot de passe' et 'confirmation du mot de passe' doivent être identiques`;
+                return next();
+            }
+
             // Hash password
             const hashedPwd = bcrypt.hashSync(
                 memberInfo.password,
