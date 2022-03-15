@@ -12,72 +12,29 @@ import { BottomNavLinksContainer,
          PersonIcon
 } from './style';
 import { NavLink } from 'react-router-dom';
-
+import { navLinks } from '../../../utils/navLinks';
 
 
 
 export function MobileBottomNavLinks(props) {
+
   return (
     
     <BottomNavLinksContainer>
       <LinksWrapper>
-          <LinkItem>
-            <NavLink 
-              to="/tissus"
-              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
-            >
-              <ImgContainer>
-                <ScrollIcon />
-              </ImgContainer>
-              
-              Tissus
-            </NavLink>
-          </LinkItem>
-          <LinkItem>
-          <NavLink 
-              to="/mercerie"
-              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
-            >
-              
-              <ImgContainer>
-                <FlowerIcon />
-              </ImgContainer>
-              Mercerie
-            </NavLink>
-          </LinkItem>
-          <LinkItem>
-          <NavLink 
-              to="/patrons"
-              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
-            >
-              <ImgContainer>
-                <BookOpenIcon />
-              </ImgContainer>
-              Patrons
-            </NavLink>
-          </LinkItem>
-          <LinkItem>
-          <NavLink 
-              to="/projets"
-              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
-            >
-              <ImgContainer>
-                <ApparelIcon />
-              </ImgContainer>
-              Projets
-            </NavLink>
-          </LinkItem>
-          <LinkItem>
-            <NavLink
-              to="/profile"
-              style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
-            >
-              <ImgContainer>
-                <PersonIcon />
-              </ImgContainer>
-              Maÿlis
-            </NavLink>
-          </LinkItem>
+      {navLinks.map((navLink) => (
+        <LinkItem key={navLink.id}>
+        <NavLink 
+          to={navLink.path}
+          style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
+        >
+          <ImgContainer>
+            <ScrollIcon />
+          </ImgContainer>
+          {navLink.name}
+        </NavLink>
+      </LinkItem>
+      ))}
         </LinksWrapper>
     </BottomNavLinksContainer>
   );
