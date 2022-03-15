@@ -6,9 +6,9 @@ INSERT INTO "member"("id", "pseudo", "email", "password", "chest_measurement", "
     OVERRIDING SYSTEM VALUE
     VALUES(1, 'Mays', 'mays@gmail.com', 'Passw12ord/', 90, 60, 90, 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Blank&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=Default&mouthType=Default&skinColor=Brown');
 
-INSERT INTO "haberdashery"("id", "name", "website", "haberdashery", "quantity", "price", "size", "color", "precise_color", "unity", "member_id")
+INSERT INTO "haberdashery"("id", "name", "website", "haberdashery", "quantity", "price", "size", "color", "precise_color", "unity", "is_cut", "member_id")
     OVERRIDING SYSTEM VALUE
-    VALUES(1, 'Bouton Canopy Cactus', 'https://atelierbrunette.com/', 'Bouton', 2, 1.20, 10, 'Vert', 'vert cactus', 'mm', 1);
+    VALUES(1, 'Bouton Canopy Cactus', 'https://atelierbrunette.com/', 'Bouton', 2, 1.20, 10, 'Vert', 'vert cactus', 'mm', false, 1);
 
 INSERT INTO "review"("id", "content", "member_id")
     OVERRIDING SYSTEM VALUE
