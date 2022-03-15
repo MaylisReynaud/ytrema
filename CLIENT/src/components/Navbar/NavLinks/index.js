@@ -1,70 +1,42 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { NavLinksContainer, 
          LinksWrapper,
          LinkItem,
          LinkStyle,
          ActiveLinkStyle,
-         ImgContainer,
-         ScrollIcon,
-         FlowerIcon,
-         BookOpenIcon,
-         ApparelIcon,
+         IconContainer,
+         IconStyle
 } from './style';
-
-
-
-
+import { NavLink } from 'react-router-dom';
+import { navLinks } from '../../../utils/navLinks';
+import { iconsNavLinks } from '../../../utils/iconsNavLinks';
 
 
 export function NavLinks(props) {
   return (
     <NavLinksContainer>
       <LinksWrapper>
-          <LinkItem>
-            <Link 
-              to="/tissus"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <ScrollIcon />
-              </ImgContainer>
-              Tissus
-            </Link>
-          </LinkItem>
-          <LinkItem>
-            <Link 
-                to="/mercerie"
-                style={LinkStyle}
-              >
-                <ImgContainer>
-                  <FlowerIcon />
-                </ImgContainer>
-                Mercerie
-            </Link>
-          </LinkItem>
-          <LinkItem>
-            <Link
-              to="/patrons"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <BookOpenIcon />
-              </ImgContainer>
-              Patrons
-            </Link>
-          </LinkItem>
-          <LinkItem>
-            <Link 
-                to="/projets"
-                style={LinkStyle}
-              >
-              <ImgContainer>
-                <ApparelIcon />
-              </ImgContainer>
-              Projets
-            </Link>
-          </LinkItem>
+      {navLinks.map((navLink, index) => {
+        const Icon = iconsNavLinks[index];
+
+        return (
+          <LinkItem key={navLink.id}>
+          <NavLink 
+            to={navLink.path}
+            style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
+          >
+            <IconContainer>
+              <Icon 
+              style= {IconStyle}
+              />
+            </IconContainer>
+            {navLink.name}
+          </NavLink>
+        </LinkItem>
+        )
+
+      })}
+
         </LinksWrapper>
     </NavLinksContainer>
   );

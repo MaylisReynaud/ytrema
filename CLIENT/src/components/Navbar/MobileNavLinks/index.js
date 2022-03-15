@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import  { Connection }  from '../Connection';
 import { MenuToggle } from '../MenuToggle';
 import { NavLinksContainer,
@@ -29,56 +29,56 @@ export function MobileNavLinks(props) {
             <ImgSpan>
               <Scroll />
             </ImgSpan>
-            <Link 
+            <NavLink 
               to ="/tissus"
               style={LinkStyle}
             >
               Tissus
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Flower1 />
             </ImgSpan>
-            <Link 
+            <NavLink 
               to="/mercerie"
               style={LinkStyle}
             >
               Mercerie
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <BookOpen />
             </ImgSpan>
-            <Link 
+            <NavLink 
               to="/patrons"
               style={LinkStyle}
             >
               Patrons
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Apparel />
             </ImgSpan>
-            <Link 
+            <NavLink 
               to="/projets "
               style={LinkStyle}
             >
               Projets
-            </Link>
+            </NavLink>
           </LinkItem>
           <LinkItem>
             <ImgSpan>
               <Person />
             </ImgSpan>
-            <Link 
-              to="/mon-compte "
+            <NavLink 
+              to="/profile "
               style={LinkStyle}
             >
               Maÿlis
-            </Link>
+            </NavLink>
           </LinkItem>
           <Marginer />
           <Connection />

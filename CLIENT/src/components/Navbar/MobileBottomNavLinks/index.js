@@ -5,8 +5,7 @@ import { BottomNavLinksContainer,
          LinkStyle, 
          ActiveLinkStyle,        
          IconContainer,
-         IconStyle
-         
+         IconStyle 
 } from './style';
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../../../utils/navLinks';
