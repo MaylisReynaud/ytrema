@@ -12,7 +12,7 @@ export const navLinks = [
     {
       id:3,
       name: 'Patrons',
-      path: '/patrons'
+      path: '/patrons',
     },
     {
       id:4,
