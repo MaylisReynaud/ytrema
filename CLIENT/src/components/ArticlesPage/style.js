@@ -1,6 +1,17 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
+import { DeviceSize } from '../Navbar/Responsive';
 
+export const TitleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+export const ButtonContainer = styled.div`
+display: flex;
+width: 100%;
+justify-content: center;
+`;
 
 export const Title = styled.h1`
     color: ${props => props.theme.color3};
@@ -9,13 +20,23 @@ export const Title = styled.h1`
     margin: 1rem;
     text-align: center;
 `;
+export const DesktopContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width:100%;
+`;
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
     width:100%;
+    @media screen and (min-width:601px) { 
+        flex-direction: row;
+  }
 `;
+
 
 export const TopContainer = styled.div`
     display: flex;
@@ -24,7 +45,20 @@ export const TopContainer = styled.div`
     height: 10vh;
     width:100%;
     margin:0;
+    @media screen and (min-width:601px) { 
+      justify-content: unset;
+  }
 `;
+export const LeftContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 10vh;
+    width:17%;
+    margin:1rem;
+
+`;
+
 
 export const RegisterArticleButton = styled(motion.button)`
   border: 0;
@@ -52,6 +86,10 @@ export const RegisterArticleButton = styled(motion.button)`
   &:not(:last-of-type) {
     margin-right: 7px;
   };
+  @media screen and (min-width:601px) { 
+    width:100%;  
+    padding: 0.5rem 1.2rem;
+  }
 `;
 
 export const FiltersButton = styled(motion.button)`
@@ -85,6 +123,7 @@ export const FiltersButton = styled(motion.button)`
   &:not(:last-of-type) {
     margin-right: 7px;
   };
+
 `;
 
 export const FilterSpan = styled.span`
@@ -105,42 +144,58 @@ export const buttonVariants = {
   };
 
 export const CardsContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    justify-content: space-evenly;
-    height:100vh;
-    width:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  height:100vh;
+  width:100%;
     
   `;
 
 export const CardContainer = styled.div`
-background-color: #fff;
-display: flex;
-flex-direction: column;
-height:25%;
-width:45%;
-margin: .5rem;
-/* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  height:25%;
+  width:45%;
+  margin: .5rem;
+  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 `;
 
 export const CardImg = styled.img`
-background-color: yellow;
-height:65%;
-width:100%;
+  background-color: yellow;
+  height:65%;
+  width:100%;
 `;
 
 export const CardText = styled.h3`
-background-color: ${props => props.theme.color4};
-height:35%;
-width:100%;
-text-align: center;
-padding: 0 .3rem;
-display: flex;
-align-items: center;
-font : 0.9rem/1.5 '${props => props.theme.textFont}';
-color: ${props => props.theme.color5};
-border-bottom: 2px solid ${props => props.theme.color1};
+  background-color: ${props => props.theme.color4};
+  height:35%;
+  width:100%;
+  text-align: center;
+  padding: 0 .3rem;
+  display: flex;
+  align-items: center;
+  font : 0.9rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color5};
+  border-bottom: 2px solid ${props => props.theme.color1};
+`;
+
+export const FilterContainer = styled.div`
+  height:100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid ${props => props.theme.color3};
+  margin-top: 1rem;
+`;
+
+export const FilterTitle = styled.h2`
+  font : 1.2rem/1.5 '${props => props.theme.textFont}';
+  font-weight: 700;
+  color: ${props => props.theme.color5};
+  margin: 0.5rem 1rem;
 `;
