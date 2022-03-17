@@ -1,10 +1,11 @@
-require("dotenv").config();
+// IMPORT
 const authDataMapper = require("../datamapper/authDataMapper");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = process.env.SALTROUNDS;
 
 const authController = {
+    
     async handleLoginForm(request, response, next) {
         try {
             const { email, password } = request.body;
@@ -56,33 +57,33 @@ const authController = {
             if (memberInfo.password !== memberInfo.checkPassword) {
                 response.locals.type = 409;
                 response.locals.conflict =
-                `Les saisies dans les champs 'mot de passe' et 'confirmation du mot de passe' doivent être identiques`;
+                `Les saisies dans les champs 'mot de passe' et 'confirmation du mot de passe' doivent être identiques.`;
                 return next();
             }
-
-            // Hash password
+            
+            // If yes, hash the password
             const hashedPwd = bcrypt.hashSync(
                 memberInfo.password,
                 Number(saltRounds)
-            );
-
-            // Replace the password by hashed password
-            memberInfo.password = hashedPwd;
-
-            // Create the member in DB
-            const newMember = await authDataMapper.createMember(memberInfo);
-
-            // In this case, DB's result is null because the member's email is already in DB
-            if (!newMember) {
-                response.locals.notFound =
+                );
+                
+                // Replace the password by hashed password
+                memberInfo.password = hashedPwd;
+                
+                // Create the member in DB
+                const newMember = await authDataMapper.createMember(memberInfo);
+                
+                // In this case, DB's result is null because the member's email is already in DB
+                if (!newMember) {
+                    response.locals.notFound =
                     "Une erreur est survenue, votre compte n'a pas pu être créé.";
-                return next();
-            }
-
-            // In this case, the member's pseudo is already used in DB
-            if (newMember === "pseudoAlreadyUsed") {
-                response.locals.type = 409;
-                response.locals.conflict =
+                    return next();
+                }
+                
+                // In this case, the member's pseudo is already used in DB
+                if (newMember === "pseudoAlreadyUsed") {
+                    response.locals.type = 409;
+                    response.locals.conflict =
                 "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
                 return next();
             }

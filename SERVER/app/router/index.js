@@ -5,9 +5,11 @@ const authController = require('../controller/authController');
 const errorController = require('../controller/errorController');
 
 // Router import
+const memberRouter = require('./memberRouter');
 
 // Middleware import
 const auth = require('../middleware/auth');
+const checkMember = require('../middleware/checkMember');
 
 const router = express.Router();
 
@@ -15,9 +17,12 @@ const router = express.Router();
 router.post('/login', authController.handleLoginForm);
 router.post('/signup', authController.handleSignForm);
 
+// secure router via middleware
 router.use(auth);
+router.use(checkMember);
 
 // member router
+router.use('/member', memberRouter);
 // haberdashery router
 // review router
 // fabric router
