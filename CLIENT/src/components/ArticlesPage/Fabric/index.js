@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
-
 import { FabricModal } from './Modal';
 import { Container, 
          Title,
@@ -23,6 +22,7 @@ import { Container,
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { fabricData } from '../../../utils/fabricData';
+import { FilterChoices } from './FilterChoices';
 
 
 export function Fabric (props) {
@@ -95,8 +95,9 @@ export function Fabric (props) {
                     </ButtonContainer>
                     <FilterContainer>
                         <FilterTitle>
-                            Filtres
+                            Tissus
                         </FilterTitle>
+                        <FilterChoices />
                     </FilterContainer>
                     
                 </LeftContainer>

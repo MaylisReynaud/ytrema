@@ -189,7 +189,6 @@ export const FilterContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid ${props => props.theme.color3};
   margin-top: 1rem;
 `;
 
@@ -199,3 +198,4 @@ export const FilterTitle = styled.h2`
   color: ${props => props.theme.color5};
   margin: 0.5rem 1rem;
 `;
+
