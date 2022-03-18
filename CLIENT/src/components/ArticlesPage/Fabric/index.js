@@ -36,24 +36,29 @@ export function Fabric (props) {
         setShowModal(prev=> !prev)
     };
     const [showFilter, setShowFilter] = useState(true);
-    const isOpenFilter = () => {
+    const isOpenFilter = (event) => {
+       console.log(event.target, 'event.target dans isOpenFilter');
         setShowFilter(prev => !prev);
     };
     console.log(showFilter, 'dans fabric');
     const mapCategoriesFilter = (categoryObject) => {
         return (
             <>
-                <FilterTitle>
+                <FilterTitle
+                    className={categoryObject[0].title}
+                    value={categoryObject[0].title}
+                >
                     {categoryObject[0].title}
                     {showFilter ? 
+                    <MinusIcon 
+                    onClick={isOpenFilter}
+                    />
+                    :
                     <PlusIcon
                     onClick={isOpenFilter}
                     showFilter={showFilter}
                     />
-                    :
-                    <MinusIcon 
-                        onClick={isOpenFilter}
-                    />
+                    
                     }
                             
                             
@@ -61,6 +66,7 @@ export function Fabric (props) {
                 <FilterChoices 
                     showFilter={showFilter}
                     categories={categoryObject}
+                    value={categoryObject[0].title}
                 />
             </>
             

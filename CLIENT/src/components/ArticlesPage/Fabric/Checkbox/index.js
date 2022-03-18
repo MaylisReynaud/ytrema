@@ -8,6 +8,7 @@ import { Icon,
 export function Checkbox({className, name, ...props}) {
     const [checked, setChecked] = useState(false);
     const handleCheckboxChange = (event) => {
+        console.log({...props}, '...props dans Checkbox')
         setChecked( event.target.checked); 
     };
   return (
@@ -17,7 +18,6 @@ export function Checkbox({className, name, ...props}) {
         <HiddenCheckbox
             checked={checked}
             onChange={handleCheckboxChange}
-            value={name}
             {...props}
         />
         <StyledCheckbox

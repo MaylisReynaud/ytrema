@@ -3,7 +3,8 @@ export const fabrics = [
         id: 1,
         label: 'Batiste',
         name: 'Batiste',
-        title: 'Tissus'
+        title: 'Tissus',
+        key: 1
     },
     {
         id: 2,
@@ -24,7 +25,8 @@ export const designers = [
         id: 1,
         label: 'Églantine & Zoé',
         name: 'Églantine & Zoé',
-        title: 'Designers'
+        title: 'Designers',
+        key: 2
     },
     {
         id: 2,
@@ -46,7 +48,8 @@ export const colors = [
         label: 'Vert',
         name: 'Vert',
         color: 'green',
-        title: 'Couleurs'
+        title: 'Couleurs',
+        key: 3
     },
     {
         id: 2,
