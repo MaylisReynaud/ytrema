@@ -44,7 +44,7 @@ export function Fabric (props) {
         return (
             <>
                 <FilterTitle>
-                    Tissus
+                    {categoryObject[0].title}
                     {showFilter ? 
                     <PlusIcon
                     onClick={isOpenFilter}
