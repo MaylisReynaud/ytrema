@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import { DeviceSize } from '../Navbar/Responsive';
+import { MinusSm } from '@styled-icons/heroicons-solid';
+import { PlusSm } from '@styled-icons/heroicons-solid';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -197,5 +199,30 @@ export const FilterTitle = styled.h2`
   font-weight: 700;
   color: ${props => props.theme.color5};
   margin: 0.5rem 1rem;
+  position: relative;
 `;
 
+
+export const MinusIcon = styled(MinusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color5};
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    z-index: 100;
+`;
+
+export const PlusIcon = styled(PlusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color5};
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    z-index: 100;
+`;

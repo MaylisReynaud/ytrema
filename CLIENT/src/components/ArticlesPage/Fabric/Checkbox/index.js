@@ -8,7 +8,6 @@ import { Icon,
 export function Checkbox({className, name, ...props}) {
     const [checked, setChecked] = useState(false);
     const handleCheckboxChange = (event) => {
-        console.log(event.target.value)
         setChecked( event.target.checked); 
     };
   return (

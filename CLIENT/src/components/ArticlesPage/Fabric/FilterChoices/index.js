@@ -1,34 +1,38 @@
-import React, {useState} from 'react';
-import  fabricFilterChoices  from '../../../../utils/fabricFilterChoices';
+import React from 'react';
 import { Checkbox } from '../Checkbox';
 import { CheckboxLabel,
          CheckboxesContainer,
          SpanLabel
         } from './style';
 
-export function FilterChoices () {
-    
+export function FilterChoices ({showFilter, categories}) {
+
     return (
-        <CheckboxesContainer>
-        {fabricFilterChoices.map((fabric, index) => (
-           
-                <CheckboxLabel 
-                    key={index}
-                    htmlFor={fabric.id}>
+        <>
+        {showFilter ?
+            <CheckboxesContainer>
+                {categories.map((category, index) => (
+                
+                        <CheckboxLabel 
+                            key={index}
+                            htmlFor={category.id}>
+                            
+                            <Checkbox
+                                key={category.id}
+                                id= {category.id}
+                                name= {category.name}
+                                                
+                            /> 
+                            <SpanLabel> {category.name} </SpanLabel>
+                        </CheckboxLabel>
+                
+                ))}
                     
-                    <Checkbox
-                        key={fabric.id}
-                        id= {fabric.id}
-                        name= {fabric.name}
-                                         
-                    /> 
-                    <SpanLabel> {fabric.name} </SpanLabel>
-                </CheckboxLabel>
-           
-        ))}
-            
-        </CheckboxesContainer>
+                </CheckboxesContainer>
+        : null}
+        </> 
     )
+    
 };
 
     

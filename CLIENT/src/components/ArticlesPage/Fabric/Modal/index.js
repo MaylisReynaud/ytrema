@@ -11,13 +11,13 @@ import { FabricForm } from '../Form';
 
 export const FabricModal = ({showModal, setShowModal}) => {
     const modalRef = useRef();
-    const closeModal = e => {
-        if (modalRef.current === e.target) {
+    const closeModal = event => {
+        if (modalRef.current === event.target) {
             setShowModal(false);
         }
     };
-    const keyPress = useCallback(e => {
-        if(e.key === 'Escape' && showModal) {
+    const keyPress = useCallback(event => {
+        if(event.key === 'Escape' && showModal) {
             setShowModal(false)
         }
     },  [setShowModal, showModal]);

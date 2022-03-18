@@ -19,10 +19,13 @@ import { Container,
          DesktopContainer,
          FilterContainer,
          FilterTitle,
+         MinusIcon,
+         PlusIcon
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { fabricData } from '../../../utils/fabricData';
 import { FilterChoices } from './FilterChoices';
+import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 
 
 export function Fabric (props) {
@@ -32,7 +35,38 @@ export function Fabric (props) {
     const openModal = () => {
         setShowModal(prev=> !prev)
     };
-
+    const [showFilter, setShowFilter] = useState(true);
+    const isOpenFilter = () => {
+        setShowFilter(prev => !prev);
+    };
+    console.log(showFilter, 'dans fabric');
+    const mapCategoriesFilter = (categoryObject) => {
+        return (
+            <>
+                <FilterTitle>
+                    Tissus
+                    {showFilter ? 
+                    <PlusIcon
+                    onClick={isOpenFilter}
+                    showFilter={showFilter}
+                    />
+                    :
+                    <MinusIcon 
+                        onClick={isOpenFilter}
+                    />
+                    }
+                            
+                            
+                </FilterTitle>
+                <FilterChoices 
+                    showFilter={showFilter}
+                    categories={categoryObject}
+                />
+            </>
+            
+        )
+    }
+   
   return (
     <>
         {isMobile && (
@@ -94,11 +128,30 @@ export function Fabric (props) {
                         />
                     </ButtonContainer>
                     <FilterContainer>
-                        <FilterTitle>
+                        {mapCategoriesFilter(fabrics)}
+                        {mapCategoriesFilter(colors)}
+                        {mapCategoriesFilter(designers)}
+                        {/* <FilterTitle>
                             Tissus
+                            {showFilter ? 
+                            <PlusIcon
+                            onClick={isOpenFilter}
+                            showFilter={showFilter}
+                            />
+                            :
+                            <MinusIcon 
+                                onClick={isOpenFilter}
+                            />
+                            }
+                            
+                            
                         </FilterTitle>
-                        <FilterChoices />
+                        <FilterChoices 
+                            showFilter={showFilter}
+                            categories={designers}
+                        /> */}
                     </FilterContainer>
+                    
                     
                 </LeftContainer>
                 <CardsContainer>
