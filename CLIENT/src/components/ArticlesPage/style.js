@@ -165,13 +165,21 @@ export const CardContainer = styled.div`
   margin: .5rem;
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  @media screen and (min-width:601px) { 
+    width:20%;
+  }
+`;
+
+export const ImgContainer = styled.div`
+  height:65%;
 `;
 
 export const CardImg = styled.img`
   background-color: yellow;
-  height:65%;
+  object-fit: cover;
   width:100%;
-`;
+  height:100%;
+`
 
 export const CardText = styled.h3`
   background-color: ${props => props.theme.color4};

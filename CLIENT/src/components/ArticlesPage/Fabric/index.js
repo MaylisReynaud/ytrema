@@ -20,7 +20,8 @@ import { Container,
          FilterContainer,
          FilterTitle,
          MinusIcon,
-         PlusIcon
+         PlusIcon,
+         ImgContainer
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { fabricData } from '../../../utils/fabricData';
@@ -98,7 +99,9 @@ export function Fabric (props) {
             <CardsContainer>
                 {fabricData.map(fabric => (
                     <CardContainer key={fabric.id} >
-                    <CardImg src={fabric.image} alt={fabric.alt}/>
+                        <ImgContainer>
+                                <CardImg src={fabric.image} alt={fabric.alt}/>
+                            </ImgContainer>
                     <CardText>
                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                     </CardText>
@@ -162,7 +165,10 @@ export function Fabric (props) {
                     </TitleContainer>
                     {fabricData.map(fabric => (
                         <CardContainer key={fabric.id} >
-                        <CardImg src={fabric.image} alt={fabric.alt}/>
+                            <ImgContainer>
+                                <CardImg src={fabric.image} alt={fabric.alt}/>
+                            </ImgContainer>
+                        
                         <CardText>
                             {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                         </CardText>
