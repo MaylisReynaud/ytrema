@@ -5,7 +5,7 @@ import { Icon,
          CheckboxContainer,
         } from './style';
 
-export function Checkbox({className, name, ...props}) {
+export function Checkbox({className, name, id, dataId}) {
     const [checked, setChecked] = useState(false);
     const handleCheckboxChange = (event) => {
         setChecked( event.target.checked); 
@@ -17,13 +17,14 @@ export function Checkbox({className, name, ...props}) {
         <HiddenCheckbox
             checked={checked}
             onChange={handleCheckboxChange}
-            value={name}
-            {...props}
+            value={id}
+            name={name}
+            id={id}
+            data-id={dataId}
         />
         <StyledCheckbox
             checked={checked}
         >
-            {/* {console.log(checked, 'ici checked')} */}
             <Icon
                 viewBox="0 0 24 24"
             >

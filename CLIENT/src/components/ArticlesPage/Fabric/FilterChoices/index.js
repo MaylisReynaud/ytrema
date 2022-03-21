@@ -15,13 +15,13 @@ export function FilterChoices ({showFilter, categories}) {
                 
                         <CheckboxLabel 
                             key={index}
-                            htmlFor={category.id}>
+                            htmlFor={category.name}>
                             
                             <Checkbox
                                 key={category.id}
-                                id= {category.id}
-                                name= {category.name}
-                                                
+                                id= {category.name}
+                                name= {category.title}
+                                dataId={category.id}                
                             /> 
                             <SpanLabel> {category.name} </SpanLabel>
                         </CheckboxLabel>
