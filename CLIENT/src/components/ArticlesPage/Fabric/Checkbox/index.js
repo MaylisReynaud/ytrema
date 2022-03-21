@@ -7,8 +7,11 @@ import { Icon,
 
 export function Checkbox({className, name, id, dataId}) {
     const [checked, setChecked] = useState(false);
+    const [selectedFabric, setSelectedFabric] = useState([]);
     const handleCheckboxChange = (event) => {
         setChecked( event.target.checked); 
+        setSelectedFabric(event.target.id);
+        console.log(selectedFabric);
     };
   return (
     <CheckboxContainer 
@@ -21,6 +24,7 @@ export function Checkbox({className, name, id, dataId}) {
             name={name}
             id={id}
             data-id={dataId}
+            selectedFabric={selectedFabric}
         />
         <StyledCheckbox
             checked={checked}
