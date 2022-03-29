@@ -33,7 +33,7 @@ const memberController = {
 
             // If password to update
             if (memberInfo.password) {
-                // Check if password and check-password matche
+                // Check if password and check-password match
                 const result = await checkingPassword.doBothPwdMatch(
                     memberInfo.password,
                     memberInfo.checkPassword

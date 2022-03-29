@@ -1,11 +1,9 @@
 // IMPORT
 const authDataMapper = require("../datamapper/authDataMapper");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const saltRounds = process.env.SALTROUNDS;
+const checkingPassword = require("../services/utils_functions");
 
 const authController = {
-    
     async handleLoginForm(request, response, next) {
         try {
             const { email, password } = request.body;
@@ -23,7 +21,10 @@ const authController = {
             const { id, pseudo, password: storedHashedPwd } = getMember;
 
             // Compare stored password with request.body.password
-            const validPwd = bcrypt.compareSync(password, storedHashedPwd);
+            const validPwd = await checkingPassword.comparePwd(
+                password,
+                storedHashedPwd
+            );
 
             // Incorrect entered password
             if (!validPwd) {
@@ -32,7 +33,7 @@ const authController = {
             }
 
             // Login/ password valid give the member a token
-            response.json({
+            response.status(200).json({
                 id,
                 pseudo,
                 memberToken: jwt.sign(
@@ -52,44 +53,49 @@ const authController = {
         try {
             const memberInfo = request.body;
 
-            // Is password and checkPassword matching ?
+            // Are password and checkPassword matching ?
+            const result = await checkingPassword.doBothPwdMatch(
+                memberInfo.password,
+                memberInfo.checkPassword
+            );
+
             // If not, throw an error 409
-            if (memberInfo.password !== memberInfo.checkPassword) {
-                response.locals.type = 409;
-                response.locals.conflict =
-                `Les saisies dans les champs 'mot de passe' et 'confirmation du mot de passe' doivent être identiques.`;
+            if (result.message) {
+                response.locals.type = result.type;
+                response.locals.conflict = result.message;
+
+                // Go to errorController
                 return next();
             }
-            
+
             // If yes, hash the password
-            const hashedPwd = bcrypt.hashSync(
-                memberInfo.password,
-                Number(saltRounds)
-                );
-                
-                // Replace the password by hashed password
-                memberInfo.password = hashedPwd;
-                
-                // Create the member in DB
-                const newMember = await authDataMapper.createMember(memberInfo);
-                
-                // In this case, DB's result is null because the member's email is already in DB
-                if (!newMember) {
-                    response.locals.notFound =
+            const hashedPwd = await checkingPassword.hashPwd(
+                memberInfo.password
+            );
+
+            // Replace the password by hashed password
+            memberInfo.password = hashedPwd;
+
+            // Create the member in DB
+            const newMember = await authDataMapper.createMember(memberInfo);
+
+            // In this case, DB's result is null because the member's email is already in DB
+            if (!newMember) {
+                response.locals.notFound =
                     "Une erreur est survenue, votre compte n'a pas pu être créé.";
-                    return next();
-                }
-                
-                // In this case, the member's pseudo is already used in DB
-                if (newMember === "pseudoAlreadyUsed") {
-                    response.locals.type = 409;
-                    response.locals.conflict =
-                "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
+                return next();
+            }
+
+            // In this case, the member's pseudo is already used in DB
+            if (newMember === "pseudoAlreadyUsed") {
+                response.locals.type = 409;
+                response.locals.conflict =
+                    "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
                 return next();
             }
 
             // Here, the member is registered in DB
-            response.json({ newMember });
+            response.status(200).json({ newMember });
         } catch (error) {
             next(error);
         }

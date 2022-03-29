@@ -20,6 +20,11 @@ const checkingPassword = {
         // Return hashed password
         return bcrypt.hashSync(password, Number(saltRounds));
     },
+
+    // Function to compare the password and the hashed password stored in DB
+    async comparePwd(password, storedHashedPwd) {
+        return bcrypt.compareSync(password, storedHashedPwd);
+    }
 };
 
 module.exports = checkingPassword;
