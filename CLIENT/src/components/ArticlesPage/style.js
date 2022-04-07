@@ -25,8 +25,9 @@ export const Title = styled.h1`
 export const DesktopContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width:100%;
+  /* background-color: salmon;
+  overflow-y:hidden; */
 `;
 
 export const Container = styled.div`
@@ -36,6 +37,8 @@ export const Container = styled.div`
     width:100%;
     @media screen and (min-width:601px) { 
         flex-direction: row;
+        position: fixed;
+        overflow-y:hidden;
   }
 `;
 
@@ -55,9 +58,10 @@ export const LeftContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 10vh;
+    height: 70%;
+    overflow-y: scroll;
     width:17%;
-    margin:1rem;
+    margin:2rem;
 
 `;
 

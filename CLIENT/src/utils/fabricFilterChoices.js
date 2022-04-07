@@ -59,6 +59,42 @@ export const fabrics = [
         name: 'Viscosea',
         title: 'Tissus'
     },
+    {
+        id: 11,
+        label: 'Bords-côteszs',
+        name: 'Bords-côteszs',
+        title: 'Tissus'
+    },
+    {
+        id: 12,
+        label: 'Viscoseer',
+        name: 'Viscoseer',
+        title: 'Tissus'
+    },
+    {
+        id: 13,
+        label: 'Bords-côtessts',
+        name: 'Bords-côtessts',
+        title: 'Tissus'
+    },
+    {
+        id: 14,
+        label: 'Viscosezu',
+        name: 'Viscosezu',
+        title: 'Tissus'
+    },
+    {
+        id: 15,
+        label: 'Bords-côtesak',
+        name: 'Bords-côtesak',
+        title: 'Tissus'
+    },
+    {
+        id: 16,
+        label: 'Viscoseal',
+        name: 'Viscoseal',
+        title: 'Tissus'
+    },
 ];
 
 export const designers = [
@@ -138,6 +174,27 @@ export const colors = [
         id: 6,
         label: 'Viscosep',
         name: 'Viscosep',
+        title: 'Couleurs'
+    },
+    {
+        id: 7,
+        label: 'Verte',
+        name: 'Verte',
+        color: 'green',
+        title: 'Couleurs'
+    },
+    {
+        id: 8,
+        label: 'Bleue',
+        name: 'Bleue',
+        color: 'blue',
+        title: 'Couleurs'
+    },
+    {
+        id: 9,
+        label: 'Jaunez',
+        name: 'Jaunez',
+        color: 'yellow',
         title: 'Couleurs'
     },
 ];
