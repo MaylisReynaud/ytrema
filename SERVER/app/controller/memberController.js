@@ -14,6 +14,9 @@ const memberController = {
             // In this case, any data has not found from DB
             if (!member) {
                 response.locals.notFound = "Données non trouvées";
+
+                // Go to errorController
+                return next();
             }
 
             // Send data to the client
@@ -72,7 +75,7 @@ const memberController = {
             // Any rows weren't updated in DB because they haven't been found
             if (!updateMemberProfil) {
                 response.locals.notFound =
-                    "Une erreur est survenue : donnée(s) non trouvée(s). Vos informations n'ont pas pu être mis à jour.";
+                    "Une erreur est survenue : donnée(s) non trouvée(s). Vos informations n'ont pas pu être mises à jour.";
                 return next();
             }
 

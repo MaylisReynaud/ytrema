@@ -6,6 +6,7 @@ const errorController = require('../controller/errorController');
 
 // Router import
 const memberRouter = require('./memberRouter');
+const fabricRouter = require('./fabricRouter');
 
 // Middleware import
 const auth = require('../middleware/auth');
@@ -23,9 +24,10 @@ router.use(checkMember);
 
 // member router
 router.use('/member', memberRouter);
+// fabric router
+router.use('/fabric', fabricRouter);
 // haberdashery router
 // review router
-// fabric router
 // project router
 // pattern router
 // photo router
