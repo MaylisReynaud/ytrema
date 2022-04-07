@@ -6,13 +6,14 @@ import { CheckboxLabel,
         } from './style';
 
 export function FilterChoices ({showFilter, categories}) {
+    {console.log(categories, 'ici categories')}
 
     return (
         <>
         {showFilter ?
             <CheckboxesContainer>
                 {categories.map((category, index) => (
-                
+               
                         <CheckboxLabel 
                             key={index}
                             htmlFor={category.name}>

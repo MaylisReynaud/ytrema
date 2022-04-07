@@ -17,6 +17,48 @@ export const fabrics = [
         name: 'Viscose',
         title: 'Tissus'
     },
+    {
+        id: 4,
+        label: 'Batiste',
+        name: 'Batiste',
+        title: 'Tissus'
+    },
+    {
+        id: 5,
+        label: 'Bords-côtes',
+        name: 'Bords-côtes',
+        title: 'Tissus'
+    },
+    {
+        id: 6,
+        label: 'Viscose',
+        name: 'Viscose',
+        title: 'Tissus'
+    },
+    {
+        id: 7,
+        label: 'Bords-côtes',
+        name: 'Bords-côtes',
+        title: 'Tissus'
+    },
+    {
+        id: 8,
+        label: 'Viscose',
+        name: 'Viscose',
+        title: 'Tissus'
+    },
+    {
+        id: 9,
+        label: 'Bords-côtes',
+        name: 'Bords-côtes',
+        title: 'Tissus'
+    },
+    {
+        id: 10,
+        label: 'Viscose',
+        name: 'Viscose',
+        title: 'Tissus'
+    },
 ];
 
 export const designers = [

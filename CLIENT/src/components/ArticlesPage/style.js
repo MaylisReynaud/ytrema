@@ -195,19 +195,34 @@ export const CardText = styled.h3`
 `;
 
 export const FilterContainer = styled.div`
-  height:100%;
   width: 100%;
   display: flex;
+  flex-grow:1;
   flex-direction: column;
-  margin-top: 1rem;
+  flex-shrink:1;
+  margin-top: 0.3rem;
+  @media screen and (min-width:601px) { 
+    height:100%;
+    /* width: 100%;
+    display: flex;
+    flex-direction: column; */
+    overflow-y: visible;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    
+  }
 `;
+
 
 export const FilterTitle = styled.h2`
   font : 1.2rem/1.5 '${props => props.theme.textFont}';
   font-weight: 700;
   color: ${props => props.theme.color5};
-  margin: 0.5rem 1rem;
+  margin: 0.1rem 1rem;
   position: relative;
+  @media screen and (min-width:601px) { 
+    margin: 0.5rem 1rem;
+  }
 `;
 
 

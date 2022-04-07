@@ -36,6 +36,11 @@ export function Fabric (props) {
     const openModal = () => {
         setShowModal(prev=> !prev)
     };
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
+    console.log(showMobileFilters, 'ici show mobile filters');
+    const isOpenMobileFilters = () => {
+        setShowMobileFilters(prev=> !prev)
+    };
     const mapCategoriesFilter = (categoryObject) => {
 
       const [showFilter, setShowFilter] = useState(true);
@@ -45,24 +50,56 @@ export function Fabric (props) {
 
         return (
             <>
+            {isDesktop && (
+                <>
                 <FilterTitle>
-                    {categoryObject[0].title}
-                    {showFilter ? 
-                    <PlusIcon
-                    onClick={isOpenFilter}
-                    />
-                    :
-                    <MinusIcon 
-                        onClick={isOpenFilter}
-                    />
-                    }
-                            
-                            
-                </FilterTitle>
-                <FilterChoices 
-                    showFilter={showFilter}
-                    categories={categoryObject}
+                {categoryObject[0].title}
+                {showFilter ? 
+                <MinusIcon
+                onClick={isOpenFilter}
                 />
+                :
+                <PlusIcon 
+                    onClick={isOpenFilter}
+                />
+                }
+                        
+                        
+            </FilterTitle>
+            <FilterChoices 
+                showFilter={showFilter}
+                categories={categoryObject}
+            />
+            </>
+            )
+            }
+            {isMobile && showMobileFilters && (
+                <>
+                <FilterContainer>
+                <FilterTitle>
+                {categoryObject[0].title}
+                {showFilter ? 
+                <PlusIcon
+                onClick={isOpenFilter}
+                />
+                :
+                <MinusIcon 
+                    onClick={isOpenFilter}
+                />
+                }
+                        
+                        
+            </FilterTitle>
+            <FilterChoices 
+                showFilter={showFilter}
+                categories={categoryObject}
+            />
+                </FilterContainer>
+
+            </>
+            )
+            }
+                
             </>
             
         )
@@ -89,6 +126,7 @@ export function Fabric (props) {
                 />
                 <FiltersButton
                     style= {buttonVariants}
+                    onClick = {isOpenMobileFilters}
                 >
                    <FilterSpan>
                        <FilterAlt />
@@ -96,6 +134,18 @@ export function Fabric (props) {
                         Filtres
                 </FiltersButton>
             </TopContainer>
+            
+           
+            {mapCategoriesFilter(fabrics)}
+            {mapCategoriesFilter(colors)}
+            {mapCategoriesFilter(designers)}
+        
+        
+            
+                
+      
+            
+            
             <CardsContainer>
                 {fabricData.map(fabric => (
                     <CardContainer key={fabric.id} >
@@ -134,25 +184,6 @@ export function Fabric (props) {
                         {mapCategoriesFilter(fabrics)}
                         {mapCategoriesFilter(colors)}
                         {mapCategoriesFilter(designers)}
-                        {/* <FilterTitle>
-                            Tissus
-                            {showFilter ? 
-                            <PlusIcon
-                            onClick={isOpenFilter}
-                            showFilter={showFilter}
-                            />
-                            :
-                            <MinusIcon 
-                                onClick={isOpenFilter}
-                            />
-                            }
-                            
-                            
-                        </FilterTitle>
-                        <FilterChoices 
-                            showFilter={showFilter}
-                            categories={designers}
-                        /> */}
                     </FilterContainer>
                     
                     
