@@ -3,15 +3,14 @@ import styled from 'styled-components';
 
 export const CheckboxesContainer = styled.div`
     display: flex;
-    overflow-y: scroll;
-    height: 60px;
     flex-direction: column;
     margin-left: 1rem;
-    flex-grow:1;
-    @media screen and (min-width:601px) {
-        height: 150px;
+    
+    @media screen and (max-width:600px) {
+        overflow-y: scroll;
+        scroll-behavior:smooth;
+        height: 60px;
         margin-bottom: 1rem;
-        /* overflow-y: visible; */
 
         
     }
@@ -20,9 +19,7 @@ export const CheckboxesContainer = styled.div`
 
 export const CheckboxLabel = styled.label`
  display: flex;
- background-color: green;
  &:last-child {
-     background-color: pink;
             margin-bottom: 1rem;
         }
  

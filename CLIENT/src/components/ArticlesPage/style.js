@@ -206,7 +206,7 @@ export const FilterContainer = styled.div`
     /* width: 100%;
     display: flex;
     flex-direction: column; */
-    overflow-y: visible;
+    /* overflow-y: visible; */
     margin-top: 1rem;
     margin-bottom: 1rem;
     

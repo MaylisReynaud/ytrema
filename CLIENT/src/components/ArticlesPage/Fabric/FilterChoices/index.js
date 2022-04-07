@@ -6,7 +6,7 @@ import { CheckboxLabel,
         } from './style';
 
 export function FilterChoices ({showFilter, categories}) {
-    {console.log(categories, 'ici categories')}
+
 
     return (
         <>

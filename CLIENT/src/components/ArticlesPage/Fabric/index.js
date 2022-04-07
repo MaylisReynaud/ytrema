@@ -79,11 +79,11 @@ export function Fabric (props) {
                 <FilterTitle>
                 {categoryObject[0].title}
                 {showFilter ? 
-                <PlusIcon
+                <MinusIcon
                 onClick={isOpenFilter}
                 />
                 :
-                <MinusIcon 
+                <PlusIcon 
                     onClick={isOpenFilter}
                 />
                 }

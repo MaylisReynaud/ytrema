@@ -19,44 +19,44 @@ export const fabrics = [
     },
     {
         id: 4,
-        label: 'Batiste',
-        name: 'Batiste',
+        label: 'Batister',
+        name: 'Batister',
         title: 'Tissus'
     },
     {
         id: 5,
-        label: 'Bords-côtes',
-        name: 'Bords-côtes',
+        label: 'Bords-côtess',
+        name: 'Bords-côtess',
         title: 'Tissus'
     },
     {
         id: 6,
-        label: 'Viscose',
-        name: 'Viscose',
+        label: 'Viscosee',
+        name: 'Viscosee',
         title: 'Tissus'
     },
     {
         id: 7,
-        label: 'Bords-côtes',
-        name: 'Bords-côtes',
+        label: 'Bords-côtesss',
+        name: 'Bords-côtesss',
         title: 'Tissus'
     },
     {
         id: 8,
-        label: 'Viscose',
-        name: 'Viscose',
+        label: 'Viscosez',
+        name: 'Viscosez',
         title: 'Tissus'
     },
     {
         id: 9,
-        label: 'Bords-côtes',
-        name: 'Bords-côtes',
+        label: 'Bords-côtesa',
+        name: 'Bords-côtesa',
         title: 'Tissus'
     },
     {
         id: 10,
-        label: 'Viscose',
-        name: 'Viscose',
+        label: 'Viscosea',
+        name: 'Viscosea',
         title: 'Tissus'
     },
 ];
@@ -78,6 +78,24 @@ export const designers = [
         id: 3,
         label: 'MT',
         name: 'MT',
+        title: 'Designers'
+    },
+    {
+        id: 4,
+        label: 'Batistea',
+        name: 'Batistea',
+        title: 'Designers'
+    },
+    {
+        id: 5,
+        label: 'Bords-côtesu',
+        name: 'Bords-côtesu',
+        title: 'Designers'
+    },
+    {
+        id: 6,
+        label: 'Viscosew',
+        name: 'Viscosew',
         title: 'Designers'
     },
 ];
@@ -102,6 +120,24 @@ export const colors = [
         label: 'Jaune',
         name: 'Jaune',
         color: 'yellow',
+        title: 'Couleurs'
+    },
+    {
+        id: 4,
+        label: 'Batisteq',
+        name: 'Batisteq',
+        title: 'Couleurs'
+    },
+    {
+        id: 5,
+        label: 'Bords-côtesj',
+        name: 'Bords-côtesj',
+        title: 'Couleurs'
+    },
+    {
+        id: 6,
+        label: 'Viscosep',
+        name: 'Viscosep',
         title: 'Couleurs'
     },
 ];
