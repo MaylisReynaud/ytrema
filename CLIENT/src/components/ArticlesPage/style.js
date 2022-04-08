@@ -33,12 +33,15 @@ export const DesktopContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 78vh;
     width:100%;
+    overflow-y:hidden;
+   
     @media screen and (min-width:601px) { 
         flex-direction: row;
         position: fixed;
-        overflow-y:hidden;
+        height: 100vh;
+        
   }
 `;
 
@@ -58,7 +61,7 @@ export const LeftContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 70%;
+    height: 75%;
     overflow-y: scroll;
     width:17%;
     margin:2rem;
@@ -150,21 +153,24 @@ export const buttonVariants = {
   };
 
 export const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  justify-content: space-evenly;
-  height:100vh;
-  width:100%;
-    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    overflow-y: scroll;
+    height:100vh;
+    width:100%;
+    @media screen and (min-width:601px) { 
+      height:75%;
+    }
   `;
 
 export const CardContainer = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  height:25%;
+  height:10rem;
   width:45%;
   margin: .5rem;
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
@@ -187,7 +193,7 @@ export const CardImg = styled.img`
 
 export const CardText = styled.h3`
   background-color: ${props => props.theme.color4};
-  height:35%;
+  height: 4rem;
   width:100%;
   text-align: center;
   padding: 0 .3rem;
@@ -201,7 +207,7 @@ export const CardText = styled.h3`
 export const FilterContainer = styled.div`
   width: 100%;
   display: flex;
-  flex-grow:1;
+  /* flex-grow:1; */
   flex-direction: column;
   flex-shrink:1;
   margin-top: 0.3rem;
