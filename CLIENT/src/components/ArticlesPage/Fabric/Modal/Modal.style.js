@@ -21,18 +21,25 @@ export const Background = styled.div`
     position:fixed;
     justify-content:center;
     align-items:center;
+    @media screen and (min-width:601px) { 
+        height: 82%;
+  }
 `;
 
 export const ModalWrapper = styled.div`
+    position: relative;
+    z-index:100;
     width: 800px;
     height:80vh;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     color: #000;
     background-color: ${props => props.theme.color4};     
-
-    position: relative;
-    z-index:10;
     border-radius: 10px;
+    @media screen and (min-width:601px) { 
+        top: 0;
+        height:95%;
+
+  }
 `;
 
 
