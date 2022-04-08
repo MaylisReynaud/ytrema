@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { FabricModal } from './Modal';
+import { Card } from './Card';
 import { Container, 
          Title,
          TitleContainer,
@@ -29,17 +31,24 @@ import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 
 
-export function Fabric (props) {
+export function Fabric (props, index) {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
+
     const [showModal, setShowModal] = useState(false);
-    const openModal = () => {
-        setShowModal(prev=> !prev)
+    const isOpenModal = () => {
+        setShowModal(prev => !prev)
     };
+
+    const [showCard, setShowCard] = useState(false);
+    const isOpenCard = () => {
+        setShowCard(prev => !prev)
+    };
+    console.log(showCard, "ici showcard");
+
     const [showMobileFilters, setShowMobileFilters] = useState(false);
-    console.log(showMobileFilters, 'ici show mobile filters');
     const isOpenMobileFilters = () => {
-        setShowMobileFilters(prev=> !prev)
+        setShowMobileFilters(prev => !prev)
     };
     const mapCategoriesFilter = (categoryObject) => {
 
@@ -116,7 +125,7 @@ export function Fabric (props) {
             <TopContainer>
                 <RegisterArticleButton
                     style= {buttonVariants} 
-                    onClick= {openModal}
+                    onClick= {isOpenModal}
                 >
                     Enregistrer un tissu
                 </RegisterArticleButton>
@@ -134,21 +143,21 @@ export function Fabric (props) {
                         Filtres
                 </FiltersButton>
             </TopContainer>
-            
-           
             {mapCategoriesFilter(fabrics)}
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
-        
-        
-            
-                
-      
-            
-            
             <CardsContainer>
                 {fabricData.map(fabric => (
-                    <CardContainer key={fabric.id} >
+                    <>
+                    <CardContainer 
+                        key={fabric.id}
+                        onClick= {isOpenCard}
+                    >
+                        <Link 
+                            // key={fabric.id}
+                            to = "/tissus/tissu"
+
+                        />
                         <ImgContainer>
                                 <CardImg src={fabric.image} alt={fabric.alt}/>
                             </ImgContainer>
@@ -156,8 +165,17 @@ export function Fabric (props) {
                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                     </CardText>
                 </CardContainer>
+                 <Card 
+                 key = {fabric.name}
+                 showCard = {showCard}
+                 setShowCard = {setShowCard}
+                 fabricName = {fabric.name}
+                 fabricImage = {fabric.image}
+             />
+             </>
+              
                 ))}
-                
+               
             </CardsContainer>
         </Container>
         </>
@@ -171,7 +189,7 @@ export function Fabric (props) {
                     <ButtonContainer>
                         <RegisterArticleButton
                             style= {buttonVariants} 
-                            onClick= {openModal}
+                            onClick= {isOpenModal}
                             >
                             Enregistrer un tissu
                         </RegisterArticleButton>
@@ -191,7 +209,7 @@ export function Fabric (props) {
                 <CardsContainer>
                     <TitleContainer>
                         <Title>
-                            MA TISSUTHÈQUE
+                            MA TISSUTHEQUE
                         </Title>
                     </TitleContainer>
                     {fabricData.map(fabric => (

@@ -52,7 +52,7 @@ export const TopContainer = styled.div`
     justify-content: space-evenly;
     height: 10vh;
     width:100%;
-    margin:0;
+    margin: 1rem 0;
     @media screen and (min-width:601px) { 
       justify-content: unset;
   }
@@ -70,7 +70,7 @@ export const LeftContainer = styled.div`
     overflow-y: scroll;
     
     width:17%;
-    margin:2rem;
+    margin:1rem 2rem;
 
 `;
 
@@ -177,7 +177,6 @@ export const CardsContainer = styled.div`
   `;
 
 export const CardContainer = styled.div`
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   height:10rem;
@@ -189,6 +188,9 @@ export const CardContainer = styled.div`
     width:20%;
   }
 `;
+ export const CardLink = styled.link`
+  cursor: pointer;
+ `;
 
 export const ImgContainer = styled.div`
   height:65%;

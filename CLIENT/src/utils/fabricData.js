@@ -87,7 +87,7 @@ export const fabricData = [
         size: '210 cm',
     },
     {
-        id: 8,
+        id: 17,
         image: 'http://react-responsive-carousel.js.org/assets/3.jpeg',
         alt: 'patronthèque',
         name: 'Yellow blues',

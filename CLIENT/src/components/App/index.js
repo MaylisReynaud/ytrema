@@ -13,6 +13,7 @@ import { Registrationpage } from '../Registrationpage';
 import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
+import { Card } from '../ArticlesPage/Fabric/Card';
 
 
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route  path='/connexion' element={<Registrationpage />} />
               <Route  path='/inscription' element={<Registrationpage />} />
               <Route  path='/tissus' element={<Fabric />} />
+              <Route path='/tissus/tissu' element={<Card /> } />
               <Route  path='/mercerie' element={<Haberdashery />} />
               <Route  path='/patrons' element={<Pattern />} />
               {/* <Route  path='/equipe' element={<Equipe />} />
