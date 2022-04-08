@@ -62,7 +62,13 @@ export const LeftContainer = styled.div`
     align-items: center;
     flex-direction: column;
     height: 75%;
+    //hide the scrollbar on IE, Firefox, Chrome, Safari, Opera
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+    display: none;}
     overflow-y: scroll;
+    
     width:17%;
     margin:2rem;
 
@@ -158,6 +164,10 @@ export const CardsContainer = styled.div`
     flex-wrap: wrap;
     align-content: flex-start;
     justify-content: space-evenly;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+    display: none;}
     overflow-y: scroll;
     height:100vh;
     width:100%;
