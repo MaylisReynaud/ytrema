@@ -7,6 +7,7 @@ const errorController = require('../controller/errorController');
 // Router import
 const memberRouter = require('./memberRouter');
 const fabricRouter = require('./fabricRouter');
+const haberdasheryRouter = require('./haberdasheryRouter');
 
 // Middleware import
 const auth = require('../middleware/auth');
@@ -27,6 +28,7 @@ router.use('/member', memberRouter);
 // fabric router
 router.use('/fabric', fabricRouter);
 // haberdashery router
+router.use('/haberdashery', haberdasheryRouter);
 // review router
 // project router
 // pattern router
@@ -36,7 +38,5 @@ router.use('/fabric', fabricRouter);
 // handleError
 router.use(errorController.error404);
 router.use(errorController.error500);
-
-// console.log('Hi ! The server is connected');
 
 module.exports = router;

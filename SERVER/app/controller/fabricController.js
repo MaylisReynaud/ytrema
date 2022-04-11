@@ -19,7 +19,7 @@ const fabricController = {
             // An error occured, any object was not created in the DB
             if (!savedFabric) {
                 response.locals.notFound =
-                    "Une erreur est survenue : La création du tissu en base de données à échoué.";
+                    "Une erreur est survenue : La création du tissu en base de données a échouée.";
 
                 // Go to errorController
                 return next();

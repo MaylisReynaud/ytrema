@@ -87,13 +87,11 @@ const memberController = {
                         errorInfo.type = 409;
                         errorInfo.message =
                             "Une erreur est survenue, votre compte n'a pas pu être créé";
-                        console.log("memberController - email existe");
                         break;
                     case "pseudo already used":
                         errorInfo.type = 409;
                         errorInfo.message =
                             "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
-                        console.log("memberController - pseudo existe");
                         break;
                 }
 
