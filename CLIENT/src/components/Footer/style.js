@@ -2,26 +2,30 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.div`
-    /* display: flex; */
-    position: fixed ;
-    bottom:0;
-    left:0;
+    display: flex;
+    /* position: fixed ; */
+    /* justify-content:space-between; */
+    /* bottom:0;
+    left:0; */
     width: 100%;
-    height: 12%;
+    height: 8%;
     background-color: ${props => props.theme.color2};
     color: ${props => props.theme.color4};
 `;
 
 export const LinksWrapper = styled.ul`
   /* position: relative; */
+  display: flex;
+  justify-content: space-evenly;
   box-shadow: 2px #222;
   margin: 0 auto;
   padding: 1rem;
   height: 100%;
+  width: 90%;
   list-style: none;
-  display:flex;
   align-items: center;
-  justify-content: space-evenly;
+ 
+ 
 `;
 
 

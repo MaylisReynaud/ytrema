@@ -26,8 +26,9 @@ export const DesktopContainer = styled.div`
   display: flex;
   flex-direction: column;
   width:100%;
-  /* background-color: salmon;
-  overflow-y:hidden; */
+  height:80%;
+  background-color: salmon;
+  overflow-y:hidden;
 `;
 
 export const Container = styled.div`
@@ -39,8 +40,8 @@ export const Container = styled.div`
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
-        position: fixed;
-        height: 100vh;
+        height: 90%;
+        background-color: red;
         
   }
 `;
@@ -61,7 +62,7 @@ export const LeftContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 75%;
+    height: 90%;
     //hide the scrollbar on IE, Firefox, Chrome, Safari, Opera
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -71,6 +72,7 @@ export const LeftContainer = styled.div`
     
     width:17%;
     margin:1rem 2rem;
+    background-color: purple;
 
 `;
 
@@ -172,7 +174,8 @@ export const CardsContainer = styled.div`
     height:100vh;
     width:100%;
     @media screen and (min-width:601px) { 
-      height:75%;
+      height:95vh;
+      background-color: yellow;
     }
   `;
 

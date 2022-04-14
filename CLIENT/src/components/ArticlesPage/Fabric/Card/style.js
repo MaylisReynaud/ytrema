@@ -12,13 +12,13 @@ export const Container = styled.div`
     width:100%;
     overflow-y: scroll;
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
+    @media screen and (min-width:601px) { 
         height: 100vh;
-        background-color: salmon;
+        background-color: red;
         
-  } */
+        /* flex-direction: row; */
+        
+  }
 `;
 export const ReturnArrow = styled(ArrowSmLeft)`
    cursor: pointer;
@@ -34,13 +34,10 @@ export const ReturnArrow = styled(ArrowSmLeft)`
 
 
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    @media screen and (min-width:601px) { 
+        left: 1.5rem;
         
-  } */
+  }
 `;
 export const CloseButton = styled(Close)`
     cursor: pointer;
@@ -52,6 +49,9 @@ export const CloseButton = styled(Close)`
     padding: 0;
     z-index: 10;
     color: red;
+    @media screen and (min-width:601px) { 
+        right:2rem;
+  }
 `;
 export const ModifyButton = styled(PencilFill)`
     cursor: pointer;
@@ -63,6 +63,9 @@ export const ModifyButton = styled(PencilFill)`
     height: 19px;
     padding: 0;
     z-index: 10;
+    @media screen and (min-width:601px) { 
+        right:4rem;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -73,13 +76,12 @@ export const CardContainer = styled.div`
     height:84vh;
     width:100%;
    
-    /* @media screen and (min-width:601px) { 
+    @media screen and (min-width:601px) { 
         flex-direction: row;
-        position: fixed;
-        height: 100vh;
+        height: 90vh;
         background-color: salmon;
         
-  } */
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -90,13 +92,10 @@ export const TitleContainer = styled.div`
     margin-top: 2rem;
     /* background-color: blue; */
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    @media screen and (min-width:601px) { 
+        margin: 1rem 0rem;
         
-  } */
+  }
 `;
 export const CardTitle = styled.h1`
     display: flex;
@@ -125,13 +124,11 @@ export const ImageContainer = styled.div`
     height: 15rem;
     margin-top: 1rem;
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    @media screen and (min-width:601px) { 
+        height: 100%;
+        background-color: #fff;
         
-  } */
+  }
 `;
 export const ImageCard = styled.img`
     object-fit: cover;
@@ -155,13 +152,10 @@ export const InformationContainer = styled.div`
     align-items: center;
     margin-top: 1rem;
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    @media screen and (min-width:601px) { 
+        height:100%;
         
-  } */
+  }
 `;
 
 export const InformationForm = styled.form`
@@ -174,18 +168,21 @@ export const InformationForm = styled.form`
 
    
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    @media screen and (min-width:601px) { 
+        flex-direction: column;
+
+        margin: 1rem 0rem;
+        height:100%;
+        background-color: blue;
+
         
-  } */
+  }
 `;
 
 export const InformationContent = styled.div`
     display: flex;
-   margin-top: 0.5rem;
+    margin-top: 1.2rem;
+
 
    
    

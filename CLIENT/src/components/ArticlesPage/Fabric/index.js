@@ -165,13 +165,13 @@ export function Fabric (props, index) {
                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                     </CardText>
                 </CardContainer>
-                 <Card 
+                 {/* <Card 
                  key = {fabric.name}
                  showCard = {showCard}
                  setShowCard = {setShowCard}
                  fabricName = {fabric.name}
                  fabricImage = {fabric.image}
-             />
+             /> */}
              </>
               
                 ))}
