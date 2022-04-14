@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useCallback }  from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../../Navbar/Responsive';
 import { CardContainer, 
          CardTitle, 
@@ -21,10 +22,11 @@ import { CardContainer,
         } from './style';
 import { fabricData } from '../../../../utils/fabricData';
 import { fabricInputs } from '../../../../utils/fabricInputs';
-// const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-// const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
+
 
 export const Card = ({showCard, setShowCard, fabricImage}) => {
+    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
+    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
     const cardRef = useRef();
     const closeCard = event => {
         if (cardRef.current === event.target) {
@@ -44,7 +46,7 @@ export const Card = ({showCard, setShowCard, fabricImage}) => {
   return (
     <>
     
-    {/* {isMobile && 
+    {isMobile && 
         <Container>
         <CardContainer>
             <ReturnArrow
@@ -109,9 +111,9 @@ export const Card = ({showCard, setShowCard, fabricImage}) => {
         </CardContainer>
 
     </Container>
-    } */}
+    }
 
-
+    {isDesktop && 
         <Container>
         <CardContainer>
             <ReturnArrow
@@ -178,6 +180,8 @@ export const Card = ({showCard, setShowCard, fabricImage}) => {
         </CardContainer>
 
     </Container>
+    }
+        
     
         
    

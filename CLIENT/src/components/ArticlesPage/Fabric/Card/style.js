@@ -14,10 +14,6 @@ export const Container = styled.div`
    
     @media screen and (min-width:601px) { 
         height: 100vh;
-        background-color: red;
-        
-        /* flex-direction: row; */
-        
   }
 `;
 export const ReturnArrow = styled(ArrowSmLeft)`
@@ -79,7 +75,6 @@ export const CardContainer = styled.div`
     @media screen and (min-width:601px) { 
         flex-direction: row;
         height: 90vh;
-        background-color: salmon;
         
   }
 `;
@@ -126,7 +121,6 @@ export const ImageContainer = styled.div`
    
     @media screen and (min-width:601px) { 
         height: 100%;
-        background-color: #fff;
         
   }
 `;
@@ -172,27 +166,13 @@ export const InformationForm = styled.form`
         flex-direction: column;
 
         margin: 1rem 0rem;
-        height:100%;
-        background-color: blue;
-
-        
+        height:100%;       
   }
 `;
 
 export const InformationContent = styled.div`
     display: flex;
     margin-top: 1.2rem;
-
-
-   
-   
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 
 export const InformationLabel = styled.label`
@@ -205,13 +185,6 @@ export const InformationLabel = styled.label`
    color: ${props => props.theme.color3};
    font-weight: bold;
    
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 export const InformationInput = styled.input`
     display: flex;
@@ -221,15 +194,6 @@ export const InformationInput = styled.input`
     font-family: '${props => props.theme.textFont}';
     border: none;
     border-bottom: 1px solid ${props => props.theme.color1} ;
-    
-   
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 
 export const ProjectContainer = styled.div`
@@ -237,13 +201,7 @@ export const ProjectContainer = styled.div`
     flex-direction: column;
     width: 100%;
     height: 10rem;   
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
+   
 `;
 export const ProjectTitle = styled.h2`
     display: flex;
@@ -254,13 +212,7 @@ export const ProjectTitle = styled.h2`
     font : 1.3rem/2.5 '${props => props.theme.textFont}';
     font-weight: bold;
     color: ${props => props.theme.color2};
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
+
 `;
 
 export const ProjectImageContainer = styled.div`
@@ -270,23 +222,11 @@ export const ProjectImageContainer = styled.div`
     justify-content: space-around;
     width: 100%;
     height: 7rem; 
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
+  
 `;
 export const ProjectImage = styled.img`
     object-fit: cover;
     width: 6rem;
     height: 6rem;  
-    /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
+ 
 `;
