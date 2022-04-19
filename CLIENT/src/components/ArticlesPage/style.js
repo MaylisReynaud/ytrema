@@ -27,7 +27,6 @@ export const DesktopContainer = styled.div`
   flex-direction: column;
   width:100%;
   height:80%;
-  background-color: salmon;
   overflow-y:hidden;
 `;
 
@@ -41,7 +40,7 @@ export const Container = styled.div`
     @media screen and (min-width:601px) { 
         flex-direction: row;
         height: 90%;
-        background-color: red;
+
         
   }
 `;
@@ -72,7 +71,7 @@ export const LeftContainer = styled.div`
     
     width:17%;
     margin:1rem 2rem;
-    background-color: purple;
+
 
 `;
 
@@ -175,7 +174,7 @@ export const CardsContainer = styled.div`
     width:100%;
     @media screen and (min-width:601px) { 
       height:95vh;
-      background-color: yellow;
+
     }
   `;
 

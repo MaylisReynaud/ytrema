@@ -150,7 +150,10 @@ export const Card = ({showCard, setShowCard, fabricImage}) => {
                             </InformationLabel>
                             <InformationInput
                                 key= {input.index}
+                                
+                                
                             >
+                        
                             </InformationInput>
                         </InformationContent>
                         
