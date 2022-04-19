@@ -4,7 +4,7 @@ import { fabricsApi } from './services/fabric';
 
 export const store = configureStore({
   reducer: {
-      fabrics : fabricReducer,
+      // fabrics : fabricReducer,
       [fabricsApi.reducerPath]: fabricsApi.reducer
 
   },

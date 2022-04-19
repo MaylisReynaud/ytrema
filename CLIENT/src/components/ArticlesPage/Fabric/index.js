@@ -38,9 +38,10 @@ export function Fabric (props, index) {
     //call action 
     const dispatch = useDispatch();
     //read info from store
-    const fabricList = useSelector((state) => state.fabrics.value);
+    // const fabricList = useSelector((state) => state.fabrics.value);
 
     const { data, error, isLoading } = useGetAllFabricsQuery(1);
+    console.log(data, 'ici data');
 
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -124,6 +125,12 @@ export function Fabric (props, index) {
         )
     }
    
+    
+
+
+
+
+
   return (
     <>
         {isMobile && (
@@ -156,8 +163,18 @@ export function Fabric (props, index) {
             {mapCategoriesFilter(fabrics)}
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
+
+           
+            {error ? (
+                <>Oh no, there was an error</>
+                
+            ) : isLoading ? (
+                <>Loading...</>
+            ) : data ? (
+                <>
+                
             <CardsContainer>
-                {data.map(fabric => (
+                {data.fabrics.map(fabric => (
                     <>
                     <CardContainer 
                         key={fabric.id}
@@ -169,24 +186,22 @@ export function Fabric (props, index) {
 
                         />
                         <ImgContainer>
-                                <CardImg src={fabric.image} alt={fabric.alt}/>
+                                <CardImg src={fabric.photo} alt={fabric.alt}/>
                             </ImgContainer>
                     <CardText>
                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                     </CardText>
                 </CardContainer>
-                 {/* <Card 
-                 key = {fabric.name}
-                 showCard = {showCard}
-                 setShowCard = {setShowCard}
-                 fabricName = {fabric.name}
-                 fabricImage = {fabric.image}
-             /> */}
+                
              </>
               
                 ))}
                
             </CardsContainer>
+                </>
+            ) : null}
+
+
         </Container>
         </>
         )
@@ -242,6 +257,7 @@ export function Fabric (props, index) {
         }
     </>
   )
+    
 };
 
 
