@@ -26,12 +26,22 @@ import { Container,
          ImgContainer
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
-import { fabricData } from '../../../utils/fabricData';
+// import { fabricData } from '../../../utils/fabricData';
 import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAllFabrics, addFabric, updateFabric, deleteFabric } from './fabricSlice';
+import { useGetAllFabricsQuery } from '../../../services/fabric';
 
 
 export function Fabric (props, index) {
+    //call action 
+    const dispatch = useDispatch();
+    //read info from store
+    const fabricList = useSelector((state) => state.fabrics.value);
+
+    const { data, error, isLoading } = useGetAllFabricsQuery(1);
+
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -44,7 +54,7 @@ export function Fabric (props, index) {
     const isOpenCard = () => {
         setShowCard(prev => !prev)
     };
-    console.log(showCard, "ici showcard");
+    
 
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const isOpenMobileFilters = () => {
@@ -147,7 +157,7 @@ export function Fabric (props, index) {
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
             <CardsContainer>
-                {fabricData.map(fabric => (
+                {data.map(fabric => (
                     <>
                     <CardContainer 
                         key={fabric.id}

@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { FontStyles } from '../src/style/fontStyles';
 import { Reset } from '../src/style/styled-reset';
 import  { theme } from './style/theme';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
 
 // == Import : local
@@ -16,13 +18,16 @@ import { ThemeProvider } from "styled-components";
 // 1. Élément React racine (celui qui contient l'ensemble de l'app)
 //    => crée une structure d'objets imbriqués (DOM virtuel)
 const rootReactElement = (
-    <BrowserRouter>
-        <Reset />
-        <FontStyles />
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
-    </BrowserRouter>
+    <Provider store = {store}>
+        <BrowserRouter>
+            <Reset />
+            <FontStyles />
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+        </BrowserRouter>
+    </Provider>
+    
 
 )
 
