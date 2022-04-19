@@ -38,9 +38,10 @@ export const LinkItem = styled.li`
   color: ${props => props.theme.color4};
   font-size: 14px;
   transition: all 220ms ease-in-out;
-   &:hover {
-    color: ${props => props.theme.color1};
-  }
+  font-family: ${props => props.theme.textFont};
+  text-decoration: none;
+
+   
 `;
 
 
@@ -70,33 +71,14 @@ export const ActiveLinkStyle = {
   alignItems: 'center',
 };
 
-export const ImgContainer = styled.div`
+export const IconContainer = styled.div`
   width: 25px;
   height:25px;
   margin-bottom: 0.4em;
 `;
 
-export const ScrollIcon = styled(Scroll)`
-  width: 25px;
-  height:25px;
-`;
-
-export const ApparelIcon = styled(Apparel)`
-  width: 25px;
-  height:25px;
-`;
-
-export const BookOpenIcon = styled(BookOpen)`
-  width: 25px;
-  height:25px;
-`;
-
-export const FlowerIcon = styled(Flower1)`
-  width: 25px;
-  height:25px;
-`;
-
-export const PersonIcon = styled(Person)`
-  width: 25px;
-  height:25px;
-`;
+export const IconStyle = {
+  width: '25px',
+  height: '25px'
+};
+  

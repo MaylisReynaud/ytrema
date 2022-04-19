@@ -12,7 +12,7 @@ export const LinksWrapper = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
-  height: 100%;
+  height: 60%;
   list-style: none;
   background-color: ${props => props.theme.color4};
   width: 100%;

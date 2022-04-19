@@ -5,30 +5,37 @@ export const Container = styled.div`
     width:100%;
     height:100vh;
     display: flex;
+    margin:0;
+    padding:0;
  
 `;
 
 export const ImgContainer = styled.div`
     width: 28%;
     height:100%;
+    overflow: hidden;
+
+
+
 
 
 `;
 
 export const RegistrationContainer = styled.div`
     width:72%;
-    display: flex;
+    height:100%;
+    display: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 `;
 
 export const RegistrationImg = styled.img`
-    object-fit: cover;
-  
-
-
-    
+    /* object-fit: cover; */
+    width:100%;
+    height: 100% ;
+    background-size:cover;
+    background-position: 50% 50%;    
 `;
 
 export const ImgOverlay = styled.div`
@@ -42,6 +49,8 @@ export const ImgOverlayText = styled.h2`
     position: absolute;
     color: ${props => props.theme.color4};
     top: 2rem;
+    left: 2rem;
+    max-width:80%;
     text-align: center;
     margin: 1rem;
     font-family: '${props => props.theme.textFont}'; 
