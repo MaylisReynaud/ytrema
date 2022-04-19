@@ -1,8 +1,7 @@
-require("dotenv").config();
+// IMPORT
 const authDataMapper = require("../datamapper/authDataMapper");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const saltRounds = process.env.SALTROUNDS;
+const checkingPassword = require("../services/utils_functions");
 
 const authController = {
     async handleLoginForm(request, response, next) {
@@ -22,7 +21,10 @@ const authController = {
             const { id, pseudo, password: storedHashedPwd } = getMember;
 
             // Compare stored password with request.body.password
-            const validPwd = bcrypt.compareSync(password, storedHashedPwd);
+            const validPwd = await checkingPassword.comparePwd(
+                password,
+                storedHashedPwd
+            );
 
             // Incorrect entered password
             if (!validPwd) {
@@ -31,7 +33,7 @@ const authController = {
             }
 
             // Login/ password valid give the member a token
-            response.json({
+            response.status(200).json({
                 id,
                 pseudo,
                 memberToken: jwt.sign(
@@ -51,19 +53,24 @@ const authController = {
         try {
             const memberInfo = request.body;
 
-            // Is password and checkPassword matching ?
+            // Are password and checkPassword matching ?
+            const result = await checkingPassword.doBothPwdMatch(
+                memberInfo.password,
+                memberInfo.checkPassword
+            );
+
             // If not, throw an error 409
-            if (memberInfo.password !== memberInfo.checkPassword) {
-                response.locals.type = 409;
-                response.locals.conflict =
-                `Les saisies dans les champs 'mot de passe' et 'confirmation du mot de passe' doivent être identiques`;
+            if (result.message) {
+                response.locals.type = result.type;
+                response.locals.conflict = result.message;
+
+                // Go to errorController
                 return next();
             }
 
-            // Hash password
-            const hashedPwd = bcrypt.hashSync(
-                memberInfo.password,
-                Number(saltRounds)
+            // If yes, hash the password
+            const hashedPwd = await checkingPassword.hashPwd(
+                memberInfo.password
             );
 
             // Replace the password by hashed password
@@ -83,12 +90,12 @@ const authController = {
             if (newMember === "pseudoAlreadyUsed") {
                 response.locals.type = 409;
                 response.locals.conflict =
-                "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
+                    "Désolé, ce pseudo n'est pas disponible, merci d'en choisir un autre.";
                 return next();
             }
 
             // Here, the member is registered in DB
-            response.json({ newMember });
+            response.status(200).json({ newMember });
         } catch (error) {
             next(error);
         }

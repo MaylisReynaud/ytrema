@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 module.exports = async (request, response, next) => {
     try {
         // If there is an error message in response.locals go to the error middleware
-        if (response.locals.conflict || response.locals.notFound) {
+        if (response.locals.forbidden || response.locals.conflict || response.locals.notFound) {
             return next();
         }
 
