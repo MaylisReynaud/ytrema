@@ -32,25 +32,25 @@ INSERT INTO "haberdashery"("name", "website", "haberdashery", "quantity", "price
 INSERT INTO "review"("content", "member_id")
     VALUES
     ('Je suis ravie de ce site', 1),
-    ('Site facile à utiliser, je le recommande vivement !', 1);
+    ('Site facile à utiliser, je le recommande vivement !', 2);
 
 -- ------------------------------------
 -- loading data in "fabric" table
 -- ------------------------------------
 INSERT INTO "fabric"("name", "website", "designer", "color", "precise_color", "fabric", "composition", "weight", "quantity", "width", "price", "photo", "member_id")
     VALUES
-    ('Crepe Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert', 'Vert cactus', 'Viscose', '100 % viscose', 118, 150, 140, 14.40, 'https://m1.atelierbrunette.com/9564-large_default/tissu-crepe-cactus.jpg', 1),
-    ('Shade Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert/Blanc', '-', 'Viscose', '100 % viscose', 120, 160, 140, 15.92, 'https://photo', 1),
-    ('Felin', 'https://www.hysope-tissus.fr/', 'Hysope', 'Blanc-Curry-Rose-Noir', '-', 'Satin de coton Bio', '100 % coton', 130, 190, 150, 24.90, 'https://photo', 1),
-    ('Jersey de lin Bio Français', 'https://www.hysope-tissus.fr/', 'Hysope', 'Blanc', '-', 'Lin Bio', '100 % lin', 180, 200, 140, 27.90, 'https://photo', 1),
-    ('Tissu twill viscose polyester recyclé vert', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Vert', '-', 'Viscose', '70 % modal - 30 % polyester', 165, 300, 155, 5.50, 'https://photo', 1),
-    ('Tissu twill viscose polyester recyclé jaune', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Jaune', '-', 'Viscose', '70 % modal - 30 % polyester', 165, 300, 155, 5.50, 'https://photo', 1),
-    ('Tissu twill viscose uni bleu', 'https://www.mondialtissus.fr/', 'MT', 'Gris-Bleu', '-', 'Viscose', '100 % viscose', 150, 150, 140, 10.99, 'https://photo', 1),
-    ('Tissu Avena Bleu Atlantique crêpe de viscose', 'https://www.eglantine-zoe.fr/', 'Eglantine & Zoé', 'Bleu-Corail-Nude', '-', 'Viscose', '100 % viscose', 155, 270, 145, 22.50, 'https://photo', 1),
-    ('Tissu Avena Jaune Soleil crêpe de viscose', 'https://www.eglantine-zoe.fr/', 'Eglantine & Zoé', 'Jaune-Blanc-Vert', '-', 'Viscose', '100 % viscose', 155, 270, 145, 22.50, 'https://photo', 1),
-    ('Maille coton unie marine', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Bleu', '-', 'Jersey', '95 % coton - 5 % elasthanne', 170, 80, 150, 9.99, 'https://photo', 1),
-    ('Popeline coton pivoine écru', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Blanc-Multicolor', '-', 'Popeline', '100 % coton', 110, 50, 140, 9.99, 'https://photo', 1),
-    ('Popeline coton bulles marines', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Bleu-Orange', '-', 'Popeline', '100 % coton', 110, 50, 140, 9.99, 'https://photo', 1);
+    ('Crepe Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert', 'Vert cactus', 'Viscose', '100 % viscose', 118, 150, 140, 14.40, 'http://react-responsive-carousel.js.org/assets/1.jpeg', 1),
+    ('Shade Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert/Blanc', '-', 'Viscose', '100 % viscose', 120, 160, 140, 15.92, 'http://react-responsive-carousel.js.org/assets/2.jpeg', 1),
+    ('Felin', 'https://www.hysope-tissus.fr/', 'Hysope', 'Blanc-Curry-Rose-Noir', '-', 'Satin de coton Bio', '100 % coton', 130, 190, 150, 24.90, 'http://react-responsive-carousel.js.org/assets/3.jpeg', 1),
+    ('Jersey de lin Bio Français', 'https://www.hysope-tissus.fr/', 'Hysope', 'Blanc', '-', 'Lin Bio', '100 % lin', 180, 200, 140, 27.90, 'http://react-responsive-carousel.js.org/assets/5.jpeg', 1),
+    ('Tissu twill viscose polyester recyclé vert', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Vert', '-', 'Viscose', '70 % modal - 30 % polyester', 165, 300, 155, 5.50, 'http://react-responsive-carousel.js.org/assets/6.jpeg', 1),
+    ('Tissu twill viscose polyester recyclé jaune', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Jaune', '-', 'Viscose', '70 % modal - 30 % polyester', 165, 300, 155, 5.50, 'http://react-responsive-carousel.js.org/assets/3.jpeg', 1),
+    ('Tissu twill viscose uni bleu', 'https://www.mondialtissus.fr/', 'MT', 'Gris-Bleu', '-', 'Viscose', '100 % viscose', 150, 150, 140, 10.99, 'http://react-responsive-carousel.js.org/assets/5.jpeg', 1),
+    ('Tissu Avena Bleu Atlantique crêpe de viscose', 'https://www.eglantine-zoe.fr/', 'Eglantine & Zoé', 'Bleu-Corail-Nude', '-', 'Viscose', '100 % viscose', 155, 270, 145, 22.50, 'http://react-responsive-carousel.js.org/assets/4.jpeg', 1),
+    ('Tissu Avena Jaune Soleil crêpe de viscose', 'https://www.eglantine-zoe.fr/', 'Eglantine & Zoé', 'Jaune-Blanc-Vert', '-', 'Viscose', '100 % viscose', 155, 270, 145, 22.50, 'http://react-responsive-carousel.js.org/assets/1.jpeg', 1),
+    ('Maille coton unie marine', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Bleu', '-', 'Jersey', '95 % coton - 5 % elasthanne', 170, 80, 150, 9.99, 'http://react-responsive-carousel.js.org/assets/2.jpeg', 1),
+    ('Popeline coton pivoine écru', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Blanc-Multicolor', '-', 'Popeline', '100 % coton', 110, 50, 140, 9.99, 'http://react-responsive-carousel.js.org/assets/3.jpeg', 1),
+    ('Popeline coton bulles marines', 'https://www.mondialtissus.fr/', 'Mondial Tissus', 'Bleu-Orange', '-', 'Popeline', '100 % coton', 110, 50, 140, 9.99, 'http://react-responsive-carousel.js.org/assets/4.jpeg', 1);
 
 -- ------------------------------------
 -- loading data in "project" table
