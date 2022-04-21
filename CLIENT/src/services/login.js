@@ -14,14 +14,16 @@ export const login = createApi({
       const token = getState().login.token;
       
         if (token) {
-          headers.set('authorization', `Bearer ${token}`)
+          headers.set('Authorization', `Bearer ${token}`)
           console.log(headers, 'headers dans login.js')
         }
         return headers
     },
   },  console.log('coucou dans login.js api')),
-  endpoints: (builder) => ({
-    login: builder.mutation({
+  keepUnusedDataFor: 30,
+  tagTypes:['Login'],
+  endpoints: build => ({
+    login: build.mutation({
       query: (credentials) => ({
         url: '/login',
         method: 'POST',

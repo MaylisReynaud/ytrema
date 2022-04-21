@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from "@reduxjs/toolkit/query";
 import fabricReducer from '../src/components/ArticlesPage/Fabric/fabricSlice'
 import { fabricsApi } from './services/fabric';
 // import {api} from './services/api';
@@ -11,13 +12,15 @@ export const store = configureStore({
       // fabrics : fabricReducer,
       // [fabricsApi.reducerPath]: fabricsApi.reducer,
     
-    [login.reducerPath]: login.reducer,
+    [login.reducerPath]: loginSlice.reducer,
     login: loginReducer,
   },
   // middleware: (getDefaultMiddleware) =>
   //   getDefaultMiddleware().concat(fabricsApi.middleware),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(login.middleware),
+    devTools: process.env.NODE_ENV !== 'production',
   
 });
+
 
