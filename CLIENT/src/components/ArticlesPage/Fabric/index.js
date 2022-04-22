@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
@@ -30,19 +30,33 @@ import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAllFabrics, addFabric, updateFabric, deleteFabric } from './fabricSlice';
-import { useGetAllFabricsQuery } from '../../../services/fabric';
+import { addAllFabrics, getAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
+import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
+
 
 
 export function Fabric (props, index) {
     //call action 
+
+    
     const dispatch = useDispatch();
+
+    
     //read info from store
-    // const fabricList = useSelector((state) => state.fabrics.value);
-
-    const { data, error, isLoading } = useGetAllFabricsQuery(1);
-    console.log(data, 'ici data');
-
+   
+    const [fabricList, setFabricList] = useState(false);
+    const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(1);
+    useEffect(() => {
+        if (isSuccess) {
+          dispatch(addAllFabrics(data.fabrics));            
+          setFabricList(dispatch(getAllFabrics()));
+            console.log('coucou dans useeffect')
+         
+     
+        };
+      }, [data]);
+    
+    
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -124,12 +138,6 @@ export function Fabric (props, index) {
             
         )
     }
-   
-    
-
-
-
-
 
   return (
     <>
@@ -164,17 +172,18 @@ export function Fabric (props, index) {
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
 
-           
+
             {error ? (
                 <>Oh no, there was an error</>
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data ? (
+            ) : data && fabricList ? (
                 <>
-                
+                {console.log(fabricList, 'ici fabricList dans data')}
             <CardsContainer>
                 {data.fabrics.map(fabric => (
+                    
                     <>
                     <CardContainer 
                         key={fabric.id}

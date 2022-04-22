@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from './state/authSlice';
+import fabricsReducer from './state/fabricSlice';
 import { ytremaApi } from './api/ytremaApi';
 // import fabricReducer from '../src/components/ArticlesPage/Fabric/fabricSlice'
 // import { fabricsApi } from './services/fabric';
@@ -13,6 +14,7 @@ import { ytremaApi } from './api/ytremaApi';
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    fabrics: fabricsReducer,
     [ytremaApi.reducerPath]: ytremaApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

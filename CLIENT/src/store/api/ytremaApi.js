@@ -2,26 +2,22 @@
 // import { api } from './api';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
-   
-    // prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers, { getState }) => {
       // By default, if we have a token in the store, let's use that for authenticated requests
+      const token = getState().auth.memberToken;
+      console.log(token, 'token dans api');
       
-  //     console.log('on passe dans login.js');
-  //     const token = getState().login.token;
-      
-  //       if (token) {
-  //         headers.set('Authorization', `Bearer ${token}`)
-  //         console.log(headers, 'headers dans login.js')
-  //       }
-  //       return headers;
-  //   },
-  // },  console.log('coucou dans login.js api')),
-  // keepUnusedDataFor: 30,
-  // tagTypes:['Login'],
+        if (token) {
+          headers.set('Authorization', `Bearer ${token}`)
+          console.log(headers, 'headers dans login.js')
+        }
+        return headers;
+    },
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {
@@ -31,6 +27,7 @@ export const ytremaApi = createApi({
           body,
         };
       },
+
   }),
   signupUser: builder.mutation({
     query: (body) => {
@@ -40,8 +37,16 @@ export const ytremaApi = createApi({
         body,
       };
     },
-  })
+  }),
+  getAllFabrics: builder.query({
+    query: (memberId) => {
+      return {
+        url: `/fabric/all/member/${memberId}`,
+        method: "get"
+      }
+    }
+  }),
 })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation } = ytremaApi;
+export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery } = ytremaApi;
