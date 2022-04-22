@@ -3,8 +3,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 // Define a service using a base URL and expected endpoints
-export const authApi = createApi({
-  reducerPath:'authApi',
+export const ytremaApi = createApi({
+  reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
    
     // prepareHeaders: (headers, { getState }) => {
@@ -44,4 +44,4 @@ export const authApi = createApi({
 })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation } = authApi;
+export const { useSigninUserMutation, useSignupUserMutation } = ytremaApi;
