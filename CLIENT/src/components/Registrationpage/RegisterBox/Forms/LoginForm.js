@@ -1,8 +1,9 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../loginSlice';
-import { useLoginMutation } from '../../../../services/login';
+import { useSigninUserMutation} from '../../../../store/api/authApi';
+import { setUser } from '../../../../store/state/authSlice';
+
 
 import {
   BoldLink,
@@ -19,76 +20,53 @@ import { RegisterContext } from '../registerContext';
 export function LoginForm(props) {
   const dispatch = useDispatch();
   const navigate= useNavigate();
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
   const [formState, setFormState] = useState({
-    email:"",
+    email: "",
     password:""
-  })
+  });
+
+  const [signinUser, { data, isLoading, error, isError, isSuccess }] = useSigninUserMutation();
+    useEffect(() => {
+      if (isSuccess) {
+        dispatch(setUser(data));
+        navigate('/');
+        localStorage.setItem("token", data.memberToken);
+      };
+    }, [data]);
   
-  const [login, {isLoading}] = useLoginMutation();
+
+  const { switchToSignup } = useContext(RegisterContext);
+
   const handleChange = (event) => {
     event.persist();
-    // setEmail((prev) => ({...prev, email: event.target.value})),
-    // setPassword((prev) => ({...prev, password: event.target.value}))
-    
-  
-    // 1 STATE POUR CHAQUE
-    
-
-    console.log(event.target.value, "ici target value")
     setFormState((prev) => ({...prev, [event.target.name]: event.target.value}))
   }
-  const { switchToSignup } = useContext(RegisterContext);
-  const canLog = [formState.email, formState.password].every(Boolean) && !isLoading;
-  const handleLogin = async () => {
-    // console.log(email, 'ici email');
-    // console.log(password, 'ici password');
-    console.log(formState);
-    if (canLog) {
-      try {
-       
-        // const member = await login(formState).unwrap();
-        const member = await login(formState);
-        console.log(member, 'member dans le try de loginForm');
-        
-          // setEmail({email:""});
-          // setPassword({password:""});
-          setFormState( 
-            {email: "",
-            password: ""
-          })
-          dispatch(setCredentials(member))
-          navigate("/");
-        
-      } catch (err) {
-        console.error('Failed to login: ', err)
-      }
-    }
-  };
-// Ytrema#Member1
+
   return (
     <BoxContainer>
       <FormContainer>
         <Input 
-          onChange={handleChange}
           name="email" 
           type="email" 
           placeholder="Email" 
+          onChange={handleChange}
         />
       <Input 
-        onChange={handleChange}
         name="password" 
         type="password" 
         placeholder="Password" 
         autoComplete='on' 
+        onChange={handleChange}
       />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <MutedLink href="#">Mot de passe oublié?</MutedLink>
       <Marginer direction="vertical" margin="1.6em" />
       <SubmitButton 
-        onClick={handleLogin}
+        onClick={() => {
+          signinUser(formState);
+        }}
+        isLoading={isLoading}
         type="submit"
         variants={buttonVariants}
         whileHover="hover"
