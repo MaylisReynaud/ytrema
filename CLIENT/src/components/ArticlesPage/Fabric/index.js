@@ -49,7 +49,7 @@ export function Fabric (props, index) {
     useEffect(() => {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
-          setFabricList(dispatch(getAllFabrics()));
+          setFabricList(dispatch(getAllFabrics(fabrics)));
             console.log('coucou dans useeffect')
          
      
@@ -180,7 +180,7 @@ export function Fabric (props, index) {
                 <>Loading...</>
             ) : data && fabricList ? (
                 <>
-                {console.log(fabricList, 'ici fabricList dans data')}
+                {console.log(fabricList, 'ici fabrics dans data')}
             <CardsContainer>
                 {data.fabrics.map(fabric => (
                     
