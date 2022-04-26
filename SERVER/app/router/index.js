@@ -20,8 +20,8 @@ router.post('/login', authController.handleLoginForm);
 router.post('/signup', authController.handleSignForm);
 
 // secure router via middleware
-// router.use(auth);
-// router.use(checkMember);
+router.use(auth);
+router.use(checkMember);
 
 // member router
 router.use('/member', memberRouter);

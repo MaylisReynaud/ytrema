@@ -30,7 +30,7 @@ import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
-import { addAllFabrics, getAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
+import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
 import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
 
 
@@ -40,23 +40,21 @@ export function Fabric (props, index) {
 
     
     const dispatch = useDispatch();
-
     
+       
     //read info from store
    
-    const [fabricList, setFabricList] = useState(false);
-    const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(1);
+    const { auth } = useSelector(state => state);
+    const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+    
+    
     useEffect(() => {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
-          setFabricList(dispatch(getAllFabrics(fabrics)));
-            console.log('coucou dans useeffect')
-         
-     
         };
       }, [data]);
-    
-    
+      
+      const { fabrics } = useSelector(state => state);
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -178,9 +176,9 @@ export function Fabric (props, index) {
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data && fabricList ? (
+            ) : data ? (
                 <>
-                {console.log(fabricList, 'ici fabrics dans data')}
+           
             <CardsContainer>
                 {data.fabrics.map(fabric => (
                     
