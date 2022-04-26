@@ -172,20 +172,34 @@ export const CardsContainer = styled.div`
     overflow-y: scroll;
     height:100vh;
     width:100%;
+   
     @media screen and (min-width:601px) { 
       height:95vh;
 
     }
   `;
-
-export const CardContainer = styled.div`
+  export const CardsMapContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height:10rem;
   width:45%;
   margin: .5rem;
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  @media screen and (min-width:601px) { 
+    width:20%;
+  }
+`;
+
+
+
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height:11rem;
+  /* width:45%;
+  margin: .5rem; */
+  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   @media screen and (min-width:601px) { 
     width:20%;
   }
@@ -207,7 +221,7 @@ export const CardImg = styled.img`
 
 export const CardText = styled.h3`
   background-color: ${props => props.theme.color4};
-  height: 4rem;
+  height: 5rem;
   width:100%;
   text-align: center;
   padding: 0 .3rem;
