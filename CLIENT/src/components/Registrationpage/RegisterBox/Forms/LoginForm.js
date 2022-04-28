@@ -29,7 +29,7 @@ export function LoginForm(props) {
     useEffect(() => {
       if (isSuccess) {
         dispatch(setUser(data));
-        navigate('/');
+        navigate('/tissus');
         localStorage.setItem("token", data.memberToken);
       };
     }, [data]);

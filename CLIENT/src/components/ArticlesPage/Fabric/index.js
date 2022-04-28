@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { FabricModal } from './Modal';
@@ -10,7 +10,7 @@ import { Container,
          ButtonContainer,
          TopContainer,
          RegisterArticleButton,
-         FiltersButton,
+         Button,
          buttonVariants,
          FilterSpan,
          LeftContainer,
@@ -24,7 +24,10 @@ import { Container,
          MinusIcon,
          PlusIcon,
          ImgContainer,
-         CardsMapContainer
+         CardsMapContainer,
+         ErrorText,
+         SignupLink,
+         ErrorButton
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 // import { fabricData } from '../../../utils/fabricData';
@@ -37,8 +40,8 @@ import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
 
 
 export function Fabric (props, index) {
-    //call action 
-
+ 
+    let navigate = useNavigate();
     
     const dispatch = useDispatch();
     
@@ -46,6 +49,7 @@ export function Fabric (props, index) {
     //read info from store
    
     const { auth } = useSelector(state => state);
+    const isLogged = auth.isLogged;
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
     
     
@@ -146,6 +150,7 @@ export function Fabric (props, index) {
             MA TISSUTHÈQUE
         </Title>
         <Container>
+            { isLogged === true && (
             <TopContainer>
                 <RegisterArticleButton
                     style= {buttonVariants} 
@@ -157,7 +162,7 @@ export function Fabric (props, index) {
                     showModal={showModal}
                     setShowModal={setShowModal}
                 />
-                <FiltersButton
+                <Button
                     style= {buttonVariants}
                     onClick = {isOpenMobileFilters}
                 >
@@ -165,23 +170,41 @@ export function Fabric (props, index) {
                        <FilterAlt />
                    </FilterSpan>
                         Filtres
-                </FiltersButton>
-            </TopContainer>
+                </Button>
+            </TopContainer> )
+            }
+            
             {mapCategoriesFilter(fabrics)}
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
 
 
             {error ? (
-                <>Oh no, there was an error</>
+                <>
+                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
+                <ErrorButton
+                    whileHover='hover'
+                    whileTap='tap'
+                    onClick={() => {
+                      navigate('/');
+                    }}
+                >
+                
+                    Se connecter
+                </ErrorButton>
+
+                
+               
+                </>
+                
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data ? (
+            ) : data && fabrics ? (
                 <>
            
             <CardsContainer>
-                {data.fabrics.map(fabric => (
+                {fabrics.value.map(fabric => (
                     
                 <CardsMapContainer
                     key={fabric.id}
@@ -191,7 +214,6 @@ export function Fabric (props, index) {
                         onClick= {isOpenCard}
                     >
                         <Link 
-                            // key={fabric.id}
                             to = "/tissus/tissu"
 
                         />
