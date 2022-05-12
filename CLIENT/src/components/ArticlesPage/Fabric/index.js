@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { FabricModal } from './Modal';
 import { Card } from './Card';
+import { fabricData } from '../../../utils/fabricData';
 import { Container, 
          Title,
          TitleContainer,
@@ -30,7 +31,6 @@ import { Container,
          ErrorButton
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
-// import { fabricData } from '../../../utils/fabricData';
 import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
@@ -44,14 +44,31 @@ export function Fabric (props, index) {
     let navigate = useNavigate();
     
     const dispatch = useDispatch();
-    
-       
     //read info from store
-   
     const { auth } = useSelector(state => state);
     const isLogged = auth.isLogged;
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
     
+    const fabricsCategory = [{
+            id:"",
+            label:"",
+            name:"",
+            title:"Tissus"
+        }];
+    const designersCategory = [{
+            id:"",
+            label:"",
+            name:"",
+            title:"Designers"
+        }];
+    const colorsCategory = [{
+            id:"",
+            label:"",
+            name:"",
+            title:"Couleurs"
+        }];
+  
+
     
     useEffect(() => {
         if (isSuccess) {
@@ -59,7 +76,7 @@ export function Fabric (props, index) {
         };
       }, [data]);
       
-      const { fabrics } = useSelector(state => state);
+    const { fabrics } = useSelector(state => state);
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -75,22 +92,24 @@ export function Fabric (props, index) {
     
 
     const [showMobileFilters, setShowMobileFilters] = useState(false);
+  
     const isOpenMobileFilters = () => {
         setShowMobileFilters(prev => !prev)
     };
-    const mapCategoriesFilter = (categoryObject) => {
+    const mapCategoriesFilter = (fabrics) => {
 
       const [showFilter, setShowFilter] = useState(true);
       const isOpenFilter = () => {
           setShowFilter(prev => !prev);
       };
+      console.log(fabrics[0], 'ici categoryObject');
 
         return (
             <>
             {isDesktop && (
                 <>
                 <FilterTitle>
-                {categoryObject[0].title}
+                {/* {fabrics[0].title} */}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -105,7 +124,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={categoryObject}
+                categories={fabrics}
             />
             </>
             )
@@ -114,7 +133,7 @@ export function Fabric (props, index) {
                 <>
                 <FilterContainer>
                 <FilterTitle>
-                {categoryObject[0].title}
+                {fabrics[0]}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -129,7 +148,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={categoryObject}
+                categories={fabrics}
             />
                 </FilterContainer>
 
@@ -238,7 +257,7 @@ export function Fabric (props, index) {
         </>
         )
         }
-        {isDesktop && (
+        {isDesktop && isLogged === true && (
          <>
          <DesktopContainer> 
             <Container>
@@ -263,25 +282,53 @@ export function Fabric (props, index) {
                     
                     
                 </LeftContainer>
+
+                {error ? (
+                <>
+                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
+                <ErrorButton
+                    whileHover='hover'
+                    whileTap='tap'
+                    onClick={() => {
+                      navigate('/');
+                    }}
+                >
+                
+                    Se connecter
+                </ErrorButton>
+
+                </>
+                
+                
+            ) : isLoading ? (
+                <>Loading...</>
+            ) : data && fabrics ? (
+                <>
                 <CardsContainer>
                     <TitleContainer>
                         <Title>
                             MA TISSUTHEQUE
                         </Title>
                     </TitleContainer>
-                    {fabricData.map(fabric => (
-                        <CardContainer key={fabric.id} >
-                            <ImgContainer>
-                                <CardImg src={fabric.image} alt={fabric.alt}/>
-                            </ImgContainer>
-                        
-                        <CardText>
-                            {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                        </CardText>
-                    </CardContainer>
+                    {fabrics.value.map(fabric => (
+                         <CardsMapContainer
+                            key={fabric.id}
+                        >
+                            <CardContainer key={fabric.id} >
+                                <ImgContainer>
+                                    <CardImg src={fabric.image} alt={fabric.alt}/>
+                                </ImgContainer>
+                            
+                            <CardText>
+                                {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                            </CardText>
+                        </CardContainer>
+                    </CardsMapContainer>
                     ))}
                     
                 </CardsContainer>
+                </>
+            ) : null}
             </Container>
          </DesktopContainer>
          </>
