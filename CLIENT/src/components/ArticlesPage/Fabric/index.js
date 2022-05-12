@@ -32,7 +32,7 @@ import { Container,
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { FilterChoices } from './FilterChoices';
-import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
+ import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
 import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
@@ -48,10 +48,8 @@ export function Fabric (props, index) {
     //read info from store
     const { persistedReducer } = useSelector(state => state);
     const auth = persistedReducer.auth;
-    const fabrics = persistedReducer.fabrics;
+    const fabricss = persistedReducer.fabrics;
     const isLogged = auth.isLogged;
-    // const isLogged = true;
-    // const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
      
 
@@ -82,7 +80,7 @@ export function Fabric (props, index) {
     const isOpenMobileFilters = () => {
         setShowMobileFilters(prev => !prev)
     };
-    const mapCategoriesFilter = (fabrics) => {
+    const mapCategoriesFilter = (categoryObject) => {
 
       const [showFilter, setShowFilter] = useState(true);
       const isOpenFilter = () => {
@@ -94,7 +92,7 @@ export function Fabric (props, index) {
             {isDesktop && (
                 <>
                 <FilterTitle>
-                {/* {fabrics[0].title} */}
+                {categoryObject[0].title}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -109,7 +107,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={fabrics}
+                categories={categoryObject}
             />
             </>
             )
@@ -118,7 +116,7 @@ export function Fabric (props, index) {
                 <>
                 <FilterContainer>
                 <FilterTitle>
-                {fabrics[0]}
+                {categoryObject[0].title}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -133,7 +131,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={fabrics}
+                categories={categoryObject}
             />
                 </FilterContainer>
 
@@ -204,11 +202,11 @@ export function Fabric (props, index) {
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data && fabrics ? (
+            ) : data && fabricss ? (
                 <>
            
             <CardsContainer>
-                {fabrics.value.map(fabric => (
+                {fabricss.value.map(fabric => (
                     
                 <CardsMapContainer
                     key={fabric.id}
