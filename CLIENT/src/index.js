@@ -7,8 +7,8 @@ import { Reset } from '../src/style/styled-reset';
 import  { theme } from './style/theme';
 import { store } from './store';
 import { Provider } from 'react-redux';
-
-
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor } from './store';
 // == Import : local
 // Composants
 import App from '../src/components/App';
@@ -23,7 +23,9 @@ const rootReactElement = (
             <Reset />
             <FontStyles />
             <ThemeProvider theme={theme}>
-                <App />
+                <PersistGate loading={null} persistor={persistor}>
+                    <App />
+                </PersistGate>
             </ThemeProvider>
         </BrowserRouter>
     </Provider>

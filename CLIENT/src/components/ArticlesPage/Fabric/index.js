@@ -36,6 +36,7 @@ import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterCh
 import { useSelector, useDispatch } from 'react-redux';
 import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
 import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
+import { persistedReducer } from '../../../store';
 
 
 
@@ -45,29 +46,14 @@ export function Fabric (props, index) {
     
     const dispatch = useDispatch();
     //read info from store
-    const { auth } = useSelector(state => state);
+    const { persistedReducer } = useSelector(state => state);
+    const auth = persistedReducer.auth;
+    const fabrics = persistedReducer.fabrics;
     const isLogged = auth.isLogged;
+    // const isLogged = true;
+    // const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
-    
-    const fabricsCategory = [{
-            id:"",
-            label:"",
-            name:"",
-            title:"Tissus"
-        }];
-    const designersCategory = [{
-            id:"",
-            label:"",
-            name:"",
-            title:"Designers"
-        }];
-    const colorsCategory = [{
-            id:"",
-            label:"",
-            name:"",
-            title:"Couleurs"
-        }];
-  
+     
 
     
     useEffect(() => {
@@ -76,7 +62,7 @@ export function Fabric (props, index) {
         };
       }, [data]);
       
-    const { fabrics } = useSelector(state => state);
+   
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -102,8 +88,7 @@ export function Fabric (props, index) {
       const isOpenFilter = () => {
           setShowFilter(prev => !prev);
       };
-      console.log(fabrics[0], 'ici categoryObject');
-
+    
         return (
             <>
             {isDesktop && (

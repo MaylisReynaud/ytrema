@@ -3,23 +3,47 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from './state/authSlice';
 import fabricsReducer from './state/fabricSlice';
 import { ytremaApi } from './api/ytremaApi';
-// import fabricReducer from '../src/components/ArticlesPage/Fabric/fabricSlice'
-// import { fabricsApi } from './services/fabric';
-// import {api} from './services/api';
-// import {login} from './services/login';
-// import loginReducer from '../../CLIENT/src/components/Registrationpage/loginSlice';
+import { combineReducers } from 'redux';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
+export const rootReducer = combineReducers({
+  auth: authReducer,
+  fabrics: fabricsReducer
+});
+
+export const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
-    fabrics: fabricsReducer,
+    persistedReducer,
     [ytremaApi.reducerPath]: ytremaApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(ytremaApi.middleware)
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(ytremaApi.middleware)
 });
+
+export const persistor = persistStore(store);
 
 setupListeners(store.dispatch);
 
