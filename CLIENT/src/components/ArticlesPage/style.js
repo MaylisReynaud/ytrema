@@ -3,6 +3,7 @@ import {motion} from 'framer-motion';
 import { DeviceSize } from '../Navbar/Responsive';
 import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
+import { Link } from 'react-router-dom';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -108,7 +109,7 @@ export const RegisterArticleButton = styled(motion.button)`
   }
 `;
 
-export const FiltersButton = styled(motion.button)`
+export const Button = styled(motion.button)`
   border: 0;
   outline: 0;
   display: flex;
@@ -172,20 +173,34 @@ export const CardsContainer = styled.div`
     overflow-y: scroll;
     height:100vh;
     width:100%;
+   
     @media screen and (min-width:601px) { 
       height:95vh;
 
     }
   `;
-
-export const CardContainer = styled.div`
+  export const CardsMapContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height:10rem;
   width:45%;
   margin: .5rem;
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  @media screen and (min-width:601px) { 
+    width:20%;
+  }
+`;
+
+
+
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height:11rem;
+  /* width:45%;
+  margin: .5rem; */
+  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   @media screen and (min-width:601px) { 
     width:20%;
   }
@@ -207,7 +222,7 @@ export const CardImg = styled.img`
 
 export const CardText = styled.h3`
   background-color: ${props => props.theme.color4};
-  height: 4rem;
+  height: 5rem;
   width:100%;
   text-align: center;
   padding: 0 .3rem;
@@ -272,4 +287,52 @@ export const PlusIcon = styled(PlusSm)`
     height: 20px;
     padding: 0;
     z-index: 100;
+`;
+
+export const ErrorText = styled.h2`
+font : 1.2rem/1.5 '${props => props.theme.textFont}';
+font-weight: 700;
+text-align: center;
+color: ${props => props.theme.color2};
+margin: 4rem;
+@media screen and (min-width:601px) { 
+  margin:4rem;
+}
+`;
+
+export const SignupLink = styled(Link)`
+cursor: pointer;
+`;
+
+export const ErrorButton = styled(motion.button)`
+  border: 0;
+  outline: 0;
+  padding: 0.7em 1em;
+  margin: 2em 4em;
+  color: ${props => props.theme.color4};
+  font-size: 1.1rem;
+  font-family: '${props => props.theme.textFont}';
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  background: rgb(241, 196, 15);
+    background: linear-gradient(
+      58deg,
+      rgba(241, 196, 15, 1) 20%,
+      rgba(243, 172, 18, 1) 100%
+    );
+  border: 2px solid ${props => props.theme.color1};
+  transition: 1s box-shadow;
+  cursor: pointer;
+  &:hover {
+    transition: all, 240ms ease-in-out;
+    color: ${props => props.theme.color4};
+  }
+  &:not(:last-of-type) {
+    margin-right: 7px;
+  };
+  @media screen and (min-width:601px) { 
+    width:100%;  
+    padding: 0.5rem 1.2rem;
+  }
 `;

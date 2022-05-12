@@ -5,7 +5,7 @@ import { Container,
          Title,
          TopContainer,
          RegisterArticleButton,
-         FiltersButton,
+         Button,
          buttonVariants,
          FilterSpan,
          CardsContainer,
@@ -30,14 +30,14 @@ export function Pattern (props) {
                 >
                     Enregistrer un patron
                 </RegisterArticleButton>
-                <FiltersButton
+                <Button
                     style= {buttonVariants}
                 >
                    <FilterSpan>
                        <FilterAlt />
                    </FilterSpan>
                         Filtres
-                </FiltersButton>
+                </Button>
             </TopContainer>
             <CardsContainer>
                 {fabricData.map(fabric => (

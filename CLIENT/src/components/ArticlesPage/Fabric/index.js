@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { FabricModal } from './Modal';
 import { Card } from './Card';
+import { fabricData } from '../../../utils/fabricData';
 import { Container, 
          Title,
          TitleContainer,
          ButtonContainer,
          TopContainer,
          RegisterArticleButton,
-         FiltersButton,
+         Button,
          buttonVariants,
          FilterSpan,
          LeftContainer,
@@ -23,15 +24,45 @@ import { Container,
          FilterTitle,
          MinusIcon,
          PlusIcon,
-         ImgContainer
+         ImgContainer,
+         CardsMapContainer,
+         ErrorText,
+         SignupLink,
+         ErrorButton
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
-import { fabricData } from '../../../utils/fabricData';
 import { FilterChoices } from './FilterChoices';
 import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
+import { useSelector, useDispatch } from 'react-redux';
+import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
+import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
+import { persistedReducer } from '../../../store';
+
 
 
 export function Fabric (props, index) {
+ 
+    let navigate = useNavigate();
+    
+    const dispatch = useDispatch();
+    //read info from store
+    const { persistedReducer } = useSelector(state => state);
+    const auth = persistedReducer.auth;
+    const fabrics = persistedReducer.fabrics;
+    const isLogged = auth.isLogged;
+    // const isLogged = true;
+    // const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+    const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+     
+
+    
+    useEffect(() => {
+        if (isSuccess) {
+          dispatch(addAllFabrics(data.fabrics));            
+        };
+      }, [data]);
+      
+   
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -44,25 +75,26 @@ export function Fabric (props, index) {
     const isOpenCard = () => {
         setShowCard(prev => !prev)
     };
-    console.log(showCard, "ici showcard");
+    
 
     const [showMobileFilters, setShowMobileFilters] = useState(false);
+  
     const isOpenMobileFilters = () => {
         setShowMobileFilters(prev => !prev)
     };
-    const mapCategoriesFilter = (categoryObject) => {
+    const mapCategoriesFilter = (fabrics) => {
 
       const [showFilter, setShowFilter] = useState(true);
       const isOpenFilter = () => {
           setShowFilter(prev => !prev);
       };
-
+    
         return (
             <>
             {isDesktop && (
                 <>
                 <FilterTitle>
-                {categoryObject[0].title}
+                {/* {fabrics[0].title} */}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -77,7 +109,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={categoryObject}
+                categories={fabrics}
             />
             </>
             )
@@ -86,7 +118,7 @@ export function Fabric (props, index) {
                 <>
                 <FilterContainer>
                 <FilterTitle>
-                {categoryObject[0].title}
+                {fabrics[0]}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -101,7 +133,7 @@ export function Fabric (props, index) {
             </FilterTitle>
             <FilterChoices 
                 showFilter={showFilter}
-                categories={categoryObject}
+                categories={fabrics}
             />
                 </FilterContainer>
 
@@ -113,7 +145,7 @@ export function Fabric (props, index) {
             
         )
     }
-   
+
   return (
     <>
         {isMobile && (
@@ -122,6 +154,7 @@ export function Fabric (props, index) {
             MA TISSUTHÈQUE
         </Title>
         <Container>
+            { isLogged === true && (
             <TopContainer>
                 <RegisterArticleButton
                     style= {buttonVariants} 
@@ -133,7 +166,7 @@ export function Fabric (props, index) {
                     showModal={showModal}
                     setShowModal={setShowModal}
                 />
-                <FiltersButton
+                <Button
                     style= {buttonVariants}
                     onClick = {isOpenMobileFilters}
                 >
@@ -141,47 +174,75 @@ export function Fabric (props, index) {
                        <FilterAlt />
                    </FilterSpan>
                         Filtres
-                </FiltersButton>
-            </TopContainer>
+                </Button>
+            </TopContainer> )
+            }
+            
             {mapCategoriesFilter(fabrics)}
             {mapCategoriesFilter(colors)}
             {mapCategoriesFilter(designers)}
+
+
+            {error ? (
+                <>
+                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
+                <ErrorButton
+                    whileHover='hover'
+                    whileTap='tap'
+                    onClick={() => {
+                      navigate('/');
+                    }}
+                >
+                
+                    Se connecter
+                </ErrorButton>
+
+                
+               
+                </>
+                
+                
+            ) : isLoading ? (
+                <>Loading...</>
+            ) : data && fabrics ? (
+                <>
+           
             <CardsContainer>
-                {fabricData.map(fabric => (
-                    <>
+                {fabrics.value.map(fabric => (
+                    
+                <CardsMapContainer
+                    key={fabric.id}
+                >
                     <CardContainer 
                         key={fabric.id}
                         onClick= {isOpenCard}
                     >
                         <Link 
-                            // key={fabric.id}
                             to = "/tissus/tissu"
 
                         />
                         <ImgContainer>
-                                <CardImg src={fabric.image} alt={fabric.alt}/>
+                                <CardImg src={fabric.photo} alt={fabric.alt}/>
                             </ImgContainer>
-                    <CardText>
-                       {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                    </CardText>
-                </CardContainer>
-                 {/* <Card 
-                 key = {fabric.name}
-                 showCard = {showCard}
-                 setShowCard = {setShowCard}
-                 fabricName = {fabric.name}
-                 fabricImage = {fabric.image}
-             /> */}
-             </>
+                        <CardText>
+                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                        </CardText>
+                    </CardContainer>
+                
+                </CardsMapContainer>
               
                 ))}
                
             </CardsContainer>
+                </>
+            ) : null}
+
+
         </Container>
         </>
         )
         }
-        {isDesktop && (
+        {isDesktop && isLogged === true && (
          <>
          <DesktopContainer> 
             <Container>
@@ -206,25 +267,53 @@ export function Fabric (props, index) {
                     
                     
                 </LeftContainer>
+
+                {error ? (
+                <>
+                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
+                <ErrorButton
+                    whileHover='hover'
+                    whileTap='tap'
+                    onClick={() => {
+                      navigate('/');
+                    }}
+                >
+                
+                    Se connecter
+                </ErrorButton>
+
+                </>
+                
+                
+            ) : isLoading ? (
+                <>Loading...</>
+            ) : data && fabrics ? (
+                <>
                 <CardsContainer>
                     <TitleContainer>
                         <Title>
                             MA TISSUTHEQUE
                         </Title>
                     </TitleContainer>
-                    {fabricData.map(fabric => (
-                        <CardContainer key={fabric.id} >
-                            <ImgContainer>
-                                <CardImg src={fabric.image} alt={fabric.alt}/>
-                            </ImgContainer>
-                        
-                        <CardText>
-                            {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                        </CardText>
-                    </CardContainer>
+                    {fabrics.value.map(fabric => (
+                         <CardsMapContainer
+                            key={fabric.id}
+                        >
+                            <CardContainer key={fabric.id} >
+                                <ImgContainer>
+                                    <CardImg src={fabric.image} alt={fabric.alt}/>
+                                </ImgContainer>
+                            
+                            <CardText>
+                                {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                            </CardText>
+                        </CardContainer>
+                    </CardsMapContainer>
                     ))}
                     
                 </CardsContainer>
+                </>
+            ) : null}
             </Container>
          </DesktopContainer>
          </>
@@ -232,6 +321,7 @@ export function Fabric (props, index) {
         }
     </>
   )
+    
 };
 
 
