@@ -32,7 +32,7 @@ import { Container,
 } from '../style';
 import { FilterAlt } from '@styled-icons/boxicons-solid';
 import { FilterChoices } from './FilterChoices';
- import  {fabrics, designers, colors}  from '../../../../src/utils/fabricFilterChoices';
+// import  { designers, colors}  from '../../../../src/utils/fabricFilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
 import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
@@ -48,11 +48,13 @@ export function Fabric (props, index) {
     //read info from store
     const { persistedReducer } = useSelector(state => state);
     const auth = persistedReducer.auth;
-    const fabricss = persistedReducer.fabrics;
+    const fabrics = persistedReducer.fabrics;
     const isLogged = auth.isLogged;
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
      
-
+    const designersFilter = [];
+    const colorsFilter = [];
+    const fabricsFilter = [];
     
     useEffect(() => {
         if (isSuccess) {
@@ -175,10 +177,33 @@ export function Fabric (props, index) {
                 </Button>
             </TopContainer> )
             }
-            
-            {mapCategoriesFilter(fabrics)}
-            {mapCategoriesFilter(colors)}
-            {mapCategoriesFilter(designers)}
+            {fabrics ? fabrics.value.map(fabric => {
+                if (fabric.color) {
+                    colorsFilter.push({
+                        id: fabric.id,
+                        name: fabric.color,
+                        title: "Couleurs"
+                    })
+                };
+                if (fabric.designer) {
+                    designersFilter.push({
+                        id: fabric.id,
+                        name: fabric.designer,
+                        title: "Designers"
+                    })
+                };
+                if (fabric.fabric) {
+                    fabricsFilter.push({
+                        id: fabric.id,
+                        name: fabric.fabric,
+                        title: "Tissus"
+                    })
+                }
+
+            }): null}
+            {mapCategoriesFilter(fabricsFilter)}
+            {mapCategoriesFilter(colorsFilter)}
+            {mapCategoriesFilter(designersFilter)}
 
 
             {error ? (
@@ -202,11 +227,11 @@ export function Fabric (props, index) {
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data && fabricss ? (
+            ) : data && fabrics ? (
                 <>
            
             <CardsContainer>
-                {fabricss.value.map(fabric => (
+                {fabrics.value.map(fabric => (
                     
                 <CardsMapContainer
                     key={fabric.id}
