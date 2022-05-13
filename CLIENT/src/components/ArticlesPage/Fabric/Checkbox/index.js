@@ -5,12 +5,21 @@ import { Icon,
          CheckboxContainer,
         } from './style';
 
-export function Checkbox({className, name, id, dataId}) {
+export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory}) {
     const [checked, setChecked] = useState(false);
+    console.log(checked, 'CHECKED')
     
     const handleCheckboxChange = (event) => {
         setChecked( event.target.checked); 
+        let filterSelection = filterByCategory;
+        filterSelection.push({
+            name: event.target.value,
+            category: event.target.name
+        } )
+        setFilterByCategory(filterSelection);
+        
     };
+    console.log(filterByCategory, 'FILTER BY CATEGORY')
   return (
     <CheckboxContainer 
         className={className}

@@ -65,7 +65,7 @@ export function Fabric (props, index) {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
         };
-      }, [data]);
+      }, [data, filterByCategory]);
       
    
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -88,7 +88,9 @@ export function Fabric (props, index) {
         setShowMobileFilters(prev => !prev)
     };
 
-    const [filterByCategory, setFilterByCategory] = useState();
+    const [filterByCategory, setFilterByCategory] = useState([]);
+
+    console.log(filterByCategory, 'FILTERBYCATEGORY');
 
     const mapCategoriesFilter = (categoryObject) => {
 
@@ -97,6 +99,7 @@ export function Fabric (props, index) {
           setShowFilter(prev => !prev);
       };
 
+      //show one filter
       let newCategory = [];
       let uniqueObject = {};
 
@@ -104,7 +107,6 @@ export function Fabric (props, index) {
         let objName = el['name'];
     
         uniqueObject[objName] = el;
-    console.log(categoryObject.length, 'CATEGORY OBJ LENGTH')
         if (index === categoryObject.length - 1) {
             for (let i in uniqueObject) {
                 newCategory.push(uniqueObject[i]);
@@ -112,11 +114,10 @@ export function Fabric (props, index) {
         }
         
     });
-    
+        //sort by alphabetic order
         categoryObject = newCategory.sort(function(a,b) {
             return a.name.localeCompare(b.name)
         });
-        console.log(categoryObject, ' CATEGORY OBJECT')
 
     
         return (
@@ -164,6 +165,8 @@ export function Fabric (props, index) {
             <FilterChoices 
                 showFilter={showFilter}
                 categories={categoryObject}
+                setFilterByCategory={setFilterByCategory}
+                filterByCategory = {filterByCategory}
             />
                 </FilterContainer>
 
@@ -214,7 +217,6 @@ export function Fabric (props, index) {
                         name: fabric.color,
                         title: "Couleurs"
                     })
-                    console.log(colorsFilter, 'ici colorsFilter')
                 };
                 if (fabric.designer) {
                     designersFilter.push({
@@ -229,8 +231,6 @@ export function Fabric (props, index) {
                         name: fabric.fabric,
                         title: "Tissus"
                     })
-                   
-                    console.log(fabricsFilter, 'ici fabricsFilter')
                 }
 
             }): null}
@@ -263,34 +263,39 @@ export function Fabric (props, index) {
                 <>Loading...</>
             ) : data && fabrics ? (
                 <>
-           
-            <CardsContainer>
-                {fabrics.value.map(fabric => (
-                    
-                <CardsMapContainer
-                    key={fabric.id}
-                >
-                    <CardContainer 
-                        key={fabric.id}
-                        onClick= {isOpenCard}
-                    >
-                        <Link 
-                            to = "/tissus/tissu"
-
-                        />
-                        <ImgContainer>
-                                <CardImg src={fabric.photo} alt={fabric.alt}/>
-                            </ImgContainer>
-                        <CardText>
-                        {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                        </CardText>
-                    </CardContainer>
-                
-                </CardsMapContainer>
-              
-                ))}
+                {console.log(filterByCategory.length, 'filter length')}
+           {filterByCategory.length === 0 ? (
                
-            </CardsContainer>
+               <CardsContainer>
+                
+               {fabrics.value.map(fabric => (
+                   
+               <CardsMapContainer
+                   key={fabric.id}
+               >
+                   <CardContainer 
+                       key={fabric.id}
+                       onClick= {isOpenCard}
+                   >
+                       <Link 
+                           to = "/tissus/tissu"
+
+                       />
+                       <ImgContainer>
+                               <CardImg src={fabric.photo} alt={fabric.alt}/>
+                           </ImgContainer>
+                       <CardText>
+                       {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                       </CardText>
+                   </CardContainer>
+               
+               </CardsMapContainer>
+             
+               ))}
+              
+           </CardsContainer>
+           ) : null }
+            
                 </>
             ) : null}
 
