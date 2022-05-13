@@ -96,22 +96,28 @@ export function Fabric (props, index) {
       const isOpenFilter = () => {
           setShowFilter(prev => !prev);
       };
-      const uniqueFilter = [... new Set (categoryObject.map((category) => category.name))];
-      console.log(uniqueFilter, 'ici uniqueFilter')
-    //   console.log(categoryObject.filter((category) => category.name !== uniqueFilter[0]), "FILTER CATEGORY OBJECT")
-      
-    //   const uniqueFilterByCategory = uniqueFilter.map((el) => {
-    //      return categoryObject.filter((category) => el === category.name)
-    //   });
 
-    //   setFilterByCategory(uniqueFilterByCategory);
+      let newCategory = [];
+      let uniqueObject = {};
 
+      categoryObject.map((el, index) => {
+        let objName = el['name'];
+    
+        uniqueObject[objName] = el;
+    console.log(categoryObject.length, 'CATEGORY OBJ LENGTH')
+        if (index === categoryObject.length - 1) {
+            for (let i in uniqueObject) {
+                newCategory.push(uniqueObject[i]);
+            }
+        }
+        
+    });
+    
+        categoryObject = newCategory.sort(function(a,b) {
+            return a.name.localeCompare(b.name)
+        });
+        console.log(categoryObject, ' CATEGORY OBJECT')
 
-
-    //   categoryObject = filterByCategory.map((el) => {
-    //       return el[0]
-    //   })
-    //   console.log(categoryObject, 'CATEGORY OBJECT ')
     
         return (
             <>
