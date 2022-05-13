@@ -52,9 +52,14 @@ export function Fabric (props, index) {
     const isLogged = auth.isLogged;
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
      
-    const designersFilter = [];
-    const colorsFilter = [];
-    const fabricsFilter = [];
+    // we set an array
+    let designersFilter = [];
+
+
+    let colorsFilter = [];
+
+    let fabricsFilter = [];
+
     
     useEffect(() => {
         if (isSuccess) {
@@ -76,18 +81,37 @@ export function Fabric (props, index) {
         setShowCard(prev => !prev)
     };
     
-
+    
     const [showMobileFilters, setShowMobileFilters] = useState(false);
   
     const isOpenMobileFilters = () => {
         setShowMobileFilters(prev => !prev)
     };
+
+    const [filterByCategory, setFilterByCategory] = useState();
+
     const mapCategoriesFilter = (categoryObject) => {
 
       const [showFilter, setShowFilter] = useState(true);
       const isOpenFilter = () => {
           setShowFilter(prev => !prev);
       };
+      const uniqueFilter = [... new Set (categoryObject.map((category) => category.name))];
+      console.log(uniqueFilter, 'ici uniqueFilter')
+    //   console.log(categoryObject.filter((category) => category.name !== uniqueFilter[0]), "FILTER CATEGORY OBJECT")
+      
+    //   const uniqueFilterByCategory = uniqueFilter.map((el) => {
+    //      return categoryObject.filter((category) => el === category.name)
+    //   });
+
+    //   setFilterByCategory(uniqueFilterByCategory);
+
+
+
+    //   categoryObject = filterByCategory.map((el) => {
+    //       return el[0]
+    //   })
+    //   console.log(categoryObject, 'CATEGORY OBJECT ')
     
         return (
             <>
@@ -184,6 +208,7 @@ export function Fabric (props, index) {
                         name: fabric.color,
                         title: "Couleurs"
                     })
+                    console.log(colorsFilter, 'ici colorsFilter')
                 };
                 if (fabric.designer) {
                     designersFilter.push({
@@ -198,9 +223,12 @@ export function Fabric (props, index) {
                         name: fabric.fabric,
                         title: "Tissus"
                     })
+                   
+                    console.log(fabricsFilter, 'ici fabricsFilter')
                 }
 
             }): null}
+        
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
