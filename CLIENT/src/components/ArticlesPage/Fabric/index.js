@@ -126,7 +126,6 @@ export function Fabric (props, index) {
     }; 
 
     useEffect(() => {
-       
         if(filterByCategory.length > 0) {
             mapFilteredCards(filterByCategory);
         }
