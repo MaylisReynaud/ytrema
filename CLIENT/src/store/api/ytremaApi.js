@@ -3,7 +3,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const token = localStorage.getItem("token");
-console.log(token, "token dans fabric");
 
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({

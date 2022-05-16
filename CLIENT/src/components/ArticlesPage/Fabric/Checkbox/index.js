@@ -1,25 +1,45 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Icon,
          HiddenCheckbox,
          StyledCheckbox,
          CheckboxContainer,
         } from './style';
 
-export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory}) {
+export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory, mapFilteredCards}) {
     const [checked, setChecked] = useState(false);
-    console.log(checked, 'CHECKED')
+    const [chosenFilter, setChosenFilter] = useState(false);
     
     const handleCheckboxChange = (event) => {
-        setChecked( event.target.checked); 
-        let filterSelection = filterByCategory;
-        filterSelection.push({
-            name: event.target.value,
-            category: event.target.name
-        } )
-        setFilterByCategory(filterSelection);
+        setChecked(event.target.checked);
+        let filterSelection;
         
-    };
-    console.log(filterByCategory, 'FILTER BY CATEGORY')
+        filterByCategory ? filterSelection = filterByCategory : filterSelection = [];
+    
+        const found = filterSelection.find((el) => el.name === event.target.value);
+    
+        if (found) {
+          filterSelection = filterSelection.filter(function (f) {
+            return f !== found;
+          })
+        } else {
+          filterSelection.push({
+            name: event.target.value,
+            category: event.target.name,
+          });
+        }
+        setFilterByCategory(filterSelection);
+        setChosenFilter(true);
+       
+       
+      };
+      
+    //   if(chosenFilter) {
+    //     setChosenFilter(false);
+    //     mapFilteredCards(filterByCategory);
+    //     console.log('je passe DANS mapFilteredCards')
+        
+    //   }
+      
   return (
     <CheckboxContainer 
         className={className}

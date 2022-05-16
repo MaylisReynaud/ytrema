@@ -36,8 +36,6 @@ import { FilterChoices } from './FilterChoices';
 import { useSelector, useDispatch } from 'react-redux';
 import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
 import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
-import { persistedReducer } from '../../../store';
-
 
 
 export function Fabric (props, index) {
@@ -54,20 +52,86 @@ export function Fabric (props, index) {
      
     // we set an array
     let designersFilter = [];
-
-
     let colorsFilter = [];
-
     let fabricsFilter = [];
+
+    // const [chosenCardFilters, setChosenCardFilters] = useState([]);
+   let chosenFiltersCards;
+ 
+    // state
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
+    const [filterByCategory, setFilterByCategory] = useState([]);
+    console.log(filterByCategory, "teste l61 après tableau")
+
 
     
     useEffect(() => {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
         };
-      }, [data, filterByCategory]);
-      
-   
+        if(filterByCategory && filterByCategory.length > 0) {
+            console.log("good tableau supérieur à 1");
+          }
+        console.log("ICI USEEFFECT");
+        console.log(filterByCategory, "FILTERBYCATEGORY - fabric.js l.70");
+      }, [data]);
+    
+      const mapFilteredCards = (filteredCategory) => {
+        let filterCardsSelection;
+
+        chosenFiltersCards ? filterCardsSelection = chosenFiltersCards : filterCardsSelection = [];
+
+        let results = filteredCategory.map((chosenCategory) => {
+         if(chosenCategory.category === 'Tissus') {
+
+              return fabrics.value.filter((el) => el.fabric === chosenCategory.name);
+             }
+        
+        })
+        chosenFiltersCards= results;
+        console.log(chosenFiltersCards, 'chosencardsfilters dans mapfilteredcard')
+        return (
+            <CardsContainer>
+            {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
+            {console.log(chosenFiltersCards, 'CHOSENCARDFILTERS')}
+            
+            
+            {chosenFiltersCards[0].map(fabric => (
+                
+            <CardsMapContainer
+                key={fabric.id}
+            >
+                <CardContainer 
+                    key={fabric.id}
+                    onClick= {isOpenCard}
+                >
+                    <Link 
+                        to = "/tissus/tissu"
+
+                    />
+                    <ImgContainer>
+                            <CardImg src={fabric.photo} alt={fabric.alt}/>
+                        </ImgContainer>
+                    <CardText>
+                    {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                    </CardText>
+                </CardContainer>
+            
+            </CardsMapContainer>
+          
+            ))}
+           
+            </CardsContainer>
+        )
+    }; 
+
+    useEffect(() => {
+       
+        if(filterByCategory.length > 0) {
+            mapFilteredCards(filterByCategory);
+        }
+    }, [filterByCategory])
+
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
@@ -82,15 +146,12 @@ export function Fabric (props, index) {
     };
     
     
-    const [showMobileFilters, setShowMobileFilters] = useState(false);
-  
+
     const isOpenMobileFilters = () => {
         setShowMobileFilters(prev => !prev)
     };
 
-    const [filterByCategory, setFilterByCategory] = useState([]);
-
-    console.log(filterByCategory, 'FILTERBYCATEGORY');
+    
 
     const mapCategoriesFilter = (categoryObject) => {
 
@@ -167,6 +228,7 @@ export function Fabric (props, index) {
                 categories={categoryObject}
                 setFilterByCategory={setFilterByCategory}
                 filterByCategory = {filterByCategory}
+                
             />
                 </FilterContainer>
 
@@ -238,6 +300,7 @@ export function Fabric (props, index) {
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
+           
 
 
             {error ? (
@@ -261,10 +324,9 @@ export function Fabric (props, index) {
                 
             ) : isLoading ? (
                 <>Loading...</>
-            ) : data && fabrics ? (
+            ) : data && fabrics && !filterByCategory || filterByCategory.length == 0 ? (
                 <>
-                {console.log(filterByCategory.length, 'filter length')}
-           {filterByCategory.length === 0 ? (
+           
                
                <CardsContainer>
                 
@@ -293,11 +355,45 @@ export function Fabric (props, index) {
              
                ))}
               
-           </CardsContainer>
-           ) : null }
+               </CardsContainer>
             
                 </>
-            ) : null}
+            ) : filterByCategory.length > 0 ? (
+                mapFilteredCards(filterByCategory)
+              
+                // <CardsContainer>
+                // {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
+                // {console.log(chosenFiltersCards, 'CHOSENCARDFILTERS')}
+                
+                // {console.log(chosenFiltersCards.length, 'CHOSENCARDFILTERS LENGTH')}
+                
+                // {chosenFiltersCards.map(fabric => (
+                    
+                // <CardsMapContainer
+                //     key={fabric.id}
+                // >
+                //     <CardContainer 
+                //         key={fabric.id}
+                //         onClick= {isOpenCard}
+                //     >
+                //         <Link 
+                //             to = "/tissus/tissu"
+ 
+                //         />
+                //         <ImgContainer>
+                //                 <CardImg src={fabric.photo} alt={fabric.alt}/>
+                //             </ImgContainer>
+                //         <CardText>
+                //         {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
+                //         </CardText>
+                //     </CardContainer>
+                
+                // </CardsMapContainer>
+              
+                // ))}
+               
+                // </CardsContainer>
+            ) :null}
 
 
         </Container>
