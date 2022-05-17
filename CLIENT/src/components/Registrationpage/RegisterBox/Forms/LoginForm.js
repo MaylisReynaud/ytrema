@@ -41,6 +41,11 @@ export function LoginForm(props) {
     event.persist();
     setFormState((prev) => ({...prev, [event.target.name]: event.target.value}))
   }
+  const handleKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      signinUser(formState);
+    }
+  };
 
   return (
     <BoxContainer>
@@ -57,6 +62,7 @@ export function LoginForm(props) {
         placeholder="Password" 
         autoComplete='on' 
         onChange={handleChange}
+        onKeyDown = {handleKeyDown}
       />
       </FormContainer>
       <Marginer direction="vertical" margin={10} />

@@ -186,6 +186,7 @@ export function Fabric (props, index) {
                 <>
                 <FilterTitle>
                 {categoryObject[0].title}
+                {console.log(activeItem, 'ici active item')}
                 {showFilter ? 
                 <MinusIcon
                 onClick={isOpenFilter}
@@ -277,6 +278,7 @@ export function Fabric (props, index) {
                         id: fabric.id,
                         name: fabric.color,
                         title: "Couleurs"
+                        
                     })
                 };
                 if (fabric.designer) {
