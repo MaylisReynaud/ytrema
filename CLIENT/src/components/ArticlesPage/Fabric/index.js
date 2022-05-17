@@ -89,14 +89,16 @@ export function Fabric (props, index) {
         
         })
         chosenFiltersCards= results;
+        const mergedChosenFiltersCards = [].concat(...chosenFiltersCards);
+        console.log(mergedChosenFiltersCards, 'ici merged chosenfilterscards');
         console.log(chosenFiltersCards, 'chosencardsfilters dans mapfilteredcard')
         return (
             <CardsContainer>
             {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
-            {console.log(chosenFiltersCards, 'CHOSENCARDFILTERS')}
+            {console.log(mergedChosenFiltersCards, 'MERGED CHOSENCARDFILTERS')}
             
             
-            {chosenFiltersCards[0].map(fabric => (
+            {mergedChosenFiltersCards.map(fabric => (
                 
             <CardsMapContainer
                 key={fabric.id}
@@ -107,7 +109,6 @@ export function Fabric (props, index) {
                 >
                     <Link 
                         to = "/tissus/tissu"
-
                     />
                     <ImgContainer>
                             <CardImg src={fabric.photo} alt={fabric.alt}/>
@@ -116,9 +117,8 @@ export function Fabric (props, index) {
                     {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
                     </CardText>
                 </CardContainer>
-            
             </CardsMapContainer>
-          
+
             ))}
            
             </CardsContainer>
