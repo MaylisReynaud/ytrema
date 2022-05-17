@@ -49,7 +49,7 @@ export function Fabric (props, index) {
     const fabrics = persistedReducer.fabrics;
     const isLogged = auth.isLogged;
     const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
-     
+    
     // we set an array
     let designersFilter = [];
     let colorsFilter = [];
@@ -82,16 +82,15 @@ export function Fabric (props, index) {
         chosenFiltersCards ? filterCardsSelection = chosenFiltersCards : filterCardsSelection = [];
 
         let results = filteredCategory.map((chosenCategory) => {
-         if(chosenCategory.category === 'Tissus') {
-
+            console.log(chosenCategory, 'ici CHOSEN CATEGORY');
+            if(chosenCategory.category === 'Tissus' ) {
               return fabrics.value.filter((el) => el.fabric === chosenCategory.name);
-             }
+            } 
         
         })
         chosenFiltersCards= results;
         const mergedChosenFiltersCards = [].concat(...chosenFiltersCards);
-        console.log(mergedChosenFiltersCards, 'ici merged chosenfilterscards');
-        console.log(chosenFiltersCards, 'chosencardsfilters dans mapfilteredcard')
+
         return (
             <CardsContainer>
             {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
