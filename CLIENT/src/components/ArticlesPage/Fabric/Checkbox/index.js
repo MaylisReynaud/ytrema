@@ -5,9 +5,9 @@ import { Icon,
          CheckboxContainer,
         } from './style';
 
-export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory, mapFilteredCards}) {
+export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory, setChosenFilter}) {
     const [checked, setChecked] = useState(false);
-    const [chosenFilter, setChosenFilter] = useState(false);
+
     
     const handleCheckboxChange = (event) => {
        

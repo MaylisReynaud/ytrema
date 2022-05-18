@@ -5,7 +5,7 @@ import { CheckboxLabel,
          SpanLabel
         } from './style';
 
-export function FilterChoices ({showFilter, categories, setFilterByCategory, filterByCategory, mapFilteredCards}) {
+export function FilterChoices ({showFilter, categories, setFilterByCategory, filterByCategory, setChosenFilter}) {
 
 
     return (
@@ -25,7 +25,8 @@ export function FilterChoices ({showFilter, categories, setFilterByCategory, fil
                                 dataId={category.id}   
                                 setFilterByCategory = {setFilterByCategory}  
                                 filterByCategory = {filterByCategory}
-                                mapFilteredCards = {mapFilteredCards}
+                                setChosenFilter = {setChosenFilter}
+
 
                             /> 
                             <SpanLabel> {category.name} </SpanLabel>

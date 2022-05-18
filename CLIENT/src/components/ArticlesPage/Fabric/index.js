@@ -4,7 +4,6 @@ import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { FabricModal } from './Modal';
 import { Card } from './Card';
-import { fabricData } from '../../../utils/fabricData';
 import { Container, 
          Title,
          TitleContainer,
@@ -55,16 +54,19 @@ export function Fabric (props, index) {
     let colorsFilter = [];
     let fabricsFilter = [];
 
-    // const [chosenCardFilters, setChosenCardFilters] = useState([]);
+    //  const [chosenFiltersCards, setChosenFiltersCards] = useState([]);
    let chosenFiltersCards;
  
     // state
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [filterByCategory, setFilterByCategory] = useState([]);
+    const [chosenFilter, setChosenFilter] = useState(false);
     console.log(filterByCategory, "teste l61 après tableau")
-
-
     
+    if(chosenFilter) {
+        setChosenFilter(false)
+    };
+
     useEffect(() => {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
@@ -75,6 +77,14 @@ export function Fabric (props, index) {
         console.log("ICI USEEFFECT");
         console.log(filterByCategory, "FILTERBYCATEGORY - fabric.js l.70");
       }, [data]);
+
+      useEffect(() => {
+        console.log('coucou je passe dans USE EFFECT L128')
+        if(filterByCategory.length > 0) {
+            console.log(filterByCategory, "FILTER BY CATEGORY DANS USE EFFECT")
+            mapFilteredCards(filterByCategory);
+        }
+    }, [filterByCategory])
     
       const mapFilteredCards = (filteredCategory) => {
         let filterCardsSelection;
@@ -83,9 +93,13 @@ export function Fabric (props, index) {
 
         let results = filteredCategory.map((chosenCategory) => {
             console.log(chosenCategory, 'ici CHOSEN CATEGORY');
-            if(chosenCategory.category === 'Tissus' ) {
+            if(chosenCategory.category === 'Tissus' ) {      
               return fabrics.value.filter((el) => el.fabric === chosenCategory.name);
-            } 
+            } else if (chosenCategory.category === 'Designers' ) {
+                return fabrics.value.filter((el) => el.designer === chosenCategory.name);
+            } else if (chosenCategory.category === 'Couleurs' ) {
+                return fabrics.value.filter((el) => el.color === chosenCategory.name);
+            }
         
         })
         chosenFiltersCards= results;
@@ -124,12 +138,7 @@ export function Fabric (props, index) {
         )
     }; 
 
-    useEffect(() => {
-        console.log('coucou je passe dans USE EFFECT L128')
-        if(filterByCategory.length > 0) {
-            mapFilteredCards(filterByCategory);
-        }
-    }, [filterByCategory])
+
 
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -228,6 +237,7 @@ export function Fabric (props, index) {
                 categories={categoryObject}
                 setFilterByCategory={setFilterByCategory}
                 filterByCategory = {filterByCategory}
+                setChosenFilter = {setChosenFilter}
                 
             />
                 </FilterContainer>
