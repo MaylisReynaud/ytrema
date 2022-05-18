@@ -125,6 +125,7 @@ export function Fabric (props, index) {
     }; 
 
     useEffect(() => {
+        console.log('coucou je passe dans USE EFFECT L128')
         if(filterByCategory.length > 0) {
             mapFilteredCards(filterByCategory);
         }

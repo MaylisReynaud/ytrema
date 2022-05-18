@@ -10,7 +10,7 @@ export function Checkbox({className, name, id, dataId, setFilterByCategory, filt
     const [chosenFilter, setChosenFilter] = useState(false);
     
     const handleCheckboxChange = (event) => {
-        setChecked(event.target.checked);
+       
         let filterSelection;
         
         filterByCategory ? filterSelection = filterByCategory : filterSelection = [];
@@ -29,7 +29,7 @@ export function Checkbox({className, name, id, dataId, setFilterByCategory, filt
         }
         setFilterByCategory(filterSelection);
         setChosenFilter(true);
-       
+        setChecked(event.target.checked);
        
       };
       
