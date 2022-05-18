@@ -71,47 +71,47 @@ export function Fabric (props, index) {
         if (isSuccess) {
           dispatch(addAllFabrics(data.fabrics));            
         };
-        if(filterByCategory && filterByCategory.length > 0) {
-            console.log("good tableau supérieur à 1");
-          }
-        console.log("ICI USEEFFECT");
-        console.log(filterByCategory, "FILTERBYCATEGORY - fabric.js l.70");
       }, [data]);
 
-      useEffect(() => {
-        console.log('coucou je passe dans USE EFFECT L128')
-        if(filterByCategory.length > 0) {
-            console.log(filterByCategory, "FILTER BY CATEGORY DANS USE EFFECT")
-            mapFilteredCards(filterByCategory);
-        }
-    }, [filterByCategory])
-    
+
       const mapFilteredCards = (filteredCategory) => {
         let filterCardsSelection;
 
         chosenFiltersCards ? filterCardsSelection = chosenFiltersCards : filterCardsSelection = [];
+        console.log(filteredCategory, 'ICI FILTERED CATEGORY');
 
         let results = filteredCategory.map((chosenCategory) => {
             console.log(chosenCategory, 'ici CHOSEN CATEGORY');
-            if(chosenCategory.category === 'Tissus' ) {      
+            if(chosenCategory.category === 'Tissus' ) { 
+
               return fabrics.value.filter((el) => el.fabric === chosenCategory.name);
-            } else if (chosenCategory.category === 'Designers' ) {
+            } 
+            if (chosenCategory.category === 'Designers' ) {
                 return fabrics.value.filter((el) => el.designer === chosenCategory.name);
-            } else if (chosenCategory.category === 'Couleurs' ) {
+            } 
+            if (chosenCategory.category === 'Couleurs' ) {
                 return fabrics.value.filter((el) => el.color === chosenCategory.name);
             }
         
         })
         chosenFiltersCards= results;
-        const mergedChosenFiltersCards = [].concat(...chosenFiltersCards);
+        chosenFiltersCards = [].concat(...chosenFiltersCards);
+
+        const uniqueCardIds = new Set();
+        const uniqueCard = chosenFiltersCards.filter(element => {
+            const isDuplicate = uniqueCardIds.has(element.id);
+            uniqueCardIds.add(element.id);
+            if(!isDuplicate) {
+                return true;
+            }
+            return false;
+        })
+        chosenFiltersCards = uniqueCard;
 
         return (
-            <CardsContainer>
-            {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
-            {console.log(mergedChosenFiltersCards, 'MERGED CHOSENCARDFILTERS')}
-            
-            
-            {mergedChosenFiltersCards.map(fabric => (
+            <CardsContainer>     
+            {console.log(chosenFiltersCards, 'CHOSENFILTERCARDS DANS RETURN')}
+            {chosenFiltersCards.map(fabric => (
                 
             <CardsMapContainer
                 key={fabric.id}
@@ -372,38 +372,6 @@ export function Fabric (props, index) {
             ) : filterByCategory.length > 0 ? (
                 mapFilteredCards(filterByCategory)
               
-                // <CardsContainer>
-                // {console.log(filterByCategory.length, 'FILTERBYCATEGORY.LENGTH')}
-                // {console.log(chosenFiltersCards, 'CHOSENCARDFILTERS')}
-                
-                // {console.log(chosenFiltersCards.length, 'CHOSENCARDFILTERS LENGTH')}
-                
-                // {chosenFiltersCards.map(fabric => (
-                    
-                // <CardsMapContainer
-                //     key={fabric.id}
-                // >
-                //     <CardContainer 
-                //         key={fabric.id}
-                //         onClick= {isOpenCard}
-                //     >
-                //         <Link 
-                //             to = "/tissus/tissu"
- 
-                //         />
-                //         <ImgContainer>
-                //                 <CardImg src={fabric.photo} alt={fabric.alt}/>
-                //             </ImgContainer>
-                //         <CardText>
-                //         {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                //         </CardText>
-                //     </CardContainer>
-                
-                // </CardsMapContainer>
-              
-                // ))}
-               
-                // </CardsContainer>
             ) :null}
 
 

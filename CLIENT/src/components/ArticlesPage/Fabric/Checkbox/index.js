@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { Icon,
          HiddenCheckbox,
          StyledCheckbox,
@@ -32,13 +32,7 @@ export function Checkbox({className, name, id, dataId, setFilterByCategory, filt
         setChecked(event.target.checked);
        
       };
-      
-    //   if(chosenFilter) {
-    //     setChosenFilter(false);
-    //     mapFilteredCards(filterByCategory);
-    //     console.log('je passe DANS mapFilteredCards')
-        
-    //   }
+
       
   return (
     <CheckboxContainer 
