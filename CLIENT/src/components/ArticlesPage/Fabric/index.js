@@ -1,472 +1,366 @@
-import React, {useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
-import { DeviceSize } from '../../Navbar/Responsive';
-import { FabricModal } from './Modal';
-import { Card } from './Card';
-import { Container, 
-         Title,
-         TitleContainer,
-         ButtonContainer,
-         TopContainer,
-         RegisterArticleButton,
-         Button,
-         buttonVariants,
-         FilterSpan,
-         LeftContainer,
-         CardsContainer,
-         CardContainer,
-         CardImg,
-         CardText,
-         DesktopContainer,
-         FilterContainer,
-         FilterTitle,
-         MinusIcon,
-         PlusIcon,
-         ImgContainer,
-         CardsMapContainer,
-         ErrorText,
-         SignupLink,
-         ErrorButton
-} from '../style';
-import { FilterAlt } from '@styled-icons/boxicons-solid';
-import { FilterChoices } from './FilterChoices';
-// import  { designers, colors}  from '../../../../src/utils/fabricFilterChoices';
-import { useSelector, useDispatch } from 'react-redux';
-import { addAllFabrics, addFabric, updateFabric, deleteFabric } from '../../../store/state/fabricSlice';
-import { useGetAllFabricsQuery } from '../../../../src/store/api/ytremaApi';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { DeviceSize } from "../../Navbar/Responsive";
+import { FabricModal } from "./Modal";
+import { Card } from "./Card";
+import {
+  Container,
+  Title,
+  TitleContainer,
+  ButtonContainer,
+  TopContainer,
+  RegisterArticleButton,
+  Button,
+  buttonVariants,
+  FilterSpan,
+  LeftContainer,
+  CardsContainer,
+  CardContainer,
+  CardImg,
+  CardText,
+  DesktopContainer,
+  FilterContainer,
+  FilterTitle,
+  MinusIcon,
+  PlusIcon,
+  ImgContainer,
+  CardsMapContainer,
+  ErrorText,
+  SignupLink,
+  ErrorButton,
+} from "../style";
+import { FilterAlt } from "@styled-icons/boxicons-solid";
+import { FilterChoices } from "./FilterChoices";
+import { filterFabric } from "../../../../src/utils/filterFabric";
+import { FiltersCards } from "../../../../src/utils/flexFilter";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addAllFabrics,
+  addFabric,
+  updateFabric,
+  deleteFabric,
+} from "../../../store/state/fabricSlice";
+import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
 
+export function Fabric(props, index) {
+  let navigate = useNavigate();
 
-export function Fabric (props, index) {
- 
-    let navigate = useNavigate();
-    
-    const dispatch = useDispatch();
-    //read info from store
-    const { persistedReducer } = useSelector(state => state);
-    const auth = persistedReducer.auth;
-    const fabrics = persistedReducer.fabrics;
-    const isLogged = auth.isLogged;
-    const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
-    
-    // we set an array
-    let designersFilter = [];
-    let colorsFilter = [];
-    let fabricsFilter = [];
+  const dispatch = useDispatch();
+  //read info from store
+  const { persistedReducer } = useSelector((state) => state);
+  const auth = persistedReducer.auth;
+  const fabrics = persistedReducer.fabrics;
+  const isLogged = auth.isLogged;
+  const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
 
-    //  const [chosenFiltersCards, setChosenFiltersCards] = useState([]);
-   let chosenFiltersCards;
- 
-    // state
-    const [showMobileFilters, setShowMobileFilters] = useState(false);
-    const [filterByCategory, setFilterByCategory] = useState([]);
-    const [chosenFilter, setChosenFilter] = useState(false);
-    console.log(filterByCategory, "teste l61 après tableau")
-    
-    if(chosenFilter) {
-        setChosenFilter(false)
-    };
+  // we set an array
+  let designersFilter = [];
+  let colorsFilter = [];
+  let fabricsFilter = [];
 
-    useEffect(() => {
-        if (isSuccess) {
-          dispatch(addAllFabrics(data.fabrics));            
-        };
-      }, [data]);
+  // state
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [filterByCategory, setFilterByCategory] = useState([]);
+  const [chosenFilter, setChosenFilter] = useState(false);
 
+  if (chosenFilter) {
+    setChosenFilter(false);
+  }
 
-      const mapFilteredCards = (filteredCategory) => {
-        let filterCardsSelection;
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(addAllFabrics(data.fabrics));
+    }
+  }, [data]);
 
-        chosenFiltersCards ? filterCardsSelection = chosenFiltersCards : filterCardsSelection = [];
-        console.log(filteredCategory, 'ICI FILTERED CATEGORY');
+  const mapFilteredCards = (filteredCategory) => {
+    // Object which representes the selected values by category
+    const filterFabrics = filterFabric(filteredCategory);
 
-        let results = filteredCategory.map((chosenCategory) => {
-            console.log(chosenCategory, 'ici CHOSEN CATEGORY');
-            if(chosenCategory.category === 'Tissus' ) { 
+    // Array including selected fabric cards  which match from the user choices
+    const resultFiltersCards = FiltersCards(fabrics.value, filterFabrics);
 
-              return fabrics.value.filter((el) => el.fabric === chosenCategory.name);
-            } 
-            if (chosenCategory.category === 'Designers' ) {
-                return fabrics.value.filter((el) => el.designer === chosenCategory.name);
-            } 
-            if (chosenCategory.category === 'Couleurs' ) {
-                return fabrics.value.filter((el) => el.color === chosenCategory.name);
-            }
+    return (
+      <CardsContainer>
+        {resultFiltersCards.length > 0 ? (
+          <>
+          {resultFiltersCards.map((fabric) => (
+          <CardsMapContainer key={fabric.id}>
+            <CardContainer key={fabric.id} onClick={isOpenCard}>
+              <Link to="/tissus/tissu" />
+              <ImgContainer>
+                <CardImg src={fabric.photo} alt={fabric.alt} />
+              </ImgContainer>
+              <CardText>
+                {fabric.name} - {fabric.designer} - {fabric.fabric} -{" "}
+                {fabric.size}
+              </CardText>
+            </CardContainer>
+          </CardsMapContainer>
+        ))}
+        </>
+        ) : <div>Aucun tissu ne correspond à cette sélection </div>}
         
-        })
-        chosenFiltersCards= results;
-        chosenFiltersCards = [].concat(...chosenFiltersCards);
+      </CardsContainer>
+    );
+  };
 
-        const uniqueCardIds = new Set();
-        const uniqueCard = chosenFiltersCards.filter(element => {
-            const isDuplicate = uniqueCardIds.has(element.id);
-            uniqueCardIds.add(element.id);
-            if(!isDuplicate) {
-                return true;
-            }
-            return false;
-        })
-        //array with all concerned objects
-        chosenFiltersCards = uniqueCard;
+  const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
+  const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
-        if(filteredCategory.length > 2) {
-            console.log(filteredCategory[0].category, 'filteredCategory')
+  const [showModal, setShowModal] = useState(false);
+  const isOpenModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
+  const [showCard, setShowCard] = useState(false);
+  const isOpenCard = () => {
+    setShowCard((prev) => !prev);
+  };
+
+  const isOpenMobileFilters = () => {
+    setShowMobileFilters((prev) => !prev);
+  };
+
+  const mapCategoriesFilter = (categoryObject) => {
+    const [showFilter, setShowFilter] = useState(true);
+    const isOpenFilter = () => {
+      setShowFilter((prev) => !prev);
+    };
+
+    //show one filter
+    let newCategory = [];
+    let uniqueObject = {};
+
+    categoryObject.map((el, index) => {
+      let objName = el["name"];
+
+      uniqueObject[objName] = el;
+      if (index === categoryObject.length - 1) {
+        for (let i in uniqueObject) {
+          newCategory.push(uniqueObject[i]);
         }
-    
-
-        return (
-            <CardsContainer>     
-            {console.log(chosenFiltersCards, 'CHOSENFILTERCARDS DANS RETURN')}
-            {chosenFiltersCards.map(fabric => (
-                
-            <CardsMapContainer
-                key={fabric.id}
-            >
-                <CardContainer 
-                    key={fabric.id}
-                    onClick= {isOpenCard}
-                >
-                    <Link 
-                        to = "/tissus/tissu"
-                    />
-                    <ImgContainer>
-                            <CardImg src={fabric.photo} alt={fabric.alt}/>
-                        </ImgContainer>
-                    <CardText>
-                    {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                    </CardText>
-                </CardContainer>
-            </CardsMapContainer>
-
-            ))}
-           
-            </CardsContainer>
-        )
-    }; 
-
-
-
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-
-    const [showModal, setShowModal] = useState(false);
-    const isOpenModal = () => {
-        setShowModal(prev => !prev)
-    };
-
-    const [showCard, setShowCard] = useState(false);
-    const isOpenCard = () => {
-        setShowCard(prev => !prev)
-    };
-    
-    
-
-    const isOpenMobileFilters = () => {
-        setShowMobileFilters(prev => !prev)
-    };
-
-    
-
-    const mapCategoriesFilter = (categoryObject) => {
-
-      const [showFilter, setShowFilter] = useState(true);
-      const isOpenFilter = () => {
-          setShowFilter(prev => !prev);
-      };
-
-      //show one filter
-      let newCategory = [];
-      let uniqueObject = {};
-
-      categoryObject.map((el, index) => {
-        let objName = el['name'];
-    
-        uniqueObject[objName] = el;
-        if (index === categoryObject.length - 1) {
-            for (let i in uniqueObject) {
-                newCategory.push(uniqueObject[i]);
-            }
-        }
-        
+      }
     });
-        //sort by alphabetic order
-        categoryObject = newCategory.sort(function(a,b) {
-            return a.name.localeCompare(b.name)
-        });
+    //sort by alphabetic order
+    categoryObject = newCategory.sort(function (a, b) {
+      return a.name.localeCompare(b.name);
+    });
 
-    
-        return (
-            <>
-            {isDesktop && (
-                <>
-                <FilterTitle>
-                {categoryObject[0].title}
-                {console.log(activeItem, 'ici active item')}
-                {showFilter ? 
-                <MinusIcon
-                onClick={isOpenFilter}
-                />
-                :
-                <PlusIcon 
-                    onClick={isOpenFilter}
-                />
-                }
-                        
-                        
+    return (
+      <>
+        {isDesktop && (
+          <>
+            <FilterTitle>
+              {categoryObject[0].title}
+              {console.log(activeItem, "ici active item")}
+              {showFilter ? (
+                <MinusIcon onClick={isOpenFilter} />
+              ) : (
+                <PlusIcon onClick={isOpenFilter} />
+              )}
             </FilterTitle>
-            <FilterChoices 
-                showFilter={showFilter}
-                categories={categoryObject}
+            <FilterChoices
+              showFilter={showFilter}
+              categories={categoryObject}
             />
-            </>
-            )
-            }
-            {isMobile && showMobileFilters && (
-                <>
-                <FilterContainer>
-                <FilterTitle>
+          </>
+        )}
+        {isMobile && showMobileFilters && (
+          <>
+            <FilterContainer>
+              <FilterTitle>
                 {categoryObject[0].title}
-                {showFilter ? 
-                <MinusIcon
-                onClick={isOpenFilter}
-                />
-                :
-                <PlusIcon 
-                    onClick={isOpenFilter}
-                />
-                }
-                        
-                        
-            </FilterTitle>
-            <FilterChoices 
+                {showFilter ? (
+                  <MinusIcon onClick={isOpenFilter} />
+                ) : (
+                  <PlusIcon onClick={isOpenFilter} />
+                )}
+              </FilterTitle>
+              <FilterChoices
                 showFilter={showFilter}
                 categories={categoryObject}
                 setFilterByCategory={setFilterByCategory}
-                filterByCategory = {filterByCategory}
-                setChosenFilter = {setChosenFilter}
-                
-            />
-                </FilterContainer>
-
-            </>
-            )
-            }
-                
-            </>
-            
-        )
-    }
+                filterByCategory={filterByCategory}
+                setChosenFilter={setChosenFilter}
+              />
+            </FilterContainer>
+          </>
+        )}
+      </>
+    );
+  };
 
   return (
     <>
-        {isMobile && (
-            <>
-        <Title>
-            MA TISSUTHÈQUE
-        </Title>
-        <Container>
-            { isLogged === true && (
-            <TopContainer>
+      {isMobile && (
+        <>
+          <Title>MA TISSUTHÈQUE</Title>
+          <Container>
+            {isLogged === true && (
+              <TopContainer>
                 <RegisterArticleButton
-                    style= {buttonVariants} 
-                    onClick= {isOpenModal}
+                  style={buttonVariants}
+                  onClick={isOpenModal}
                 >
-                    Enregistrer un tissu
+                  Enregistrer un tissu
                 </RegisterArticleButton>
                 <FabricModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
+                  showModal={showModal}
+                  setShowModal={setShowModal}
                 />
-                <Button
-                    style= {buttonVariants}
-                    onClick = {isOpenMobileFilters}
-                >
-                   <FilterSpan>
-                       <FilterAlt />
-                   </FilterSpan>
-                        Filtres
+                <Button style={buttonVariants} onClick={isOpenMobileFilters}>
+                  <FilterSpan>
+                    <FilterAlt />
+                  </FilterSpan>
+                  Filtres
                 </Button>
-            </TopContainer> )
-            }
-            {fabrics ? fabrics.value.map(fabric => {
-                if (fabric.color) {
+              </TopContainer>
+            )}
+            {fabrics
+              ? fabrics.value.map((fabric) => {
+                  if (fabric.color) {
                     colorsFilter.push({
-                        id: fabric.id,
-                        name: fabric.color,
-                        title: "Couleurs"
-                        
-                    })
-                };
-                if (fabric.designer) {
+                      id: fabric.id,
+                      name: fabric.color,
+                      title: "Couleurs",
+                    });
+                  }
+                  if (fabric.designer) {
                     designersFilter.push({
-                        id: fabric.id,
-                        name: fabric.designer,
-                        title: "Designers"
-                    })
-                };
-                if (fabric.fabric) {
+                      id: fabric.id,
+                      name: fabric.designer,
+                      title: "Designers",
+                    });
+                  }
+                  if (fabric.fabric) {
                     fabricsFilter.push({
-                        id: fabric.id,
-                        name: fabric.fabric,
-                        title: "Tissus"
-                    })
-                }
+                      id: fabric.id,
+                      name: fabric.fabric,
+                      title: "Tissus",
+                    });
+                  }
+                })
+              : null}
 
-            }): null}
-        
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
-           
-
 
             {error ? (
-                <>
-                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
+              <>
+                <ErrorText>
+                  {" "}
+                  Veuillez vous connecter pour accéder à vos tissus{" "}
+                </ErrorText>
                 <ErrorButton
-                    whileHover='hover'
-                    whileTap='tap'
-                    onClick={() => {
-                      navigate('/');
-                    }}
+                  whileHover="hover"
+                  whileTap="tap"
+                  onClick={() => {
+                    navigate("/");
+                  }}
                 >
-                
-                    Se connecter
+                  Se connecter
                 </ErrorButton>
-
-                
-               
-                </>
-                
-                
+              </>
             ) : isLoading ? (
-                <>Loading...</>
-            ) : data && fabrics && !filterByCategory || filterByCategory.length == 0 ? (
-                <>
-           
-               
-               <CardsContainer>
-                
-               {fabrics.value.map(fabric => (
-                   
-               <CardsMapContainer
-                   key={fabric.id}
-               >
-                   <CardContainer 
-                       key={fabric.id}
-                       onClick= {isOpenCard}
-                   >
-                       <Link 
-                           to = "/tissus/tissu"
-
-                       />
-                       <ImgContainer>
-                               <CardImg src={fabric.photo} alt={fabric.alt}/>
-                           </ImgContainer>
-                       <CardText>
-                       {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                       </CardText>
-                   </CardContainer>
-               
-               </CardsMapContainer>
-             
-               ))}
-              
-               </CardsContainer>
-            
-                </>
-            ) : filterByCategory.length > 0 ? (
-                mapFilteredCards(filterByCategory)
-              
-            ) :null}
-
-
-        </Container>
-        </>
-        )
-        }
-        {isDesktop && isLogged === true && (
-         <>
-         <DesktopContainer> 
-            <Container>
-                <LeftContainer>
-                    <ButtonContainer>
-                        <RegisterArticleButton
-                            style= {buttonVariants} 
-                            onClick= {isOpenModal}
-                            >
-                            Enregistrer un tissu
-                        </RegisterArticleButton>
-                        <FabricModal
-                            showModal={showModal}
-                            setShowModal={setShowModal}
-                        />
-                    </ButtonContainer>
-                    <FilterContainer>
-                        {mapCategoriesFilter(fabrics)}
-                        {mapCategoriesFilter(colors)}
-                        {mapCategoriesFilter(designers)}
-                    </FilterContainer>
-                    
-                    
-                </LeftContainer>
-
-                {error ? (
-                <>
-                <ErrorText> Veuillez vous connecter pour accéder à vos tissus </ErrorText>
-                <ErrorButton
-                    whileHover='hover'
-                    whileTap='tap'
-                    onClick={() => {
-                      navigate('/');
-                    }}
-                >
-                
-                    Se connecter
-                </ErrorButton>
-
-                </>
-                
-                
-            ) : isLoading ? (
-                <>Loading...</>
-            ) : data && fabrics ? (
-                <>
+              <>Loading...</>
+            ) : (data && fabrics && !filterByCategory) ||
+              filterByCategory.length == 0 ? (
+              <>
                 <CardsContainer>
-                    <TitleContainer>
-                        <Title>
-                            MA TISSUTHEQUE
-                        </Title>
-                    </TitleContainer>
-                    {fabrics.value.map(fabric => (
-                         <CardsMapContainer
-                            key={fabric.id}
-                        >
-                            <CardContainer key={fabric.id} >
-                                <ImgContainer>
-                                    <CardImg src={fabric.image} alt={fabric.alt}/>
-                                </ImgContainer>
-                            
-                            <CardText>
-                                {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.size}
-                            </CardText>
-                        </CardContainer>
+                  {fabrics.value.map((fabric) => (
+                    <CardsMapContainer key={fabric.id}>
+                      <CardContainer key={fabric.id} onClick={isOpenCard}>
+                        <Link to="/tissus/tissu" />
+                        <ImgContainer>
+                          <CardImg src={fabric.photo} alt={fabric.alt} />
+                        </ImgContainer>
+                        <CardText>
+                          {fabric.name} - {fabric.designer} - {fabric.fabric} -{" "}
+                          {fabric.size}
+                        </CardText>
+                      </CardContainer>
                     </CardsMapContainer>
-                    ))}
-                    
+                  ))}
                 </CardsContainer>
-                </>
+              </>
+            ) : filterByCategory.length > 0 ? (
+              mapFilteredCards(filterByCategory)
             ) : null}
+          </Container>
+        </>
+      )}
+      {isDesktop && isLogged === true && (
+        <>
+          <DesktopContainer>
+            <Container>
+              <LeftContainer>
+                <ButtonContainer>
+                  <RegisterArticleButton
+                    style={buttonVariants}
+                    onClick={isOpenModal}
+                  >
+                    Enregistrer un tissu
+                  </RegisterArticleButton>
+                  <FabricModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                  />
+                </ButtonContainer>
+                <FilterContainer>
+                  {mapCategoriesFilter(fabrics)}
+                  {mapCategoriesFilter(colors)}
+                  {mapCategoriesFilter(designers)}
+                </FilterContainer>
+              </LeftContainer>
+
+              {error ? (
+                <>
+                  <ErrorText>
+                    {" "}
+                    Veuillez vous connecter pour accéder à vos tissus{" "}
+                  </ErrorText>
+                  <ErrorButton
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    Se connecter
+                  </ErrorButton>
+                </>
+              ) : isLoading ? (
+                <>Loading...</>
+              ) : data && fabrics ? (
+                <>
+                  <CardsContainer>
+                    <TitleContainer>
+                      <Title>MA TISSUTHEQUE</Title>
+                    </TitleContainer>
+                    {fabrics.value.map((fabric) => (
+                      <CardsMapContainer key={fabric.id}>
+                        <CardContainer key={fabric.id}>
+                          <ImgContainer>
+                            <CardImg src={fabric.image} alt={fabric.alt} />
+                          </ImgContainer>
+
+                          <CardText>
+                            {fabric.name} - {fabric.designer} - {fabric.fabric}{" "}
+                            - {fabric.size}
+                          </CardText>
+                        </CardContainer>
+                      </CardsMapContainer>
+                    ))}
+                  </CardsContainer>
+                </>
+              ) : null}
             </Container>
-         </DesktopContainer>
-         </>
-        )
-        }
+          </DesktopContainer>
+        </>
+      )}
     </>
-  )
-    
-};
-
-
-
-
+  );
+}
