@@ -106,7 +106,13 @@ export function Fabric (props, index) {
             }
             return false;
         })
+        //array with all concerned objects
         chosenFiltersCards = uniqueCard;
+
+        if(filteredCategory.length > 2) {
+            console.log(filteredCategory[0].category, 'filteredCategory')
+        }
+    
 
         return (
             <CardsContainer>     
