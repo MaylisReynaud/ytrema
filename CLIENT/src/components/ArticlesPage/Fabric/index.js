@@ -86,18 +86,24 @@ export function Fabric(props, index) {
         {resultFiltersCards.length > 0 ? (
           <>
           {resultFiltersCards.map((fabric) => (
-          <CardsMapContainer key={fabric.id}>
-            <CardContainer key={fabric.id} onClick={isOpenCard}>
-              <Link to="/tissus/tissu" />
-              <ImgContainer>
-                <CardImg src={fabric.photo} alt={fabric.alt} />
-              </ImgContainer>
-              <CardText>
-                {fabric.name} - {fabric.designer} - {fabric.fabric} -{" "}
-                {fabric.size}
-              </CardText>
-            </CardContainer>
-          </CardsMapContainer>
+             
+            <CardsMapContainer key={fabric.id}>
+              <Link to={`/tissus/${fabric.id}`} >
+                  <CardContainer key={fabric.id} >
+                    
+                    <ImgContainer>
+                      <CardImg src={fabric.photo} alt={fabric.alt} />
+                    </ImgContainer>
+                    <CardText>
+                      {fabric.name} - {fabric.designer} - {fabric.fabric} -{" "}
+                      {fabric.size}
+                    </CardText>
+                  </CardContainer>
+                  </Link>  
+                </CardsMapContainer>
+
+            
+          
         ))}
         </>
         ) : <div>Aucun tissu ne correspond à cette sélection </div>}
@@ -114,10 +120,6 @@ export function Fabric(props, index) {
     setShowModal((prev) => !prev);
   };
 
-  const [showCard, setShowCard] = useState(false);
-  const isOpenCard = () => {
-    setShowCard((prev) => !prev);
-  };
 
   const isOpenMobileFilters = () => {
     setShowMobileFilters((prev) => !prev);
@@ -272,8 +274,9 @@ export function Fabric(props, index) {
                 <CardsContainer>
                   {fabrics.value.map((fabric) => (
                     <CardsMapContainer key={fabric.id}>
-                      <CardContainer key={fabric.id} onClick={isOpenCard}>
-                        <Link to="/tissus/tissu" />
+                      <Link to={`/tissus/${fabric.id}`} >
+                      <CardContainer key={fabric.id} >
+                        <Link to={`tissus/${fabric.id}`} />
                         <ImgContainer>
                           <CardImg src={fabric.photo} alt={fabric.alt} />
                         </ImgContainer>
@@ -282,7 +285,8 @@ export function Fabric(props, index) {
                           {fabric.size}
                         </CardText>
                       </CardContainer>
-                    </CardsMapContainer>
+                      </Link>
+                     </CardsMapContainer> 
                   ))}
                 </CardsContainer>
               </>
