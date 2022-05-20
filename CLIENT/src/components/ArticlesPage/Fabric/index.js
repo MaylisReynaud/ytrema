@@ -58,6 +58,7 @@ export function Fabric(props, index) {
   const [filterByCategory, setFilterByCategory] = useState([]);
   const [chosenFilter, setChosenFilter] = useState(false);
 
+
   if (chosenFilter) {
     setChosenFilter(false);
   }
@@ -66,7 +67,7 @@ export function Fabric(props, index) {
     if (isSuccess) {
       dispatch(addAllFabrics(data.fabrics));
     }
-  }, [data]);
+  }, [data, fabrics]);
 
   const mapFilteredCards = (filteredCategory) => {
     // Object which representes the selected values by category
