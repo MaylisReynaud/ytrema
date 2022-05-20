@@ -47,8 +47,26 @@ export const ytremaApi = createApi({
       }
     }
   }),
+  addFabric: builder.mutation({
+    query: (memberId) =>{
+      return {
+        url: `/fabric/member/${memberId}`,
+        method: "post",
+        body,
+      }
+    }
+  }),
+  deleteFabric: builder.mutation({
+    query: (memberId, fabricId) => ({
+      url: `/fabric/${fabricId}/member/${memberId}`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  })
 })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery } = ytremaApi;
+export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery, useAddFabricMutation, useDeleteFabricMutation } = ytremaApi;
 

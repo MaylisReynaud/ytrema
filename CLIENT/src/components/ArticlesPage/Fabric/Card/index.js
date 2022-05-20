@@ -5,7 +5,10 @@ import { DeviceSize } from '../../../Navbar/Responsive';
 import {
     CardContainer,
     CardTitle,
-    CloseButton,
+    TrashButton,
+    ButtonsContainer,
+    ReturnArrowContainer,
+    ModifyDeleteContainer,
     Container,
     ImageCard,
     ImageContainer,
@@ -24,7 +27,7 @@ import {
 } from './style';
 import { fabricData } from '../../../../utils/fabricData';
 import { fabricInputs } from '../../../../utils/fabricInputs';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 // import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
 // import {
 //     updateFabric,
@@ -37,6 +40,7 @@ export const Card = (fabric) => {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
     const cardRef = useRef();
+    let navigate = useNavigate();
 
 
     const dispatch = useDispatch();
@@ -71,17 +75,27 @@ export const Card = (fabric) => {
             {isMobile &&
                 <Container>
                     <CardContainer>
-                        <ReturnArrow
-                            aria-label='Close card'
-                            ref={cardRef}
-                        // onClick={closeCard}
-                        />
-                        <CloseButton
-                            aria-label='Delete card'
-                            ref={cardRef}
-                        // onClick={closeCard}
-                        />
-                        <ModifyButton />
+                        <ButtonsContainer>
+                            <ReturnArrowContainer>
+                                <ReturnArrow
+                                    aria-label='Close card'
+                                    ref={cardRef}
+                                    onClick={() => {
+                                        navigate("/Tissus");
+                                    }}
+                                />
+                            </ReturnArrowContainer>
+                            <ModifyDeleteContainer>
+                                <ModifyButton />
+                                <TrashButton
+                                    aria-label='Delete card'
+                                    ref={cardRef}
+                                // onClick={deleteCard}
+                                />
+                            </ModifyDeleteContainer>
+                            
+                        </ButtonsContainer>
+                        
                         <TitleContainer>
                             <CardTitle>
                                 {fabricCard.name} - {fabricCard.designer}
@@ -96,17 +110,16 @@ export const Card = (fabric) => {
                             <InformationForm>
                                 {fabricInputs.map((input, index) => (
                                     index !== 0 ? (
-                                        <InformationContent>
-                                            <InformationLabel
-                                                key={input.id}
-                                            >
+                                        <InformationContent
+                                        key={input.id}
+                                        >
+                                            <InformationLabel>
                                                 {input.label}
                                             </InformationLabel>
                                             <InformationInput
-                                                key={input.name}
-                                                placeholder={fabricCard[(input.info)]}
+                                                value={fabricCard[(input.info)]}
                                                 disabled='disabled'
-                                                type={input.type}
+                                                type= {input.id === 5 ? 'color' : input.type}
                                             >
 
                                             </InformationInput>

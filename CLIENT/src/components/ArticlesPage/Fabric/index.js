@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { FabricModal } from "./Modal";
-import { Card } from "./Card";
 import {
   Container,
   Title,
@@ -35,12 +34,7 @@ import { FilterChoices } from "./FilterChoices";
 import { filterFabric } from "../../../../src/utils/filterFabric";
 import { FiltersCards } from "../../../../src/utils/flexFilter";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addAllFabrics,
-  addFabric,
-  updateFabric,
-  deleteFabric,
-} from "../../../store/state/fabricSlice";
+import { addAllFabrics } from "../../../store/state/fabricSlice";
 import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
 
 export function Fabric(props, index) {
@@ -52,7 +46,7 @@ export function Fabric(props, index) {
   const auth = persistedReducer.auth;
   const fabrics = persistedReducer.fabrics;
   const isLogged = auth.isLogged;
-  const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+  const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id); 
 
   // we set an array
   let designersFilter = [];
@@ -276,7 +270,6 @@ export function Fabric(props, index) {
                     <CardsMapContainer key={fabric.id}>
                       <Link to={`/tissus/${fabric.id}`} >
                       <CardContainer key={fabric.id} >
-                        <Link to={`tissus/${fabric.id}`} />
                         <ImgContainer>
                           <CardImg src={fabric.photo} alt={fabric.alt} />
                         </ImgContainer>

@@ -8,10 +8,16 @@ import { FormContainer,
 import FormInput from '../Input';
 import YtremaLogo from '../../../../../src/assets/images/logo.png';
 import { fabricInputs } from '../../../../utils/fabricInputs';
-
+// import {
+//   addFabric,
+// } from "../../../store/state/fabricSlice";
+// import { useAddFabricMutation } from "../../../../src/store/api/ytremaApi";
+import { useDispatch } from 'react-redux';
 
 
 export function FabricForm() {
+
+    const dispatch = useDispatch();
 
     const [values, setValues] = useState ({
       fabricPicture: '',
