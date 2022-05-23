@@ -5,6 +5,7 @@ import { DeviceSize } from '../../../Navbar/Responsive';
 import {
     CardContainer,
     CardTitle,
+    DesignerTitle,
     TrashButton,
     ButtonsContainer,
     ReturnArrowContainer,
@@ -102,8 +103,11 @@ export const Card = (fabric) => {
 
                         <TitleContainer>
                             <CardTitle>
-                                {fabricCard.name} - {fabricCard.designer}
+                                {fabricCard.name}  
                             </CardTitle>
+                            <DesignerTitle>
+                                {fabricCard.designer}
+                            </DesignerTitle>
                         </TitleContainer>
                         <ImageContainer>
                             <ImageCard
