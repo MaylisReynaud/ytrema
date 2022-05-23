@@ -64,14 +64,14 @@ export const Card = (fabric) => {
     };
           
 
-    useEffect( () => {
-        console.log('coucou avant is success')
-        if (isSuccess) { 
-            console.log('coucou dans is success')
+    // useEffect( () => {
+    //     console.log('coucou avant is success')
+    //     if (isSuccess) { 
+    //         console.log('coucou dans is success')
             
                  
-        }
-    }, [fabrics]);
+    //     }
+    // }, [fabrics]);
 
     return (
         <>

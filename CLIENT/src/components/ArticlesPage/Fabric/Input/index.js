@@ -74,6 +74,7 @@ function FormInput(props) {
             type={type}
             onBlur={handleBlur}
             className={isError && 'input-false'}
+            pattern={pattern}
           />
         )}
         {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}

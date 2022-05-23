@@ -10,11 +10,27 @@ export const fabricSlice = createSlice({
     initialState,
     reducers : {
         addAllFabrics: (state, action) => {
-            console.log('coucou dans addFabric' );
+            console.log('coucou dans addAllFabric' );
             state.value = action.payload;
         },
-        addFabric: (state, action) => {
-            state.value.push(action.payload);
+        addFabric: (state, {payload}) => {
+            console.log('coucou dans addfabric dans slice')
+            state.id = payload.id,
+            state.name = payload.name,
+            state.website = payload.website,
+            state.designer = payload.designer,
+            state.color = payload.color,
+            state.precise_color = payload.precise_color,
+            state.fabric = payload.fabric,
+            state.composition = payload.composition,
+            state.weight = payload.weight,
+            state.quantity = payload.quantity,
+            state.width = payload.width,
+            state.price = payload.price,
+            state.photo = payload.photo
+            
+            // state.value.push(action.payload);
+
         },
         updateFabric: (state, action) => {
             state.value.map((fabric) => {
@@ -34,7 +50,7 @@ export const fabricSlice = createSlice({
     }
 });
 
-export const {addAllFabrics, addFabric, updateFabric, deleteFabric} = fabricSlice.actions;
+export const {addAllFabrics, addFabric, updateFabric, deleteFabric, defaultState } = fabricSlice.actions;
 
 
 export default fabricSlice.reducer;

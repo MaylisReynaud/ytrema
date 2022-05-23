@@ -47,7 +47,7 @@ export function Fabric(props, index) {
   const fabrics = persistedReducer.fabrics;
   const isLogged = auth.isLogged;
   const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id); 
-
+  
   // we set an array
   let designersFilter = [];
   let colorsFilter = [];
