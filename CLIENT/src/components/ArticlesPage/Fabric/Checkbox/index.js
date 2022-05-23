@@ -1,16 +1,39 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Icon,
          HiddenCheckbox,
          StyledCheckbox,
          CheckboxContainer,
         } from './style';
 
-export function Checkbox({className, name, id, dataId}) {
+export function Checkbox({className, name, id, dataId, setFilterByCategory, filterByCategory, setChosenFilter}) {
     const [checked, setChecked] = useState(false);
+
     
     const handleCheckboxChange = (event) => {
-        setChecked( event.target.checked); 
-    };
+       
+        let filterSelection;
+        
+        filterByCategory ? filterSelection = filterByCategory : filterSelection = [];
+    
+        const found = filterSelection.find((el) => el.name === event.target.value);
+    
+        if (found) {
+          filterSelection = filterSelection.filter(function (f) {
+            return f !== found;
+          })
+        } else {
+          filterSelection.push({
+            name: event.target.value,
+            category: event.target.name,
+          });
+        }
+        setFilterByCategory(filterSelection);
+        setChosenFilter(true);
+        setChecked(event.target.checked);
+       
+      };
+
+      
   return (
     <CheckboxContainer 
         className={className}

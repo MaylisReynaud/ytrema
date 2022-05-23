@@ -3,12 +3,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const token = localStorage.getItem("token");
-console.log(token, "token dans fabric");
 
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+  tagTypes: ['Fabric'],
     // prepareHeaders: (headers) => {
     //   // By default, if we have a token in the store, let's use that for authenticated requests      
     //     if (token) {
@@ -46,10 +46,34 @@ export const ytremaApi = createApi({
           Authorization: `Bearer ${token}`,
         },
       }
+    },
+    providesTags: ['Fabric'],
+  }),
+  addFabric: builder.mutation({
+    query: (memberId) =>{
+      return {
+        url: `/fabric/member/${memberId}`,
+        method: "post",
+        body,
+      }
     }
   }),
-})
+  deleteOneFabric: builder.mutation({
+    query: (arg) => {
+      const {memberId, fabricId} = arg;
+      console.log(arg, 'ici arg')
+    return {
+      url: `/fabric/${fabricId}/member/${memberId}`,
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Fabric'],
+  })
+  })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery } = ytremaApi;
+export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery, useAddFabricMutation, useDeleteOneFabricMutation } = ytremaApi;
 

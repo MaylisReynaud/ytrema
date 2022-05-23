@@ -10,6 +10,7 @@ export const fabricSlice = createSlice({
     initialState,
     reducers : {
         addAllFabrics: (state, action) => {
+            console.log('coucou dans addFabric' );
             state.value = action.payload;
         },
         addFabric: (state, action) => {
@@ -26,7 +27,8 @@ export const fabricSlice = createSlice({
         },
         deleteFabric: (state, action) => {
             state.value = state.value.filter((fabric) => {
-                fabric.id !== action.payload.id
+                console.log(fabric.id, action.payload, 'fabricid / actionpayload')
+               return fabric.id !== action.payload;  
             });
         }
     }

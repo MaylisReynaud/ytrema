@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ArrowSmLeft } from '@styled-icons/heroicons-outline';
-import { Close } from '@styled-icons/evaicons-solid';
 import { PencilFill } from '@styled-icons/bootstrap';
+import { Trash } from '@styled-icons/ionicons-solid'
 
 export const Container = styled.div`
     display: flex;
@@ -11,54 +11,62 @@ export const Container = styled.div`
     height: 86vh;
     width:100%;
     overflow-y: scroll;
+    margin-bottom:0;
    
     @media screen and (min-width:601px) { 
         height: 100vh;
   }
 `;
+export const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 1.8rem;
+    position: fixed;
+    background-color: white;
+`;
+
+export const ReturnArrowContainer = styled.div`
+    display: flex;
+    margin-top: 0.2em;
+
+`;
+
+export const ModifyDeleteContainer = styled.div`
+    display: flex;
+    margin-right: 1em;
+    margin-top: 0.3em;
+
+`;
+
 export const ReturnArrow = styled(ArrowSmLeft)`
-   cursor: pointer;
-    position: absolute;
-    top: 68px;
-    left: 2px;
+    cursor: pointer;
     width: 32px;
     height: 32px;
-    padding: 0;
-    z-index: 10;
+    margin-left: 0.8em;
     color: ${props => props.theme.color3};
     /* color: red; */
-
-
-   
     @media screen and (min-width:601px) { 
         left: 1.5rem;
         
   }
 `;
-export const CloseButton = styled(Close)`
+
+export const TrashButton = styled(Trash)`
     cursor: pointer;
-    position: absolute;
-    top: 68px;
-    right: 2px;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    z-index: 10;
+    height: 22px;
     color: red;
     @media screen and (min-width:601px) { 
         right:2rem;
   }
 `;
+
 export const ModifyButton = styled(PencilFill)`
     cursor: pointer;
     color: ${props => props.theme.color2};
-    position: absolute;
-    top: 74px;
-    right: 41px;
-    width: 18px;
-    height: 19px;
-    padding: 0;
-    z-index: 10;
+    width: 22px;
+    height: 20px;
+    margin-right: 0.5em;
     @media screen and (min-width:601px) { 
         right:4rem;
   }
@@ -69,7 +77,8 @@ export const CardContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height:84vh;
+    height:86vh;
+    margin-top:0;
     width:100%;
    
     @media screen and (min-width:601px) { 

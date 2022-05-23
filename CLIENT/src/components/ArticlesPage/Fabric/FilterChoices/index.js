@@ -5,24 +5,29 @@ import { CheckboxLabel,
          SpanLabel
         } from './style';
 
-export function FilterChoices ({showFilter, fabrics}) {
+export function FilterChoices ({showFilter, categories, setFilterByCategory, filterByCategory, setChosenFilter}) {
 
 
     return (
         <>
         {showFilter ?
             <CheckboxesContainer>
-                {fabrics.map((category, index) => (
+                {categories.map((category, index) => (
                
                         <CheckboxLabel 
                             key={index}
-                            htmlFor={category.designer}>
+                            htmlFor={category.name}>
                             
                             <Checkbox
                                 key={category.id}
                                 id= {category.name}
-                                name= {category.designer}
-                                dataId={category.id}                
+                                name= {category.title}
+                                dataId={category.id}   
+                                setFilterByCategory = {setFilterByCategory}  
+                                filterByCategory = {filterByCategory}
+                                setChosenFilter = {setChosenFilter}
+
+
                             /> 
                             <SpanLabel> {category.name} </SpanLabel>
                         </CheckboxLabel>
