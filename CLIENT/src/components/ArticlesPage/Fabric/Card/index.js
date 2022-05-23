@@ -60,7 +60,7 @@ export const Card = (fabric) => {
         }
         deleteOneFabric(urlParams);
         dispatch(deleteFabric(fabricCard.id));
-        // navigate('/Tissus');
+        navigate('/Tissus');
     };
           
 

@@ -29,11 +29,9 @@ export const fabricSlice = createSlice({
             console.log('coucou dans deleteFabric' );
             state.value = state.value.filter((fabric) => {
                 console.log(fabric.id, action.payload, 'fabricid / actionpayload')
-               return fabric.id !== action.payload;
-        
-                
-            });
-            console.log(state.value, 'state value')
+               return fabric.id !== action.payload;  
+            }),
+            console.log(state.value, 'state value');
         }
     }
 });
