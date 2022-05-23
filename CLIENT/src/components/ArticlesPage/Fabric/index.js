@@ -275,8 +275,7 @@ export function Fabric(props, index) {
                           <CardImg src={fabric.photo} alt={fabric.alt} />
                         </ImgContainer>
                         <CardText>
-                          {fabric.name} - {fabric.designer} - {fabric.fabric} -{" "}
-                          {fabric.size}
+                          {fabric.name} - {fabric.designer} - {fabric.fabric} -      {fabric.quantity}cm
                         </CardText>
                       </CardContainer>
                       </Link>
