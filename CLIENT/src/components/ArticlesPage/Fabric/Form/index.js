@@ -20,12 +20,13 @@ import { useAddOneFabricMutation } from "../../../../../src/store/api/ytremaApi"
 
 export function FabricForm({ setShowModal, showModal }) {
   let navigate = useNavigate();
-  const modalRef = useRef();
   const dispatch = useDispatch();
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
+  const fabrics = persistedReducer.fabrics;
   const [addOneFabric, { data, error, isLoading, isSuccess }] = useAddOneFabricMutation(auth.id);
   console.log(data, '<---DATA DEBUT');
+  console.log(fabrics, '<--- ici fabrics');
 
   useEffect(() => {
     if (isSuccess) {
@@ -128,8 +129,6 @@ export function FabricForm({ setShowModal, showModal }) {
         <ButtonForm
           type='submit'
           onClick={handleSubmit}
-
-
         >
           Enregister
         </ButtonForm>

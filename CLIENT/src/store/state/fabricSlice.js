@@ -13,23 +13,23 @@ export const fabricSlice = createSlice({
             console.log('coucou dans addAllFabric' );
             state.value = action.payload;
         },
-        addFabric: (state, {payload}) => {
+        addFabric: (state, action) => {
             console.log('coucou dans addfabric dans slice')
-            state.id = payload.id,
-            state.name = payload.name,
-            state.website = payload.website,
-            state.designer = payload.designer,
-            state.color = payload.color,
-            state.precise_color = payload.precise_color,
-            state.fabric = payload.fabric,
-            state.composition = payload.composition,
-            state.weight = payload.weight,
-            state.quantity = payload.quantity,
-            state.width = payload.width,
-            state.price = payload.price,
-            state.photo = payload.photo
+            // state.id = action.payload.id,
+            // state.name = action.payload.name,
+            // state.website = action.payload.website,
+            // state.designer = action.payload.designer,
+            // state.color = action.payload.color,
+            // state.precise_color = action.payload.precise_color,
+            // state.fabric = action.payload.fabric,
+            // state.composition = action.payload.composition,
+            // state.weight = action.payload.weight,
+            // state.quantity = action.payload.quantity,
+            // state.width = action.payload.width,
+            // state.price = action.payload.price,
+            // state.photo = action.payload.photo
             
-            // state.value.push(action.payload);
+            state.value.push(action.payload);
 
         },
         updateFabric: (state, action) => {
