@@ -196,7 +196,7 @@ export const CardsContainer = styled.div`
 export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height:11rem;
+  height:12rem;
   /* width:45%;
   margin: .5rem; */
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
@@ -222,7 +222,7 @@ export const CardImg = styled.img`
 
 export const CardText = styled.h3`
   background-color: ${props => props.theme.color4};
-  height: 5rem;
+  height: 8rem;
   width:100%;
   text-align: center;
   padding: 0 .3rem;

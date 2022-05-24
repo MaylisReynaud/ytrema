@@ -10,7 +10,6 @@ export const LogoImg = styled.div`
   height: 56px;
   cursor: pointer;
   img {
-    width: 100%;
     height: 100%;
   }
 `;

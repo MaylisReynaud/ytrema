@@ -5,6 +5,7 @@ import { DeviceSize } from '../../../Navbar/Responsive';
 import {
     CardContainer,
     CardTitle,
+    DesignerTitle,
     TrashButton,
     ButtonsContainer,
     ReturnArrowContainer,
@@ -64,14 +65,14 @@ export const Card = (fabric) => {
     };
           
 
-    useEffect( () => {
-        console.log('coucou avant is success')
-        if (isSuccess) { 
-            console.log('coucou dans is success')
+    // useEffect( () => {
+    //     console.log('coucou avant is success')
+    //     if (isSuccess) { 
+    //         console.log('coucou dans is success')
             
                  
-        }
-    }, [fabrics]);
+    //     }
+    // }, [fabrics]);
 
     return (
         <>
@@ -102,8 +103,11 @@ export const Card = (fabric) => {
 
                         <TitleContainer>
                             <CardTitle>
-                                {fabricCard.name} - {fabricCard.designer}
+                                {fabricCard.name}  
                             </CardTitle>
+                            <DesignerTitle>
+                                {fabricCard.designer}
+                            </DesignerTitle>
                         </TitleContainer>
                         <ImageContainer>
                             <ImageCard

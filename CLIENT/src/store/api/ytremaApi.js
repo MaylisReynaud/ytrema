@@ -49,19 +49,24 @@ export const ytremaApi = createApi({
     },
     providesTags: ['Fabric'],
   }),
-  addFabric: builder.mutation({
-    query: (memberId) =>{
+  addOneFabric: builder.mutation({
+    query: (arg) =>{
+      const {memberId, body} = arg;
+      console.log(arg, 'dans addOneFabric')
       return {
         url: `/fabric/member/${memberId}`,
         method: "post",
-        body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
       }
-    }
+    },
+    invalidatesTags: ['Fabric'],
   }),
   deleteOneFabric: builder.mutation({
     query: (arg) => {
       const {memberId, fabricId} = arg;
-      console.log(arg, 'ici arg')
     return {
       url: `/fabric/${fabricId}/member/${memberId}`,
       method: "delete",
@@ -75,5 +80,5 @@ export const ytremaApi = createApi({
   })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery, useAddFabricMutation, useDeleteOneFabricMutation } = ytremaApi;
+export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery, useAddOneFabricMutation, useDeleteOneFabricMutation } = ytremaApi;
 

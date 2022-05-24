@@ -21,7 +21,7 @@ export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 1.8rem;
+    height: 2rem;
     position: fixed;
     background-color: white;
 `;
@@ -93,7 +93,7 @@ export const TitleContainer = styled.div`
     flex-direction: column;
     height: 3rem;
     width:100%;
-    margin-top: 2rem;
+    margin: 2rem 0rem 1rem 0rem;
     /* background-color: blue; */
    
     @media screen and (min-width:601px) { 
@@ -108,7 +108,7 @@ export const CardTitle = styled.h1`
     text-align: center;
     justify-content: center;
     align-items: center;
-    font : 1.4rem/2.5 '${props => props.theme.textFont}';
+    font : 1.4rem '${props => props.theme.textFont}';
     font-weight: bold;
     color: ${props => props.theme.color2};
     /* background-color: #83433e; */
@@ -120,6 +120,18 @@ export const CardTitle = styled.h1`
         background-color: salmon;
         
   } */
+`;
+
+export const DesignerTitle = styled.h1`
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font : 1.4rem/2.5 '${props => props.theme.textFont}';
+    font-weight: bold;
+    color: ${props => props.theme.color2};
 `;
 export const ImageContainer = styled.div`
     display: flex;
@@ -182,27 +194,32 @@ export const InformationForm = styled.form`
 export const InformationContent = styled.div`
     display: flex;
     margin-top: 1.2rem;
+    width:100%;
+    font-family: '${props => props.theme.textFont}';
+    font-size: 1rem;
 `;
 
 export const InformationLabel = styled.label`
    display: flex;
    flex-direction: row;
-
    margin: 0.5rem 0rem;
-   font-family: '${props => props.theme.textFont}';
-   font-size: 1rem;
    color: ${props => props.theme.color3};
-   font-weight: bold;
+   width: 30%;
+   font-family: '${props => props.theme.textFont}';
+font-size: 1rem;
    
 `;
 export const InformationInput = styled.input`
     display: flex;
-    align-content: stretch;
+    width: 70%;
     flex-direction: row;
     margin-left: 0.5rem;
     font-family: '${props => props.theme.textFont}';
+    font-size: 1rem;
     border: none;
-    border-bottom: 1px solid ${props => props.theme.color1} ;
+    background-color: #fff;
+    /* border-bottom: 1px solid ${props => props.theme.color1} ; */
+    font-weight: bold;
 `;
 
 export const ProjectContainer = styled.div`

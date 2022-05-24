@@ -11,11 +11,12 @@ import { FabricForm } from '../Form';
 
 export const FabricModal = ({showModal, setShowModal}) => {
     const modalRef = useRef();
-    const closeModal = event => {
+    const closeModal = (event) => {
         if (modalRef.current === event.target) {
             setShowModal(false);
         }
     };
+
     const keyPress = useCallback(event => {
         if(event.key === 'Escape' && showModal) {
             setShowModal(false)
@@ -44,7 +45,10 @@ export const FabricModal = ({showModal, setShowModal}) => {
                 >
                     <ModalContent>
                         <h1>J'ENREGISTRE MON TISSU</h1>
-                        <FabricForm />
+                        <FabricForm 
+                            setShowModal={setShowModal}
+                            showModal={showModal}
+                        />
                         
                     </ModalContent>
                     <CloseModalButton 

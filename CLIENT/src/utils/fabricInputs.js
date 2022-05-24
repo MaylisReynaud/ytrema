@@ -1,7 +1,7 @@
 export const fabricInputs = [
     {
       id: 1,
-      name:'fabricPicture',
+      name:'photo',
       type:'file',
       accept:'image/*',
       placeholder:'Photo du tissu',
@@ -12,7 +12,7 @@ export const fabricInputs = [
     },
     {
       id: 2,
-      name:'fabricName',
+      name:'name',
       type:'text',
       placeholder:'ex: Tissu Avena',
       label:'Nom du tissu',
@@ -35,7 +35,7 @@ export const fabricInputs = [
     },
     {
       id: 4,
-      name:'designerName',
+      name:'designer',
       type:'text',
       placeholder:'ex: Églantine et Zoé',
       label:'Nom du designer',
@@ -58,7 +58,7 @@ export const fabricInputs = [
     },
     {
       id: 6,
-      name:'preciseColor',
+      name:'precise_color',
       type:'text',
       placeholder:'ex: rose poudré ou ex:#FCDEDC',
       label:'Couleur précise',
@@ -68,7 +68,7 @@ export const fabricInputs = [
     },
     {
       id: 7,
-      name:'fabricType',
+      name:'fabric',
       type:'select',
       placeholder:'type de tissu',
       label:'Type de tissu',
