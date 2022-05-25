@@ -10,10 +10,6 @@ import {
 import FormInput from '../Input';
 import YtremaLogo from '../../../../../src/assets/images/logo.png';
 import { fabricInputs } from '../../../../utils/fabricInputs';
-// import {
-//   addFabric,
-// } from "../../../store/state/fabricSlice";
-// import { useAddFabricMutation } from "../../../../src/store/api/ytremaApi";
 import { useSelector, useDispatch } from 'react-redux';
 import { addFabric } from "../../../../store/state/fabricSlice";
 import { useNavigate } from 'react-router-dom';
@@ -115,9 +111,7 @@ export function FabricForm({ setShowModal, showModal }) {
 
 
   const onChange = (event) => {
-
     setValues({ ...values, [event.target.name]: event.target.value });
-    console.log(values, 'values dans onchange');
     //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
     if (event.target.name === 'photo') {
       onSelectFile(event);
@@ -128,10 +122,8 @@ export function FabricForm({ setShowModal, showModal }) {
     }
   };
 
-
   return (
-    <>
-             
+    <>     
         <FormContainer
           onSubmit={handleSubmit}
         >
@@ -142,20 +134,29 @@ export function FabricForm({ setShowModal, showModal }) {
               <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
             }
             {fabricInputs.map((input) => (
+              input.type === "select" ? (
+                <FormInput
+                key={input.id}
+                {...input}
+                onChange={onChange}
+                value={values[input.name]}
+                options={input.optionsList}
+              />
+               
+              ) : 
               <FormInput
                 key={input.id}
                 {...input}
-                value={input.name === 'photo' ? "" : values[input.name] }
                 onChange={onChange}
                 options={input.optionsList}
               />
+              
             ))}
           </InputContainer>
           <ButtonForm
             type='submit'
             onClick={handleSubmit}
           >
-            {console.log('coucou dans showModal true')}
             Enregister
           </ButtonForm>
         </FormContainer>

@@ -26,7 +26,6 @@ import {
   ImgContainer,
   CardsMapContainer,
   ErrorText,
-  SignupLink,
   ErrorButton,
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
@@ -57,8 +56,6 @@ export function Fabric(props, index) {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [filterByCategory, setFilterByCategory] = useState([]);
   const [chosenFilter, setChosenFilter] = useState(false);
- const [goThroughInputs, setGoThroughInputs] = useState(false);
-
 
   if (chosenFilter) {
     setChosenFilter(false);
@@ -114,7 +111,6 @@ export function Fabric(props, index) {
   const isOpenModal = () => {
     setShowModal((prev) => !prev);
   };
-
 
   const isOpenMobileFilters = () => {
     setShowMobileFilters((prev) => !prev);
@@ -206,8 +202,6 @@ export function Fabric(props, index) {
                 <FabricModal
                   showModal={showModal}
                   setShowModal={setShowModal}
-                  goThroughInputs={goThroughInputs}
-                  setGoThroughInputs={setGoThroughInputs}
                 />
                 <Button style={buttonVariants} onClick={isOpenMobileFilters}>
                   <FilterSpan>
