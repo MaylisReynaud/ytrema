@@ -9,7 +9,7 @@ import { Background,
 import { FabricForm } from '../Form';
 
 
-export const FabricModal = ({showModal, setShowModal}) => {
+export const FabricModal = ({showModal, setShowModal, goThroughInputs, setGoThroughInputs}) => {
     const modalRef = useRef();
     const closeModal = (event) => {
         if (modalRef.current === event.target) {
@@ -48,6 +48,8 @@ export const FabricModal = ({showModal, setShowModal}) => {
                         <FabricForm 
                             setShowModal={setShowModal}
                             showModal={showModal}
+                            goThroughInputs={goThroughInputs}
+                            setGoThroughInputs={setGoThroughInputs}
                         />
                         
                     </ModalContent>

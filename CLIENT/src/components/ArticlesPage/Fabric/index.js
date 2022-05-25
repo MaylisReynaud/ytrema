@@ -57,6 +57,7 @@ export function Fabric(props, index) {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [filterByCategory, setFilterByCategory] = useState([]);
   const [chosenFilter, setChosenFilter] = useState(false);
+ const [goThroughInputs, setGoThroughInputs] = useState(false);
 
 
   if (chosenFilter) {
@@ -205,6 +206,8 @@ export function Fabric(props, index) {
                 <FabricModal
                   showModal={showModal}
                   setShowModal={setShowModal}
+                  goThroughInputs={goThroughInputs}
+                  setGoThroughInputs={setGoThroughInputs}
                 />
                 <Button style={buttonVariants} onClick={isOpenMobileFilters}>
                   <FilterSpan>

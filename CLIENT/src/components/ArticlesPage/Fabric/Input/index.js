@@ -20,6 +20,7 @@ function FormInput(props) {
     pattern,
     ...inputProps
   } = props;
+  console.log({...inputProps},'ici inputProps');
   const [isError, setIsError] = useState(false);
 
   const handleBlur = (event) => {
