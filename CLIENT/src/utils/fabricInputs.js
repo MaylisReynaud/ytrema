@@ -51,7 +51,7 @@ export const fabricInputs = [
       placeholder:'couleur',
       label:'Couleur',
       htmlFor: 'color',
-      optionsList: ['Bleu','Rouge', 'Orange', 'Jaune', 'Vert', 'Rose', 'Violet', 'Marron', 'Gris', 'Noir', 'Blanc', 'Multicolore', 'Beige', 'Or', 'Argent'],
+      optionsList: ['Bleu','Rouge', 'Orange', 'Jaune', 'Vert', 'Rose', 'Violet', 'Marron', 'Gris', 'Noir', 'Blanc', 'Multicolore', 'Beige', 'Or', 'Argent', 'Imprimé', 'Rayures', ],
       errorMessage:'Sélectionnez une couleur principale',
       required: true,
       info: 'color'

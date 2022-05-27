@@ -102,19 +102,6 @@ export const ModifyButton = styled(PencilFill)`
   }
 `;
 
-export const ModalContainer = styled.div`
-    width: 280px;
-    min-height:250px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content:center;
-    background-color: pink;
-    @media screen and (min-width:601px) { 
-       
-  }
-`;
-
 
 
 export const TitleContainer = styled.div`
