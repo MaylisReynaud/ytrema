@@ -52,7 +52,6 @@ export const ytremaApi = createApi({
   addOneFabric: builder.mutation({
     query: (arg) =>{
       const {memberId, body} = arg;
-      console.log(arg, 'dans addOneFabric')
       return {
         url: `/fabric/member/${memberId}`,
         method: "post",

@@ -40,7 +40,7 @@ export const Container = styled.div`
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
-        height: 90%;
+        height:100%;
 
         
   }
@@ -197,12 +197,8 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   height:12rem;
-  /* width:45%;
-  margin: .5rem; */
-  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
-  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   @media screen and (min-width:601px) { 
-    width:20%;
+    width:100%;
   }
 `;
  export const CardLink = styled.link`
@@ -214,23 +210,27 @@ export const ImgContainer = styled.div`
 `;
 
 export const CardImg = styled.img`
-  background-color: yellow;
+  background-color: ${props => props.theme.color1};
   object-fit: cover;
   width:100%;
   height:100%;
 `
 
 export const CardText = styled.h3`
+  text-align: center;
+  display: flex;
+  align-items: center;
   background-color: ${props => props.theme.color4};
   height: 8rem;
   width:100%;
-  text-align: center;
   padding: 0 .3rem;
-  display: flex;
-  align-items: center;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color1};
+  @media screen and (min-width:601px) { 
+    justify-content:center;
+    text-align: center;
+  }
 `;
 
 export const FilterContainer = styled.div`

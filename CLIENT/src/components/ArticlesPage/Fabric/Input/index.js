@@ -30,9 +30,6 @@ function FormInput(props) {
       setIsError(true);
     } else {
       // Vérifier la value
-      // console.log(event.target.value);
-      // console.log(pattern, errorMessage, "info à check");
-
       const regex = new RegExp(pattern);
 
       // console.log(regex.test(event.target.value));
@@ -40,7 +37,6 @@ function FormInput(props) {
         // console.log("C'est faux on balance la phrase");
         setIsError(true);
       } else {
-        // console.log("Tout va bien");
         setIsError(false);
       }
     }
@@ -54,10 +50,8 @@ function FormInput(props) {
           <SelectForm
             {...inputProps}
             type={type}
-            // ref={inputElement}
             onChange={onChange}
             id={htmlFor}
-            // onFocus={handleFocus}
             onBlur={handleBlur}
           >
             <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>

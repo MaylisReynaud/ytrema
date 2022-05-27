@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     // STYLED COMPONENTS
     paths.src + '/style/fontStyles.js',
-    paths.src + '/style//styled-reset.js',
+    paths.src + '/style/styled-reset.js',
     // JS
     paths.src + '/index.js',
   ],

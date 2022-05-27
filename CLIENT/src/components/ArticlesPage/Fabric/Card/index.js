@@ -37,7 +37,6 @@ import {
 
 export const Card = (fabric) => {
     const { id } = useParams();
-    console.log(id, 'ici ID')
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
     const cardRef = useRef();
