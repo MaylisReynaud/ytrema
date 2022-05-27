@@ -15,8 +15,27 @@ export const Container = styled.div`
    
     @media screen and (min-width:601px) { 
         height: 100vh;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        ::-webkit-scrollbar {
+        display: none;}
   }
 `;
+
+export const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height:86vh;
+    margin-top:0;
+    width:100%;
+    @media screen and (min-width:601px) { 
+        flex-direction: row;
+        height: 94vh;        
+  }
+`;
+
 export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -24,11 +43,19 @@ export const ButtonsContainer = styled.div`
     height: 2rem;
     position: fixed;
     background-color: white;
+    @media screen and (min-width:601px) { 
+        flex-direction:row;
+        position: sticky;
+        height: auto;
+  }
 `;
 
 export const ReturnArrowContainer = styled.div`
     display: flex;
     margin-top: 0.2em;
+    @media screen and (min-width:601px) { 
+        margin-top: 0em;   
+  }
 
 `;
 
@@ -36,6 +63,9 @@ export const ModifyDeleteContainer = styled.div`
     display: flex;
     margin-right: 1em;
     margin-top: 0.3em;
+    @media screen and (min-width:601px) { 
+        margin-top: 0em;   
+  }
 
 `;
 
@@ -47,7 +77,7 @@ export const ReturnArrow = styled(ArrowSmLeft)`
     color: ${props => props.theme.color3};
     /* color: red; */
     @media screen and (min-width:601px) { 
-        left: 1.5rem;
+        /* left: 1.5rem; */
         
   }
 `;
@@ -72,21 +102,20 @@ export const ModifyButton = styled(PencilFill)`
   }
 `;
 
-export const CardContainer = styled.div`
-    display: flex;
+export const ModalContainer = styled.div`
+    width: 280px;
+    min-height:250px;
+    display:flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    height:86vh;
-    margin-top:0;
-    width:100%;
-   
+    justify-content:center;
+    background-color: pink;
     @media screen and (min-width:601px) { 
-        flex-direction: row;
-        height: 90vh;
-        
+       
   }
 `;
+
+
 
 export const TitleContainer = styled.div`
     display: flex;
@@ -168,9 +197,9 @@ export const InformationContainer = styled.div`
     margin-top: 1rem;
    
     @media screen and (min-width:601px) { 
-        height:100%;
-        
+        height:100%;     
   }
+  
 `;
 
 export const InformationForm = styled.form`
@@ -180,14 +209,18 @@ export const InformationForm = styled.form`
     width: 90%;
     height: 90%;
     overflow-y: scroll;
-
-   
-   
     @media screen and (min-width:601px) { 
         flex-direction: column;
-
+        flex-wrap: nowrap;
         margin: 1rem 0rem;
-        height:100%;       
+        height:100%;      
+  }
+
+    @media screen and (min-height:800px) { 
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        ::-webkit-scrollbar {
+        display: none;}     
   }
 `;
 

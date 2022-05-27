@@ -7,6 +7,10 @@ export const FormContainer = styled.form`
     font-family:'${props => props.theme.textFont}';
     overflow:hidden;
     height:77vh;
+    @media screen and (min-width:601px) { 
+        width: 90%;
+        height:100%;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -16,6 +20,10 @@ export const InputContainer = styled.div`
     font-family:'${props => props.theme.textFont}';
     overflow-y:scroll;
     flex-direction: column;
+    @media screen and (min-width:601px) { 
+        width: 90%;
+        height: 93%;
+  }
 `;
 export const DefaultFabricPictureStyle = css`
     height: 20%;
@@ -45,4 +53,8 @@ export const ButtonForm = styled.button`
     font-size: 1.3rem;
     cursor: pointer;
     margin: 10px 0px;
+    @media screen and (min-width:601px) { 
+        width: 70%;
+        margin-left: 3.5rem;
+  }
 `;

@@ -5,6 +5,10 @@ export const InputContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 300px;
+    @media screen and (min-width:601px) { 
+        width: 100%;
+        height: 100%;
+  }
 `;
 
 export const LabelForm = styled.label`
