@@ -22,12 +22,14 @@ export const Background = styled.div`
     justify-content:center;
     align-items:center;
     @media screen and (min-width:601px) { 
-        height: 82%;
+        height: 100%;
   }
 `;
 
 export const ModalWrapper = styled.div`
     position: relative;
+    display: flex;
+    justify-content: center;
     z-index:100;
     width: 800px;
     height:80vh;
@@ -36,8 +38,8 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     @media screen and (min-width:601px) { 
-        top: 0;
-        height:95%;
+        margin-top: 4rem;
+        height:90%;
 
   }
 `;
@@ -47,15 +49,12 @@ export const ModalWrapper = styled.div`
 export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
-    /* grid-template-columns: 1fr 1fr; */
     justify-content: center;
     align-items: center;
     line-height: 1.8;
     color: ${props => props.theme.color5};
-
     overflow: hidden;
     height:86vh;
-    
 
     h1 {
         font-family: '${props => props.theme.titleFont}';
@@ -64,6 +63,11 @@ export const ModalContent = styled.div`
         font-size: 1.5rem;
         color: ${props => props.theme.color3};
     }
+    @media screen and (min-width:601px) { 
+        height:90vh;
+        width: 90%;
+
+  }
 `;
 
 export const CloseModalButton = styled(Close)`

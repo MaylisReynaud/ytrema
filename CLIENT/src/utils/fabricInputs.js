@@ -51,7 +51,7 @@ export const fabricInputs = [
       placeholder:'couleur',
       label:'Couleur',
       htmlFor: 'color',
-      optionsList: ['bleu','rouge', 'orange', 'jaune', 'vert', 'rose', 'violet', 'marron', 'gris', 'noir', 'blanc', 'multicolore', 'beige', 'or', 'argent'],
+      optionsList: ['Bleu','Rouge', 'Orange', 'Jaune', 'Vert', 'Rose', 'Violet', 'Marron', 'Gris', 'Noir', 'Blanc', 'Multicolore', 'Beige', 'Or', 'Argent', 'Imprimé', 'Rayures', ],
       errorMessage:'Sélectionnez une couleur principale',
       required: true,
       info: 'color'
@@ -73,7 +73,7 @@ export const fabricInputs = [
       placeholder:'type de tissu',
       label:'Type de tissu',
       htmlFor: 'fabricType',
-      optionsList: [ 'batiste','bords-côtes', 'broderie anglaise', 'canvas', 'chambray', 'crêpe', 'cretonne', 'cuir', 'dentelle', 'denim', 'coton enduit', 'éponge', 'flanelle', 'imitation fourrure', 'gabardine', 'gaze, double gaz', 'jacquard', 'jersey', 'toile de jute', 'laine bouillie', 'liège', 'lin', 'lycra', 'maille', 'matelassé', 'minky', 'mousseline', 'nicky', 'organza', 'popeline', 'polaire', 'pul', 'organza', 'sergé de coton', 'simili cuir', 'suédine', 'soie', 'sweat/molleton',  'tartan', 'tencel', 'thermocollant/entoilage', 'toile cirée', 'tulle', 'twill', 'velours', 'viscose', 'voile de coton', 'wax africain' ],
+      optionsList: [ 'Batiste','Bords-côtes', 'Broderie anglaise', 'Canvas', 'Chambray', 'Coton enduit', 'Crêpe', 'Cretonne', 'Cuir', 'Dentelle', 'Denim', 'Éponge', 'Flanelle', 'Imitation fourrure', 'Gabardine', 'Gaze, double gaz', 'Jacquard', 'Jersey',  'Laine bouillie', 'Liège', 'Lin', 'Lycra', 'Maille', 'Matelassé', 'Minky', 'Mousseline', 'Nicky', 'Organza', 'Popeline', 'Polaire', 'Pul', 'Organza', 'Sergé de coton', 'Simili cuir', 'Suédine', 'Soie', 'Sweat/Molleton',  'Tartan', 'Tencel', 'Thermocollant/entoilage', 'Toile cirée', 'Toile de jute', 'Tulle', 'Twill', 'Velours', 'Viscose', 'Voile de coton', 'Wax africain' ],
       errorMessage:'Sélectionnez un type de tissu',
       required: true,
       info: 'fabric',

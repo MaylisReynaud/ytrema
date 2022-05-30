@@ -354,8 +354,8 @@ export function Fabric(props, index) {
                 </>
               ) : isLoading ? (
                 <>Loading...</>
-                ) : (data && fabrics && !filterByCategory) ||
-              filterByCategory.length == 0 ? (
+              ) : (data && fabrics && !filterByCategory) ||
+                filterByCategory.length == 0 ? (
                 <>
                   <CardsContainer>
                     <TitleContainer>
@@ -363,24 +363,26 @@ export function Fabric(props, index) {
                     </TitleContainer>
                     {fabrics.value.map((fabric) => (
                       <CardsMapContainer key={fabric.id}>
-                        <Link to={`/tissus/${fabric.id}`} >
-                        <CardContainer key={fabric.id}>
-                          <ImgContainer>
-                            <CardImg src={fabric.photo} alt={fabric.alt} />
-                          </ImgContainer>
+                        <Link
+                          to={`/tissus/${fabric.id}`}
+                        >
+                          <CardContainer key={fabric.id}>
+                            <ImgContainer>
+                              <CardImg src={fabric.photo} alt={fabric.alt} />
+                            </ImgContainer>
 
-                          <CardText>
-                            {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.quantity}cm
-                          </CardText>
-                        </CardContainer>
+                            <CardText>
+                              {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.quantity}cm
+                            </CardText>
+                          </CardContainer>
                         </Link>
                       </CardsMapContainer>
                     ))}
                   </CardsContainer>
                 </>
-             ) : filterByCategory.length > 0 ? (
-              mapFilteredCards(filterByCategory)
-            ) : null}
+              ) : filterByCategory.length > 0 ? (
+                mapFilteredCards(filterByCategory)
+              ) : null}
             </Container>
           </DesktopContainer>
         </>

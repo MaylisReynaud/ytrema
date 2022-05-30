@@ -35,7 +35,7 @@ import {
     deleteFabric,
 } from "../../../../store/state/fabricSlice";
 
-export const Card = (fabric) => {
+export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -49,9 +49,9 @@ export const Card = (fabric) => {
     const fabrics = persistedReducer.fabrics;
     const fabricCard = fabrics.value.find((fabric) => fabric.id == id);
     const [deleteOneFabric, { data, isLoading, isSuccess, isError }] = useDeleteOneFabricMutation(fabricCard.id, auth.id);
-   
 
-    
+
+
 
     const deleteCard = () => {
         const urlParams = {
@@ -62,14 +62,14 @@ export const Card = (fabric) => {
         dispatch(deleteFabric(fabricCard.id));
         navigate('/Tissus');
     };
-          
+
 
     // useEffect( () => {
     //     console.log('coucou avant is success')
     //     if (isSuccess) { 
     //         console.log('coucou dans is success')
-            
-                 
+
+
     //     }
     // }, [fabrics]);
 
@@ -102,7 +102,7 @@ export const Card = (fabric) => {
 
                         <TitleContainer>
                             <CardTitle>
-                                {fabricCard.name}  
+                                {fabricCard.name}
                             </CardTitle>
                             <DesignerTitle>
                                 {fabricCard.designer}
@@ -162,37 +162,42 @@ export const Card = (fabric) => {
 
             {isDesktop &&
                 <Container>
+                    <ButtonsContainer>
+                        <ReturnArrowContainer>
+                            <ReturnArrow
+                                aria-label='Close card'
+                                ref={cardRef}
+                                onClick={() => {
+                                    navigate("/Tissus");
+                                }}
+                            />
+                        </ReturnArrowContainer>
+                        <ModifyDeleteContainer>
+                            <ModifyButton />
+                            <TrashButton
+                                aria-label='Delete card'
+                                ref={cardRef}
+                                onClick={deleteCard}
+                            />
+                        </ModifyDeleteContainer>
+
+                    </ButtonsContainer>
                     <CardContainer>
-                        <ReturnArrow
-                            aria-label='Close card'
-                            ref={cardRef}
-                            onClick={() => {
-                                navigate("/Tissus");
-                            }}
-                        />
-                        <ModifyButton />
-
-                        <TrashButton
-                            aria-label='Delete card'
-                            ref={cardRef}
-                            onClick={deleteCard}
-                        />
-
-
                         <ImageContainer>
                             <ImageCard
-                                src='http://react-responsive-carousel.js.org/assets/2.jpeg'
+                                src={fabricCard.photo}
                             />
                         </ImageContainer>
 
                         <InformationContainer>
                             <TitleContainer>
                                 <CardTitle>
-                                    Titre du tissu - Designer
+                                {fabricCard.name} -  {fabricCard.designer}
                                 </CardTitle>
                             </TitleContainer>
                             <InformationForm>
                                 {fabricInputs.map((input, index) => (
+                                    index !== 0 ? (
                                     <InformationContent>
                                         <InformationLabel
                                             key={input.id}
@@ -200,13 +205,14 @@ export const Card = (fabric) => {
                                             {input.label}
                                         </InformationLabel>
                                         <InformationInput
-                                            key={input.index}
-
-
+                                            value={fabricCard[(input.info)]}
+                                            disabled='disabled'
+                                            type={input.id === 5 ? 'color' : input.type}
                                         >
 
                                         </InformationInput>
                                     </InformationContent>
+                                    ) : null
 
                                 ))}
 
