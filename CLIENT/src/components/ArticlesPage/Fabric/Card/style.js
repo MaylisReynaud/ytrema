@@ -240,6 +240,52 @@ export const InformationInput = styled.input`
     background-color: #fff;
     /* border-bottom: 1px solid ${props => props.theme.color1} ; */
     font-weight: bold;
+    &[class~="input-false"] {
+        border: 1px solid red;
+        background-color: #ffe0d3;
+  }
+`;
+
+export const InformationSelect = styled.select`
+    /* display: flex; */
+    display: inline-block;
+    width: 70%;
+    flex-direction: row;
+    margin-left: 0.5rem;
+    font-family: '${props => props.theme.textFont}';
+    font-size: 1rem;
+    border: none;
+    background-color: #fff;
+    /* border-bottom: 1px solid ${props => props.theme.color1} ; */
+    font-weight: bold;
+    :hover{
+        color: ${(props) => props.theme.color3};
+    }
+    :focus {
+        border: 2px solid ${(props) => props.theme.color3};
+    }
+    ::placeholder {
+            color: grey;
+        }
+`;
+
+export const ButtonForm = styled.button`
+    width:100%;
+    height:45px;
+    padding: 10px;
+    background: ${props => props.theme.color1};
+    font-family: '${props => props.theme.textFont}';
+    color: ${props => props.theme.color4};
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin: 10px 0px;
+    @media screen and (min-width:601px) { 
+        width: 70%;
+        margin-left: 3.5rem;
+  }
 `;
 
 export const ProjectContainer = styled.div`

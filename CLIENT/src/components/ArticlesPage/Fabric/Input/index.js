@@ -23,7 +23,7 @@ function FormInput(props) {
   const [isError, setIsError] = useState(false);
 
   const handleBlur = (event) => {
-    // console.log(event, "Je suis sortie de l'input");
+    console.log(event, "Je suis sortie de l'input");
 
     if (!event.target.value) {
       // console.log("Le champs est vide");
