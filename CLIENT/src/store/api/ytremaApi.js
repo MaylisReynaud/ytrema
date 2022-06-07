@@ -22,7 +22,7 @@ export const ytremaApi = createApi({
       query: (body) => {
         return {
           url: "/login",
-          method: "post",
+          method: "POST",
           body
         };
       },
@@ -32,7 +32,7 @@ export const ytremaApi = createApi({
     query: (body) => {
       return {
         url: "/signup",
-        method: "post",
+        method: "POST",
         body,
       };
     },
@@ -41,7 +41,7 @@ export const ytremaApi = createApi({
     query: (memberId) => {
       return {
         url: `/fabric/all/member/${memberId}`,
-        method: "get",
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +54,7 @@ export const ytremaApi = createApi({
       const {memberId, body} = arg;
       return {
         url: `/fabric/member/${memberId}`,
-        method: "post",
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -68,7 +68,7 @@ export const ytremaApi = createApi({
       const {memberId, fabricId} = arg;
     return {
       url: `/fabric/${fabricId}/member/${memberId}`,
-      method: "delete",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
         },
@@ -81,7 +81,7 @@ export const ytremaApi = createApi({
       const {memberId, fabricId, body} = arg;
     return {
       url: `/fabric/${fabricId}/member/${memberId}`,
-      method: "patch",
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
         },

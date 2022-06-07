@@ -34,7 +34,6 @@ const fabricController = {
 
     async findAll(request, response, next) {
         try {
-            console.log('coucou dans findAll')
             // User ID targeted
             const { userId: id } = request.params;
 
@@ -76,7 +75,6 @@ const fabricController = {
 
     async update(request, response, next) {
         try {
-            console.log(request.body, '<---request.body ');
             // User ID and fabric ID targeted
             const { userId: id, fabricId } = request.params;
 

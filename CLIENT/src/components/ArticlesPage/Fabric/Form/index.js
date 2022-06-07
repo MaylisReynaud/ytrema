@@ -118,7 +118,6 @@ export function FabricForm({ setShowModal, showModal }) {
       if (!event.target.files || event.target.files.length > 0) {
         handleUpload(event.target.files[0]);
       }
-
     }
   };
 
