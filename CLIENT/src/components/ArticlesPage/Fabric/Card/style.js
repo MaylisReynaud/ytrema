@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
-import { Trash } from "@styled-icons/ionicons-solid";
+import { Trash } from "@styled-icons/boxicons-solid";
 
 export const Container = styled.div`
   display: flex;
@@ -53,6 +53,7 @@ export const ButtonsContainer = styled.div`
   height: 2rem;
   position: fixed;
   background-color: white;
+  margin-top: 0.6em;
   @media screen and (min-width: 601px) {
     flex-direction: row;
     position: sticky;
@@ -62,16 +63,6 @@ export const ButtonsContainer = styled.div`
 
 export const ReturnArrowContainer = styled.div`
   display: flex;
-  margin-top: 0.2em;
-  @media screen and (min-width: 601px) {
-    margin-top: 0em;
-  }
-`;
-
-export const ModifyDeleteContainer = styled.div`
-  display: flex;
-  margin-right: 1em;
-  margin-top: 0.3em;
   @media screen and (min-width: 601px) {
     margin-top: 0em;
   }
@@ -89,24 +80,42 @@ export const ReturnArrow = styled(ArrowSmLeft)`
   }
 `;
 
-export const TrashButton = styled(Trash)`
-  cursor: pointer;
-  height: 22px;
-  color: red;
+export const ModifyDeleteContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 1em;
+  @media screen and (min-width: 601px) {
+    margin-top: 0em;
+  }
+`;
+
+export const TrashContainer = styled.div`
+  height: 23px;
+  width: 23px;
   @media screen and (min-width: 601px) {
     right: 2rem;
+  }
+`;
+
+export const TrashButton = styled(Trash)`
+  cursor: pointer;
+  color: red;
+  object-fit: fill;
+`;
+
+export const ModifyContainer = styled.div`
+  width: 19px;
+  height: 19px;
+  margin-right: 0.9em;
+  @media screen and (min-width: 601px) {
+    right: 4rem;
   }
 `;
 
 export const ModifyButton = styled(PencilFill)`
   cursor: pointer;
   color: ${(props) => props.theme.color2};
-  width: 22px;
-  height: 20px;
-  margin-right: 0.5em;
-  @media screen and (min-width: 601px) {
-    right: 4rem;
-  }
+  width:100%;
 `;
 
 export const TitleContainer = styled.div`

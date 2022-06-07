@@ -32,6 +32,8 @@ import {
   ProjectImage,
   ProjectTitle,
   InformationSelect,
+  ModifyContainer,
+  TrashContainer,
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -119,7 +121,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
-      (snapshot) => {},
+      (snapshot) => { },
       (error) => {
         console.log(error);
       },
@@ -179,7 +181,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
             <ButtonsContainer>
               <ReturnArrowContainer>
                 <ReturnArrow
-                  aria-label="Close card"
+                  aria-label="Retourner à la liste des tissus"
                   ref={cardRef}
                   onClick={() => {
                     navigate("/Tissus");
@@ -189,12 +191,17 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
               <ModifyDeleteContainer>
                 {!updateFabricInfo ? (
                   <>
-                    <ModifyButton onClick={updateCard} />
-                    <TrashButton
-                      aria-label="Delete card"
-                      ref={cardRef}
-                      onClick={deleteCard}
-                    />
+                    <ModifyContainer>
+                      <ModifyButton onClick={updateCard} />
+                    </ModifyContainer>
+                    <TrashContainer>
+                      <TrashButton
+                        aria-label="Supprimer ce tissu"
+                        ref={cardRef}
+                        onClick={deleteCard}
+                      />
+                    </TrashContainer>
+
                   </>
                 ) : (
                   <div>En cours de modif</div>
