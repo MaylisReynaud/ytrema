@@ -206,7 +206,7 @@ export const CardContainer = styled.div`
  `;
 
 export const ImgContainer = styled.div`
-  height:65%;
+  height:60%;
 `;
 
 export const CardImg = styled.img`

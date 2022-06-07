@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { storage } from '../../../../Firebase';
+import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
@@ -14,11 +14,15 @@ import {
   Container,
   ImageCard,
   ImageContainer,
+  UpdateCardContainer,
+  UpdatePhotoInput,
   InformationContainer,
   InformationForm,
   InformationInput,
   InformationContent,
   InformationLabel,
+  InformationLinkContainer,
+  InformationLink,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -86,11 +90,12 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
-  
+
   useEffect(() => {
     if (!selectedFile) {
-      setPreview(undefined);
-      return
+      // setPreview(undefined);
+      setPreview(fabricCard.photo);
+      return;
     }
 
     const objectUrl = URL.createObjectURL(selectedFile);
@@ -103,20 +108,18 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const onSelectFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
       setSelectedFile(undefined);
-      return
+      return;
     }
     // I've kept this example simple by using the first image instead of multiple
     setSelectedFile(event.target.files[0]);
-
-  }
+  };
 
   //propre a firebase
   const handleUpload = (file) => {
-
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
-      (snapshot) => { },
+      (snapshot) => {},
       (error) => {
         console.log(error);
       },
@@ -126,7 +129,6 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setPhotoURL(url);
           });
       }
@@ -151,20 +153,17 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     //  Mettre à jour le store
     dispatch(updateFabric(updatedFabricData));
     setUpdateFabricInfo(false);
-    setPreview(undefined);
-
+    // setPreview(undefined);
   };
 
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
-    if (event.target.name === 'photo') {
-      console.log("OK");
-        onSelectFile(event);
-        if (!event.target.files || event.target.files.length > 0) {
-            handleUpload(event.target.files[0]);
-        }
-
+    if (event.target.name === "photo") {
+      onSelectFile(event);
+      if (!event.target.files || event.target.files.length > 0) {
+        handleUpload(event.target.files[0]);
+      }
     }
   };
 
@@ -207,28 +206,27 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
               <CardTitle>{fabricCard.name}</CardTitle>
               <DesignerTitle>{fabricCard.designer}</DesignerTitle>
             </TitleContainer>
-            <ImageContainer>
-              {!updateFabricInfo ? (
+            {!updateFabricInfo ? (
+              <ImageContainer>
                 <ImageCard src={fabricCard.photo} />
-              ) : (
-                <>
-                <input
-                  name="photo"
-                  accept="image/*"
-                  placeholder="Photo du tissu"
-                  required=""
-                  type="file"
-                  className="sc-hOGkXu iNsHcO"
-                  onChange={onChange}
-                ></input>
-                {preview ?
-                <ImageCard src={preview} alt="fabric picture"/>
-                :
-                  null
-                }
-                </>
-              )}
-            </ImageContainer>
+              </ImageContainer>
+            ) : (
+              <UpdateCardContainer>
+                <UpdatePhotoInput>
+                  <ImageCard src={preview} alt="fabric picture" />
+                </UpdatePhotoInput>
+                <div>
+                  <input
+                    name="photo"
+                    accept="image/*"
+                    placeholder="Photo du tissu"
+                    required=""
+                    type="file"
+                    onChange={onChange}
+                  ></input>
+                </div>
+              </UpdateCardContainer>
+            )}
             <InformationContainer>
               {updateFabricInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
@@ -279,11 +277,23 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        <InformationInput
-                          value={fabricCard[input.info]}
-                          disabled="disabled"
-                          type={input.id === 5 ? "color" : input.type}
-                        ></InformationInput>
+                        {index === 2 && fabricCard[input.info].includes("http") ? (
+                          <InformationLinkContainer
+                          >
+                            <InformationLink
+                              href={fabricCard[input.info]}
+                              target="_blank"
+                            >
+                              {fabricCard[input.info]}
+                            </InformationLink>
+                          </InformationLinkContainer>
+                        ) : (
+                          <InformationInput
+                            value={fabricCard[input.info]}
+                            disabled="disabled"
+                            type={input.type}
+                          ></InformationInput>
+                        )}
                       </InformationContent>
                     ) : null
                   )}
@@ -345,7 +355,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                       <InformationInput
                         value={fabricCard[input.info]}
                         disabled="disabled"
-                        type={input.id === 5 ? "color" : input.type}
+                        type={input.type}
                       ></InformationInput>
                     </InformationContent>
                   ) : null

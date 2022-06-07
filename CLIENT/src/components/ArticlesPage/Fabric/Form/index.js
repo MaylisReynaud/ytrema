@@ -91,7 +91,6 @@ export function FabricForm({ setShowModal, showModal }) {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setPhotoURL(url);
           });
       }
