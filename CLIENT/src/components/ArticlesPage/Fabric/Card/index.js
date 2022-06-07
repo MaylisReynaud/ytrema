@@ -192,7 +192,10 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                 {!updateFabricInfo ? (
                   <>
                     <ModifyContainer>
-                      <ModifyButton onClick={updateCard} />
+                      <ModifyButton
+                        aria-label="Modifier ce tissu"
+                        onClick={updateCard}
+                      />
                     </ModifyContainer>
                     <TrashContainer>
                       <TrashButton
@@ -325,7 +328,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
           <ButtonsContainer>
             <ReturnArrowContainer>
               <ReturnArrow
-                aria-label="Close card"
+                aria-label="Retourner à la liste des tissus"
                 ref={cardRef}
                 onClick={() => {
                   navigate("/Tissus");
@@ -333,9 +336,11 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
               />
             </ReturnArrowContainer>
             <ModifyDeleteContainer>
-              <ModifyButton />
+              <ModifyButton
+                aria-label="Modifier ce tissu"
+              />
               <TrashButton
-                aria-label="Delete card"
+                aria-label="Supprimer ce tissu"
                 ref={cardRef}
                 onClick={deleteCard}
               />
