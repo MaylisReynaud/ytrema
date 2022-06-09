@@ -34,6 +34,9 @@ import {
   InformationSelect,
   ModifyContainer,
   TrashContainer,
+  UpdateInformation,
+  UpdateInformationContainer,
+  UpdateInformationText,
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -207,7 +210,18 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
 
                   </>
                 ) : (
-                  <div>En cours de modif</div>
+                  <UpdateInformationContainer
+                    // animate={{ x: 20 }}
+                    // transition={{ type: "spring", stiffness: 100 }}
+                    initial={{x: '-80px' }} 
+                    animate={{ x: 0 }} 
+                    transition={{ type: "tween", stiffness: 300 }}
+                  >
+                    <UpdateInformationText>
+                      Tissu en cours de modification
+                    </UpdateInformationText>
+
+                  </UpdateInformationContainer>
                 )}
               </ModifyDeleteContainer>
             </ButtonsContainer>

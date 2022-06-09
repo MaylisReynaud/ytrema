@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from 'framer-motion';
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
@@ -50,17 +51,37 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 2rem;
+  height: 3rem;
   position: fixed;
   background-color: white;
-  margin-top: 0.6em;
+  padding: 0.6em 0 1em 0;
   @media screen and (min-width: 601px) {
     flex-direction: row;
     position: sticky;
     height: auto;
   }
 `;
+export const UpdateInformationContainer = styled(motion.div)`
+  transition: all, 240ms ease-in-out;
+  background: rgb(241, 196, 15);
+  background: linear-gradient(
+    58deg,
+    rgba(241, 196, 15, 1) 20%,
+    rgba(243, 172, 18, 1) 100%
+  );
+  @media screen and (min-width: 601px) {
+  }
+`;
 
+export const UpdateInformationText = styled.h3`
+  font: 1.1rem "${(props) => props.theme.textFont}";
+  font-weight: bold;
+  padding: .5em;
+  color: ${(props) => props.theme.color4};
+  background-color: ${(props) => props.theme.color1};
+  @media screen and (min-width: 601px) {
+  }
+`;
 export const ReturnArrowContainer = styled.div`
   display: flex;
   @media screen and (min-width: 601px) {
