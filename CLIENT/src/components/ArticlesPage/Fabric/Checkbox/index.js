@@ -20,6 +20,16 @@ export function Checkbox({
 
   const [checked, setChecked] = useState(false);
 
+  // if(isChecked) {
+  //   console.log('1')
+  //   if(filterByCategory.length == 0 ) {
+  //     console.log('2')
+  //      setIsChecked(false);
+  //      setChecked(false);
+  //      console.log('3')
+  //   }
+  // };
+ // console.log(filterByCategory, isChecked, checked,' filterbycategory -- isChecked -- checked')
   const handleCheckboxChange = (event) => {
     setIsChecked(false);
 
@@ -56,7 +66,8 @@ export function Checkbox({
         id={id}
         data-id={dataId}
       />
-      <StyledCheckbox checked={isChecked ? isChecked : checked}>
+      <StyledCheckbox 
+        checked={isChecked ? isChecked : checked}>
         <Icon viewBox="0 0 24 24">
           <polyline points="20 6 9 17 4 12" />
         </Icon>
