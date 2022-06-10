@@ -215,7 +215,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     // transition={{ type: "spring", stiffness: 100 }}
                     initial={{x: '-80px' }} 
                     animate={{ x: 0 }} 
-                    transition={{ type: "tween", stiffness: 300 }}
+                    transition={{ type: "tween", stiffness: 1000, duration: 3 }}
                   >
                     <UpdateInformationText>
                       Tissu en cours de modification
@@ -301,11 +301,11 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && fabricCard[input.info].includes("http") ? (
+                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net") ) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
-                              href={fabricCard[input.info]}
+                              href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
                               target="_blank"
                             >
                               {fabricCard[input.info]}
