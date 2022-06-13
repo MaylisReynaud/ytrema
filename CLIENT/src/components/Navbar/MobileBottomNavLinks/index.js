@@ -10,7 +10,7 @@ import { BottomNavLinksContainer,
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../../../utils/navLinks';
 import { iconsNavLinks } from '../../../utils/iconsNavLinks';
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 export function MobileBottomNavLinks(props) {
