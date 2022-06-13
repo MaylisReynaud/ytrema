@@ -98,7 +98,7 @@ export function Fabric(props, index) {
 
             ))}
           </>
-        ) : <div>Aucun tissu ne correspond à cette sélection </div>}
+        ) : <div>Aucun tissu ne correspond à cette sélection !</div>}
 
       </CardsContainer>
     );
