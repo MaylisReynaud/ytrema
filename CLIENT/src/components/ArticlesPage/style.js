@@ -292,7 +292,7 @@ export const FilterContainer = styled.div`
   /* flex-grow:1; */
   flex-direction: column;
   flex-shrink:1;
-  margin-top: 0.3rem;
+  /* margin-top: 0.3rem; */
   @media screen and (min-width:601px) { 
     height:100%;
     /* width: 100%;

@@ -199,7 +199,7 @@ export function Fabric(props, index) {
     <>
       {isMobile && (
         <>
-          <Title>MA TISSUTHÈQUE</Title>
+          <Title>MA TISSUTHEQUE</Title>
           <Container>
             {isLogged === true && (
               <>
