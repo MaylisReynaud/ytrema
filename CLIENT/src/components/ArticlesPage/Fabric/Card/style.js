@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
+import { InformationCircle } from "@styled-icons/ionicons-solid";
 
 export const Container = styled.div`
   display: flex;
@@ -280,6 +281,16 @@ export const InformationInput = styled.input`
   }
 `;
 
+export const PopoverContainer = styled.div`
+  
+`;
+
+export const InformationPopover = styled.button`
+  cursor: pointer;
+  color: ${(props) => props.theme.color1};
+  width:10%;
+  position: relative;
+`;
 export const InformationLinkContainer = styled.div`
   margin-left: 0.5rem;
 `;

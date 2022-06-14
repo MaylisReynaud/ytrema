@@ -3,6 +3,7 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
+import { Popover, Whisper } from 'rsuite';
 import {
   CardContainer,
   CardTitle,
@@ -37,6 +38,8 @@ import {
   UpdateInformation,
   UpdateInformationContainer,
   UpdateInformationText,
+  InformationPopover,
+  PopoverContainer,
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -66,6 +69,16 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const [deleteOneFabric] = useDeleteOneFabricMutation(fabricCard.id, auth.id);
   const [updateOneFabric] = useUpdateOneFabricMutation(fabricCard.id, auth.id);
   const [updateFabricInfo, setUpdateFabricInfo] = useState(false);
+
+  const DefaultPopover = React.forwardRef(({ content, ...props }, ref) => {
+    return (
+      <div style={{postion:'absolute', top:0, backgroundColor:'red', height:'3em'}}>
+      <Popover ref={ref} {...props}>
+        <p>{content}</p>
+      </Popover>
+      </div>
+    )
+  });
 
   const deleteCard = () => {
     const urlParams = {
@@ -213,8 +226,8 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                   <UpdateInformationContainer
                     // animate={{ x: 20 }}
                     // transition={{ type: "spring", stiffness: 100 }}
-                    initial={{x: '-80px' }} 
-                    animate={{ x: 0 }} 
+                    initial={{ x: '-80px' }}
+                    animate={{ x: 0 }}
                     transition={{ type: "tween", stiffness: 1000, duration: 3 }}
                   >
                     <UpdateInformationText>
@@ -261,13 +274,27 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                           {input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
-                          <InformationInput
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            type={input.type}
-                            name={input.name}
-                            pattern={input.pattern}
-                          ></InformationInput>
+                          <div style={{ position: "relative", display:"flex" }}>
+                            <InformationInput
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              type={input.type}
+                              name={input.name}
+                              pattern={input.pattern}
+                            ></InformationInput>
+                            <PopoverContainer>
+                              <Whisper
+                                style={{position:'relative'}}
+                                placement="top"
+                                trigger="click"
+                                controlId="control-id-click"
+                                speaker={<DefaultPopover content={input.errorMessage} />}
+                              >
+                                <InformationPopover> coucou </InformationPopover>
+                              </Whisper>
+                            </PopoverContainer>
+
+                          </div>
                         ) : (
                           <InformationSelect
                             placeholder={values[input.info]}
@@ -301,7 +328,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net") ) ? (
+                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
