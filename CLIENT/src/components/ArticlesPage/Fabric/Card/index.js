@@ -37,6 +37,7 @@ import {
   UpdateInformation,
   UpdateInformationContainer,
   UpdateInformationText,
+  InputMessageHover,
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -50,6 +51,7 @@ import {
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
 import { ErrorMessage } from "../Input/Input.style";
+import { MessageHover } from "./MessageHover";
 
 export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -261,13 +263,21 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                           {input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
+                          <>
                           <InformationInput
                             placeholder={values[input.info]}
                             onChange={onChange}
                             type={input.type}
                             name={input.name}
                             pattern={input.pattern}
+                            data-error={input.errorMessage}
                           ></InformationInput>
+
+                         
+                         <MessageHover 
+                            errorMessage={input.errorMessage}
+                          />
+                         </>
                         ) : (
                           <InformationSelect
                             placeholder={values[input.info]}

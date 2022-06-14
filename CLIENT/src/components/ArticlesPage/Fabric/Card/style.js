@@ -263,6 +263,11 @@ export const InformationLabel = styled.label`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
 `;
+export const InputMessageHover = styled.div`
+display: flex;
+justify-content: space-between;
+background-color: red;
+`;
 export const InformationInput = styled.input`
   display: flex;
   width: 70%;
