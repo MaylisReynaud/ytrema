@@ -3,7 +3,6 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
-import { Popover, Whisper } from 'rsuite';
 import {
   CardContainer,
   CardTitle,
@@ -38,8 +37,6 @@ import {
   UpdateInformation,
   UpdateInformationContainer,
   UpdateInformationText,
-  InformationPopover,
-  PopoverContainer,
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -53,6 +50,7 @@ import {
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
 import { ErrorMessage } from "../Input/Input.style";
+import { Button, Popover, Whisper } from 'rsuite';
 
 export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -70,15 +68,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const [updateOneFabric] = useUpdateOneFabricMutation(fabricCard.id, auth.id);
   const [updateFabricInfo, setUpdateFabricInfo] = useState(false);
 
-  const DefaultPopover = React.forwardRef(({ content, ...props }, ref) => {
-    return (
-      <div style={{postion:'absolute', top:0, backgroundColor:'red', height:'3em'}}>
-      <Popover ref={ref} {...props}>
-        <p>{content}</p>
-      </Popover>
-      </div>
-    )
-  });
+
 
   const deleteCard = () => {
     const urlParams = {
@@ -274,7 +264,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                           {input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
-                          <div style={{ position: "relative", display:"flex" }}>
+                          <>
                             <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
@@ -282,19 +272,10 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                               name={input.name}
                               pattern={input.pattern}
                             ></InformationInput>
-                            <PopoverContainer>
-                              <Whisper
-                                style={{position:'relative'}}
-                                placement="top"
-                                trigger="click"
-                                controlId="control-id-click"
-                                speaker={<DefaultPopover content={input.errorMessage} />}
-                              >
-                                <InformationPopover> coucou </InformationPopover>
-                              </Whisper>
-                            </PopoverContainer>
-
-                          </div>
+                            <Whisper followCursor={true} trigger={['hover', 'focus']} speaker={<Popover> {input.errorMessage}</Popover>}>
+                          <Button>Hover me</Button>
+                            </Whisper>
+                          </>
                         ) : (
                           <InformationSelect
                             placeholder={values[input.info]}
