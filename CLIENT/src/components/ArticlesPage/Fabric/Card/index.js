@@ -50,7 +50,8 @@ import {
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
 import { ErrorMessage } from "../Input/Input.style";
-import { Button, Popover, Whisper } from 'rsuite';
+import { MessageHover } from "./MessageHover";
+
 
 export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -179,6 +180,8 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     setUpdateFabricInfo(true);
   };
 
+
+
   return (
     <>
       {isMobile && (
@@ -272,9 +275,9 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                               name={input.name}
                               pattern={input.pattern}
                             ></InformationInput>
-                            <Whisper followCursor={true} trigger={['hover', 'focus']} speaker={<Popover> {input.errorMessage}</Popover>}>
-                          <Button>Hover me</Button>
-                            </Whisper>
+                            <MessageHover 
+                              error={input.errorMessage}
+                            />
                           </>
                         ) : (
                           <InformationSelect

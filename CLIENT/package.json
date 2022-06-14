@@ -76,7 +76,6 @@
     "react-simple-typewriter": "^3.0.1",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
-    "rsuite": "^5.15.0",
     "styled-components": "^5.3.3",
     "styled-icons": "^10.45.0",
     "styled-reset": "^4.3.4",
