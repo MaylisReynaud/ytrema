@@ -145,7 +145,7 @@ export const TitleContainer = styled.div`
   /* justify-content:  center; */
   /* align-items: center; */
   /* height: auto; */
-  width: 100%;
+  width: 90%;
   margin: 3rem 0rem 1rem 0rem;
   /* background-color: blue; */
 
@@ -189,7 +189,8 @@ export const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  height: 15rem;
+  height: 15em;
+  
 
   @media screen and (min-width: 601px) {
     height: 100%;

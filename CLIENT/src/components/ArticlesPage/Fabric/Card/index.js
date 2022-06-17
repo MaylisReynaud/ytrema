@@ -52,6 +52,7 @@ import {
 } from "../../../../store/state/fabricSlice";
 import { ErrorMessage } from "../Input/Input.style";
 import { MessageHover } from "./MessageHover";
+import { DeleteFabricModal } from "./DeleteModal";
 
 export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -69,6 +70,11 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const [updateOneFabric] = useUpdateOneFabricMutation(fabricCard.id, auth.id);
   const [updateFabricInfo, setUpdateFabricInfo] = useState(false);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const isOpenDeleteModal = () => {
+    setShowDeleteModal(!showDeleteModal);
+  }
+
   const deleteCard = () => {
     const urlParams = {
       memberId: auth.id,
@@ -76,6 +82,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     };
     deleteOneFabric(urlParams);
     dispatch(deleteFabric(fabricCard.id));
+    setShowDeleteModal(!showDeleteModal);
     navigate("/tissus");
   };
 
@@ -206,9 +213,15 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                       <TrashButton
                         aria-label="Supprimer ce tissu"
                         ref={cardRef}
-                        onClick={deleteCard}
+                        // onClick={deleteCard}
+                        onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
+                    <DeleteFabricModal 
+                      setShowDeleteModal={setShowDeleteModal}
+                      showDeleteModal={showDeleteModal}
+                      deleteCard={deleteCard}
+                    />
 
                   </>
                 ) : (
@@ -259,6 +272,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                   {fabricInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
+
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
