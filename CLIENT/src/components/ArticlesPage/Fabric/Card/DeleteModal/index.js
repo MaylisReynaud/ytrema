@@ -11,7 +11,7 @@ import {
     DeleteTitle,
     ButtonsContainer,
     CancelContainer,
-    CancelLink,
+    CancelButton,
 
 } from './style';
 
@@ -19,10 +19,8 @@ import {
 
 export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteCard }) => {
     const deleteModalRef = useRef();
-    const closeDeleteModal = (event) => {
-        if (deleteModalRef.current === event.target) {
+    const closeDeleteModal = () => {
             setShowDeleteModal(false);
-        }
     };
 
     const keyPress = useCallback(event => {
@@ -45,7 +43,7 @@ export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteC
 
                 >
                     <Background
-                        ref={deleteModalRef}
+                        // ref={deleteModalRef}
                         onClick={closeDeleteModal}
                     >
                         <ModalWrapper
@@ -57,12 +55,11 @@ export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteC
                                 <DeleteParagraph>Cette action est irréversible, êtes vous sûr(e)? </DeleteParagraph>
                                 <ButtonsContainer>
                                     <CancelContainer>
-                                        <CancelLink
+                                        <CancelButton
                                             onClick={closeDeleteModal}
-                                            ref={deleteModalRef}
                                         >
                                             Annuler
-                                        </CancelLink>
+                                        </CancelButton>
                                     </CancelContainer>
                                     <DeleteContainer>
                                         <DeleteButton
@@ -77,7 +74,7 @@ export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteC
                             </ModalContent>
                             <CloseModalButton
                                 aria-label='Close modal'
-                                onClick={() => setShowDeleteModal(!showDeleteModal)}
+                                onClick={closeDeleteModal}
                             />
                         </ModalWrapper>
                     </Background>

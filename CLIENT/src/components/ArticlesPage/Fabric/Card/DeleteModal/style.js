@@ -97,7 +97,7 @@ export const CancelContainer = styled.div`
     margin-right: 1em;
 
 `;
-export const CancelLink = styled.a`
+export const CancelButton = styled.p`
         color: grey;
         font-family: '${props => props.theme.textFont}';
         font-size: 1em;
