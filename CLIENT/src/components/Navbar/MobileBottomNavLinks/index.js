@@ -10,14 +10,17 @@ import { BottomNavLinksContainer,
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../../../utils/navLinks';
 import { iconsNavLinks } from '../../../utils/iconsNavLinks';
-
+import { useSelector } from "react-redux";
 
 
 export function MobileBottomNavLinks(props) {
-
+  const { persistedReducer } = useSelector((state) => state);
+  const auth = persistedReducer.auth;
+  const isLogged = auth.isLogged;
   return (
-    
-    <BottomNavLinksContainer>
+    <>
+    {isLogged === true && (
+      <BottomNavLinksContainer>
       <LinksWrapper>
       {navLinks.map((navLink, index) => {
         const Icon = iconsNavLinks[index];
@@ -42,5 +45,7 @@ export function MobileBottomNavLinks(props) {
 
         </LinksWrapper>
     </BottomNavLinksContainer>
+    )}
+    </>
   );
 }

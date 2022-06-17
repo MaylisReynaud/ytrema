@@ -21,7 +21,7 @@ export function Haberdashery (props) {
   return (
     <>
         <Title>
-        MA MERCERIETHÈQUE 
+        MA MERCERIETHEQUE 
         </Title>
         <Container>
             <TopContainer>

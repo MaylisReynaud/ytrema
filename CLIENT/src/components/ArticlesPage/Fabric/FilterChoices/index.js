@@ -23,10 +23,14 @@ export function FilterChoices ({showFilter, categories, setFilterByCategory, fil
                                 id= {category.name}
                                 name= {category.title}
                                 dataId={category.id}   
-                                setFilterByCategory = {setFilterByCategory}  
-                                filterByCategory = {filterByCategory}
-                                setChosenFilter = {setChosenFilter}
-
+                                setFilterByCategory={setFilterByCategory}  
+                                filterByCategory={filterByCategory}
+                                setChosenFilter={setChosenFilter}
+                                alreadyChecked={filterByCategory.find(el => {
+                                  if(el.name == category.name) {
+                                    return true;
+                                  }
+                                })}
 
                             /> 
                             <SpanLabel> {category.name} </SpanLabel>
