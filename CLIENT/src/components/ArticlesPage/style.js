@@ -4,6 +4,7 @@ import { DeviceSize } from '../Navbar/Responsive';
 import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
 import { Link } from 'react-router-dom';
+import { SearchOff } from '@styled-icons/material-twotone'
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -73,6 +74,29 @@ export const LeftContainer = styled.div`
     width:17%;
     margin:1rem 2rem;
 
+
+`;
+
+export const EraseFiltersSelectionButton = styled(motion.button)`
+  border: 0;
+  outline: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  margin: 0 1.4em;
+  justify-content: center;
+  //padding: 0.7em 1em;
+  color: ${props => props.theme.color4};
+  font-size: 0.9rem;
+  font-family: '${props => props.theme.textFont}';
+  font-weight: 400;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  background: ${props => props.theme.color2};
+  border: 2px solid ${props => props.theme.color2};
+  transition: 1s box-shadow;
+  cursor: pointer;
 
 `;
 
@@ -160,6 +184,35 @@ export const buttonVariants = {
     }
   };
 
+  export const EmptyCardContainer = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 90%;
+    /* background-color: blue; */
+  `;
+
+  export const NoResults = styled(SearchOff)`
+    height: 13em;
+    color: ${props => props.theme.color1};
+  `;
+
+  export const NoResultsText = styled.h3`
+  text-align: center;
+  /* display: flex;
+  align-items: center; */
+  width:100%;
+  font : 1rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color3};
+
+  @media screen and (min-width:601px) { 
+    justify-content:center;
+    text-align: center;
+  }
+  `;
+
 export const CardsContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -206,7 +259,7 @@ export const CardContainer = styled.div`
  `;
 
 export const ImgContainer = styled.div`
-  height:65%;
+  height:50%;
 `;
 
 export const CardImg = styled.img`
@@ -239,7 +292,7 @@ export const FilterContainer = styled.div`
   /* flex-grow:1; */
   flex-direction: column;
   flex-shrink:1;
-  margin-top: 0.3rem;
+  /* margin-top: 0.3rem; */
   @media screen and (min-width:601px) { 
     height:100%;
     /* width: 100%;

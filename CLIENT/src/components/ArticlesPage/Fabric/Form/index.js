@@ -91,7 +91,6 @@ export function FabricForm({ setShowModal, showModal }) {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-            console.log(url);
             setPhotoURL(url);
           });
       }
@@ -118,7 +117,6 @@ export function FabricForm({ setShowModal, showModal }) {
       if (!event.target.files || event.target.files.length > 0) {
         handleUpload(event.target.files[0]);
       }
-
     }
   };
 

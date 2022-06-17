@@ -8,6 +8,7 @@ import {
   Title,
   TitleContainer,
   ButtonContainer,
+  EraseFiltersSelectionButton,
   TopContainer,
   RegisterArticleButton,
   Button,
@@ -27,6 +28,9 @@ import {
   CardsMapContainer,
   ErrorText,
   ErrorButton,
+  EmptyCardContainer,
+  NoResults,
+  NoResultsText
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -98,7 +102,11 @@ export function Fabric(props, index) {
 
             ))}
           </>
-        ) : <div>Aucun tissu ne correspond à cette sélection !</div>}
+        ) :
+          <EmptyCardContainer>
+           <NoResults />
+            <NoResultsText>Aucun tissu ne correspond à cette sélection </NoResultsText>
+          </EmptyCardContainer>}
 
       </CardsContainer>
     );
@@ -191,27 +199,41 @@ export function Fabric(props, index) {
     <>
       {isMobile && (
         <>
-          <Title>MA TISSUTHÈQUE</Title>
+          <Title>MA TISSUTHEQUE</Title>
           <Container>
             {isLogged === true && (
-              <TopContainer>
-                <RegisterArticleButton
-                  style={buttonVariants}
-                  onClick={isOpenModal}
-                >
-                  Enregistrer un tissu
-                </RegisterArticleButton>
-                <FabricModal
-                  showModal={showModal}
-                  setShowModal={setShowModal}
-                />
-                <Button style={buttonVariants} onClick={isOpenMobileFilters}>
-                  <FilterSpan>
-                    <FilterAlt />
-                  </FilterSpan>
-                  Filtres
-                </Button>
-              </TopContainer>
+              <>
+
+                <TopContainer>
+                  <RegisterArticleButton
+                    style={buttonVariants}
+                    onClick={isOpenModal}
+                  >
+                    Enregistrer un tissu
+                  </RegisterArticleButton>
+                  <FabricModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                  />
+                  <Button style={buttonVariants} onClick={isOpenMobileFilters}>
+                    <FilterSpan>
+                      <FilterAlt />
+                    </FilterSpan>
+                    Filtres
+                  </Button>
+                </TopContainer>
+                {filterByCategory.length > 0 ?
+                  <EraseFiltersSelectionButton
+                    onClick={() => {
+                      setFilterByCategory([]);
+                      setShowMobileFilters(false)
+                    }}
+                  >
+                    Effacer les filtres
+                  </EraseFiltersSelectionButton>
+                  : null}
+
+              </>
             )}
             {fabrics
               ? fabrics.value.map((fabric) => {
@@ -339,8 +361,7 @@ export function Fabric(props, index) {
               {error ? (
                 <>
                   <ErrorText>
-                    {" "}
-                    Veuillez vous connecter pour accéder à vos tissus{" "}
+                    Veuillez vous connecter pour accéder à vos tissus
                   </ErrorText>
                   <ErrorButton
                     whileHover="hover"

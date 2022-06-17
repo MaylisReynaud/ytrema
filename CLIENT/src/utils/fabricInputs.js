@@ -28,7 +28,9 @@ export const fabricInputs = [
       placeholder:'ex: www.sudocoud.fr ou Sudocoud',
       label:'Site web ou magasin',
       errorMessage:'Ce champ doit comporter entre 2 et 50 caractères',
-      pattern:"^[\\w\\xc0-\\xff' ']{2,30}$",
+      // pattern:"^[\\w\\xc0-\\xff' ']{2,30}$",
+      // pattern:"((^https?):\/\/[a-z0-9\/:%_+.,#?!@&=-]+)|\w+[\.]*\s*",
+      pattern:"^[\\w\\xc0-\\xff' ']{2,30}$|(https?:\/\/)?(?:www\.|(?!www\.))(([a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]|[a-zA-Z0-9]+)\.)+(([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]|[a-zA-Z0-9]){2,})\/?$",
       required: true,
       info: 'website',
 

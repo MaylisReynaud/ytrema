@@ -21,7 +21,7 @@ export function Pattern (props) {
   return (
     <>
         <Title>
-        MA PATRONTHÈQUE 
+        MA PATRONTHEQUE 
         </Title>
         <Container>
             <TopContainer>

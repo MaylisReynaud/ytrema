@@ -18,13 +18,13 @@ function FormInput(props) {
     htmlFor,
     errorMessage,
     pattern,
+    required,
     ...inputProps
   } = props;
   const [isError, setIsError] = useState(false);
-
+ 
   const handleBlur = (event) => {
-    // console.log(event, "Je suis sortie de l'input");
-
+  
     if (!event.target.value) {
       // console.log("Le champs est vide");
       setIsError(true);
@@ -45,7 +45,7 @@ function FormInput(props) {
   return (
     <>
       <InputContainer>
-        <LabelForm htmlFor={htmlFor}>{label}</LabelForm>   
+      {required ? <LabelForm htmlFor={htmlFor}>{label}*</LabelForm> :  <LabelForm htmlFor={htmlFor}>{label}</LabelForm> }  
         {type === "select" ? (
           <SelectForm
             {...inputProps}
