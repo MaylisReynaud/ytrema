@@ -3,6 +3,8 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   CardContainer,
   CardTitle,
@@ -69,7 +71,6 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
   const [deleteOneFabric] = useDeleteOneFabricMutation(fabricCard.id, auth.id);
   const [updateOneFabric] = useUpdateOneFabricMutation(fabricCard.id, auth.id);
   const [updateFabricInfo, setUpdateFabricInfo] = useState(false);
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const isOpenDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
@@ -84,6 +85,17 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     dispatch(deleteFabric(fabricCard.id));
     setShowDeleteModal(!showDeleteModal);
     navigate("/tissus");
+    toast.success('🦄 Tissu supprimé avec succès', {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:"colored",
+      role:"alert"
+      }); 
   };
 
   const [values, setValues] = useState({
@@ -167,6 +179,17 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     //  Mettre à jour le store
     dispatch(updateFabric(updatedFabricData));
     setUpdateFabricInfo(false);
+    toast.success('🦄 Tissu modifié avec succès', {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:"colored",
+      role:"alert"
+      }); 
     // setPreview(undefined);
   };
 
@@ -198,6 +221,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                   onClick={() => {
                     navigate("/Tissus");
                   }}
+                 
                 />
               </ReturnArrowContainer>
               <ModifyDeleteContainer>
@@ -213,7 +237,6 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                       <TrashButton
                         aria-label="Supprimer ce tissu"
                         ref={cardRef}
-                        // onClick={deleteCard}
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
@@ -222,6 +245,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
                     />
+                   
 
                   </>
                 ) : (
@@ -342,6 +366,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                             type={input.type}
                           ></InformationInput>
                         )}
+                        
                       </InformationContent>
                     ) : null
                   )}
@@ -358,6 +383,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
               </ProjectContainer>
             </InformationContainer>
           </CardContainer>
+
         </Container>
       )}
 

@@ -5,6 +5,8 @@ import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
 import { Link } from 'react-router-dom';
 import { SearchOff } from '@styled-icons/material-twotone'
+import { CollectionsAdd } from '@styled-icons/fluentui-system-filled'
+import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular'
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -197,6 +199,26 @@ export const buttonVariants = {
   export const NoResults = styled(SearchOff)`
     height: 13em;
     color: ${props => props.theme.color1};
+  `;
+
+  export const NoFabric = styled(CollectionsAdd)`
+    height: 13em;
+    color: ${props => props.theme.color1};
+    margin-top: 2em;
+  `;
+
+  export const ArrowCurve = styled(ArrowCurveUpLeft)`
+    height: 13em;
+    color: ${props => props.theme.color1};
+  
+  `;
+  export const IconsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 10em;
+    margin: 0 4em;
   `;
 
   export const NoResultsText = styled.h3`

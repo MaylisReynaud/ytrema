@@ -14,7 +14,7 @@ import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
 import { Card } from '../ArticlesPage/Fabric/Card';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -29,6 +29,17 @@ const App = () => {
   return (
     <>
     <AppContainer>
+    <ToastContainer
+      position="bottom-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+/>
       <Navbar/>
             <Routes>
               <Route  path='/' element={<Homepage />} /> 
