@@ -28,6 +28,7 @@ export const LinksWrapper = styled.ul`
   display:flex;
   flex-direction: row;
   align-items: center;
+  justify-content:space-evenly;
 `;
 
 

@@ -268,19 +268,7 @@ export function Fabric(props, index) {
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
-            {!data ? (
-              <>
-                <IconsContainer>
-                  <ArrowCurve /><NoFabric />
-                </IconsContainer>
-                <ErrorText>
-                  {" "}
-                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu"{" "}
-                </ErrorText>
-
-              </>
-            ) : null}
-
+            
             {error ? (
               <>
                 <ErrorText>
@@ -300,6 +288,17 @@ export function Fabric(props, index) {
 
             ) : isLoading ? (
               <>Loading...</>
+            ) : !data ? (
+              <>
+                <IconsContainer>
+                  <ArrowCurve /><NoFabric />
+                </IconsContainer>
+                <ErrorText>
+                  {" "}
+                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu"{" "}
+                </ErrorText>
+
+              </>
             ) : (data && fabrics && !filterByCategory) ||
               filterByCategory.length == 0 ? (
               <>
