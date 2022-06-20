@@ -2,7 +2,7 @@
 // import { api } from './api';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const token = localStorage.getItem("token");
+let token = localStorage.getItem("token");
 
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
@@ -39,6 +39,7 @@ export const ytremaApi = createApi({
   }),
   getAllFabrics: builder.query({
     query: (memberId) => {
+      token = localStorage.getItem("token");
       return {
         url: `/fabric/all/member/${memberId}`,
         method: "GET",
