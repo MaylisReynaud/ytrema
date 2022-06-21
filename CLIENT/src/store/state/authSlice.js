@@ -20,7 +20,7 @@ const authSlice = createSlice({
       state.isLogged = true
     },
     defaultState: (state) => {
-     state = initialState
+     state = initialState;
     }
   },
 });

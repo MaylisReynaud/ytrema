@@ -23,9 +23,12 @@ import { defaultState } from '../../store/state/authSlice';
 const App = () => {
   const dispatch = useDispatch();
   const removePersistStore = () => {
-    if(!sessionStorage.getItem("token")) {
+    if(!sessionStorage.getItem("token") ) {
       localStorage.clear();
+      console.log('coucou avant dispatch');
       dispatch(defaultState('initialState'));
+      console.log('coucou apres dispatch');
+
     }
   };
   removePersistStore();

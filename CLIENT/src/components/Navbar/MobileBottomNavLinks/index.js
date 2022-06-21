@@ -17,9 +17,10 @@ export function MobileBottomNavLinks(props) {
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
   const isLogged = auth.isLogged;
+  const activeSession = sessionStorage.getItem("token");
   return (
     <>
-    {isLogged === true && (
+    {isLogged === true && activeSession && (
       <BottomNavLinksContainer>
       <LinksWrapper>
       {navLinks.map((navLink, index) => {

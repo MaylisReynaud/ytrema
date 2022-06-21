@@ -33,6 +33,9 @@ export const fabricSlice = createSlice({
         return fabric.id !== action.payload;
       });
     },
+    defaultState: (state) => {
+      state.value = initialState
+    }
   },
 });
 
