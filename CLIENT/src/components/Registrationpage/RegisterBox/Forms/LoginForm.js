@@ -30,8 +30,8 @@ export function LoginForm(props) {
       if (isSuccess) {
         dispatch(setUser(data));
         navigate('/tissus');
-        localStorage.setItem("token", data.memberToken);
-      };
+        sessionStorage.setItem("token", data.memberToken);
+      };   
     }, [data]);
   
 

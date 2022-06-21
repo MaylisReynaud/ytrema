@@ -30,7 +30,10 @@ import {
   ErrorButton,
   EmptyCardContainer,
   NoResults,
-  NoResultsText
+  NoResultsText,
+  NoFabric,
+  ArrowCurve,
+  IconsContainer
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -39,6 +42,7 @@ import { FiltersCards } from "../../../../src/utils/flexFilter";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllFabrics } from "../../../store/state/fabricSlice";
 import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
+import { render } from "react-dom";
 
 export function Fabric(props, index) {
   let navigate = useNavigate();
@@ -66,7 +70,7 @@ export function Fabric(props, index) {
   }
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       dispatch(addAllFabrics(data.fabrics));
     }
   }, [data, fabrics]);
@@ -104,7 +108,7 @@ export function Fabric(props, index) {
           </>
         ) :
           <EmptyCardContainer>
-           <NoResults />
+            <NoResults />
             <NoResultsText>Aucun tissu ne correspond à cette sélection </NoResultsText>
           </EmptyCardContainer>}
 
@@ -264,7 +268,7 @@ export function Fabric(props, index) {
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
-
+            
             {error ? (
               <>
                 <ErrorText>
@@ -281,8 +285,20 @@ export function Fabric(props, index) {
                   Se connecter
                 </ErrorButton>
               </>
+
             ) : isLoading ? (
               <>Loading...</>
+            ) : !data ? (
+              <>
+                <IconsContainer>
+                  <ArrowCurve /><NoFabric />
+                </IconsContainer>
+                <ErrorText>
+                  {" "}
+                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu"{" "}
+                </ErrorText>
+
+              </>
             ) : (data && fabrics && !filterByCategory) ||
               filterByCategory.length == 0 ? (
               <>

@@ -14,14 +14,25 @@ import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
 import { Card } from '../ArticlesPage/Fabric/Card';
-
-
-
-
+import { ToastContainer} from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
+import { defaultState } from '../../store/state/authSlice';
 
 
 // == Composant
 const App = () => {
+  const dispatch = useDispatch();
+  const removePersistStore = () => {
+    if(!sessionStorage.getItem("token") ) {
+      localStorage.clear();
+      console.log('coucou avant dispatch');
+      dispatch(defaultState('initialState'));
+      console.log('coucou apres dispatch');
+
+    }
+  };
+  removePersistStore();
+
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   
   const isTablet = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -29,6 +40,17 @@ const App = () => {
   return (
     <>
     <AppContainer>
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+/>
       <Navbar/>
             <Routes>
               <Route  path='/' element={<Homepage />} /> 

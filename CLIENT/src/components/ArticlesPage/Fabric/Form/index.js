@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { storage } from '../../../../Firebase';
+import { toast } from 'react-toastify';
 import {
   FormContainer,
   ButtonForm,
@@ -103,6 +104,17 @@ export function FabricForm({ setShowModal, showModal }) {
     valuesToSend.photo = photoURL;
     await addOneFabric({ memberId: auth.id, body: valuesToSend });
     setShowModal(prev => !prev)
+    toast.success('Tissu ajouté avec succès 🎉', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme:"colored",
+      role:"alert"
+      }); 
 
 
   };
