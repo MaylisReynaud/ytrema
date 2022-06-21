@@ -26,15 +26,13 @@ function FormInput(props) {
   const handleBlur = (event) => {
   
     if (!event.target.value) {
-      // console.log("Le champs est vide");
       setIsError(true);
     } else {
       // Vérifier la value
       const regex = new RegExp(pattern);
 
-      // console.log(regex.test(event.target.value));
       if (!regex.test(event.target.value)) {
-        // console.log("C'est faux on balance la phrase");
+
         setIsError(true);
       } else {
         setIsError(false);
