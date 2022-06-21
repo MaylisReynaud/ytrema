@@ -6,12 +6,15 @@ export const NavLinksContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-evenly;
+
 `;
 
 export const LinksWrapper = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: space-evenly;
   height: 60%;
   list-style: none;
   background-color: ${props => props.theme.color4};
@@ -19,7 +22,7 @@ export const LinksWrapper = styled.ul`
   flex-direction: column;
   position: fixed;
   top: 60px;
-  left : 30px;
+  left : 10px;
 `;
 
 export const LinkItem = styled.li`

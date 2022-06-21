@@ -64,9 +64,12 @@ export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteC
                                     <DeleteContainer>
                                         <DeleteButton
                                             onClick={deleteCard}
+
                                         >
                                             Supprimer
                                         </DeleteButton>
+                                       
+                                        
                                     </DeleteContainer>
                                 </ButtonsContainer>
 

@@ -19,6 +19,9 @@ const authSlice = createSlice({
       state.memberToken = action.payload.memberToken,
       state.isLogged = true
     },
+    defaultState: (state) => {
+     state = initialState;
+    }
   },
 });
 

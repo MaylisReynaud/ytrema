@@ -6,9 +6,7 @@ import { Slide,
          SlideOverlay,
          SlideOverlayH2,
          SlideOverlayH1,
-         SlideOverlayText,
-         SlideButton,
-         SlideButtonContainer
+         SlideOverlayText
 } from './style';
 import { sliderData } from '../../utils/sliderData';
 
@@ -30,7 +28,7 @@ export function Slider() {
             stopOnHover={true}
             showIndicators={false}
             swipeable={true}
-            dynamicHeight={true}
+            dynamicHeight={false}
             animationHandler={'fade'}
         >
             {sliderData.map(slide => (
@@ -46,11 +44,6 @@ export function Slider() {
                         <SlideOverlayText>
                             {slide.text}
                         </SlideOverlayText>
-                        <SlideButtonContainer>
-                        <SlideButton>
-                            {slide.button}
-                        </SlideButton>
-                    </SlideButtonContainer>
                     </SlideOverlay>
                 </Slide>
             ))}
