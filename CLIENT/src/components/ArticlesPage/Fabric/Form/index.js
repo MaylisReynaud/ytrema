@@ -104,8 +104,8 @@ export function FabricForm({ setShowModal, showModal }) {
     valuesToSend.photo = photoURL;
     await addOneFabric({ memberId: auth.id, body: valuesToSend });
     setShowModal(prev => !prev)
-    toast.success('🚀 Tissu ajouté avec succès', {
-      position: "bottom-right",
+    toast.success('Tissu ajouté avec succès 🎉', {
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,

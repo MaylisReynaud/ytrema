@@ -85,8 +85,8 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     dispatch(deleteFabric(fabricCard.id));
     setShowDeleteModal(!showDeleteModal);
     navigate("/tissus");
-    toast.success('🦄 Tissu supprimé avec succès', {
-      position: "bottom-right",
+    toast.success('Tissu supprimé avec succès👌', {
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -179,8 +179,8 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
     //  Mettre à jour le store
     dispatch(updateFabric(updatedFabricData));
     setUpdateFabricInfo(false);
-    toast.success('🦄 Tissu modifié avec succès', {
-      position: "bottom-right",
+    toast.success('Tissu modifié avec succès👌', {
+      position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -254,7 +254,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     // transition={{ type: "spring", stiffness: 100 }}
                     initial={{x: '-80px' }} 
                     animate={{ x: 0 }} 
-                    transition={{ type: "tween", stiffness: 1000, duration: 3 }}
+                    transition={{ type: "linear"}}
                   >
                     <UpdateInformationText>
                       Tissu en cours de modification
