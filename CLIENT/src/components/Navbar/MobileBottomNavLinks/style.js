@@ -15,6 +15,7 @@ export const BottomNavLinksContainer = styled.div`
     width: 100%;
     height: 60px;
     background-color: ${props => props.theme.color5};
+    margin-top: .5em;
 `;
 
 export const LinksWrapper = styled.ul`
