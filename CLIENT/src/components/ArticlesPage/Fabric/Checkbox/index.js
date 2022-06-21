@@ -20,16 +20,6 @@ export function Checkbox({
 
   const [checked, setChecked] = useState(false);
 
-  // if(isChecked) {
-  //   console.log('1')
-  //   if(filterByCategory.length == 0 ) {
-  //     console.log('2')
-  //      setIsChecked(false);
-  //      setChecked(false);
-  //      console.log('3')
-  //   }
-  // };
- // console.log(filterByCategory, isChecked, checked,' filterbycategory -- isChecked -- checked')
   const handleCheckboxChange = (event) => {
     setIsChecked(false);
 
