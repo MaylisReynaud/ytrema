@@ -25,10 +25,7 @@ const App = () => {
   const removePersistStore = () => {
     if(!sessionStorage.getItem("token") ) {
       localStorage.clear();
-      console.log('coucou avant dispatch');
       dispatch(defaultState('initialState'));
-      console.log('coucou apres dispatch');
-
     }
   };
   removePersistStore();
