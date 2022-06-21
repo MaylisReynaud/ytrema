@@ -14,18 +14,20 @@ import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
 import { Card } from '../ArticlesPage/Fabric/Card';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
+import { defaultState } from '../../store/state/authSlice';
 
-
-const removePersistStore = () => {
-  if(!sessionStorage.getItem("token")) {
-    localStorage.clear();
-  }
-};
 
 // == Composant
 const App = () => {
-
+  const dispatch = useDispatch();
+  const removePersistStore = () => {
+    if(!sessionStorage.getItem("token")) {
+      localStorage.clear();
+      dispatch(defaultState('initialState'));
+    }
+  };
   removePersistStore();
 
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
