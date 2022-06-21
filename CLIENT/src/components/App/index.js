@@ -17,11 +17,17 @@ import { Card } from '../ArticlesPage/Fabric/Card';
 import { ToastContainer, toast } from 'react-toastify';
 
 
-
-
+const removePersistStore = () => {
+  if(!sessionStorage.getItem("token")) {
+    localStorage.clear();
+  }
+};
 
 // == Composant
 const App = () => {
+
+  removePersistStore();
+
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   
   const isTablet = useMediaQuery({ minWidth: DeviceSize.tablet });

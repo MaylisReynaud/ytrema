@@ -28,7 +28,7 @@ export function Slider() {
             stopOnHover={true}
             showIndicators={false}
             swipeable={true}
-            dynamicHeight={true}
+            dynamicHeight={false}
             animationHandler={'fade'}
         >
             {sliderData.map(slide => (
