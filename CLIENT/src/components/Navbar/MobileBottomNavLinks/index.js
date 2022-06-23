@@ -4,86 +4,49 @@ import { BottomNavLinksContainer,
          LinkItem,
          LinkStyle, 
          ActiveLinkStyle,        
-         ImgContainer,
-         ScrollIcon,
-         FlowerIcon,
-         BookOpenIcon,
-         ApparelIcon,
-         PersonIcon
+         IconContainer,
+         IconStyle 
 } from './style';
-import { Link } from 'react-router-dom';
-
-
+import { NavLink } from 'react-router-dom';
+import { navLinks } from '../../../utils/navLinks';
+import { iconsNavLinks } from '../../../utils/iconsNavLinks';
+import { useSelector } from "react-redux";
 
 
 export function MobileBottomNavLinks(props) {
-  // console.log(props);
-  // const [isActive, setIsActive] = useState(false);
+  const { persistedReducer } = useSelector((state) => state);
+  const auth = persistedReducer.auth;
+  const isLogged = auth.isLogged;
+  const activeSession = sessionStorage.getItem("token");
   return (
-    
-    <BottomNavLinksContainer>
+    <>
+    {isLogged === true && activeSession && (
+      <BottomNavLinksContainer>
       <LinksWrapper>
-          <LinkItem>
-            <Link 
-              to="/tissus"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <ScrollIcon />
-              </ImgContainer>
-              
-              Tissus
-            </Link>
-          </LinkItem>
-          <LinkItem>
-          <Link 
-              to="/mercerie"
-              style={LinkStyle}
-              // onClick={() => {
-              //   setIsActive(true)
-              // }}
-              // activeStyle={ActiveLinkStyle}
-            >
-              <ImgContainer>
-                <FlowerIcon />
-              </ImgContainer>
-              Mercerie
-            </Link>
-          </LinkItem>
-          <LinkItem>
-          <Link 
-              to="/patrons"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <BookOpenIcon />
-              </ImgContainer>
-              Patrons
-            </Link>
-          </LinkItem>
-          <LinkItem>
-          <Link 
-              to="/projets"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <ApparelIcon />
-              </ImgContainer>
-              Projets
-            </Link>
-          </LinkItem>
-          <LinkItem>
-          <Link 
-              to="/profile"
-              style={LinkStyle}
-            >
-              <ImgContainer>
-                <PersonIcon />
-              </ImgContainer>
-              Maÿlis
-            </Link>
-          </LinkItem>
+      {navLinks.map((navLink, index) => {
+        const Icon = iconsNavLinks[index];
+
+        return (
+          <LinkItem key={navLink.id}>
+          <NavLink 
+            to={navLink.path}
+            style={(navData) => (navData.isActive) ? ActiveLinkStyle : LinkStyle}
+          >
+            <IconContainer>
+              <Icon 
+              style= {IconStyle}
+              />
+            </IconContainer>
+            {navLink.name}
+          </NavLink>
+        </LinkItem>
+        )
+
+      })}
+
         </LinksWrapper>
     </BottomNavLinksContainer>
+    )}
+    </>
   );
 }
