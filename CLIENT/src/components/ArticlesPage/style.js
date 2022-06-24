@@ -249,6 +249,7 @@ export const CardsContainer = styled.div`
     overflow-y: scroll;
     height:100vh;
     width:100%;
+    margin-bottom:1.5em;
    
     @media screen and (min-width:601px) { 
       height:95vh;

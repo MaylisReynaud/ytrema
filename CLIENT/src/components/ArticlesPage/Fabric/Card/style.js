@@ -342,6 +342,7 @@ export const ProjectContainer = styled.div`
   width: 100%;
   height: 10rem;
   margin-bottom:1em;
+
 `;
 export const ProjectTitle = styled.h2`
   display: flex;
