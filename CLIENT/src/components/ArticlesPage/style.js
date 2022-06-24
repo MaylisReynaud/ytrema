@@ -37,7 +37,8 @@ export const DesktopContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    height: 74vh;
+    height: 70vh;
+    /* height: 74vh; */
     width:100%;
     overflow-y:hidden;
    
