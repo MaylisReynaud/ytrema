@@ -37,13 +37,14 @@ export const DesktopContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    height: 78vh;
+    height: 74vh;
     width:100%;
     overflow-y:hidden;
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
         height:100%;
+        height: 78vh;
 
         
   }

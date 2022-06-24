@@ -341,6 +341,7 @@ export const ProjectContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 10rem;
+  margin-bottom:1em;
 `;
 export const ProjectTitle = styled.h2`
   display: flex;
