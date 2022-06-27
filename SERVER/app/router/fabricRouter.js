@@ -9,6 +9,7 @@ router.post('/member/:userId(\\d+)', fabricController.create);
 router.get('/all/member/:userId(\\d+)', fabricController.findAll);
 router.get('/:fabricId(\\d+)/member/:userId(\\d+)', fabricController.findById);
 router.patch('/:fabricId(\\d+)/member/:userId(\\d+)', fabricController.update);
+router.delete('/all/member/:userId(\\d+)', fabricController.deleteAll);
 router.delete('/:fabricId(\\d+)/member/:userId(\\d+)', fabricController.delete);
 
 module.exports = router;
