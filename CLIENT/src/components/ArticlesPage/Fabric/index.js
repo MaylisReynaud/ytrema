@@ -35,7 +35,9 @@ import {
   ArrowCurve,
   IconsContainer,
   NoResultsContainer,
-  DesktopArrowCurve
+  DesktopArrowCurve,
+  ErrorContainer,
+  LoginIcon
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -157,7 +159,7 @@ export function Fabric(props, index) {
 
     return (
       <>
-        {isDesktop && data ? (
+        {isDesktop && data && categoryObject.length > 0 ? (
           <>
             <FilterTitle>
               {categoryObject[0].title}
@@ -275,7 +277,7 @@ export function Fabric(props, index) {
               <>
                 <ErrorText>
                   {" "}
-                  Veuillez vous connecter pour accéder à vos tissus{" "}
+                  Veuillez vous connecter pour accéder à vos tissus.{" "}
                 </ErrorText>
                 <ErrorButton
                   whileHover="hover"
@@ -327,23 +329,24 @@ export function Fabric(props, index) {
           </Container>
         </>
       )}
-      {isDesktop && isLogged === true && (
+      {isDesktop && (
         <>
           <DesktopContainer>
             <Container>
-              <LeftContainer>
-                <ButtonContainer>
-                  <RegisterArticleButton
-                    style={buttonVariants}
-                    onClick={isOpenModal}
-                  >
-                    Enregistrer un tissu
-                  </RegisterArticleButton>
-                  <FabricModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                  />
-                </ButtonContainer>
+            {isLogged === true && (
+              <LeftContainer>                
+                  <ButtonContainer>
+                    <RegisterArticleButton
+                      style={buttonVariants}
+                      onClick={isOpenModal}
+                    >
+                      Enregistrer un tissu
+                    </RegisterArticleButton>
+                    <FabricModal
+                      showModal={showModal}
+                      setShowModal={setShowModal}
+                    />
+                  </ButtonContainer>
                 {filterByCategory.length > 0 ?
                   <EraseFiltersSelectionButton
                     onClick={() => {
@@ -386,22 +389,24 @@ export function Fabric(props, index) {
                   {mapCategoriesFilter(designersFilter)}
                 </FilterContainer>
               </LeftContainer>
+                )}
 
               {error ? (
-                <>
+                <ErrorContainer>
+                  <LoginIcon /> 
                   <ErrorText>
-                    Veuillez vous connecter pour accéder à vos tissus
+                    Veuillez vous connecter pour accéder à vos tissus.
                   </ErrorText>
                   <ErrorButton
                     whileHover="hover"
                     whileTap="tap"
                     onClick={() => {
-                      navigate("/");
+                      navigate("/connexion");
                     }}
                   >
                     Se connecter
                   </ErrorButton>
-                </>
+                </ErrorContainer>
               ) : isLoading ? (
                 <>Loading...</>
               ) : !data ? (

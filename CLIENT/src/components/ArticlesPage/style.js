@@ -8,6 +8,7 @@ import { SearchOff } from '@styled-icons/material-twotone';
 import { CollectionsAdd } from '@styled-icons/fluentui-system-filled';
 import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular';
 import { Arrow90degLeft } from '@styled-icons/bootstrap';
+import { Login } from '@styled-icons/entypo';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -386,6 +387,18 @@ export const PlusIcon = styled(PlusSm)`
     padding: 0;
     z-index: 100;
 `;
+export const ErrorContainer = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 80vh;
+`;
+export const LoginIcon = styled(Login)`
+ width: 10em;
+ color: ${props => props.theme.color1};
+`;
 
 export const ErrorText = styled.h2`
 font : 1.2rem/1.5 '${props => props.theme.textFont}';
@@ -430,7 +443,7 @@ export const ErrorButton = styled(motion.button)`
     margin-right: 7px;
   };
   @media screen and (min-width:601px) { 
-    width:100%;  
+    width:20%;  
     padding: 0.5rem 1.2rem;
   }
 `;
