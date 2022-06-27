@@ -105,9 +105,6 @@ export function Fabric(props, index) {
                   </CardContainer>
                 </Link>
               </CardsMapContainer>
-
-
-
             ))}
           </>
         ) :
@@ -333,8 +330,8 @@ export function Fabric(props, index) {
         <>
           <DesktopContainer>
             <Container>
-            {isLogged === true && (
-              <LeftContainer>                
+              {isLogged === true && (
+                <LeftContainer>
                   <ButtonContainer>
                     <RegisterArticleButton
                       style={buttonVariants}
@@ -347,53 +344,53 @@ export function Fabric(props, index) {
                       setShowModal={setShowModal}
                     />
                   </ButtonContainer>
-                {filterByCategory.length > 0 ?
-                  <EraseFiltersSelectionButton
-                    onClick={() => {
-                      setFilterByCategory([]);
-                      setShowMobileFilters(false)
-                    }}
-                  >
-                    Effacer les filtres
-                  </EraseFiltersSelectionButton>
-                  : null}
-
-                <FilterContainer>
-                  {fabrics
-                    ? fabrics.value.map((fabric) => {
-                      if (fabric.color) {
-                        colorsFilter.push({
-                          id: fabric.id,
-                          name: fabric.color,
-                          title: "Couleurs",
-                        });
-                      }
-                      if (fabric.designer) {
-                        designersFilter.push({
-                          id: fabric.id,
-                          name: fabric.designer,
-                          title: "Designers",
-                        });
-                      }
-                      if (fabric.fabric) {
-                        fabricsFilter.push({
-                          id: fabric.id,
-                          name: fabric.fabric,
-                          title: "Tissus",
-                        });
-                      }
-                    })
+                  {filterByCategory.length > 0 ?
+                    <EraseFiltersSelectionButton
+                      onClick={() => {
+                        setFilterByCategory([]);
+                        setShowMobileFilters(false)
+                      }}
+                    >
+                      Effacer les filtres
+                    </EraseFiltersSelectionButton>
                     : null}
-                  {mapCategoriesFilter(fabricsFilter)}
-                  {mapCategoriesFilter(colorsFilter)}
-                  {mapCategoriesFilter(designersFilter)}
-                </FilterContainer>
-              </LeftContainer>
-                )}
+
+                  <FilterContainer>
+                    {fabrics
+                      ? fabrics.value.map((fabric) => {
+                        if (fabric.color) {
+                          colorsFilter.push({
+                            id: fabric.id,
+                            name: fabric.color,
+                            title: "Couleurs",
+                          });
+                        }
+                        if (fabric.designer) {
+                          designersFilter.push({
+                            id: fabric.id,
+                            name: fabric.designer,
+                            title: "Designers",
+                          });
+                        }
+                        if (fabric.fabric) {
+                          fabricsFilter.push({
+                            id: fabric.id,
+                            name: fabric.fabric,
+                            title: "Tissus",
+                          });
+                        }
+                      })
+                      : null}
+                    {mapCategoriesFilter(fabricsFilter)}
+                    {mapCategoriesFilter(colorsFilter)}
+                    {mapCategoriesFilter(designersFilter)}
+                  </FilterContainer>
+                </LeftContainer>
+              )}
 
               {error ? (
                 <ErrorContainer>
-                  <LoginIcon /> 
+                  <LoginIcon />
                   <ErrorText>
                     Veuillez vous connecter pour accéder à vos tissus.
                   </ErrorText>
