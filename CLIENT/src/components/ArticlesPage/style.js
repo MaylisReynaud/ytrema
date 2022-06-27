@@ -44,10 +44,8 @@ export const Container = styled.div`
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
-        height:100%;
-        height: 78vh;
-
-        
+        margin-bottom:3.5em;
+        height:100%;        
   }
 `;
 
@@ -282,7 +280,7 @@ export const CardsContainer = styled.div`
     margin-bottom:1.5em;
    
     @media screen and (min-width:601px) { 
-      height:95vh;
+      height:100%;
 
     }
   `;
