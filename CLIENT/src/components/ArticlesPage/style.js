@@ -4,9 +4,10 @@ import { DeviceSize } from '../Navbar/Responsive';
 import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
 import { Link } from 'react-router-dom';
-import { SearchOff } from '@styled-icons/material-twotone'
-import { CollectionsAdd } from '@styled-icons/fluentui-system-filled'
-import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular'
+import { SearchOff } from '@styled-icons/material-twotone';
+import { CollectionsAdd } from '@styled-icons/fluentui-system-filled';
+import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular';
+import { Arrow90degLeft } from '@styled-icons/bootstrap';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -100,6 +101,11 @@ export const EraseFiltersSelectionButton = styled(motion.button)`
   border: 2px solid ${props => props.theme.color2};
   transition: 1s box-shadow;
   cursor: pointer;
+  @media screen and (min-width:601px) { 
+    margin-top: 1em;
+    width:100%;
+    padding: 0.5rem 1.2rem;
+  }
 
 `;
 
@@ -206,13 +212,34 @@ export const buttonVariants = {
     height: 13em;
     color: ${props => props.theme.color1};
     margin-top: 2em;
+    @media screen and (min-width:601px) { 
+      height: 30em;
+  }
   `;
 
   export const ArrowCurve = styled(ArrowCurveUpLeft)`
     height: 13em;
     color: ${props => props.theme.color1};
-  
+    @media screen and (min-width:601px) { 
+    height: 60em;
+  }
   `;
+
+export const DesktopArrowCurve = styled(Arrow90degLeft)`
+color: ${props => props.theme.color1};
+@media screen and (min-width:601px) { 
+height: 13em;
+}
+`;
+
+export const NoResultsContainer = styled.h3`
+  
+  @media screen and (min-width:601px) { 
+    display: flex;
+    flex-direction: column;
+  }
+  `;
+
   export const IconsContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -220,12 +247,15 @@ export const buttonVariants = {
     align-items: center;
     height: 10em;
     margin: 0 4em;
+    @media screen and (min-width:601px) { 
+    height: 20em;
+    margin-top: 1em;
+    flex-direction: column;
+  }
   `;
 
   export const NoResultsText = styled.h3`
   text-align: center;
-  /* display: flex;
-  align-items: center; */
   width:100%;
   font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color3};
@@ -313,17 +343,10 @@ export const CardText = styled.h3`
 export const FilterContainer = styled.div`
   width: 100%;
   display: flex;
-  /* flex-grow:1; */
   flex-direction: column;
   flex-shrink:1;
-  /* margin-top: 0.3rem; */
   @media screen and (min-width:601px) { 
     height:100%;
-    /* width: 100%;
-    display: flex;
-    flex-direction: column; */
-    /* overflow-y: visible; */
-    margin-top: 1rem;
     margin-bottom: 1rem;
     
   }

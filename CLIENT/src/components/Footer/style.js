@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.div`
-    display: flex;
-    /* position: fixed ; */
+    /* display: flex; */
+    position: fixed ;
     /* justify-content:space-between; */
-    /* bottom:0;
-    left:0; */
+    bottom:0;
+    left:0;
     width: 100%;
     height: 8%;
     background-color: ${props => props.theme.color2};

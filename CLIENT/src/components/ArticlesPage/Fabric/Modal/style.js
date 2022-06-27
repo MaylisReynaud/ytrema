@@ -27,7 +27,7 @@ export const Background = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-    position: relative;
+    /* position: relative; */
     display: flex;
     justify-content: center;
     z-index:100;
@@ -38,8 +38,9 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     @media screen and (min-width:601px) { 
-        margin-top: 4rem;
-        height:90%;
+        margin-top: 4em;
+        margin-bottom: 4em;
+        height:80%;
 
   }
 `;
@@ -64,7 +65,7 @@ export const ModalContent = styled.div`
         color: ${props => props.theme.color3};
     }
     @media screen and (min-width:601px) { 
-        height:90vh;
+        height:92%;
         width: 90%;
 
   }

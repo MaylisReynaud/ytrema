@@ -33,7 +33,9 @@ import {
   NoResultsText,
   NoFabric,
   ArrowCurve,
-  IconsContainer
+  IconsContainer,
+  NoResultsContainer,
+  DesktopArrowCurve
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -155,7 +157,7 @@ export function Fabric(props, index) {
 
     return (
       <>
-        {isDesktop && (
+        {isDesktop && data ? (
           <>
             <FilterTitle>
               {categoryObject[0].title}
@@ -173,7 +175,7 @@ export function Fabric(props, index) {
               setChosenFilter={setChosenFilter}
             />
           </>
-        )}
+        ) : null}
         {isMobile && showMobileFilters && (
           <>
             <FilterContainer>
@@ -268,7 +270,7 @@ export function Fabric(props, index) {
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
-            
+
             {error ? (
               <>
                 <ErrorText>
@@ -295,7 +297,7 @@ export function Fabric(props, index) {
                 </IconsContainer>
                 <ErrorText>
                   {" "}
-                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu"{" "}
+                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu".{" "}
                 </ErrorText>
 
               </>
@@ -342,6 +344,17 @@ export function Fabric(props, index) {
                     setShowModal={setShowModal}
                   />
                 </ButtonContainer>
+                {filterByCategory.length > 0 ?
+                  <EraseFiltersSelectionButton
+                    onClick={() => {
+                      setFilterByCategory([]);
+                      setShowMobileFilters(false)
+                    }}
+                  >
+                    Effacer les filtres
+                  </EraseFiltersSelectionButton>
+                  : null}
+
                 <FilterContainer>
                   {fabrics
                     ? fabrics.value.map((fabric) => {
@@ -391,6 +404,17 @@ export function Fabric(props, index) {
                 </>
               ) : isLoading ? (
                 <>Loading...</>
+              ) : !data ? (
+                <NoResultsContainer>
+                  <IconsContainer>
+                    <DesktopArrowCurve /><NoFabric />
+                  </IconsContainer>
+                  <ErrorText>
+                    {" "}
+                    Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu".{" "}
+                  </ErrorText>
+
+                </NoResultsContainer>
               ) : (data && fabrics && !filterByCategory) ||
                 filterByCategory.length == 0 ? (
                 <>
