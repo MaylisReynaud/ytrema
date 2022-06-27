@@ -32,7 +32,7 @@ INSERT INTO "haberdashery"("name", "website", "haberdashery", "quantity", "price
 INSERT INTO "review"("content", "member_id")
     VALUES
     ('Je suis ravie de ce site', 1),
-    ('Site facile à utiliser, je le recommande vivement !', 1);
+    ('Site facile à utiliser, je le recommande vivement !', 2);
 
 -- ------------------------------------
 -- loading data in "fabric" table
