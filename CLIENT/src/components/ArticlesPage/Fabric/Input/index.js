@@ -19,8 +19,10 @@ function FormInput(props) {
     errorMessage,
     pattern,
     required,
+    isVerif,
     ...inputProps
   } = props;
+ 
   const [isError, setIsError] = useState(false);
  
   const handleBlur = (event) => {
@@ -51,6 +53,7 @@ function FormInput(props) {
             onChange={onChange}
             id={htmlFor}
             onBlur={handleBlur}
+            required={required}
           >
             <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>
             {options.sort().map((option, index) => (
@@ -65,8 +68,9 @@ function FormInput(props) {
             onChange={onChange}
             type={type}
             onBlur={handleBlur}
-            className={isError && 'input-false'}
+            className={(id != "6" && id != "8") && (isError || isVerif) && 'input-false'}
             pattern={pattern}
+            required={required}
           />
         )}
         {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
