@@ -128,9 +128,11 @@ export function Fabric(props, index) {
   const isOpenMobileFilters = () => {
     setShowMobileFilters((prev) => !prev);
   };
+  const [showFilter, setShowFilter] = useState(true);
+ 
 
   const mapCategoriesFilter = (categoryObject) => {
-    const [showFilter, setShowFilter] = useState(true);
+    // let [showFilter, setShowFilter] = useState(true);
     const isOpenFilter = () => {
       setShowFilter((prev) => !prev);
     };
@@ -237,6 +239,7 @@ export function Fabric(props, index) {
                     Effacer les filtres
                   </EraseFiltersSelectionButton>
                   : null}
+                  
 
               </>
             )}
@@ -348,7 +351,8 @@ export function Fabric(props, index) {
                     <EraseFiltersSelectionButton
                       onClick={() => {
                         setFilterByCategory([]);
-                        
+                        setShowFilter(false);
+                        setTimeout(() => {setShowFilter(true)},"500")
                       }}
                     >
                       Effacer les filtres
