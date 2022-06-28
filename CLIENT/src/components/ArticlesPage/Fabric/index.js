@@ -348,7 +348,7 @@ export function Fabric(props, index) {
                     <EraseFiltersSelectionButton
                       onClick={() => {
                         setFilterByCategory([]);
-                        setShowMobileFilters(false)
+                        
                       }}
                     >
                       Effacer les filtres

@@ -27,7 +27,7 @@ export const Background = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-    /* position: relative; */
+    position: relative;
     display: flex;
     justify-content: center;
     z-index:100;
@@ -75,10 +75,11 @@ export const CloseModalButton = styled(Close)`
     cursor: pointer;
     color: ${props => props.theme.color5};
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     width: 32px;
     height: 32px;
     padding: 0;
-    z-index: 10;
+    z-index: 1002;
+    
 `;

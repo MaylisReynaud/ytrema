@@ -100,6 +100,7 @@ export const fabricInputs = [
       max: 600,
       pattern: '^1[0-9]$|^[2-9][0-9]$|^[1-5]{1}[0-9]{2}$|^(600)$',
       errorMessage:'entrez un nombre entre 10 et 600',
+      required: true,
       info: 'weight',
     },
     {

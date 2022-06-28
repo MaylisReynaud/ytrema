@@ -22,15 +22,38 @@ export function FabricForm({ setShowModal, showModal }) {
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
   const fabrics = persistedReducer.fabrics;
-  const [addOneFabric, { data, error, isLoading, isSuccess }] = useAddOneFabricMutation(auth.id);
+  const [addOneFabric, { data, error, isLoading, isSuccess, isError }] = useAddOneFabricMutation(auth.id);
 
-
+console.log(isError, 'ici isError');
   useEffect(() => {
     if (isSuccess) {
       dispatch(addFabric(data.savedFabric));
       navigate('/tissus');
-      ;
+      toast.success('Tissu ajouté avec succès 🎉', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme:"colored",
+        role:"alert"
+        }); 
     };
+    if (isError) {
+      toast.error("Erreur : le tissu n'a pas été ajouté", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme:"colored",
+        role:"alert"
+        }); 
+    }
   }, [data]);
 
   const [values, setValues] = useState({
@@ -104,17 +127,17 @@ export function FabricForm({ setShowModal, showModal }) {
     valuesToSend.photo = photoURL;
     await addOneFabric({ memberId: auth.id, body: valuesToSend });
     setShowModal(prev => !prev)
-    toast.success('Tissu ajouté avec succès 🎉', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme:"colored",
-      role:"alert"
-      }); 
+    // toast.success('Tissu ajouté avec succès 🎉', {
+    //   position: "top-right",
+    //   autoClose: 3000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme:"colored",
+    //   role:"alert"
+    //   }); 
 
 
   };
