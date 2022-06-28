@@ -74,7 +74,7 @@ export function MobileNavLinks(props) {
               <Person />
             </ImgSpan>
             <NavLink 
-              to="/profile "
+              to="/profil"
               style={LinkStyle}
             >
               Maÿlis
