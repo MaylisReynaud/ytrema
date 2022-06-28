@@ -40,8 +40,8 @@ import { FilterChoices } from "./FilterChoices";
 import { filterFabric } from "../../../../src/utils/filterFabric";
 import { FiltersCards } from "../../../../src/utils/flexFilter";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllFabrics } from "../../../store/state/fabricSlice";
-import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
+import { addAllFabrics, fabricsDefaultState } from "../../../store/state/fabricSlice";
+import { useGetAllFabricsQuery, useDeleteAllFabricsMutation } from "../../../../src/store/api/ytremaApi";
 import { render } from "react-dom";
 
 export function Fabric(props, index) {
@@ -54,6 +54,12 @@ export function Fabric(props, index) {
   const fabrics = persistedReducer.fabrics;
   const isLogged = auth.isLogged;
   const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+  const [deleteAllFabrics] = useDeleteAllFabricsMutation(auth.id);
+
+  const deleteAllFabricsStore = () => {
+    deleteAllFabrics(`${auth.id}`);
+    dispatch(fabricsDefaultState('initialState'));
+  }
 
   // we set an array
   let designersFilter = [];
@@ -215,6 +221,9 @@ export function Fabric(props, index) {
                   >
                     Enregistrer un tissu
                   </RegisterArticleButton>
+                  {/* TEST SUPPRESSION DE TOUS LES TISSUS */}
+                  {data ? <Button onClick={deleteAllFabricsStore}>X</Button> : null}
+                  
                   <FabricModal
                     showModal={showModal}
                     setShowModal={setShowModal}
