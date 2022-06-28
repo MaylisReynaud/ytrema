@@ -3,9 +3,14 @@ import {motion} from 'framer-motion';
 
 export const ConnectionContainer = styled.div`
   display: flex;
+  flex-direction:column;
   align-items: center;
-  justify-content: center;
+  justify-content:space-around;
   margin-left: 10px;
+  @media screen and (min-width:601px) { 
+      flex-direction:row;
+      justify-content: center;
+  }
 `;
 
 export const RegisterButton = styled(motion.button)`
@@ -18,6 +23,7 @@ export const RegisterButton = styled(motion.button)`
   border: none;
   border-radius: 20px;
   letter-spacing: 1px;
+  margin-bottom: 1em;
   cursor: pointer;
   border: 2px solid ${props => props.theme.color1};
   transition: all, 240ms ease-in-out;
@@ -33,6 +39,9 @@ export const RegisterButton = styled(motion.button)`
   }
   &:not(:last-of-type) {
     margin-right: 7px;
+  }
+  @media screen and (min-width:601px) { 
+     margin-bottom:0;
   }
   `;
 
