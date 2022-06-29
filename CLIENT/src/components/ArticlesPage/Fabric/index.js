@@ -33,7 +33,11 @@ import {
   NoResultsText,
   NoFabric,
   ArrowCurve,
-  IconsContainer
+  IconsContainer,
+  NoResultsContainer,
+  DesktopArrowCurve,
+  ErrorContainer,
+  LoginIcon
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -53,7 +57,7 @@ export function Fabric(props, index) {
   const auth = persistedReducer.auth;
   const fabrics = persistedReducer.fabrics;
   const isLogged = auth.isLogged;
-  const { data, error, isLoading, isSuccess } = useGetAllFabricsQuery(auth.id);
+  const { data, error, isLoading, isSuccess, isError } = useGetAllFabricsQuery(auth.id);
 
   // we set an array
   let designersFilter = [];
@@ -101,9 +105,6 @@ export function Fabric(props, index) {
                   </CardContainer>
                 </Link>
               </CardsMapContainer>
-
-
-
             ))}
           </>
         ) :
@@ -127,9 +128,11 @@ export function Fabric(props, index) {
   const isOpenMobileFilters = () => {
     setShowMobileFilters((prev) => !prev);
   };
+  const [showFilter, setShowFilter] = useState(true);
+ 
 
   const mapCategoriesFilter = (categoryObject) => {
-    const [showFilter, setShowFilter] = useState(true);
+    // let [showFilter, setShowFilter] = useState(true);
     const isOpenFilter = () => {
       setShowFilter((prev) => !prev);
     };
@@ -155,7 +158,7 @@ export function Fabric(props, index) {
 
     return (
       <>
-        {isDesktop && (
+        {isDesktop && data && categoryObject.length > 0 ? (
           <>
             <FilterTitle>
               {categoryObject[0].title}
@@ -173,7 +176,7 @@ export function Fabric(props, index) {
               setChosenFilter={setChosenFilter}
             />
           </>
-        )}
+        ) : null}
         {isMobile && showMobileFilters && (
           <>
             <FilterContainer>
@@ -236,6 +239,7 @@ export function Fabric(props, index) {
                     Effacer les filtres
                   </EraseFiltersSelectionButton>
                   : null}
+                  
 
               </>
             )}
@@ -268,12 +272,12 @@ export function Fabric(props, index) {
             {mapCategoriesFilter(fabricsFilter)}
             {mapCategoriesFilter(colorsFilter)}
             {mapCategoriesFilter(designersFilter)}
-            
+
             {error ? (
               <>
                 <ErrorText>
                   {" "}
-                  Veuillez vous connecter pour accéder à vos tissus{" "}
+                  Veuillez vous connecter pour accéder à vos tissus.{" "}
                 </ErrorText>
                 <ErrorButton
                   whileHover="hover"
@@ -295,7 +299,7 @@ export function Fabric(props, index) {
                 </IconsContainer>
                 <ErrorText>
                   {" "}
-                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu"{" "}
+                  Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu".{" "}
                 </ErrorText>
 
               </>
@@ -325,72 +329,98 @@ export function Fabric(props, index) {
           </Container>
         </>
       )}
-      {isDesktop && isLogged === true && (
+      {isDesktop && (
         <>
           <DesktopContainer>
             <Container>
-              <LeftContainer>
-                <ButtonContainer>
-                  <RegisterArticleButton
-                    style={buttonVariants}
-                    onClick={isOpenModal}
-                  >
-                    Enregistrer un tissu
-                  </RegisterArticleButton>
-                  <FabricModal
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                  />
-                </ButtonContainer>
-                <FilterContainer>
-                  {fabrics
-                    ? fabrics.value.map((fabric) => {
-                      if (fabric.color) {
-                        colorsFilter.push({
-                          id: fabric.id,
-                          name: fabric.color,
-                          title: "Couleurs",
-                        });
-                      }
-                      if (fabric.designer) {
-                        designersFilter.push({
-                          id: fabric.id,
-                          name: fabric.designer,
-                          title: "Designers",
-                        });
-                      }
-                      if (fabric.fabric) {
-                        fabricsFilter.push({
-                          id: fabric.id,
-                          name: fabric.fabric,
-                          title: "Tissus",
-                        });
-                      }
-                    })
+              {isLogged === true && (
+                <LeftContainer>
+                  <ButtonContainer>
+                    <RegisterArticleButton
+                      style={buttonVariants}
+                      onClick={isOpenModal}
+                    >
+                      Enregistrer un tissu
+                    </RegisterArticleButton>
+                    <FabricModal
+                      showModal={showModal}
+                      setShowModal={setShowModal}
+                    />
+                  </ButtonContainer>
+                  {filterByCategory.length > 0 ?
+                    <EraseFiltersSelectionButton
+                      onClick={() => {
+                        setFilterByCategory([]);
+                        setShowFilter(false);
+                        setTimeout(() => {setShowFilter(true)},"500")
+                      }}
+                    >
+                      Effacer les filtres
+                    </EraseFiltersSelectionButton>
                     : null}
-                  {mapCategoriesFilter(fabricsFilter)}
-                  {mapCategoriesFilter(colorsFilter)}
-                  {mapCategoriesFilter(designersFilter)}
-                </FilterContainer>
-              </LeftContainer>
+
+                  <FilterContainer>
+                    {fabrics
+                      ? fabrics.value.map((fabric) => {
+                        if (fabric.color) {
+                          colorsFilter.push({
+                            id: fabric.id,
+                            name: fabric.color,
+                            title: "Couleurs",
+                          });
+                        }
+                        if (fabric.designer) {
+                          designersFilter.push({
+                            id: fabric.id,
+                            name: fabric.designer,
+                            title: "Designers",
+                          });
+                        }
+                        if (fabric.fabric) {
+                          fabricsFilter.push({
+                            id: fabric.id,
+                            name: fabric.fabric,
+                            title: "Tissus",
+                          });
+                        }
+                      })
+                      : null}
+                    {mapCategoriesFilter(fabricsFilter)}
+                    {mapCategoriesFilter(colorsFilter)}
+                    {mapCategoriesFilter(designersFilter)}
+                  </FilterContainer>
+                </LeftContainer>
+              )}
 
               {error ? (
-                <>
+                <ErrorContainer>
+                  <LoginIcon />
                   <ErrorText>
-                    Veuillez vous connecter pour accéder à vos tissus
+                    Veuillez vous connecter pour accéder à vos tissus.
                   </ErrorText>
                   <ErrorButton
                     whileHover="hover"
                     whileTap="tap"
                     onClick={() => {
-                      navigate("/");
+                      navigate("/connexion");
                     }}
                   >
                     Se connecter
                   </ErrorButton>
-                </>
+                </ErrorContainer>
               ) : isLoading ? (
                 <>Loading...</>
+              ) : !data ? (
+                <NoResultsContainer>
+                  <IconsContainer>
+                    <DesktopArrowCurve /><NoFabric />
+                  </IconsContainer>
+                  <ErrorText>
+                    {" "}
+                    Enregistrez votre premier tissu pour débuter votre tissuthèque en cliquant sur le bouton "Enregistrer un tissu".{" "}
+                  </ErrorText>
+
+                </NoResultsContainer>
               ) : (data && fabrics && !filterByCategory) ||
                 filterByCategory.length == 0 ? (
                 <>

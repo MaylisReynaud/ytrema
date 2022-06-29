@@ -38,8 +38,9 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     @media screen and (min-width:601px) { 
-        margin-top: 4rem;
-        height:90%;
+        margin-top: 4em;
+        margin-bottom: 4em;
+        height:80%;
 
   }
 `;
@@ -64,7 +65,7 @@ export const ModalContent = styled.div`
         color: ${props => props.theme.color3};
     }
     @media screen and (min-width:601px) { 
-        height:90vh;
+        height:92%;
         width: 90%;
 
   }
@@ -74,10 +75,11 @@ export const CloseModalButton = styled(Close)`
     cursor: pointer;
     color: ${props => props.theme.color5};
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 10px;
+    right: 10px;
     width: 32px;
     height: 32px;
     padding: 0;
-    z-index: 10;
+    z-index: 1002;
+    
 `;

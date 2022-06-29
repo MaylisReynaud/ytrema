@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import { DeviceSize } from '../Navbar/Responsive';
 
 export const Slide = styled.div`
-    /* height: 100vw !important; */
+    @media screen and (min-width:601px) { 
+        height: 90vh;
+  }
 `;
 
 export const SlideImg = styled.img`
-    height:100%;
+    /* height:100%; */
     @media screen and (max-width:600px) { 
-        width: 100vw ;
-        height: 35vh;
-        object-fit: cover;
+        /* width: 100vw ; */
+        /* height: 35vh; */
+        object-fit:cover;
   }
 `;
 
