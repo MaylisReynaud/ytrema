@@ -21,30 +21,35 @@ import { Logout } from '../Logout';
 
 
 export function MobileNavLinks(props) {
-  const [isOpen, setOpen] = useState(false);
-  const toggleBurgerMenu = () => setOpen(!isOpen);
+  const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+  const toggleBurgerMenu = () => setShowBurgerMenu(!showBurgerMenu);
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
   const isLogged = auth.isLogged;
   const activeSession = sessionStorage.getItem("token");
   return (
     <NavLinksContainer>
-      <MenuToggle isOpen={isOpen} toggle={toggleBurgerMenu} />
-      {isOpen && isLogged === true && (
+      {isLogged === true && activeSession && (
+        <>
+      <MenuToggle showBurgerMenu={showBurgerMenu} toggle={toggleBurgerMenu} />
+      {showBurgerMenu && (
         <LinksWrapper>
 
-          <Logout
-            toggleBurgerMenu={toggleBurgerMenu}
-            isOpen={isOpen}
-          />
-        </LinksWrapper>
+        <Logout
+          toggleBurgerMenu={toggleBurgerMenu}
+          showBurgerMenu={showBurgerMenu}
+        />
+      </LinksWrapper>
       )}
-      {isOpen && isLogged === false && (
+        
+        </>
+      )}
+      {showBurgerMenu && isLogged === false && (
         <LinksWrapper>
 
           <MobileConnection 
             toggleBurgerMenu={toggleBurgerMenu}
-            isOpen={isOpen}
+            showBurgerMenu={showBurgerMenu}
           />
         </LinksWrapper>
       )}
