@@ -1,6 +1,5 @@
 import React  from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import {
   ConnectionContainer,
   RegisterButton,
@@ -10,16 +9,20 @@ import {
 
 
 
-export function Connection(props) {
+export function MobileConnection(isOpen, setOpen) {
   let navigate = useNavigate();
+  const toggle = (() => setOpen(!isOpen));
   return (
-    <ConnectionContainer>
+
+    
+      <ConnectionContainer>
       <RegisterButton 
         variants={buttonVariants}
         whileHover='hover'
         whileTap='tap'
         onClick={() => {
-          navigate('/inscription');
+          toggle();
+          navigate('/');
         }}
       >
         S'inscrire
@@ -29,11 +32,13 @@ export function Connection(props) {
         whileHover='hover'
         whileTap='tap'
         onClick={() => {
-          navigate('/connexion');
+          toggle();
+          navigate('/');
         }}
       >
         Se connecter
       </LoginButton>
     </ConnectionContainer>
+  
   );
 }

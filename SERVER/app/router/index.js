@@ -8,6 +8,7 @@ const errorController = require('../controller/errorController');
 const memberRouter = require('./memberRouter');
 const fabricRouter = require('./fabricRouter');
 const haberdasheryRouter = require('./haberdasheryRouter');
+const reviewRouter = require('./reviewRouter.js');
 
 // Middleware import
 const auth = require('../middleware/auth');
@@ -30,6 +31,7 @@ router.use('/fabric', fabricRouter);
 // haberdashery router
 router.use('/haberdashery', haberdasheryRouter);
 // review router
+router.use('/review', reviewRouter);
 // project router
 // pattern router
 // photo router

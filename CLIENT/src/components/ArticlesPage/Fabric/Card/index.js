@@ -36,10 +36,10 @@ import {
   InformationSelect,
   ModifyContainer,
   TrashContainer,
-  UpdateInformation,
   UpdateInformationContainer,
   UpdateInformationText,
-  InputMessageHover,
+  UpdateFileInputContainer,
+
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { fabricInputs } from "../../../../utils/fabricInputs";
@@ -52,7 +52,6 @@ import {
   updateFabric,
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
-import { ErrorMessage } from "../Input/Input.style";
 import { MessageHover } from "./MessageHover";
 import { DeleteFabricModal } from "./DeleteModal";
 
@@ -93,9 +92,9 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme:"colored",
-      role:"alert"
-      }); 
+      theme: "colored",
+      role: "alert"
+    });
   };
 
   const [values, setValues] = useState({
@@ -187,9 +186,9 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme:"colored",
-      role:"alert"
-      }); 
+      theme: "colored",
+      role: "alert"
+    });
     // setPreview(undefined);
   };
 
@@ -221,7 +220,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                   onClick={() => {
                     navigate("/Tissus");
                   }}
-                 
+
                 />
               </ReturnArrowContainer>
               <ModifyDeleteContainer>
@@ -240,21 +239,21 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteFabricModal 
+                    <DeleteFabricModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
                     />
-                   
+
 
                   </>
                 ) : (
                   <UpdateInformationContainer
                     // animate={{ x: 20 }}
                     // transition={{ type: "spring", stiffness: 100 }}
-                    initial={{x: '-80px' }} 
-                    animate={{ x: 0 }} 
-                    transition={{ type: "linear"}}
+                    initial={{ x: '-80px' }}
+                    animate={{ x: 0 }}
+                    transition={{ type: "linear" }}
                   >
                     <UpdateInformationText>
                       Tissu en cours de modification
@@ -302,20 +301,20 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                          <InformationInput
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            type={input.type}
-                            name={input.name}
-                            pattern={input.pattern}
-                            data-error={input.errorMessage}
-                          ></InformationInput>
+                            <InformationInput
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              type={input.type}
+                              name={input.name}
+                              pattern={input.pattern}
+                              data-error={input.errorMessage}
+                            ></InformationInput>
 
-                         
-                         <MessageHover 
-                            errorMessage={input.errorMessage}
-                          />
-                         </>
+
+                            <MessageHover
+                              errorMessage={input.errorMessage}
+                            />
+                          </>
                         ) : (
                           <InformationSelect
                             placeholder={values[input.info]}
@@ -349,7 +348,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net") ) ? (
+                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
@@ -366,7 +365,7 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                             type={input.type}
                           ></InformationInput>
                         )}
-                        
+
                       </InformationContent>
                     ) : null
                   )}
@@ -397,46 +396,158 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                 onClick={() => {
                   navigate("/Tissus");
                 }}
+
               />
             </ReturnArrowContainer>
             <ModifyDeleteContainer>
-              <ModifyButton
-                aria-label="Modifier ce tissu"
-              />
-              <TrashButton
-                aria-label="Supprimer ce tissu"
-                ref={cardRef}
-                onClick={deleteCard}
-              />
+              {!updateFabricInfo ? (
+                <>
+                  <ModifyContainer>
+                    <ModifyButton
+                      aria-label="Modifier ce tissu"
+                      onClick={updateCard}
+                    />
+                  </ModifyContainer>
+                  <TrashContainer>
+                    <TrashButton
+                      aria-label="Supprimer ce tissu"
+                      ref={cardRef}
+                      onClick={isOpenDeleteModal}
+                    />
+                  </TrashContainer>
+                  <DeleteFabricModal
+                    setShowDeleteModal={setShowDeleteModal}
+                    showDeleteModal={showDeleteModal}
+                    deleteCard={deleteCard}
+                  />
+
+
+                </>
+              ) : (
+                <UpdateInformationContainer
+                  // animate={{ x: 20 }}
+                  // transition={{ type: "spring", stiffness: 100 }}
+                  initial={{ x: '-80px' }}
+                  animate={{ x: 0 }}
+                  transition={{ type: "linear" }}
+                >
+                  <UpdateInformationText>
+                    Tissu en cours de modification
+                  </UpdateInformationText>
+
+                </UpdateInformationContainer>
+              )}
             </ModifyDeleteContainer>
           </ButtonsContainer>
           <CardContainer>
-            <ImageContainer>
-              <ImageCard src={fabricCard.photo} />
-            </ImageContainer>
-
+            {!updateFabricInfo ? (
+              <ImageContainer>
+                <ImageCard src={fabricCard.photo} />
+              </ImageContainer>
+            ) : (
+              <UpdateCardContainer>
+                <UpdatePhotoInput>
+                  <ImageCard src={preview} alt="fabric picture" />
+                </UpdatePhotoInput>
+                <UpdateFileInputContainer>
+                  <input
+                    name="photo"
+                    accept="image/*"
+                    placeholder="Photo du tissu"
+                    required=""
+                    type="file"
+                    onChange={onChange}
+                  ></input>
+                </UpdateFileInputContainer>
+              </UpdateCardContainer>
+            )}
             <InformationContainer>
               <TitleContainer>
                 <CardTitle>
                   {fabricCard.name} - {fabricCard.designer}
                 </CardTitle>
               </TitleContainer>
-              <InformationForm>
-                {fabricInputs.map((input, index) =>
-                  index !== 0 ? (
-                    <InformationContent>
-                      <InformationLabel key={input.id}>
-                        {input.label}
-                      </InformationLabel>
+              {updateFabricInfo ? (
+              <InformationForm onSubmit={handleSubmit}>
+              {fabricInputs.map((input, index) =>
+                index !== 0 ? (
+                  <InformationContent key={input.id}>
+
+                    <InformationLabel htmlFor={input.htmlFor}>
+                      {input.label}
+                    </InformationLabel>
+                    {input.type !== "select" ? (
+                      <>
+                        <InformationInput
+                          placeholder={values[input.info]}
+                          onChange={onChange}
+                          type={input.type}
+                          name={input.name}
+                          pattern={input.pattern}
+                          data-error={input.errorMessage}
+                        ></InformationInput>
+
+
+                        <MessageHover
+                          errorMessage={input.errorMessage}
+                        />
+                      </>
+                    ) : (
+                      <InformationSelect
+                        placeholder={values[input.info]}
+                        onChange={onChange}
+                        name={input.name}
+                        type={input.type}
+                        id={input.htmlFor}
+                        defaultValue={values[input.info]}
+                      >
+                        {input.optionsList.sort().map((option, index) =>
+                          option === values[input.info] ? (
+                            <option key={index} value={option}>
+                              {option}
+                            </option>
+                          ) : (
+                            <option key={index} value={option}>
+                              {option}
+                            </option>
+                          )
+                        )}
+                      </InformationSelect>
+                    )}
+                  </InformationContent>
+                ) : null
+              )}
+              <ButtonForm>Enregistrer</ButtonForm>
+            </InformationForm>
+          ) : (
+            <InformationForm>
+              {fabricInputs.map((input, index) =>
+                index !== 0 ? (
+                  <InformationContent key={input.id}>
+                    <InformationLabel>{input.label}</InformationLabel>
+                    {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
+                      <InformationLinkContainer
+                      >
+                        <InformationLink
+                          href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
+                          target="_blank"
+                        >
+                          {fabricCard[input.info]}
+                        </InformationLink>
+                      </InformationLinkContainer>
+                    ) : (
                       <InformationInput
                         value={fabricCard[input.info]}
                         disabled="disabled"
                         type={input.type}
                       ></InformationInput>
-                    </InformationContent>
-                  ) : null
-                )}
-              </InformationForm>
+                    )}
+
+                  </InformationContent>
+                ) : null
+              )}
+            </InformationForm>
+          )}
               <ProjectContainer>
                 <ProjectTitle>Projets avec ce tissu</ProjectTitle>
                 <ProjectImageContainer>
