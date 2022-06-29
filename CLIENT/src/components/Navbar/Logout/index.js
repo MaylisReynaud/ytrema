@@ -10,9 +10,8 @@ import {
 
 
 
-export function Logout(isOpen, setOpen) {
+export function Logout({showBurgerMenu, toggleBurgerMenu}) {
   let navigate = useNavigate();
-  const toggle = (() => setOpen(!isOpen));
   const dispatch = useDispatch();
   const removePersistStore = () => {
       sessionStorage.clear();
@@ -26,8 +25,8 @@ export function Logout(isOpen, setOpen) {
         whileHover='hover'
         whileTap='tap'
         onClick={() => {
-          toggle();
           removePersistStore();
+          toggleBurgerMenu();
           navigate('/');
         }}
       >

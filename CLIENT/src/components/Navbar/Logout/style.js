@@ -3,9 +3,9 @@ import {motion} from 'framer-motion';
 
 export const ConnectionContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  margin-left: 10px;
+  margin-right: 1.3em;
 `;
 
 export const buttonVariants = {
@@ -43,7 +43,4 @@ export const LogoutButton = styled.button`
       rgba(243, 172, 18, 1) 100%
     );
   }
-  &:not(:last-of-type) {
-    margin-right: 7px;
-  };
 `;
