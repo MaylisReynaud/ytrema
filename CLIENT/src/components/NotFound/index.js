@@ -18,14 +18,14 @@ export function NotFound() {
                     src={Error404}
                     alt="Erreur 404"
                     onClick={() => {
-                        navigate('/');
+                        navigate('/Tissus');
                     }}
                 />
             </Image404Container>
 
             <Button
                 onClick={() => {
-                    navigate('/');
+                    navigate('/Tissus');
                 }}
             >
                 Retour à la page d'accueil

@@ -118,11 +118,34 @@ const fabricController = {
             }
 
             // Here, the fabric data is deleted in DB
-            response.status(204).json();
+            return response.status(204).json();
         } catch (error) {
             next(error);
         }
     },
+
+    async deleteAll(request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id } = request.params;
+
+            // Delete all fabric data in DB
+            const deleteAllFabrics = await fabricDataMapper.deleteAll(id);
+
+            // No data deleted because this account does'nt have any fabrics yet
+            if (!deleteAllFabrics) {
+                response.locals.notFound =
+                    "Aucun tissu n'est répertorié dans votre tissuthèque, vous ne pouvez donc pas procéder à sa suppression";
+                return next();
+            }
+
+            // Here, all fabric data have been in DB
+            return response.status(204).json();
+
+        } catch (error) {
+            next(error)
+        }
+    }
 };
 
 module.exports = fabricController;

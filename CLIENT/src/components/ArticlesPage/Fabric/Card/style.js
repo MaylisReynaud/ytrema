@@ -356,6 +356,7 @@ export const ProjectContainer = styled.div`
    margin-bottom:4.6em;
   }
 
+
 `;
 export const ProjectTitle = styled.h2`
   display: flex;

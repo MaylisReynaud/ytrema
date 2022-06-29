@@ -165,6 +165,28 @@ const fabricDataMapper = {
         // Here, the fabric data has been deleted
         return true;
     },
+
+    async deleteAll(id) {
+        //  Query to delete all fabrics in DB
+        const query = {
+            text: `DELETE FROM "fabric" WHERE "member_id" = $1`,
+            values: [id],
+        };
+
+        // Send the query to DB
+        const allFabricsToDeleteResult = client.query(query);
+
+        // Get request result
+        const { rowCount } = allFabricsToDeleteResult;
+
+        // Any rows weren't deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here, all fabrics data have been deleted
+        return true;
+    }
 };
 
 module.exports = fabricDataMapper;
