@@ -44,7 +44,8 @@ export const UpdatePhotoInput = styled.div`
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height: 20em;
+    height: 80%;
+    width: 100%;
   }
 `;
 
@@ -53,8 +54,8 @@ export const UpdateCardContainer = styled.div`
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height:60%;
-    width: 50%;
+    height:80%;
+    width: 70%;
   }
 `;
 export const UpdateFileInputContainer = styled.div`
@@ -206,7 +207,7 @@ export const ImageContainer = styled.div`
   height: 15em;
   @media screen and (min-width: 601px) {
     height: 90%;
-    margin-left: 2em;
+    margin-left: 1.3em;
     margin-bottom: 5em;
   }
 `;
