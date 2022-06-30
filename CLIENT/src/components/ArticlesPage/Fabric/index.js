@@ -158,7 +158,7 @@ export function Fabric(props, index) {
 
     return (
       <>
-        {isDesktop && data && categoryObject.length > 0 ? (
+        {isDesktop && data && categoryObject.length > 0 && (
           <>
             <FilterTitle>
               {categoryObject[0].title}
@@ -176,7 +176,7 @@ export function Fabric(props, index) {
               setChosenFilter={setChosenFilter}
             />
           </>
-        ) : null}
+        )}
         {isMobile && showMobileFilters && (
           <>
             <FilterContainer>
