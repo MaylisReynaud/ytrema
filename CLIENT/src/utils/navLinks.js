@@ -21,7 +21,7 @@ export const navLinks = [
     },
     {
       id:5,
-      name: 'Profile',
-      path: '/profile',
+      name: 'Profil',
+      path: '/profil',
     },
   ]
