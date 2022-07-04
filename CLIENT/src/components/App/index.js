@@ -12,6 +12,7 @@ import { Registrationpage } from '../Registrationpage';
 import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
+import { Profil } from '../ArticlesPage/Profil';
 import { Card } from '../ArticlesPage/Fabric/Card';
 import { NotFound } from '../NotFound';
 import { ToastContainer} from 'react-toastify';
@@ -58,6 +59,7 @@ const App = () => {
               <Route  path='/tissus/:id' element={<Card /> } />
               <Route  path='/mercerie' element={<Haberdashery />} />
               <Route  path='/patrons' element={<Pattern />} />
+              <Route  path='/profil' element={<Profil />} />
               <Route  path='*' element={<NotFound />} />
               
 

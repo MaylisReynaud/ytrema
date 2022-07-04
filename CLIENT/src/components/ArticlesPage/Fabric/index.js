@@ -220,6 +220,7 @@ export function Fabric(props, index) {
                   >
                     Enregistrer un tissu
                   </RegisterArticleButton>
+                  
                   <FabricModal
                     showModal={showModal}
                     setShowModal={setShowModal}
