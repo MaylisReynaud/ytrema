@@ -166,7 +166,6 @@ export function FabricForm({ setShowModal, showModal }) {
   return (
     <>
       <FormContainer
-      //onSubmit={handleSubmit}
       >
         <InputContainer>
           {values.photo ?

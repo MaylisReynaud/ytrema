@@ -450,7 +450,12 @@ export function Fabric(props, index) {
                   </CardsContainer>
                 </>
               ) : filterByCategory.length > 0 ? (
-                mapFilteredCards(filterByCategory)
+                <CardsContainer>
+                    <TitleContainer>
+                      <Title>MA TISSUTHEQUE</Title>
+                    </TitleContainer>
+                {mapFilteredCards(filterByCategory)}
+               </CardsContainer>
               ) : null}
             </Container>
           </DesktopContainer>
