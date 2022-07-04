@@ -310,10 +310,13 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                               data-error={input.errorMessage}
                             ></InformationInput>
 
+                            {input.id == 6 || input.id == 8 ? (
+                              null
+                            ) :
+                              <MessageHover
+                                errorMessage={input.errorMessage}
+                              />}
 
-                            <MessageHover
-                              errorMessage={input.errorMessage}
-                            />
                           </>
                         ) : (
                           <InformationSelect
@@ -468,86 +471,87 @@ export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
                 </CardTitle>
               </TitleContainer>
               {updateFabricInfo ? (
-              <InformationForm onSubmit={handleSubmit}>
-              {fabricInputs.map((input, index) =>
-                index !== 0 ? (
-                  <InformationContent key={input.id}>
+                <InformationForm onSubmit={handleSubmit}>
+                  {fabricInputs.map((input, index) =>
+                    index !== 0 ? (
+                      <InformationContent key={input.id}>
 
-                    <InformationLabel htmlFor={input.htmlFor}>
-                      {input.label}
-                    </InformationLabel>
-                    {input.type !== "select" ? (
-                      <>
-                        <InformationInput
-                          placeholder={values[input.info]}
-                          onChange={onChange}
-                          type={input.type}
-                          name={input.name}
-                          pattern={input.pattern}
-                          data-error={input.errorMessage}
-                        ></InformationInput>
-
-
-                        <MessageHover
-                          errorMessage={input.errorMessage}
-                        />
-                      </>
-                    ) : (
-                      <InformationSelect
-                        placeholder={values[input.info]}
-                        onChange={onChange}
-                        name={input.name}
-                        type={input.type}
-                        id={input.htmlFor}
-                        defaultValue={values[input.info]}
-                      >
-                        {input.optionsList.sort().map((option, index) =>
-                          option === values[input.info] ? (
-                            <option key={index} value={option}>
-                              {option}
-                            </option>
-                          ) : (
-                            <option key={index} value={option}>
-                              {option}
-                            </option>
-                          )
+                        <InformationLabel htmlFor={input.htmlFor}>
+                          {input.label}
+                        </InformationLabel>
+                        {input.type !== "select" ? (
+                          <>
+                            <InformationInput
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              type={input.type}
+                              name={input.name}
+                              pattern={input.pattern}
+                              data-error={input.errorMessage}
+                            ></InformationInput>
+                            {input.id == 6 || input.id == 8 ? (
+                              null
+                            ) :
+                              <MessageHover
+                                errorMessage={input.errorMessage}
+                              />}
+                          </>
+                        ) : (
+                          <InformationSelect
+                            placeholder={values[input.info]}
+                            onChange={onChange}
+                            name={input.name}
+                            type={input.type}
+                            id={input.htmlFor}
+                            defaultValue={values[input.info]}
+                          >
+                            {input.optionsList.sort().map((option, index) =>
+                              option === values[input.info] ? (
+                                <option key={index} value={option}>
+                                  {option}
+                                </option>
+                              ) : (
+                                <option key={index} value={option}>
+                                  {option}
+                                </option>
+                              )
+                            )}
+                          </InformationSelect>
                         )}
-                      </InformationSelect>
-                    )}
-                  </InformationContent>
-                ) : null
-              )}
-              <ButtonForm>Enregistrer</ButtonForm>
-            </InformationForm>
-          ) : (
-            <InformationForm>
-              {fabricInputs.map((input, index) =>
-                index !== 0 ? (
-                  <InformationContent key={input.id}>
-                    <InformationLabel>{input.label}</InformationLabel>
-                    {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
-                      <InformationLinkContainer
-                      >
-                        <InformationLink
-                          href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
-                          target="_blank"
-                        >
-                          {fabricCard[input.info]}
-                        </InformationLink>
-                      </InformationLinkContainer>
-                    ) : (
-                      <InformationInput
-                        value={fabricCard[input.info]}
-                        disabled="disabled"
-                        type={input.type}
-                      ></InformationInput>
-                    )}
+                      </InformationContent>
+                    ) : null
+                  )}
+                  <ButtonForm>Enregistrer</ButtonForm>
+                </InformationForm>
+              ) : (
+                <InformationForm>
+                  {fabricInputs.map((input, index) =>
+                    index !== 0 ? (
+                      <InformationContent key={input.id}>
+                        <InformationLabel>{input.label}</InformationLabel>
+                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
+                          <InformationLinkContainer
+                          >
+                            <InformationLink
+                              href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
+                              target="_blank"
+                            >
+                              {fabricCard[input.info]}
+                            </InformationLink>
+                          </InformationLinkContainer>
+                        ) : (
+                          <InformationInput
+                            value={fabricCard[input.info]}
+                            disabled="disabled"
+                            type={input.type}
+                          ></InformationInput>
+                        )}
 
-                  </InformationContent>
-                ) : null
+                      </InformationContent>
+                    ) : null
+                  )}
+                </InformationForm>
               )}
-            </InformationForm>
-          )}
               <ProjectContainer>
                 <ProjectTitle>Projets avec ce tissu</ProjectTitle>
                 <ProjectImageContainer>
