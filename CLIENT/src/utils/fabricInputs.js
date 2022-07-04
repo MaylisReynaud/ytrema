@@ -64,8 +64,6 @@ export const fabricInputs = [
       type:'text',
       placeholder:'ex: rose poudré ou ex:#FCDEDC',
       label:'Couleur précise',
-      pattern: "^#?[\\w\\xc0-\\xff' ']{2,30}$",
-      errorMessage:'Maximum 30 caractères alphanumérique ou code couleur hexa',
       info: 'precise_color',
     },
     {
@@ -75,7 +73,7 @@ export const fabricInputs = [
       placeholder:'type de tissu',
       label:'Type de tissu',
       htmlFor: 'fabricType',
-      optionsList: [ 'Batiste','Bords-côtes', 'Broderie anglaise', 'Canvas', 'Chambray', 'Coton enduit', 'Crêpe', 'Cretonne', 'Cuir', 'Dentelle', 'Denim', 'Éponge', 'Flanelle', 'Imitation fourrure', 'Gabardine', 'Gaze, double gaz', 'Jacquard', 'Jersey',  'Laine bouillie', 'Liège', 'Lin', 'Lycra', 'Maille', 'Matelassé', 'Minky', 'Mousseline', 'Nicky', 'Organza', 'Popeline', 'Polaire', 'Pul', 'Organza', 'Sergé de coton', 'Simili cuir', 'Suédine', 'Soie', 'Sweat/Molleton',  'Tartan', 'Tencel', 'Thermocollant/entoilage', 'Toile cirée', 'Toile de jute', 'Tulle', 'Twill', 'Velours', 'Viscose', 'Voile de coton', 'Wax africain' ],
+      optionsList: [ 'Batiste','Bords-côtes', 'Broderie anglaise', 'Canvas', 'Chambray', 'Coton enduit', 'Crêpe', 'Cretonne', 'Cuir', 'Dentelle', 'Denim', 'Éponge', 'Flanelle', 'Imitation fourrure', 'Gabardine', 'Gaze, double gaz', 'Jacquard', 'Jersey',  'Laine bouillie', 'Liège', 'Lin', 'Lycra', 'Maille', 'Matelassé', 'Minky', 'Mousseline', 'Nicky', 'Organza', 'Popeline', 'Polaire', 'Pul', 'Sergé de coton', 'Simili cuir', 'Suédine', 'Soie', 'Sweat/Molleton',  'Tartan', 'Tencel', 'Thermocollant/entoilage', 'Toile cirée', 'Toile de jute', 'Tulle', 'Twill', 'Velours', 'Viscose', 'Voile de coton', 'Wax africain' ],
       errorMessage:'Sélectionnez un type de tissu',
       required: true,
       info: 'fabric',
@@ -86,8 +84,6 @@ export const fabricInputs = [
       type:'text',
       placeholder:'ex: 90% coton, 10% viscose',
       label:'Composition',
-      pattern: "^(\\d{1,3}[%]{1}\\s{1}[a-zA-Z-\\xc0-\\xff]{3,15}\\s?[-.,]?\\s?){1,4}$",
-      errorMessage:"Maximum 80 caractères alphanumériques avec comme séparateurs ', - .' Ne pas mettre d'espace entre le chiffre et le % : ex: 10%",
       info: 'composition',
     },
     {
@@ -100,6 +96,7 @@ export const fabricInputs = [
       max: 600,
       pattern: '^1[0-9]$|^[2-9][0-9]$|^[1-5]{1}[0-9]{2}$|^(600)$',
       errorMessage:'entrez un nombre entre 10 et 600',
+      required: true,
       info: 'weight',
     },
     {

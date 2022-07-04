@@ -29,26 +29,23 @@ export const Background = styled.div`
 export const ModalWrapper = styled.div`
     position: relative;
     display: flex;
-    /* justify-content: flex-start; */
     z-index:100;
-    width: 90vw;
-    height:25vh;
+    width: 90%;
+    height:30%;
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
     color: #000;
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     @media screen and (min-width:601px) { 
-        margin-top: 4rem;
-        height:90%;
-
+        height:27%;
+        width: 35%;       
   }
 `;
-
-
 
 export const ModalContent = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     position: absolute;
     top: 1.2em;
     padding: 0;
@@ -56,14 +53,11 @@ export const ModalContent = styled.div`
     line-height: 1.5;
     color: ${props => props.theme.color5};
     overflow: hidden;
-    height:86vh;
-
-    @media screen and (min-width:601px) { 
-        height:90vh;
-        width: 90%;
-  }
+    height:86%;
 `;
 export const TextContainer = styled.div`
+    display: flex;
+    justify-content:space-around;
     font-family: '${props => props.theme.titleFont}';
     margin: 0 1.5em;
     font-weight: bold;
@@ -76,13 +70,22 @@ export const DeleteTitle = styled.h1`
     font-weight: bold;
     color: ${props => props.theme.color3};
     font-size: 1.5em;
+    @media screen and (min-width:601px) { 
+        text-align:center;
+        margin: 0 1.5em 0;
+
+  }
 `;
 
 export const DeleteParagraph = styled.p`
     font-family: '${props => props.theme.textFont}';
-        margin: 0 1.5em;
-        font-size: 1.3em;
-        color: ${props => props.theme.color5};
+    margin: 0 1.5em;
+    font-size: 1.3em;
+    color: ${props => props.theme.color5};
+    @media screen and (min-width:601px) { 
+        margin: .8em 1.5em;
+
+  }
 `;
 export const ButtonsContainer = styled.div`
     display: flex;
