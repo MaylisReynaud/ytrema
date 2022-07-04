@@ -10,11 +10,16 @@ import { NavLinksContainer,
 import { NavLink } from 'react-router-dom';
 import { navLinks } from '../../../utils/navLinks';
 import { iconsNavLinks } from '../../../utils/iconsNavLinks';
-
+import { useSelector } from "react-redux";
 
 export function NavLinks(props) {
+  const { persistedReducer } = useSelector((state) => state);
+  const auth = persistedReducer.auth;
+  const isLogged = auth.isLogged;
+  const activeSession = sessionStorage.getItem("token");
   return (
     <NavLinksContainer>
+      {isLogged === true && activeSession && (
       <LinksWrapper>
       {navLinks.map((navLink, index) => {
         const Icon = iconsNavLinks[index];
@@ -38,6 +43,7 @@ export function NavLinks(props) {
       })}
 
         </LinksWrapper>
+      )}
     </NavLinksContainer>
   );
 }

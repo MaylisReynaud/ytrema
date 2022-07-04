@@ -68,6 +68,7 @@ export function Fabric(props, index) {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [filterByCategory, setFilterByCategory] = useState([]);
   const [chosenFilter, setChosenFilter] = useState(false);
+  const [showAllDesktopFilters, setShowAllDesktopFilters] = useState(true);
 
   if (chosenFilter) {
     setChosenFilter(false);
@@ -128,11 +129,11 @@ export function Fabric(props, index) {
   const isOpenMobileFilters = () => {
     setShowMobileFilters((prev) => !prev);
   };
-  const [showFilter, setShowFilter] = useState(true);
+  
  
 
   const mapCategoriesFilter = (categoryObject) => {
-    // let [showFilter, setShowFilter] = useState(true);
+    const [showFilter, setShowFilter] = useState(true);
     const isOpenFilter = () => {
       setShowFilter((prev) => !prev);
     };
@@ -158,11 +159,11 @@ export function Fabric(props, index) {
 
     return (
       <>
-        {isDesktop && data && categoryObject.length > 0 ? (
+        {isDesktop && data && categoryObject.length > 0 && (
           <>
             <FilterTitle>
               {categoryObject[0].title}
-              {showFilter ? (
+              {showFilter && showAllDesktopFilters ? (
                 <MinusIcon onClick={isOpenFilter} />
               ) : (
                 <PlusIcon onClick={isOpenFilter} />
@@ -170,13 +171,14 @@ export function Fabric(props, index) {
             </FilterTitle>
             <FilterChoices
               showFilter={showFilter}
+              showAllDesktopFilters={showAllDesktopFilters}
               categories={categoryObject}
               setFilterByCategory={setFilterByCategory}
               filterByCategory={filterByCategory}
               setChosenFilter={setChosenFilter}
             />
           </>
-        ) : null}
+        )}
         {isMobile && showMobileFilters && (
           <>
             <FilterContainer>
@@ -351,8 +353,8 @@ export function Fabric(props, index) {
                     <EraseFiltersSelectionButton
                       onClick={() => {
                         setFilterByCategory([]);
-                        setShowFilter(false);
-                        setTimeout(() => {setShowFilter(true)},"500")
+                        setShowAllDesktopFilters(false);
+                        setTimeout(() => {setShowAllDesktopFilters(true)},"500")
                       }}
                     >
                       Effacer les filtres

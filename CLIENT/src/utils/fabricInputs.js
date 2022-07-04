@@ -73,7 +73,7 @@ export const fabricInputs = [
       placeholder:'type de tissu',
       label:'Type de tissu',
       htmlFor: 'fabricType',
-      optionsList: [ 'Batiste','Bords-côtes', 'Broderie anglaise', 'Canvas', 'Chambray', 'Coton enduit', 'Crêpe', 'Cretonne', 'Cuir', 'Dentelle', 'Denim', 'Éponge', 'Flanelle', 'Imitation fourrure', 'Gabardine', 'Gaze, double gaz', 'Jacquard', 'Jersey',  'Laine bouillie', 'Liège', 'Lin', 'Lycra', 'Maille', 'Matelassé', 'Minky', 'Mousseline', 'Nicky', 'Organza', 'Popeline', 'Polaire', 'Pul', 'Organza', 'Sergé de coton', 'Simili cuir', 'Suédine', 'Soie', 'Sweat/Molleton',  'Tartan', 'Tencel', 'Thermocollant/entoilage', 'Toile cirée', 'Toile de jute', 'Tulle', 'Twill', 'Velours', 'Viscose', 'Voile de coton', 'Wax africain' ],
+      optionsList: [ 'Batiste','Bords-côtes', 'Broderie anglaise', 'Canvas', 'Chambray', 'Coton enduit', 'Crêpe', 'Cretonne', 'Cuir', 'Dentelle', 'Denim', 'Éponge', 'Flanelle', 'Imitation fourrure', 'Gabardine', 'Gaze, double gaz', 'Jacquard', 'Jersey',  'Laine bouillie', 'Liège', 'Lin', 'Lycra', 'Maille', 'Matelassé', 'Minky', 'Mousseline', 'Nicky', 'Organza', 'Popeline', 'Polaire', 'Pul', 'Sergé de coton', 'Simili cuir', 'Suédine', 'Soie', 'Sweat/Molleton',  'Tartan', 'Tencel', 'Thermocollant/entoilage', 'Toile cirée', 'Toile de jute', 'Tulle', 'Twill', 'Velours', 'Viscose', 'Voile de coton', 'Wax africain' ],
       errorMessage:'Sélectionnez un type de tissu',
       required: true,
       info: 'fabric',
