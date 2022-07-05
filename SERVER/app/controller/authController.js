@@ -17,8 +17,8 @@ const authController = {
                 return next();
             }
 
-            //  Retrieve id and hashed password store in DB
-            const { id, pseudo, password: storedHashedPwd } = getMember;
+            //  Retrieve data stored in DB
+            const { id, pseudo, password: storedHashedPwd, email: emailDB, chest_measurement, waist_measurement, hip_measurement, role, avatar } = getMember;
 
             // Compare stored password with request.body.password
             const validPwd = await checkingPassword.comparePwd(
@@ -36,6 +36,12 @@ const authController = {
             response.status(200).json({
                 id,
                 pseudo,
+                email: emailDB,
+                chest_measurement,
+                waist_measurement,
+                hip_measurement,
+                role,
+                avatar,
                 memberToken: jwt.sign(
                     {
                         memberId: id,
