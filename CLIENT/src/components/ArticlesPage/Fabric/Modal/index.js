@@ -5,7 +5,7 @@ import { Background,
          ModalWrapper,
          ModalContent,
          CloseModalButton
-} from './Modal.style';
+} from './style';
 import { FabricForm } from '../Form';
 
 

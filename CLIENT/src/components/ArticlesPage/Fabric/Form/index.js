@@ -22,16 +22,40 @@ export function FabricForm({ setShowModal, showModal }) {
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
   const fabrics = persistedReducer.fabrics;
-  const [addOneFabric, { data, error, isLoading, isSuccess }] = useAddOneFabricMutation(auth.id);
+  const [addOneFabric, { data, error, isLoading, isSuccess, isError }] = useAddOneFabricMutation(auth.id);
 
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(addFabric(data.savedFabric));
       navigate('/tissus');
-      ;
+      toast.success('Tissu ajouté avec succès 🎉', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        role: "alert"
+      });
+
     };
-  }, [data]);
+    if (error) {
+      toast.error("Oups, le tissu ne s'est pas ajouté", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        role: "alert"
+      });
+    }
+  }, [data, error, isError]);
 
   const [values, setValues] = useState({
     photo: '',
@@ -51,6 +75,7 @@ export function FabricForm({ setShowModal, showModal }) {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
+  const [isVerif, setIsVerif] = useState(false);
 
 
   useEffect(() => {
@@ -102,19 +127,25 @@ export function FabricForm({ setShowModal, showModal }) {
     event.preventDefault();
     const valuesToSend = values;
     valuesToSend.photo = photoURL;
-    await addOneFabric({ memberId: auth.id, body: valuesToSend });
-    setShowModal(prev => !prev)
-    toast.success('Tissu ajouté avec succès 🎉', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme:"colored",
-      role:"alert"
-      }); 
+    if (valuesToSend.name != "" &&
+      valuesToSend.photo != undefined &&
+      valuesToSend.website != "" &&
+      valuesToSend.designer != "" &&
+      valuesToSend.color != "" &&
+      valuesToSend.fabric != "" &&
+      valuesToSend.weight != "" &&
+      valuesToSend.quantity != "" &&
+      valuesToSend.width != "" &&
+      valuesToSend.price != "") {
+      await addOneFabric({ memberId: auth.id, body: valuesToSend });
+      setShowModal(prev => !prev)
+    } else {
+      fabricInputs.map((input) => {
+        if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
+          setIsVerif(true);
+        }
+      })
+    }
 
 
   };
@@ -133,43 +164,44 @@ export function FabricForm({ setShowModal, showModal }) {
   };
 
   return (
-    <>     
-        <FormContainer
-          onSubmit={handleSubmit}
-        >
-          <InputContainer>
-            {values.photo ?
-              <FabricPicture src={preview} alt="default fabric picture" />
-              :
-              <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
-            }
-            {fabricInputs.map((input) => (
-              input.type === "select" ? (
-                <FormInput
+    <>
+      <FormContainer
+      >
+        <InputContainer>
+          {values.photo ?
+            <FabricPicture src={preview} alt="default fabric picture" />
+            :
+            <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
+          }
+          {fabricInputs.map((input) => (
+            input.type === "select" ? (
+              <FormInput
                 key={input.id}
                 {...input}
                 onChange={onChange}
                 value={values[input.name]}
                 options={input.optionsList}
+                isVerif={isVerif}
               />
-               
-              ) : 
+
+            ) :
               <FormInput
                 key={input.id}
                 {...input}
                 onChange={onChange}
                 options={input.optionsList}
+                isVerif={isVerif}
               />
-              
-            ))}
-          </InputContainer>
-          <ButtonForm
-            type='submit'
-            onClick={handleSubmit}
-          >
-            Enregister
-          </ButtonForm>
-        </FormContainer>
+
+          ))}
+        </InputContainer>
+        <ButtonForm
+          type='submit'
+          onClick={handleSubmit}
+        >
+          Enregister
+        </ButtonForm>
+      </FormContainer>
 
     </>
 

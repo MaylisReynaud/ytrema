@@ -4,9 +4,11 @@ import { DeviceSize } from '../Navbar/Responsive';
 import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
 import { Link } from 'react-router-dom';
-import { SearchOff } from '@styled-icons/material-twotone'
-import { CollectionsAdd } from '@styled-icons/fluentui-system-filled'
-import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular'
+import { SearchOff } from '@styled-icons/material-twotone';
+import { CollectionsAdd } from '@styled-icons/fluentui-system-filled';
+import { ArrowCurveUpLeft } from '@styled-icons/fluentui-system-regular';
+import { Arrow90degLeft } from '@styled-icons/bootstrap';
+import { Login } from '@styled-icons/entypo';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -37,15 +39,15 @@ export const DesktopContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    height: 78vh;
+    height: 70vh;
+    /* height: 74vh; */
     width:100%;
     overflow-y:hidden;
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
-        height:100%;
-
-        
+        margin-bottom:3.5em;
+        height:100%;        
   }
 `;
 
@@ -99,6 +101,11 @@ export const EraseFiltersSelectionButton = styled(motion.button)`
   border: 2px solid ${props => props.theme.color2};
   transition: 1s box-shadow;
   cursor: pointer;
+  @media screen and (min-width:601px) { 
+    margin-top: 1em;
+    width:100%;
+    padding: 0.5rem 1.2rem;
+  }
 
 `;
 
@@ -205,13 +212,34 @@ export const buttonVariants = {
     height: 13em;
     color: ${props => props.theme.color1};
     margin-top: 2em;
+    @media screen and (min-width:601px) { 
+      height: 30em;
+  }
   `;
 
   export const ArrowCurve = styled(ArrowCurveUpLeft)`
     height: 13em;
     color: ${props => props.theme.color1};
-  
+    @media screen and (min-width:601px) { 
+    height: 60em;
+  }
   `;
+
+export const DesktopArrowCurve = styled(Arrow90degLeft)`
+color: ${props => props.theme.color1};
+@media screen and (min-width:601px) { 
+height: 13em;
+}
+`;
+
+export const NoResultsContainer = styled.h3`
+  
+  @media screen and (min-width:601px) { 
+    display: flex;
+    flex-direction: column;
+  }
+  `;
+
   export const IconsContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -219,12 +247,15 @@ export const buttonVariants = {
     align-items: center;
     height: 10em;
     margin: 0 4em;
+    @media screen and (min-width:601px) { 
+    height: 20em;
+    margin-top: 1em;
+    flex-direction: column;
+  }
   `;
 
   export const NoResultsText = styled.h3`
   text-align: center;
-  /* display: flex;
-  align-items: center; */
   width:100%;
   font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color3};
@@ -251,7 +282,7 @@ export const CardsContainer = styled.div`
     margin-bottom:1.5em;
    
     @media screen and (min-width:601px) { 
-      height:95vh;
+      height:100%;
 
     }
   `;
@@ -312,17 +343,10 @@ export const CardText = styled.h3`
 export const FilterContainer = styled.div`
   width: 100%;
   display: flex;
-  /* flex-grow:1; */
   flex-direction: column;
   flex-shrink:1;
-  /* margin-top: 0.3rem; */
   @media screen and (min-width:601px) { 
     height:100%;
-    /* width: 100%;
-    display: flex;
-    flex-direction: column; */
-    /* overflow-y: visible; */
-    margin-top: 1rem;
     margin-bottom: 1rem;
     
   }
@@ -363,6 +387,18 @@ export const PlusIcon = styled(PlusSm)`
     height: 20px;
     padding: 0;
     z-index: 100;
+`;
+export const ErrorContainer = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 80vh;
+`;
+export const LoginIcon = styled(Login)`
+ width: 10em;
+ color: ${props => props.theme.color1};
 `;
 
 export const ErrorText = styled.h2`
@@ -408,7 +444,7 @@ export const ErrorButton = styled(motion.button)`
     margin-right: 7px;
   };
   @media screen and (min-width:601px) { 
-    width:100%;  
+    width:20%;  
     padding: 0.5rem 1.2rem;
   }
 `;

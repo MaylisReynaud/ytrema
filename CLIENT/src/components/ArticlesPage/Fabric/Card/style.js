@@ -41,10 +41,25 @@ export const CardContainer = styled.div`
 export const UpdatePhotoInput = styled.div`
   height: 15rem;
   margin: 0 1em 1em 1em;
+  @media screen and (min-width: 601px) {
+    display:flex;
+    flex-direction:column;
+    height: 80%;
+    width: 100%;
+  }
 `;
 
 export const UpdateCardContainer = styled.div`
   display: contents;
+  @media screen and (min-width: 601px) {
+    display:flex;
+    flex-direction:column;
+    height:80%;
+    width: 70%;
+  }
+`;
+export const UpdateFileInputContainer = styled.div`
+  margin-left: 1em;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -85,7 +100,7 @@ export const UpdateInformationText = styled.h3`
 export const ReturnArrowContainer = styled.div`
   display: flex;
   @media screen and (min-width: 601px) {
-    margin-top: 0em;
+    margin-top: 1em;
   }
 `;
 
@@ -190,10 +205,10 @@ export const ImageContainer = styled.div`
   flex-direction: column;
   width: 90%;
   height: 15em;
-  
-
   @media screen and (min-width: 601px) {
-    height: 100%;
+    height: 90%;
+    margin-left: 1.3em;
+    margin-bottom: 5em;
   }
 `;
 export const ImageCard = styled.img`
@@ -264,11 +279,7 @@ export const InformationLabel = styled.label`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
 `;
-export const InputMessageHover = styled.div`
-display: flex;
-justify-content: space-between;
-background-color: red;
-`;
+
 export const InformationInput = styled.input`
   display: flex;
   width: 70%;
@@ -331,8 +342,7 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin: 10px 0px;
   @media screen and (min-width: 601px) {
-    width: 70%;
-    margin-left: 3.5rem;
+    width: 100%;
   }
 `;
 
@@ -341,7 +351,12 @@ export const ProjectContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 10rem;
-  margin-bottom: .7em;
+  margin-bottom:1em;
+  @media screen and (min-width: 601px) {
+   margin-bottom:4.6em;
+  }
+
+
 `;
 export const ProjectTitle = styled.h2`
   display: flex;
