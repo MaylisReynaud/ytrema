@@ -1,10 +1,9 @@
 import React from 'react';
 import { Slider } from '../Carousel';
-import { Registrationpage } from '../Registrationpage';
-import { RegisterBox } from '../Registrationpage/RegisterBox';
 import { useMediaQuery } from 'react-responsive';
 import { DeviceSize } from '../Navbar/Responsive';
 import { HomepageContainer } from './style';
+import { Login } from '../Registrationpage/Login';
 
 
 
@@ -15,8 +14,7 @@ export function Homepage (props) {
     return (
         <>
         <HomepageContainer>
-            {isMobile && <Slider />}
-            {isMobile && <RegisterBox />}
+            {isMobile && <Login />}
             {!isMobile && <Slider />}
         </HomepageContainer>
 

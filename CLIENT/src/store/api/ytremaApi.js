@@ -8,15 +8,7 @@ let token = sessionStorage.getItem("token");
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
-  tagTypes: ['Fabric'],
-    // prepareHeaders: (headers) => {
-    //   // By default, if we have a token in the store, let's use that for authenticated requests      
-    //     if (token) {
-    //       headers.set('Authorization', `Bearer ${token}`)
-    //       console.log(headers, 'headers dans login.js')
-    //     }
-    //     return headers;
-    // },
+  tagTypes: ['Fabric', 'Haberdashery', 'Pattern'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {

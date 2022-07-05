@@ -55,7 +55,7 @@ const authDataMapper = {
         
         // Query to get the member info from his email
         const getMemberByEmailQuery = {
-            text: `SELECT "id", "pseudo", "password" FROM "member" WHERE "email" = $1`,
+            text: `SELECT * FROM "member" WHERE "email" = $1`,
             values: [email]
         };
 
