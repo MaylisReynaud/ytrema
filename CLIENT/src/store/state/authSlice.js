@@ -34,7 +34,6 @@ const authSlice = createSlice({
         ...state,
         ...action.payload,
       };
-      newUserData.isLogged = true;
       return {
         ...newUserData
       }

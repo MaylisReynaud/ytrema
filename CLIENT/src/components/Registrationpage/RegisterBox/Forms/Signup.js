@@ -28,8 +28,7 @@ export function SignupForm(props) {
   const [signupUser, { data, isLoading, error, isError, isSuccess }] = useSignupUserMutation();
   useEffect(() => {
     if (isSuccess) {
-      data = data.newMember;
-      dispatch(addUser(data));
+      dispatch(addUser(data.newMember));
       navigate('/connexion');
     };
   }, [data]);
