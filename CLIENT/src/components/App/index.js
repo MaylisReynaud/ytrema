@@ -8,7 +8,8 @@ import { MobileBottomNavLinks } from '../Navbar/MobileBottomNavLinks';
 import { Homepage } from '../Homepage';
 import { Footer } from '../Footer';
 import { AppContainer, MobileAppContainer } from './style';
-import { Registrationpage } from '../Registrationpage';
+import { Login } from '../Registrationpage/Login';
+import { Signup } from '../Registrationpage/Signup';
 import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
@@ -18,6 +19,7 @@ import { NotFound } from '../NotFound';
 import { ToastContainer} from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux";
 import { defaultState } from '../../store/state/authSlice';
+import { LoginForm } from '../Registrationpage/RegisterBox/Forms/LoginForm';
 
 
 
@@ -33,8 +35,7 @@ const App = () => {
   removePersistStore();
 
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-  
-  const isTablet = useMediaQuery({ minWidth: DeviceSize.tablet });
+  const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
  
   return (
     <>
@@ -53,8 +54,8 @@ const App = () => {
       <Navbar/>
             <Routes>
               <Route  path='/' element={<Homepage />} /> 
-              <Route  path='/connexion' element={<Registrationpage />} />
-              <Route  path='/inscription' element={<Registrationpage />} />
+              <Route  path='/connexion' element={<Login />} />
+              <Route  path='/inscription' element={<Signup />} /> 
               <Route  path='/tissus' element={<Fabric />} />
               <Route  path='/tissus/:id' element={<Card /> } />
               <Route  path='/mercerie' element={<Haberdashery />} />
@@ -70,7 +71,7 @@ const App = () => {
               <Route  path='/mentionslegales' element={<Contact />} /> */}
 
             </Routes>
-            {!isMobile && <Footer />}
+            {isDesktop && <Footer />}
 
     </AppContainer>
         
