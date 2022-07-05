@@ -8,7 +8,7 @@ let token = sessionStorage.getItem("token");
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
-  tagTypes: ['Fabric'],
+  tagTypes: ['Fabric', 'Haberdashery', 'Pattern'],
     // prepareHeaders: (headers) => {
     //   // By default, if we have a token in the store, let's use that for authenticated requests      
     //     if (token) {

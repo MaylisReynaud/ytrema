@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    id: null,
-    pseudo:null,
-    memberToken: null,
-    isLogged: false
+  id: null,
+  pseudo: null,
+  memberToken: null,
+  isLogged: false,
+  email: null,
+  chest_measurement: null,
+  waist_measurement: null,
+  hip_measurement: null,
+  role: null,
+  avatar: null
 };
 
 const authSlice = createSlice({
@@ -14,18 +20,32 @@ const authSlice = createSlice({
     setUser: (
       state,
       action) => {
-      state.id = action.payload.id,
-      state.pseudo = action.payload.pseudo,
-      state.memberToken = action.payload.memberToken,
-      state.isLogged = true
+      const userData = {
+        ...state,
+        ...action.payload,
+      };
+      userData.isLogged = true;
+      return {
+        ...userData
+      }
+    },
+    addUser: (state, action) => {
+      const newUserData = {
+        ...state,
+        ...action.payload,
+      };
+      newUserData.isLogged = true;
+      return {
+        ...newUserData
+      }
     },
     defaultState: (state) => {
-     state = initialState;
+      state = initialState;
     }
   },
 });
 
-export const { setUser, defaultState } = authSlice.actions;
+export const { setUser, addUser, defaultState } = authSlice.actions;
 
 export default authSlice.reducer;
 
