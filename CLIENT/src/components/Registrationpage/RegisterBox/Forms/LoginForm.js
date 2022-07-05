@@ -81,7 +81,7 @@ export function LoginForm(props) {
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Vous n'avez pas de compte?{" "}
-        <BoldLink href="#" >
+        <BoldLink href="/inscription" >
           Créer un compte
         </BoldLink>
       </MutedLink>

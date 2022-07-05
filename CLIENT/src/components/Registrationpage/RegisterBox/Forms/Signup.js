@@ -16,7 +16,6 @@ import { useSignupUserMutation } from '../../../../store/api/ytremaApi';
 import { addUser } from '../../../../store/state/authSlice';
 
 export function SignupForm(props) {
-  const { switchToSignin } = useContext(RegisterContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [signupFormState, setSignupFormState] = useState({
@@ -91,7 +90,7 @@ export function SignupForm(props) {
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Déjà inscrit ?
-        <BoldLink href="#" onClick={switchToSignin}>
+        <BoldLink href="/connexion" >
           Se connecter
         </BoldLink>
       </MutedLink>

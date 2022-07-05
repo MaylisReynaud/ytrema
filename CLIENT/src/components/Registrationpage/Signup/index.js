@@ -16,17 +16,17 @@ import {
   InnerContainer,
   backdropVariants,
   expandingTransition,
-  EmojiSunglasses1,
+  EmojiHello,
   backdropVariantsMobile
 } from './style';
 import Typed from 'typed.js';
 import { useMediaQuery } from 'react-responsive';
-import { LoginForm } from '../RegisterBox/Forms/LoginForm';
+import { SignupForm } from '../RegisterBox/Forms/Signup';
 import { DeviceSize } from '../../Navbar/Responsive';
 import { Slider } from '../../Carousel';
 import ImgCouture from '../../../assets/images/registration-couture.jpg';
 
-export function Login() {
+export function Signup() {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
   const word = useRef(null);
@@ -65,18 +65,13 @@ export function Login() {
               />
 
               <HeaderContainer>
-                <HeaderText>
-                  Bonjour
-                  <EmojiSunglasses1 />
-                </HeaderText>
-
-                <SmallText>Content de vous revoir! </SmallText>
-                <SmallText> Connectez-vous pour accéder au contenu.</SmallText>
+                <HeaderText>Créez votre compte</HeaderText>
+                <EmojiHello />
+                <SmallText>Bienvenue sur ÿ tréma </SmallText>
               </HeaderContainer>
-
             </TopContainer>
             <InnerContainer>
-              <LoginForm />
+              <SignupForm />
             </InnerContainer>
           </BoxContainer>
         </>
@@ -102,15 +97,13 @@ export function Login() {
                 />
 
                 <HeaderContainer>
-                  <HeaderText>Bonjour !</HeaderText>
-                  <EmojiSunglasses1 />
-                  <SmallText>Content de vous revoir! </SmallText>
-                  <SmallText> Connectez-vous pour accéder au contenu.</SmallText>
+                  <HeaderText>Créez votre compte</HeaderText>
+                  <EmojiHello />
+                  <SmallText>Bienvenue sur ÿ tréma </SmallText>
                 </HeaderContainer>
-
               </TopContainer>
               <InnerContainer>
-                <LoginForm />
+                <SignupForm />
               </InnerContainer>
             </BoxContainer>
           </RegistrationContainer>

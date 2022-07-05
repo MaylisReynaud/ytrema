@@ -9,6 +9,7 @@ import { Homepage } from '../Homepage';
 import { Footer } from '../Footer';
 import { AppContainer, MobileAppContainer } from './style';
 import { Login } from '../Registrationpage/Login';
+import { Signup } from '../Registrationpage/Signup';
 import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
@@ -54,7 +55,7 @@ const App = () => {
             <Routes>
               <Route  path='/' element={<Homepage />} /> 
               <Route  path='/connexion' element={<Login />} />
-              <Route  path='/inscription' element={<LoginForm />} /> 
+              <Route  path='/inscription' element={<Signup />} /> 
               <Route  path='/tissus' element={<Fabric />} />
               <Route  path='/tissus/:id' element={<Card /> } />
               <Route  path='/mercerie' element={<Haberdashery />} />
