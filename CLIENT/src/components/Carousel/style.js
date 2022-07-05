@@ -9,10 +9,12 @@ export const Slide = styled.div`
 
 export const SlideImg = styled.img`
     /* height:100%; */
-    @media screen and (max-width:600px) { 
+    object-fit:cover;
+    height: 35vh;
+    @media screen and (min-width:600px) { 
         /* width: 100vw ; */
-        /* height: 35vh; */
-        object-fit:cover;
+        height: 100vh;
+        
   }
 `;
 

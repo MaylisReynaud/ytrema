@@ -16,8 +16,7 @@ export function Logout({ showBurgerMenu, toggleBurgerMenu }) {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-
-  const isDesktop = useMediaQuery({ minWidth: DeviceSize.desktop });
+  const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
 
 
 
@@ -52,8 +51,11 @@ export function Logout({ showBurgerMenu, toggleBurgerMenu }) {
             whileHover='hover'
             whileTap='tap'
             onClick={() => {
+              console.log('coucou dans onClick debut');
               removePersistStore();
+              console.log('coucou dans onClick milieu');
               navigate('/');
+              console.log('coucou dans onClick fin');
             }}
           >
             Se déconnecter
