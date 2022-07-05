@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useSigninUserMutation} from '../../../../store/api/ytremaApi';
 import { setUser } from '../../../../store/state/authSlice';
 
-
 import {
   BoldLink,
   BoxContainer,
@@ -15,7 +14,6 @@ import {
   buttonVariants
 } from './style';
 import { Marginer } from '../Marginer';
-import { RegisterContext } from '../registerContext';
 
 export function LoginForm(props) {
   const dispatch = useDispatch();
@@ -35,7 +33,7 @@ export function LoginForm(props) {
     }, [data]);
   
 
-  const { switchToSignup } = useContext(RegisterContext);
+  //  const { switchToSignup } = useContext(RegisterContext);
 
   const handleChange = (event) => {
     event.persist();
@@ -83,7 +81,7 @@ export function LoginForm(props) {
       <Marginer direction="vertical" margin="1em" />
       <MutedLink href="#">
         Vous n'avez pas de compte?{" "}
-        <BoldLink href="#" onClick={switchToSignup}>
+        <BoldLink href="#" >
           Créer un compte
         </BoldLink>
       </MutedLink>
