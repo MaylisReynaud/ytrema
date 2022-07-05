@@ -7,16 +7,8 @@ let token = sessionStorage.getItem("token");
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
   tagTypes: ['Fabric', 'Haberdashery', 'Pattern'],
-    // prepareHeaders: (headers) => {
-    //   // By default, if we have a token in the store, let's use that for authenticated requests      
-    //     if (token) {
-    //       headers.set('Authorization', `Bearer ${token}`)
-    //       console.log(headers, 'headers dans login.js')
-    //     }
-    //     return headers;
-    // },
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {
