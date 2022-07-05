@@ -33,8 +33,8 @@ export const fabricSlice = createSlice({
         return fabric.id !== action.payload;
       });
     },
-    defaultState: (state) => {
-      state.value = initialState
+    fabricsDefaultState: (state) => {
+      state = initialState;
     }
   },
 });
@@ -44,7 +44,7 @@ export const {
   addFabric,
   updateFabric,
   deleteFabric,
-  defaultState,
+  fabricsDefaultState,
 } = fabricSlice.actions;
 
 export default fabricSlice.reducer;
