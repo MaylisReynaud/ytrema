@@ -5,31 +5,31 @@ import {
   FormContainer,
   ButtonForm,
   InputContainer,
-  DefaultFabricPicture,
-  FabricPicture
+  DefaultArticlePicture,
+  ArticlePicture
 } from './style';
 import FormInput from '../Input';
 import YtremaLogo from '../../../../../src/assets/images/logo.png';
-import { fabricInputs } from '../../../../utils/fabricInputs';
+import { haberdasheryInputs } from '../../../../utils/haberdasheryInputs';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFabric } from "../../../../store/state/fabricSlice";
+import { addHaberdashery } from "../../../../store/state/haberdasherySlice";
 import { useNavigate } from 'react-router-dom';
-import { useAddOneFabricMutation } from "../../../../../src/store/api/ytremaApi";
+import { useAddOneHaberdasheryMutation } from "../../../../../src/store/api/ytremaApi";
 
-export function FabricForm({ setShowModal, showModal }) {
+function HaberdasheryForm({ setShowModal, showModal }) {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
-  const fabrics = persistedReducer.fabrics;
-  const [addOneFabric, { data, error, isLoading, isSuccess, isError }] = useAddOneFabricMutation(auth.id);
+  const haberdasheries = persistedReducer.haberdasheries;
+  const [addOneHaberdashery, { data, error, isLoading, isSuccess, isError }] = useAddOneHaberdasheryMutation(auth.id);
 
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(addFabric(data.savedFabric));
-      navigate('/tissus');
-      toast.success('Tissu ajouté avec succès 🎉', {
+      dispatch(addHaberdashery(data.savedHaberdashery));
+      navigate('/mercerie');
+      toast.success('Article de mercerie ajouté avec succès 🎉', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -43,7 +43,7 @@ export function FabricForm({ setShowModal, showModal }) {
 
     };
     if (error) {
-      toast.error("Oups, le tissu ne s'est pas ajouté", {
+      toast.error("Oups, l'article de mercerie ne s'est pas ajouté", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -61,14 +61,13 @@ export function FabricForm({ setShowModal, showModal }) {
     photo: '',
     name: '',
     website: '',
-    designer: '',
+    size: '',
     color: '',
     precise_color: '',
-    fabric: '',
-    composition: '',
-    weight: '',
+    haberdashery: '',
+    is_cut: '',
     quantity: '',
-    width: '',
+    unity: '',
     price: '',
   });
 
@@ -130,27 +129,23 @@ export function FabricForm({ setShowModal, showModal }) {
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
-      valuesToSend.designer != "" &&
+      valuesToSend.size != "" &&
       valuesToSend.color != "" &&
-      valuesToSend.fabric != "" &&
-      valuesToSend.weight != "" &&
+      valuesToSend.haberdashery != "" &&
       valuesToSend.quantity != "" &&
-      valuesToSend.width != "" &&
+      valuesToSend.unity != "" &&
+      valuesToSend.is_cut != "" &&
       valuesToSend.price != "") {
-      await addOneFabric({ memberId: auth.id, body: valuesToSend });
+      await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
-      fabricInputs.map((input) => {
+      haberdasheryInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           setIsVerif(true);
         }
       })
     }
-
-
   };
-
-
 
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -165,15 +160,14 @@ export function FabricForm({ setShowModal, showModal }) {
 
   return (
     <>
-      <FormContainer
-      >
+      <FormContainer>
         <InputContainer>
           {values.photo ?
-            <FabricPicture src={preview} alt="default fabric picture" />
+            <ArticlePicture src={preview} alt="default haberdashery picture" />
             :
-            <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
+            <DefaultArticlePicture src={YtremaLogo} alt="default haberdashery picture" />
           }
-          {fabricInputs.map((input) => (
+          {haberdasheryInputs.map((input) => (
             input.type === "select" ? (
               <FormInput
                 key={input.id}
@@ -207,3 +201,5 @@ export function FabricForm({ setShowModal, showModal }) {
 
   )
 };
+
+export default HaberdasheryForm;

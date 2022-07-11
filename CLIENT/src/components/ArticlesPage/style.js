@@ -208,7 +208,7 @@ export const buttonVariants = {
     color: ${props => props.theme.color1};
   `;
 
-  export const NoFabric = styled(CollectionsAdd)`
+  export const NoArticle = styled(CollectionsAdd)`
     height: 13em;
     color: ${props => props.theme.color1};
     margin-top: 2em;
@@ -232,7 +232,7 @@ height: 13em;
 }
 `;
 
-export const NoResultsContainer = styled.h3`
+export const NoResultsContainer = styled.div`
   
   @media screen and (min-width:601px) { 
     display: flex;
