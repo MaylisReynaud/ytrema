@@ -16,7 +16,7 @@ export const haberdasherySlice = createSlice({
     },
     updateHaberdashery: (state, action) => {
       state.value = state.value.map((haberdashery) => {
-        if (fabric.id === action.payload.id) {
+        if (haberdashery.id === action.payload.id) {
           return {
             ...haberdashery,
             ...action.payload,
