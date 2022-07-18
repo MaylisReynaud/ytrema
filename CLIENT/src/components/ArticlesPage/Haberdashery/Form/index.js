@@ -134,14 +134,12 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const valuesToSend = values;
-    let trueBoolValueIsCut = values.is_cut.toString().toLowerCase() == 'oui' ? true : false;
-    let falseBoolValueIsCut = values.is_cut.toString().toLowerCase() == 'non' ? false : true;
-    const boolValueIsCut = trueBoolValueIsCut || falseBoolValueIsCut;
+    const boolValueIsCut = values.is_cut == 'oui' ? true : false;
     valuesToSend.is_cut = boolValueIsCut;
     valuesToSend.photo = photoURL;
   
 
-console.log(valuesToSend, 'ici values to send après if')
+console.log(valuesToSend.is_cut, 'ici values to send après if')
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
@@ -152,9 +150,12 @@ console.log(valuesToSend, 'ici values to send après if')
       valuesToSend.unity != "" &&
       valuesToSend.is_cut != "" &&
       valuesToSend.price != "") {
+        console.log(valuesToSend, 'avant await ');
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
+      console.log(valuesToSend, 'après await ');
       setShowModal(prev => !prev)
     } else {
+      console.log(valuesToSend,'dans le else')
       haberdasheryInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           setIsVerif(true);

@@ -55,7 +55,7 @@ import {
 import { MessageHover } from "./MessageHover";
 import { DeleteFabricModal } from "./DeleteModal";
 
-export const Card = (fabric, isOpenModal, setShowModal, showModal) => {
+export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });

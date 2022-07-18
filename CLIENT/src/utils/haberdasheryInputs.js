@@ -92,7 +92,7 @@ export const haberdasheryInputs = [
       label:"Quantité au mètre ou à l'unité",
       min: 0,
       max: 1000,
-      pattern: '^1[0]?$|^[2-9]{1}[0]{1,3}$|^[1-9]{2}[0]{1}$|^(1000)$',
+      //pattern: '^1[0]?$|^[2-9]{1}[0]{1,3}$|^[1-9]{2}[0]{1}$|^(1000)$',
       errorMessage:'entrez un nombre entre 1 et 1000 avec des étapes de 10',
       required: true,
       info: 'quantity',

@@ -54,7 +54,7 @@ import {
 import { MessageHover } from "./MessageHover";
 import { DeleteHaberdasheryModal } from "./DeleteModal";
 
-export const Card = (haberdashery, isOpenModal, setShowModal, showModal) => {
+export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
