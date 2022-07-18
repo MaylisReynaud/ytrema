@@ -5,8 +5,8 @@ import {
   FormContainer,
   ButtonForm,
   InputContainer,
-  DefaultFabricPicture,
-  FabricPicture
+  DefaultArticlePicture,
+  ArticlePicture
 } from './style';
 import FormInput from '../Input';
 import YtremaLogo from '../../../../../src/assets/images/logo.png';
@@ -169,9 +169,9 @@ export function FabricForm({ setShowModal, showModal }) {
       >
         <InputContainer>
           {values.photo ?
-            <FabricPicture src={preview} alt="default fabric picture" />
+            <ArticlePicture src={preview} alt="default fabric picture" />
             :
-            <DefaultFabricPicture src={YtremaLogo} alt="default fabric picture" />
+            <DefaultArticlePicture src={YtremaLogo} alt="default fabric picture" />
           }
           {fabricInputs.map((input) => (
             input.type === "select" ? (

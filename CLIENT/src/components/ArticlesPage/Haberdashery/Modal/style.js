@@ -56,6 +56,7 @@ export const ModalContent = styled.div`
     color: ${props => props.theme.color5};
     overflow: hidden;
     height:86vh;
+    
 
     h1 {
         font-family: '${props => props.theme.titleFont}';
@@ -63,11 +64,15 @@ export const ModalContent = styled.div`
         margin-right: 1.5rem;
         font-size: 1.5rem;
         color: ${props => props.theme.color3};
+        text-align: center;
+        @media screen and (min-width:601px) { 
+            margin-bottom: 1em;
+        }
     }
     @media screen and (min-width:601px) { 
         height:92%;
         width: 90%;
-
+        margin-top: 1.5em;
   }
 `;
 

@@ -44,10 +44,11 @@ import { FilterChoices } from "./FilterChoices";
 import { filterHaberdashery } from "../../../../src/utils/filterHaberdashery";
 import { FiltersCards } from "../../../../src/utils/flexFilter";
 import { useSelector, useDispatch } from "react-redux";
-import { addAllHaberdashereries } from "../../../store/state/haberdasherySlice";
+import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
 import { useGetAllHaberdasheriesQuery } from "../../../../src/store/api/ytremaApi";
+import { render } from "react-dom";
 
-export function Haberdashery(props, index) {
+export const Haberdashery = (props, index) => {
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ export function Haberdashery(props, index) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      dispatch(addAllHaberdashereries(data.haberdasheries));
+      dispatch(addAllHaberdasheries(data.haberdasheries));
     }
   }, [data, haberdasheries]);
 

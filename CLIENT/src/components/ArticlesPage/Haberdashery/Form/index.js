@@ -16,7 +16,7 @@ import { addHaberdashery } from "../../../../store/state/haberdasherySlice";
 import { useNavigate } from 'react-router-dom';
 import { useAddOneHaberdasheryMutation } from "../../../../../src/store/api/ytremaApi";
 
-function HaberdasheryForm({ setShowModal, showModal }) {
+export function HaberdasheryForm({ setShowModal, showModal }) {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { persistedReducer } = useSelector((state) => state);
@@ -121,11 +121,27 @@ function HaberdasheryForm({ setShowModal, showModal }) {
       }
     );
   };
-
+  const onChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+    //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
+    if (event.target.name === 'photo') {
+      onSelectFile(event);
+      if (!event.target.files || event.target.files.length > 0) {
+        handleUpload(event.target.files[0]);
+      }
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     const valuesToSend = values;
+    let trueBoolValueIsCut = values.is_cut.toString().toLowerCase() == 'oui' ? true : false;
+    let falseBoolValueIsCut = values.is_cut.toString().toLowerCase() == 'non' ? false : true;
+    const boolValueIsCut = trueBoolValueIsCut || falseBoolValueIsCut;
+    valuesToSend.is_cut = boolValueIsCut;
     valuesToSend.photo = photoURL;
+  
+
+console.log(valuesToSend, 'ici values to send après if')
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
@@ -147,16 +163,7 @@ function HaberdasheryForm({ setShowModal, showModal }) {
     }
   };
 
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-    //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
-    if (event.target.name === 'photo') {
-      onSelectFile(event);
-      if (!event.target.files || event.target.files.length > 0) {
-        handleUpload(event.target.files[0]);
-      }
-    }
-  };
+
 
   return (
     <>
@@ -202,4 +209,4 @@ function HaberdasheryForm({ setShowModal, showModal }) {
   )
 };
 
-export default HaberdasheryForm;
+// export default HaberdasheryForm;

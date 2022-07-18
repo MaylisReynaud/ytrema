@@ -44,7 +44,7 @@ export const HaberdasheryModal = ({showModal, setShowModal}) => {
                     showModal={showModal}
                 >
                     <ModalContent>
-                        <h1>J'ENREGISTRE MON TISSU</h1>
+                        <h1>J'ENREGISTRE MA MERCERIE</h1>
                         <HaberdasheryForm 
                             setShowModal={setShowModal}
                             showModal={showModal}
@@ -62,5 +62,5 @@ export const HaberdasheryModal = ({showModal, setShowModal}) => {
     </>
   )
 };
-//  default HaberdasheryModal;
+// export default HaberdasheryModal;
 

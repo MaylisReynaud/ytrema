@@ -17,7 +17,7 @@ import {
 
 
 
-export const DeleteHaberdasheryModal = ({ showDeleteModal, setShowDeleteModal, deleteCard }) => {
+export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteCard }) => {
     const deleteModalRef = useRef();
     const closeDeleteModal = () => {
             setShowDeleteModal(false);
