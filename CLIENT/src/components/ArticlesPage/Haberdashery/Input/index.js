@@ -20,13 +20,15 @@ function FormInput(props) {
     pattern,
     required,
     isVerif,
+    isVerifInput,
     ...inputProps
   } = props;
- 
+
+
   const [isError, setIsError] = useState(false);
- 
+
   const handleBlur = (event) => {
-  
+
     if (!event.target.value) {
       setIsError(true);
     } else {
@@ -42,10 +44,11 @@ function FormInput(props) {
     }
   };
 
+
   return (
     <>
       <InputContainer>
-      {required ? <LabelForm htmlFor={htmlFor}>{label}*</LabelForm> :  <LabelForm htmlFor={htmlFor}>{label}</LabelForm> }  
+        {required ? <LabelForm htmlFor={htmlFor}>{label}*</LabelForm> : <LabelForm htmlFor={htmlFor}>{label}</LabelForm>}
         {type === "select" ? (
           <SelectForm
             {...inputProps}
@@ -68,12 +71,13 @@ function FormInput(props) {
             onChange={onChange}
             type={type}
             onBlur={handleBlur}
-            className={(id != "6") && (isError || isVerif) && 'input-false'}
+            className={(id != "10") && (isError || isVerif && isVerifInput) && 'input-false'}
             pattern={pattern}
             required={required}
           />
         )}
         {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        {(type == 'select') && (props.value == "") && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
       </InputContainer>
     </>
   );

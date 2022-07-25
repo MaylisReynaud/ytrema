@@ -74,7 +74,9 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
-  const [isVerif, setIsVerif] = useState(false);
+  // const [isVerif, setIsVerif] = useState(false);
+  let isVerif = false ;
+  const [isVerifInput, setIsVerifInput] = useState(false);
 
 
   useEffect(() => {
@@ -134,12 +136,11 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const valuesToSend = values;
-    const boolValueIsCut = values.is_cut == 'oui' ? true : false;
+
+    const boolValueIsCut = (values.is_cut == 'oui') ? true : (values.is_cut == 'non') ? false : "";
     valuesToSend.is_cut = boolValueIsCut;
     valuesToSend.photo = photoURL;
   
-
-console.log(valuesToSend.is_cut, 'ici values to send après if')
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
@@ -148,17 +149,15 @@ console.log(valuesToSend.is_cut, 'ici values to send après if')
       valuesToSend.haberdashery != "" &&
       valuesToSend.quantity != "" &&
       valuesToSend.unity != "" &&
-      valuesToSend.is_cut != "" &&
+      (typeof(valuesToSend.is_cut) == 'boolean') && 
       valuesToSend.price != "") {
-        console.log(valuesToSend, 'avant await ');
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
-      console.log(valuesToSend, 'après await ');
       setShowModal(prev => !prev)
     } else {
-      console.log(valuesToSend,'dans le else')
       haberdasheryInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
-          setIsVerif(true);
+          isVerif = true;
+          setIsVerifInput(true);
         }
       })
     }
@@ -183,7 +182,8 @@ console.log(valuesToSend.is_cut, 'ici values to send après if')
                 onChange={onChange}
                 value={values[input.name]}
                 options={input.optionsList}
-                isVerif={isVerif}
+                isVerif={((input.required && values[input.name] == "") ? true : false)}
+                isVerifInput={isVerifInput}
               />
 
             ) :
@@ -192,7 +192,8 @@ console.log(valuesToSend.is_cut, 'ici values to send après if')
                 {...input}
                 onChange={onChange}
                 options={input.optionsList}
-                isVerif={isVerif}
+                isVerif={((input.required && values[input.name] == "") ? true : false)}
+                isVerifInput={isVerifInput}
               />
 
           ))}
