@@ -31,7 +31,7 @@ import {
   EmptyCardContainer,
   NoResults,
   NoResultsText,
-  NoFabric,
+  NoArticle,
   ArrowCurve,
   IconsContainer,
   NoResultsContainer,
@@ -298,7 +298,7 @@ export function Fabric(props, index) {
             ) : !data ? (
               <>
                 <IconsContainer>
-                  <ArrowCurve /><NoFabric />
+                  <ArrowCurve /><NoArticle />
                 </IconsContainer>
                 <ErrorText>
                   {" "}
@@ -416,7 +416,7 @@ export function Fabric(props, index) {
               ) : !data ? (
                 <NoResultsContainer>
                   <IconsContainer>
-                    <DesktopArrowCurve /><NoFabric />
+                    <DesktopArrowCurve /><NoArticle />
                   </IconsContainer>
                   <ErrorText>
                     {" "}

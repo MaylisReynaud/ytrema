@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from "@reduxjs/toolkit/query";
 import authReducer from './state/authSlice';
 import fabricsReducer from './state/fabricSlice';
+import haberdasheriesReducer from './state/haberdasherySlice';
 import { ytremaApi } from './api/ytremaApi';
 import { combineReducers } from 'redux';
 import {
@@ -18,7 +19,8 @@ import storage from 'redux-persist/lib/storage';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  fabrics: fabricsReducer
+  fabrics: fabricsReducer,
+  haberdasheries: haberdasheriesReducer
 });
 
 export const persistConfig = {

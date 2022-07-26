@@ -14,7 +14,8 @@ import { Fabric } from '../ArticlesPage/Fabric';
 import { Haberdashery } from '../ArticlesPage/Haberdashery';
 import { Pattern } from '../ArticlesPage/Pattern';
 import { Profil } from '../ArticlesPage/Profil';
-import { Card } from '../ArticlesPage/Fabric/Card';
+import { FabricCard } from '../ArticlesPage/Fabric/Card';
+import { HaberdasheryCard } from '../ArticlesPage/Haberdashery/Card';
 import { NotFound } from '../NotFound';
 import { ToastContainer} from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux";
@@ -57,8 +58,9 @@ const App = () => {
               <Route  path='/connexion' element={<Login />} />
               <Route  path='/inscription' element={<Signup />} /> 
               <Route  path='/tissus' element={<Fabric />} />
-              <Route  path='/tissus/:id' element={<Card /> } />
+              <Route  path='/tissus/:id' element={<FabricCard /> } />
               <Route  path='/mercerie' element={<Haberdashery />} />
+              <Route  path='/mercerie/:id' element={<HaberdasheryCard /> } />
               <Route  path='/patrons' element={<Pattern />} />
               <Route  path='/profil' element={<Profil />} />
               <Route  path='*' element={<NotFound />} />
