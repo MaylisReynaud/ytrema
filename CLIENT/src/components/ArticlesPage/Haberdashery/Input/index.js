@@ -61,7 +61,8 @@ function FormInput(props) {
             <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>
             {options.sort().map((option, index) => (
               <option key={index} value={option}>
-                {option}
+                {/* {option}                 */}
+                tata
               </option>
             ))}
           </SelectForm>

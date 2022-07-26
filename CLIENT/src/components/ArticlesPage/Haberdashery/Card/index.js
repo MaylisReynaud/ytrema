@@ -327,34 +327,22 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             id={input.htmlFor}
                             defaultValue={values[input.info]}
                           >
-                            {/* {input.id == 5 ? (
-                              input.optionsList.sort().map((option, index) =>
-                                option === values[input.info] ? (
-                                  <option key={index} value={option == true ? 'oui' : 'non'}>
-                                    {option}
-                                  </option>
-                                ) : (
-                                  <option key={index} value={option}>
-                                    {option}
-                                  </option>
-                                )
+                           
+                           {input.optionsList.sort().map((option, index) =>
+                           
+                              option == values[input.info] ? (
+                                <option key={index} value={option}>
+                                  {option}
+                                  {console.log(option, values[input.info], 'option1')}
+                                </option>
+                              ) : (
+                                <option key={index} value={option}>
+                                  {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
+                                  
+                                  {console.log(option, values[input.info], 'option2')}
+                                </option>
                               )
-                            ) : */}
-                              {input.optionsList.sort().map((option, index) =>
-                                option === values[input.info] ? (
-                                  <option key={index} value={option}>
-                                    {option}
-                                  </option>
-                                ) : (
-                                  <option key={index} value={option}>
-                                    {option}
-                                  </option>
-                                )
-                              )
-
-                              
-                              
-                            }
+                           )}
                           </InformationSelect>
                         )}
                       </InformationContent>
