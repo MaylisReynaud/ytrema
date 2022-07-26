@@ -18,5 +18,25 @@
         "hip_measurement": 100,
         "role": 1,
         "avatar": "link basic avatar"
+    },
+    {
+        "pseudo": "test",
+        "email": "test@ytrema.fr",
+        "password": 3,
+        "chest_measurement": 90,
+        "waist_measurement": 75,
+        "hip_measurement": 100,
+        "role": 1,
+        "avatar": "link basic avatar"
+    },
+    {
+        "pseudo": "test-online",
+        "email": "test-online@ytrema.fr",
+        "password": 4,
+        "chest_measurement": 90,
+        "waist_measurement": 75,
+        "hip_measurement": 100,
+        "role": 1,
+        "avatar": "link basic avatar"
     }
 ]

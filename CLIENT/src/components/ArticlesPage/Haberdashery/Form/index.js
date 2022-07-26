@@ -10,26 +10,26 @@ import {
 } from './style';
 import FormInput from '../Input';
 import YtremaLogo from '../../../../../src/assets/images/logo.png';
-import { fabricInputs } from '../../../../utils/fabricInputs';
+import { haberdasheryInputs } from '../../../../utils/haberdasheryInputs';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFabric } from "../../../../store/state/fabricSlice";
+import { addHaberdashery } from "../../../../store/state/haberdasherySlice";
 import { useNavigate } from 'react-router-dom';
-import { useAddOneFabricMutation } from "../../../../../src/store/api/ytremaApi";
+import { useAddOneHaberdasheryMutation } from "../../../../../src/store/api/ytremaApi";
 
-export function FabricForm({ setShowModal, showModal }) {
+export function HaberdasheryForm({ setShowModal, showModal }) {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
-  const fabrics = persistedReducer.fabrics;
-  const [addOneFabric, { data, error, isLoading, isSuccess, isError }] = useAddOneFabricMutation(auth.id);
+  const haberdasheries = persistedReducer.haberdasheries;
+  const [addOneHaberdashery, { data, error, isLoading, isSuccess, isError }] = useAddOneHaberdasheryMutation(auth.id);
 
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(addFabric(data.savedFabric));
-      navigate('/tissus');
-      toast.success('Tissu ajouté avec succès 🎉', {
+      dispatch(addHaberdashery(data.savedHaberdashery));
+      navigate('/mercerie');
+      toast.success('Article de mercerie ajouté avec succès 🎉', {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -43,7 +43,7 @@ export function FabricForm({ setShowModal, showModal }) {
 
     };
     if (error) {
-      toast.error("Oups, le tissu ne s'est pas ajouté", {
+      toast.error("Oups, l'article de mercerie ne s'est pas ajouté", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -61,21 +61,22 @@ export function FabricForm({ setShowModal, showModal }) {
     photo: '',
     name: '',
     website: '',
-    designer: '',
+    size: '',
     color: '',
     precise_color: '',
-    fabric: '',
-    composition: '',
-    weight: '',
+    haberdashery: '',
+    is_cut: '',
     quantity: '',
-    width: '',
+    unity: '',
     price: '',
   });
 
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
-  const [isVerif, setIsVerif] = useState(false);
+  // const [isVerif, setIsVerif] = useState(false);
+  let isVerif = false ;
+  const [isVerifInput, setIsVerifInput] = useState(false);
 
 
   useEffect(() => {
@@ -122,36 +123,6 @@ export function FabricForm({ setShowModal, showModal }) {
       }
     );
   };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const valuesToSend = values;
-    valuesToSend.photo = photoURL;
-    if (valuesToSend.name != "" &&
-      valuesToSend.photo != undefined &&
-      valuesToSend.website != "" &&
-      valuesToSend.designer != "" &&
-      valuesToSend.color != "" &&
-      valuesToSend.fabric != "" &&
-      valuesToSend.weight != "" &&
-      valuesToSend.quantity != "" &&
-      valuesToSend.width != "" &&
-      valuesToSend.price != "") {
-      await addOneFabric({ memberId: auth.id, body: valuesToSend });
-      setShowModal(prev => !prev)
-    } else {
-      fabricInputs.map((input) => {
-        if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
-          setIsVerif(true);
-        }
-      })
-    }
-
-
-  };
-
-
-
   const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
     //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
@@ -162,18 +133,50 @@ export function FabricForm({ setShowModal, showModal }) {
       }
     }
   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const valuesToSend = values;
+
+    // const boolValueIsCut = (values.is_cut == 'oui') ? true : (values.is_cut == 'non') ? false : "";
+    // valuesToSend.is_cut = boolValueIsCut;
+    valuesToSend.photo = photoURL;
+    console.log(valuesToSend, 'values to send dans submit');
+    if (valuesToSend.name != "" &&
+      valuesToSend.photo != undefined &&
+      valuesToSend.website != "" &&
+      valuesToSend.size != "" &&
+      valuesToSend.color != "" &&
+      valuesToSend.haberdashery != "" &&
+      valuesToSend.quantity != "" &&
+      valuesToSend.unity != "" &&
+      valuesToSend.is_cut != "" &&
+      // (typeof(valuesToSend.is_cut) == 'boolean') && 
+      valuesToSend.price != "") {
+        console.log('avant await');
+      await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
+      setShowModal(prev => !prev)
+    } else {
+      haberdasheryInputs.map((input) => {
+        if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
+          isVerif = true;
+          setIsVerifInput(true);
+        }
+      })
+    }
+  };
+
+
 
   return (
     <>
-      <FormContainer
-      >
+      <FormContainer>
         <InputContainer>
           {values.photo ?
-            <ArticlePicture src={preview} alt="default fabric picture" />
+            <ArticlePicture src={preview} alt="default haberdashery picture" />
             :
-            <DefaultArticlePicture src={YtremaLogo} alt="default fabric picture" />
+            <DefaultArticlePicture src={YtremaLogo} alt="default haberdashery picture" />
           }
-          {fabricInputs.map((input) => (
+          {haberdasheryInputs.map((input) => (
             input.type === "select" ? (
               <FormInput
                 key={input.id}
@@ -181,7 +184,8 @@ export function FabricForm({ setShowModal, showModal }) {
                 onChange={onChange}
                 value={values[input.name]}
                 options={input.optionsList}
-                isVerif={isVerif}
+                isVerif={((input.required && values[input.name] == "") ? true : false)}
+                isVerifInput={isVerifInput}
               />
 
             ) :
@@ -190,7 +194,8 @@ export function FabricForm({ setShowModal, showModal }) {
                 {...input}
                 onChange={onChange}
                 options={input.optionsList}
-                isVerif={isVerif}
+                isVerif={((input.required && values[input.name] == "") ? true : false)}
+                isVerifInput={isVerifInput}
               />
 
           ))}
@@ -207,3 +212,5 @@ export function FabricForm({ setShowModal, showModal }) {
 
   )
 };
+
+// export default HaberdasheryForm;

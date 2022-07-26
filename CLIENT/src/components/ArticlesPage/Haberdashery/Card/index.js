@@ -3,12 +3,12 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   CardContainer,
   CardTitle,
-  DesignerTitle,
+  SizeTitle,
   TrashButton,
   ButtonsContainer,
   ReturnArrowContainer,
@@ -41,21 +41,20 @@ import {
   UpdateFileInputContainer,
 
 } from "./style";
-import { fabricData } from "../../../../utils/fabricData";
-import { fabricInputs } from "../../../../utils/fabricInputs";
+import { haberdasheryInputs } from "../../../../utils/haberdasheryInputs";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  useDeleteOneFabricMutation,
-  useUpdateOneFabricMutation,
+  useDeleteOneHaberdasheryMutation,
+  useUpdateOneHaberdasheryMutation,
 } from "../../../../../src/store/api/ytremaApi";
 import {
-  updateFabric,
-  deleteFabric,
-} from "../../../../store/state/fabricSlice";
+  updateHaberdashery,
+  deleteHaberdashery,
+} from "../../../../store/state/haberdasherySlice";
 import { MessageHover } from "./MessageHover";
-import { DeleteFabricModal } from "./DeleteModal";
+import { DeleteHaberdasheryModal } from "./DeleteModal";
 
-export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
+export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
   const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -65,11 +64,11 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   const dispatch = useDispatch();
   const { persistedReducer } = useSelector((state) => state);
   const auth = persistedReducer.auth;
-  const fabrics = persistedReducer.fabrics;
-  const fabricCard = fabrics.value.find((fabric) => fabric.id == id);
-  const [deleteOneFabric] = useDeleteOneFabricMutation(fabricCard.id, auth.id);
-  const [updateOneFabric] = useUpdateOneFabricMutation(fabricCard.id, auth.id);
-  const [updateFabricInfo, setUpdateFabricInfo] = useState(false);
+  const haberdasheries = persistedReducer.haberdasheries;
+  const haberdasheryCard = haberdasheries.value.find((haberdashery) => haberdashery.id == id);
+  const [deleteOneHaberdashery] = useDeleteOneHaberdasheryMutation(haberdasheryCard.id, auth.id);
+  const [updateOneHaberdashery] = useUpdateOneHaberdasheryMutation(haberdasheryCard.id, auth.id);
+  const [updateHaberdasheryInfo, setUpdateHaberdasheryInfo] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const isOpenDeleteModal = () => {
     setShowDeleteModal(!showDeleteModal);
@@ -78,13 +77,13 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   const deleteCard = () => {
     const urlParams = {
       memberId: auth.id,
-      fabricId: fabricCard.id,
+      haberdasheryId: haberdasheryCard.id,
     };
-    deleteOneFabric(urlParams);
-    dispatch(deleteFabric(fabricCard.id));
+    deleteOneHaberdashery(urlParams);
+    dispatch(deleteHaberdashery(haberdasheryCard.id));
     setShowDeleteModal(!showDeleteModal);
-    navigate("/tissus");
-    toast.success('Tissu supprimé avec succès👌', {
+    navigate("/mercerie");
+    toast.success('Article de mercerie supprimé avec succès👌', {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -98,18 +97,17 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   };
 
   const [values, setValues] = useState({
-    photo: fabricCard.photo,
-    name: fabricCard.name,
-    website: fabricCard.website,
-    designer: fabricCard.designer,
-    color: fabricCard.color,
-    precise_color: fabricCard.precise_color,
-    fabric: fabricCard.fabric,
-    composition: fabricCard.composition,
-    weight: fabricCard.weight,
-    quantity: fabricCard.quantity,
-    width: fabricCard.width,
-    price: fabricCard.price,
+    photo: haberdasheryCard.photo,
+    name: haberdasheryCard.name,
+    website: haberdasheryCard.website,
+    size: haberdasheryCard.size,
+    color: haberdasheryCard.color,
+    precise_color: haberdasheryCard.precise_color,
+    haberdashery: haberdasheryCard.haberdashery,
+    quantity: haberdasheryCard.quantity,
+    unity: haberdasheryCard.unity,
+    is_cut: haberdasheryCard.is_cut,
+    price: haberdasheryCard.price,
   });
 
   const [selectedFile, setSelectedFile] = useState();
@@ -119,7 +117,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   useEffect(() => {
     if (!selectedFile) {
       // setPreview(undefined);
-      setPreview(fabricCard.photo);
+      setPreview(haberdasheryCard.photo);
       return;
     }
 
@@ -142,6 +140,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   //propre a firebase
   const handleUpload = (file) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
@@ -162,23 +161,30 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(photoURL, 'photoURL');
     if (photoURL !== undefined) {
       values.photo = photoURL;
+     
+    }
+    if (values.is_cut == 'oui') {
+      values.is_cut = true;
+    } else if (values.is_cut == 'non') {
+      values.is_cut = false;
     }
     const valuesToSend = values;
-    // valuesToSend.photo = photoURL;
+    console.log(valuesToSend, 'valuestosend')
     const urlParams = {
       memberId: auth.id,
-      fabricId: fabricCard.id,
+      haberdasheryId: haberdasheryCard.id,
       body: valuesToSend,
     };
 
-    const { updatedFabricData } = await updateOneFabric(urlParams).unwrap();
+    const { updatedHaberdasheryData } = await updateOneHaberdashery(urlParams).unwrap();
 
     //  Mettre à jour le store
-    dispatch(updateFabric(updatedFabricData));
-    setUpdateFabricInfo(false);
-    toast.success('Tissu modifié avec succès👌', {
+    dispatch(updateHaberdashery(updatedHaberdasheryData));
+    setUpdateHaberdasheryInfo(false);
+    toast.success('Article de mercerie modifié avec succès👌', {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -189,22 +195,23 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
       theme: "colored",
       role: "alert"
     });
-    // setPreview(undefined);
   };
 
+  //problem with is cut: always show true even if I put false
   const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
+    setValues({ ...values, [event.target.name]: event.target.value});
 
     if (event.target.name === "photo") {
       onSelectFile(event);
       if (!event.target.files || event.target.files.length > 0) {
+
         handleUpload(event.target.files[0]);
       }
     }
   };
 
   const updateCard = () => {
-    setUpdateFabricInfo(true);
+    setUpdateHaberdasheryInfo(true);
   };
 
   return (
@@ -215,31 +222,31 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
             <ButtonsContainer>
               <ReturnArrowContainer>
                 <ReturnArrow
-                  aria-label="Retourner à la liste des tissus"
+                  aria-label="Retourner à la liste des articles de mercerie"
                   ref={cardRef}
                   onClick={() => {
-                    navigate("/Tissus");
+                    navigate("/mercerie");
                   }}
 
                 />
               </ReturnArrowContainer>
               <ModifyDeleteContainer>
-                {!updateFabricInfo ? (
+                {!updateHaberdasheryInfo ? (
                   <>
                     <ModifyContainer>
                       <ModifyButton
-                        aria-label="Modifier ce tissu"
+                        aria-label="Modifier cet article de mercerie"
                         onClick={updateCard}
                       />
                     </ModifyContainer>
                     <TrashContainer>
                       <TrashButton
-                        aria-label="Supprimer ce tissu"
+                        aria-label="Supprimer cet article de mercerie"
                         ref={cardRef}
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteFabricModal
+                    <DeleteHaberdasheryModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
@@ -256,7 +263,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                     transition={{ type: "linear" }}
                   >
                     <UpdateInformationText>
-                      Tissu en cours de modification
+                      Article de mercerie en cours de modification
                     </UpdateInformationText>
 
                   </UpdateInformationContainer>
@@ -265,23 +272,23 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
             </ButtonsContainer>
 
             <TitleContainer>
-              <CardTitle>{fabricCard.name}</CardTitle>
-              <DesignerTitle>{fabricCard.designer}</DesignerTitle>
+              <CardTitle>{haberdasheryCard.name}</CardTitle>
+              <SizeTitle>{haberdasheryCard.size}</SizeTitle>
             </TitleContainer>
-            {!updateFabricInfo ? (
+            {!updateHaberdasheryInfo ? (
               <ImageContainer>
-                <ImageCard src={fabricCard.photo} />
+                <ImageCard src={haberdasheryCard.photo} />
               </ImageContainer>
             ) : (
               <UpdateCardContainer>
                 <UpdatePhotoInput>
-                  <ImageCard src={preview} alt="fabric picture" />
+                  <ImageCard src={preview} alt="haberdashery picture" />
                 </UpdatePhotoInput>
                 <div>
                   <input
                     name="photo"
                     accept="image/*"
-                    placeholder="Photo du tissu"
+                    placeholder="Photo de l'article de mercerie"
                     required=""
                     type="file"
                     onChange={onChange}
@@ -290,9 +297,9 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               </UpdateCardContainer>
             )}
             <InformationContainer>
-              {updateFabricInfo ? (
+              {updateHaberdasheryInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
-                  {fabricInputs.map((input, index) =>
+                  {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
 
@@ -310,7 +317,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                               data-error={input.errorMessage}
                             ></InformationInput>
 
-                            {input.id == 6 || input.id == 8 ? (
+                            {input.id == 10 ? (
                               null
                             ) :
                               <MessageHover
@@ -325,19 +332,21 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             name={input.name}
                             type={input.type}
                             id={input.htmlFor}
-                            defaultValue={values[input.info]}
+                            defaultValue={values[input.info] == false ? 'non' : ( values[input.info] == true ? 'oui' : values[input.info])}
                           >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
+                           
+                           {input.optionsList.sort().map((option, index) =>
+                           
+                              option == values[input.info] ? (
                                 <option key={index} value={option}>
-                                  {option}
+                                  {option} 
                                 </option>
                               ) : (
-                                <option key={index} value={option}>
-                                  {option}
+                                <option key={index} value={option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}>
+                                  {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
                                 </option>
                               )
-                            )}
+                           )}
                           </InformationSelect>
                         )}
                       </InformationContent>
@@ -347,23 +356,24 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
-                  {fabricInputs.map((input, index) =>
+                  {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
+                        {index === 2 && (haberdasheryCard[input.info].includes("http") | haberdasheryCard[input.info].includes("www") | haberdasheryCard[input.info].includes(".fr") | haberdasheryCard[input.info].includes(".com") | haberdasheryCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
-                              href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
+                              href={haberdasheryCard[input.info].includes("http") ? haberdasheryCard[input.info] : `https://${haberdasheryCard[input.info]}`}
                               target="_blank"
                             >
-                              {fabricCard[input.info]}
+                              {haberdasheryCard[input.info]}
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={fabricCard[input.info]}
+                            value={haberdasheryCard[input.info] == false ? 'non' : ( haberdasheryCard[input.info] == true ? 'oui' : haberdasheryCard[input.info])}
+              
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
@@ -376,7 +386,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               )}
 
               <ProjectContainer>
-                <ProjectTitle>Projets avec ce tissu</ProjectTitle>
+                <ProjectTitle>Projets avec cet article de mercerie</ProjectTitle>
                 <ProjectImageContainer>
                   <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
                   <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
@@ -394,31 +404,31 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
           <ButtonsContainer>
             <ReturnArrowContainer>
               <ReturnArrow
-                aria-label="Retourner à la liste des tissus"
+                aria-label="Retourner à la liste des articles de mercerie"
                 ref={cardRef}
                 onClick={() => {
-                  navigate("/Tissus");
+                  navigate("/mercerie");
                 }}
 
               />
             </ReturnArrowContainer>
             <ModifyDeleteContainer>
-              {!updateFabricInfo ? (
+              {!updateHaberdasheryInfo ? (
                 <>
                   <ModifyContainer>
                     <ModifyButton
-                      aria-label="Modifier ce tissu"
+                      aria-label="Modifier cet article de mercerie"
                       onClick={updateCard}
                     />
                   </ModifyContainer>
                   <TrashContainer>
                     <TrashButton
-                      aria-label="Supprimer ce tissu"
+                      aria-label="Supprimer cet article de mercerie"
                       ref={cardRef}
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeleteFabricModal
+                  <DeleteHaberdasheryModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteCard={deleteCard}
@@ -435,7 +445,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   transition={{ type: "linear" }}
                 >
                   <UpdateInformationText>
-                    Tissu en cours de modification
+                    Article de mercerie en cours de modification
                   </UpdateInformationText>
 
                 </UpdateInformationContainer>
@@ -443,20 +453,20 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
             </ModifyDeleteContainer>
           </ButtonsContainer>
           <CardContainer>
-            {!updateFabricInfo ? (
+            {!updateHaberdasheryInfo ? (
               <ImageContainer>
-                <ImageCard src={fabricCard.photo} />
+                <ImageCard src={haberdasheryCard.photo} />
               </ImageContainer>
             ) : (
               <UpdateCardContainer>
                 <UpdatePhotoInput>
-                  <ImageCard src={preview} alt="fabric picture" />
+                  <ImageCard src={preview} alt="haberdashery picture" />
                 </UpdatePhotoInput>
                 <UpdateFileInputContainer>
                   <input
                     name="photo"
                     accept="image/*"
-                    placeholder="Photo du tissu"
+                    placeholder="Photo de l'article"
                     required=""
                     type="file"
                     onChange={onChange}
@@ -467,12 +477,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
             <InformationContainer>
               <TitleContainer>
                 <CardTitle>
-                  {fabricCard.name} - {fabricCard.designer}
+                  {haberdasheryCard.name} - {haberdasheryCard.size}
                 </CardTitle>
               </TitleContainer>
-              {updateFabricInfo ? (
+              {updateHaberdasheryInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
-                  {fabricInputs.map((input, index) =>
+                  {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
 
@@ -489,7 +499,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-                            {input.id == 6 || input.id == 8 ? (
+                            {input.id == 6 ? (
                               null
                             ) :
                               <MessageHover
@@ -525,23 +535,23 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
-                  {fabricInputs.map((input, index) =>
+                  {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
+                        {index === 2 && (haberdasheryCard[input.info].includes("http") | haberdasheryCard[input.info].includes("www") | haberdasheryCard[input.info].includes(".fr") | haberdasheryCard[input.info].includes(".com") | haberdasheryCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
-                              href={fabricCard[input.info].includes("http") ? fabricCard[input.info] : `https://${fabricCard[input.info]}`}
+                              href={haberdasheryCard[input.info].includes("http") ? haberdasheryCard[input.info] : `https://${haberdasheryCard[input.info]}`}
                               target="_blank"
                             >
-                              {fabricCard[input.info]}
+                              {haberdasheryCard[input.info]}
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={fabricCard[input.info]}
+                            value={haberdasheryCard[input.info]}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
@@ -553,7 +563,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               )}
               <ProjectContainer>
-                <ProjectTitle>Projets avec ce tissu</ProjectTitle>
+                <ProjectTitle>Projets avec cet article de mercerie</ProjectTitle>
                 <ProjectImageContainer>
                   <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
                   <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />

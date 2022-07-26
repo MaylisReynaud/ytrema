@@ -94,9 +94,88 @@ export const ytremaApi = createApi({
       }
     },
     invalidatesTags: ['Fabric'],
+  }),
+  getAllHaberdasheries: builder.query({
+    query: (memberId) => {
+      token = sessionStorage.getItem("token");
+      return {
+        url: `/haberdashery/all/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Haberdashery'],
+  }),
+  addOneHaberdashery: builder.mutation({
+    query: (arg) =>{
+      const {memberId, body} = arg;
+      return {
+        url: `/haberdashery/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Haberdashery'],
+  }),
+  deleteOneHaberdashery: builder.mutation({
+    query: (arg) => {
+      const {memberId, haberdasheryId} = arg;
+    return {
+      url: `/haberdashery/${haberdasheryId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Haberdashery'],
+  }),
+  deleteAllHaberdasheries: builder.mutation({
+    query: (memberId) => {
+    return {
+      url: `/haberdashery/all/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Haberdashery'],
+  }),
+  updateOneHaberdashery: builder.mutation({
+    query: (arg) => {
+      const {memberId, haberdasheryId, body} = arg;
+    return {
+      url: `/haberdashery/${haberdasheryId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Haberdashery'],
   })
   })
 });
 
-export const { useSigninUserMutation, useSignupUserMutation, useGetAllFabricsQuery, useAddOneFabricMutation, useDeleteOneFabricMutation, useDeleteAllFabricsMutation, useUpdateOneFabricMutation } = ytremaApi;
+export const { 
+              useSigninUserMutation, 
+              useSignupUserMutation, 
+              useGetAllFabricsQuery, 
+              useAddOneFabricMutation, 
+              useDeleteOneFabricMutation, 
+              useDeleteAllFabricsMutation, 
+              useUpdateOneFabricMutation,
+              useGetAllHaberdasheriesQuery, 
+              useAddOneHaberdasheryMutation, 
+              useDeleteOneHaberdasheryMutation, 
+              useDeleteAllHaberdasheriesMutation, 
+              useUpdateOneHaberdasheryMutation,
+             } = ytremaApi;
 

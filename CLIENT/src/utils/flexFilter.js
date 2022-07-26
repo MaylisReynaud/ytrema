@@ -28,8 +28,9 @@ Array.prototype.flexFilter = function(criteria) {
   // returns a new array holding the objects that fulfill the filter criteria
   return matches;
 };
-
-export const FiltersCards = (fabrics, filterFabrics) => {
-  const filtered = fabrics.flexFilter(filterFabrics);
+// articles = fabrics or haberdasheries or patterns
+// filterArticles = filterFabrics or filterHaberdasheries or filterPatterns
+export const FiltersCards = (articles, filterArticles) => {
+  const filtered = articles.flexFilter(filterArticles);
   return filtered;
 }

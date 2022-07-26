@@ -25,20 +25,21 @@ export const InputContainer = styled.div`
         height: 93%;
   }
 `;
-export const DefaultFabricPictureStyle = css`
+export const DefaultArticlePictureStyle = css`
     height: 20%;
     display:flex;
     justify-content:center;
     border: none;
 `;
-export const DefaultFabricPicture = styled.img`
-   ${DefaultFabricPictureStyle}
-`;
-export const FabricPicture = styled.img`
-    ${DefaultFabricPictureStyle};
-    border: 2px solid ${props => props.theme.color4};
+
+export const DefaultArticlePicture = styled.img`
+   ${DefaultArticlePictureStyle}
 `;
 
+export const ArticlePicture = styled.img`
+    ${DefaultArticlePictureStyle};
+    border: 2px solid ${props => props.theme.color4};
+`;
 
 export const ButtonForm = styled.button`
     width:100%;
