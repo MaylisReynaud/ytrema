@@ -161,11 +161,18 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(photoURL, 'photoURL');
     if (photoURL !== undefined) {
       values.photo = photoURL;
+     
+    }
+    if (values.is_cut == 'oui') {
+      values.is_cut = true;
+    } else if (values.is_cut == 'non') {
+      values.is_cut = false;
     }
     const valuesToSend = values;
-    // valuesToSend.photo = photoURL;
+    console.log(valuesToSend, 'valuestosend')
     const urlParams = {
       memberId: auth.id,
       haberdasheryId: haberdasheryCard.id,
@@ -325,21 +332,18 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             name={input.name}
                             type={input.type}
                             id={input.htmlFor}
-                            defaultValue={values[input.info]}
+                            defaultValue={values[input.info] == false ? 'non' : ( values[input.info] == true ? 'oui' : values[input.info])}
                           >
                            
                            {input.optionsList.sort().map((option, index) =>
                            
                               option == values[input.info] ? (
                                 <option key={index} value={option}>
-                                  {option}
-                                  {console.log(option, values[input.info], 'option1')}
+                                  {option} 
                                 </option>
                               ) : (
-                                <option key={index} value={option}>
+                                <option key={index} value={option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}>
                                   {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
-                                  
-                                  {console.log(option, values[input.info], 'option2')}
                                 </option>
                               )
                            )}
@@ -368,7 +372,8 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={haberdasheryCard[input.info]}
+                            value={haberdasheryCard[input.info] == false ? 'non' : ( haberdasheryCard[input.info] == true ? 'oui' : haberdasheryCard[input.info])}
+              
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
