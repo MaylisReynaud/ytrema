@@ -140,6 +140,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
   //propre a firebase
   const handleUpload = (file) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
@@ -163,7 +164,6 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     if (photoURL !== undefined) {
       values.photo = photoURL;
     }
-    console.log(values.photo, 'photoURL');
     const valuesToSend = values;
     // valuesToSend.photo = photoURL;
     const urlParams = {
@@ -197,6 +197,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     if (event.target.name === "photo") {
       onSelectFile(event);
       if (!event.target.files || event.target.files.length > 0) {
+
         handleUpload(event.target.files[0]);
       }
     }
