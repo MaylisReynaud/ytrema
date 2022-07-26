@@ -21,7 +21,7 @@ const members = require('./data_members.json');
             [
                 member.pseudo,
                 member.email,
-                member.password == 1 ? process.env.MEMBER_1 : process.env.MEMBER_2,
+                member.password == 1 ? (process.env.MEMBER_1) : (member.password == 2) ? (process.env.MEMBER_2) : (member.password == 3) ? (process.env.MEMBER_3) : (process.env.MEMBER_4),
                 member.chest_measurement,
                 member.waist_measurement,
                 member.hip_measurement,
