@@ -163,6 +163,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     if (photoURL !== undefined) {
       values.photo = photoURL;
     }
+    console.log(values.photo, 'photoURL');
     const valuesToSend = values;
     // valuesToSend.photo = photoURL;
     const urlParams = {
@@ -189,8 +190,9 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     });
   };
 
+  //problem with is cut: always show true even if I put false
   const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
+    setValues({ ...values, [event.target.name]: event.target.value});
 
     if (event.target.name === "photo") {
       onSelectFile(event);
@@ -307,7 +309,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               data-error={input.errorMessage}
                             ></InformationInput>
 
-                            {input.id == 6  ? (
+                            {input.id == 10 ? (
                               null
                             ) :
                               <MessageHover
@@ -324,17 +326,34 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             id={input.htmlFor}
                             defaultValue={values[input.info]}
                           >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
+                            {/* {input.id == 5 ? (
+                              input.optionsList.sort().map((option, index) =>
+                                option === values[input.info] ? (
+                                  <option key={index} value={option == true ? 'oui' : 'non'}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                )
                               )
-                            )}
+                            ) : */}
+                              {input.optionsList.sort().map((option, index) =>
+                                option === values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                )
+                              )
+
+                              
+                              
+                            }
                           </InformationSelect>
                         )}
                       </InformationContent>
