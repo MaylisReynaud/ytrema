@@ -291,10 +291,19 @@ export const InformationInput = styled.input`
   background-color: #fff;
   /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
+  ::placeholder {
+    color: black;
+  }
+  &[class~="disabled"] {
+    ::placeholder {
+    color: grey;
+  }
+  }
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  
 `;
 
 export const InformationLinkContainer = styled.div`
@@ -323,9 +332,11 @@ export const InformationSelect = styled.select`
   :focus {
     border: 2px solid ${(props) => props.theme.color3};
   }
-  ::placeholder {
+  &[class~="disabled"] {
+    ::placeholder {
     color: grey;
   }
+}
 `;
 
 export const ButtonForm = styled.button`
