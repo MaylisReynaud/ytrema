@@ -363,34 +363,35 @@ export const Haberdashery = (props, index) => {
                     : null}
 
                   <FilterContainer>
-                    {haberdasheries
-                      ? haberdasheries.value.map((haberdashery) => {
-                        if (haberdashery.color) {
-                          haberdasheriesFilter.push({
-                            id: haberdashery.id,
-                            name: haberdashery.color,
-                            title: "Couleurs",
-                          });
-                        }
-                        if (haberdashery.size) {
-                          sizeFilter.push({
-                            id: haberdashery.id,
-                            name: haberdashery.size,
-                            title: "Taille",
-                          });
-                        }
-                        if (haberdashery.haberdashery) {
-                          haberdasheriesFilter.push({
-                            id: haberdashery.id,
-                            name: haberdashery.haberdashery,
-                            title: "Mercerie",
-                          });
-                        }
-                      })
-                      : null}
-                    {mapCategoriesFilter(haberdasheriesFilter)}
-                    {mapCategoriesFilter(colorsFilter)}
-                    {mapCategoriesFilter(sizeFilter)}
+                  {haberdasheries
+              ? haberdasheries.value.map((haberdashery) => {
+                if (haberdashery.color) {
+                  colorsFilter.push({
+                    id: haberdashery.id,
+                    name: haberdashery.color,
+                    title: "Couleurs",
+                  });
+                }
+                if (haberdashery.size) {
+                  sizeFilter.push({
+                    id: haberdashery.id,
+                    name: haberdashery.size,
+                    title: "Taille",
+                  });
+                }
+                if (haberdashery.haberdashery) {
+                  haberdasheriesFilter.push({
+                    id: haberdashery.id,
+                    name: haberdashery.haberdashery,
+                    title: "Mercerie",
+                  });
+                }
+              })
+              : null}
+
+            {mapCategoriesFilter(haberdasheriesFilter)}
+            {mapCategoriesFilter(colorsFilter)}
+            {mapCategoriesFilter(sizeFilter)}
                   </FilterContainer>
                 </LeftContainer>
               )}
