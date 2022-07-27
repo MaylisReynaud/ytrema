@@ -308,7 +308,9 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            {input.id !== 8 ? <InformationInput
+                            {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
+                         
+                            <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
                               type={input.type}
@@ -476,8 +478,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                 </>
               ) : (
                 <UpdateInformationContainer
-                  // animate={{ x: 20 }}
-                  // transition={{ type: "spring", stiffness: 100 }}
+
                   initial={{ x: '-80px' }}
                   animate={{ x: 0 }}
                   transition={{ type: "linear" }}
@@ -529,7 +530,8 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            <InformationInput
+                           {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
+                           <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
                               type={input.type}
@@ -537,34 +539,75 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-                            {input.id == 6 ? (
+                              :
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                type={input.type}
+                                name={input.name}
+                                disabled
+                                className="disabled"
+                              ></InformationInput>}
+
+
+                            {input.id == 10 || input.id == 8 ? (
                               null
                             ) :
                               <MessageHover
                                 errorMessage={input.errorMessage}
                               />}
+
                           </>
                         ) : (
-                          <InformationSelect
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
-                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
+                          input.id !== 5 ? (
+                            <InformationSelect
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                            >
+
+                              {input.optionsList.sort().map((option, index) =>
+
+                                option == values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                    {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          ) : (
+                            <InformationSelect
+                              placeholder={values[input.info]}
+                              disabled
+                              className="disabled"
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                            >
+
+                              {input.optionsList.sort().map((option, index) =>
+
+                                option == values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                    {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          )
                         )}
                       </InformationContent>
                     ) : null
