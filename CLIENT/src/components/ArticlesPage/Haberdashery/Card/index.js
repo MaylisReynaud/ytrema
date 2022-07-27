@@ -344,7 +344,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               name={input.name}
                               type={input.type}
                               id={input.htmlFor}
-                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                              defaultValue={values[input.info] }
                             >
 
                               {input.optionsList.sort().map((option, index) =>
@@ -363,7 +363,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             </InformationSelect>
                           ) : (
                             <InformationSelect
-                              placeholder={values[input.info]}
+                              // placeholder={values[input.info]}
                               disabled
                               className="disabled"
                               name={input.name}
@@ -560,12 +560,12 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         ) : (
                           input.id !== 5 ? (
                             <InformationSelect
-                              placeholder={values[input.info]}
+                              // placeholder={values[input.info]}
                               onChange={onChange}
                               name={input.name}
                               type={input.type}
                               id={input.htmlFor}
-                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                              defaultValue={values[input.info]}
                             >
 
                               {input.optionsList.sort().map((option, index) =>
@@ -584,13 +584,13 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             </InformationSelect>
                           ) : (
                             <InformationSelect
-                              placeholder={values[input.info]}
+                              // placeholder={values[input.info]}
                               disabled
                               className="disabled"
                               name={input.name}
                               type={input.type}
                               id={input.htmlFor}
-                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info]) }
                             >
 
                               {input.optionsList.sort().map((option, index) =>
