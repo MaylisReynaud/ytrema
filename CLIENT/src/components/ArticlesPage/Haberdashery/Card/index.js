@@ -343,6 +343,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                                 </option>
                               ) : (
                                 <option key={index} value={option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}>
+                                  
                                   {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
                                 </option>
                               )
@@ -372,7 +373,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={haberdasheryCard[input.info] == false ? 'non' : ( haberdasheryCard[input.info] == true ? 'oui' : haberdasheryCard[input.info])}
+                            value={haberdasheryCard[input.info] === false ? 'non' : ( haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
               
                             disabled="disabled"
                             type={input.type}
@@ -513,7 +514,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             name={input.name}
                             type={input.type}
                             id={input.htmlFor}
-                            defaultValue={values[input.info]}
+                            defaultValue={values[input.info] == false ? 'non' : ( values[input.info] == true ? 'oui' : values[input.info])}
                           >
                             {input.optionsList.sort().map((option, index) =>
                               option === values[input.info] ? (
@@ -521,8 +522,8 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                                   {option}
                                 </option>
                               ) : (
-                                <option key={index} value={option}>
-                                  {option}
+                                <option key={index} value={option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}>
+                                  {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
                                 </option>
                               )
                             )}
@@ -551,7 +552,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={haberdasheryCard[input.info]}
+                          value={haberdasheryCard[input.info] === false ? 'non' : ( haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
