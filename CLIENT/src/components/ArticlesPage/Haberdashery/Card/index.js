@@ -372,7 +372,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                            value={haberdasheryCard[input.info] == false ? 'non' : ( haberdasheryCard[input.info] == true ? 'oui' : haberdasheryCard[input.info])}
+                            value={haberdasheryCard[input.info] === false ? 'non' : ( haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
               
                             disabled="disabled"
                             type={input.type}
@@ -551,7 +551,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           </InformationLinkContainer>
                         ) : (
                           <InformationInput
-                          value={haberdasheryCard[input.info] == false ? 'non' : ( haberdasheryCard[input.info] == true ? 'oui' : haberdasheryCard[input.info])}
+                          value={haberdasheryCard[input.info] === false ? 'non' : ( haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
