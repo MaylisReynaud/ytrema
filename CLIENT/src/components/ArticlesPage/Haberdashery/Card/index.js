@@ -273,7 +273,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
 
             <TitleContainer>
               <CardTitle>{haberdasheryCard.name}</CardTitle>
-              <SizeTitle>{haberdasheryCard.size}</SizeTitle>
+              <SizeTitle>{haberdasheryCard.size}{haberdasheryCard.unity}</SizeTitle>
             </TitleContainer>
             {!updateHaberdasheryInfo ? (
               <ImageContainer>
@@ -516,7 +516,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
             <InformationContainer>
               <TitleContainer>
                 <CardTitle>
-                  {haberdasheryCard.name} - {haberdasheryCard.size}
+                  {haberdasheryCard.name} - {haberdasheryCard.size} {haberdasheryCard.unity}
                 </CardTitle>
               </TitleContainer>
               {updateHaberdasheryInfo ? (
