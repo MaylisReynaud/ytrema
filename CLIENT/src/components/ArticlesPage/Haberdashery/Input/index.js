@@ -34,9 +34,7 @@ function FormInput(props) {
     } else {
       // Vérifier la value
       const regex = new RegExp(pattern);
-
       if (!regex.test(event.target.value)) {
-
         setIsError(true);
       } else {
         setIsError(false);
@@ -61,7 +59,8 @@ function FormInput(props) {
             <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>
             {options.sort().map((option, index) => (
               <option key={index} value={option}>
-                {option}                
+
+              {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}     
               
               </option>
             ))}
@@ -78,7 +77,7 @@ function FormInput(props) {
           />
         )}
         {isError ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
-        {(type == 'select') && (props.value == "") && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
+        {(type == 'select') && (props.value == "" ) && (typeof(props.value) !== "boolean") && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
       </InputContainer>
     </>
   );

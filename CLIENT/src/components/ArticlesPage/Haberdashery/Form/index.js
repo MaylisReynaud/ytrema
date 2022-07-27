@@ -136,11 +136,10 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const valuesToSend = values;
+    const boolValueIsCut = (valuesToSend.is_cut == 'true') ? true : false;
+    valuesToSend.is_cut = boolValueIsCut;
 
-    // const boolValueIsCut = (values.is_cut == 'oui') ? true : (values.is_cut == 'non') ? false : "";
-    // valuesToSend.is_cut = boolValueIsCut;
     valuesToSend.photo = photoURL;
-    console.log(valuesToSend, 'values to send dans submit');
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
@@ -149,10 +148,9 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
       valuesToSend.haberdashery != "" &&
       valuesToSend.quantity != "" &&
       valuesToSend.unity != "" &&
-      valuesToSend.is_cut != "" &&
-      // (typeof(valuesToSend.is_cut) == 'boolean') && 
+      // valuesToSend.is_cut != "" &&
+      (typeof(valuesToSend.is_cut) == 'boolean') && 
       valuesToSend.price != "") {
-        console.log('avant await');
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
