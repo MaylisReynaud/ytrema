@@ -343,6 +343,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                                 </option>
                               ) : (
                                 <option key={index} value={option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}>
+                                  
                                   {option == 'false' ? 'non' : ( option == 'true' ? 'oui' : option)}
                                 </option>
                               )
