@@ -48,6 +48,7 @@ import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
 import { useGetAllHaberdasheriesQuery } from "../../../../src/store/api/ytremaApi";
 import { render } from "react-dom";
 
+
 export const Haberdashery = (props, index) => {
   let navigate = useNavigate();
 
@@ -143,9 +144,12 @@ export const Haberdashery = (props, index) => {
     let uniqueObject = {};
 
     categoryObject.map((el, index) => {
-      let objName = el["name"];
 
+      let sizeWithUnity = el.unity && el.name + el.unity;
+
+      let objName = sizeWithUnity ? sizeWithUnity : el["name"];
       uniqueObject[objName] = el;
+      
       if (index === categoryObject.length - 1) {
         for (let i in uniqueObject) {
           newCategory.push(uniqueObject[i]);
@@ -259,6 +263,7 @@ export const Haberdashery = (props, index) => {
                   sizeFilter.push({
                     id: haberdashery.id,
                     name: haberdashery.size,
+                    unity: haberdashery.unity,
                     title: "Taille",
                   });
                 }
@@ -376,6 +381,8 @@ export const Haberdashery = (props, index) => {
                   sizeFilter.push({
                     id: haberdashery.id,
                     name: haberdashery.size,
+                    unity: haberdashery.unity,
+                    // name: haberdashery.size + " " + haberdashery.unity,
                     title: "Taille",
                   });
                 }
