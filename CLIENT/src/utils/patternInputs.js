@@ -56,7 +56,7 @@ export const patternInputs = [
       placeholder:'type de patron',
       label:'Type de patron',
       htmlFor: 'patternType',
-      optionsList: [ 'Accessoire', 'Barboteuse','Bonnet/Chapeau', 'Chemise', 'Combinaison', 'Doudou/Peluche', 'Gigoteuse', 'Jupe', 'Lingerie','Maillot de bain', 'Manteau', 'Pantalon', 'Robe', 'Sweat','Short', 'Top/Tee-shirt', 'Tunique/Blouse', 'Veste/Gilet' ],
+      optionsList: [ 'Accessoire', 'Barboteuse','Bonnet/Chapeau', 'Chemise', 'Combinaison', 'Doudou/Peluche', 'Gigoteuse', 'Jupe', 'Lingerie','Maillot de bain', 'Manteau', 'Pantalon', 'Robe', 'Sac', 'Sweat','Short', 'Top/Tee-shirt', 'Tunique/Blouse', 'Veste/Gilet' ],
       errorMessage:'Sélectionnez un type de patron',
       required: true,
       info: 'clothing',

@@ -58,7 +58,7 @@ export function Pattern(props, index) {
   const patterns = persistedReducer.patterns;
   const isLogged = auth.isLogged;
   const { data, error, isLoading, isSuccess, isError } = useGetAllPatternsQuery(auth.id);
-
+  
   // we set an array
   let brandsFilter = [];
   let genderFilter = [];
@@ -76,8 +76,9 @@ export function Pattern(props, index) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log('coucou avant addAllPatterns')
+      console.log(data.patterns, 'avant data.patterns')
       dispatch(addAllPatterns(data.patterns));
+      console.log(data.patterns, 'apres data.patterns')
     }
   }, [data, patterns]);
 
@@ -85,7 +86,7 @@ export function Pattern(props, index) {
     // Object which representes the selected values by category
     const filterPatterns = filterPattern(filteredCategory);
 
-    // Array including selected fabric cards  which match from the user choices
+    // Array including selected pattern cards  which match from the user choices
     const resultFiltersCards = FiltersCards(patterns.value, filterPatterns);
 
     return (

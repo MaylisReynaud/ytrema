@@ -237,7 +237,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteFabricModal
+                    <DeletePatternModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
@@ -299,6 +299,23 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
+                            {input.id == 8 ? (
+                            <UpdateCardContainer>
+                              <UpdatePhotoInput>
+                                <ImageCard src={preview} alt="pattern picture" />
+                              </UpdatePhotoInput>
+                              <div>
+                                <input
+                                  name="photo"
+                                  accept="image/*"
+                                  placeholder="Photo du patron"
+                                  required=""
+                                  type="file"
+                                  onChange={onChange}
+                                ></input>
+                              </div>
+                            </UpdateCardContainer>
+                            ) : (
                             <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
@@ -307,8 +324,8 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-
-                            {input.id == 9  ? (
+                            )}
+                            {input.id == 9 ? (
                               null
                             ) :
                               <MessageHover
@@ -349,7 +366,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     index !== 0 ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
+                        {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
                             <InformationLink
@@ -416,7 +433,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeleteFabricModal
+                  <DeletePatternModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteCard={deleteCard}
