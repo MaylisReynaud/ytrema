@@ -1,4 +1,5 @@
 Array.prototype.flexFilter = function(criteria) {
+
   //set variables
   let matchFilters;
   let matches = [];
@@ -31,6 +32,8 @@ Array.prototype.flexFilter = function(criteria) {
 // articles = fabrics or haberdasheries or patterns
 // filterArticles = filterFabrics or filterHaberdasheries or filterPatterns
 export const FiltersCards = (articles, filterArticles) => {
+
   const filtered = articles.flexFilter(filterArticles);
+
   return filtered;
 }

@@ -11,6 +11,7 @@ export function Checkbox({
   name,
   id,
   dataId,
+  dataUnity,
   setFilterByCategory,
   filterByCategory,
   setChosenFilter,
@@ -21,6 +22,7 @@ export function Checkbox({
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = (event) => {
+
     setIsChecked(false);
 
     let filterSelection;
@@ -29,17 +31,26 @@ export function Checkbox({
       ? (filterSelection = filterByCategory)
       : (filterSelection = []);
 
-    const found = filterSelection.find((el) => el.name === event.target.value);
+    const found = filterSelection.find((el) => el.dataId === event.target.dataset.id && el.name === event.target.value);
 
     if (found) {
       filterSelection = filterSelection.filter(function (f) {
         return f !== found;
       });
     } else {
-      filterSelection.push({
+
+      let filterSelectionObj = {
+        dataId: event.target.dataset.id,
         name: event.target.value,
         category: event.target.name,
-      });
+      };
+
+      // For size filter add unity property
+      if (event.target.dataset.unity) {
+        filterSelectionObj.unity = event.target.dataset.unity;
+      }
+
+      filterSelection.push(filterSelectionObj);
     }
     setFilterByCategory(filterSelection);
     setChosenFilter(true);
@@ -53,8 +64,9 @@ export function Checkbox({
         onChange={handleCheckboxChange}
         value={id}
         name={name}
-        id={id}
+        id={dataUnity ? id + dataUnity : id}
         data-id={dataId}
+        data-unity={dataUnity}
       />
       <StyledCheckbox 
         checked={isChecked ? isChecked : checked}>
