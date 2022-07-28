@@ -3,10 +3,12 @@ export const filterHaberdashery = (filteredCategory) => {
   let colorTab = [];
   let sizeTab = [];
   let haberdasheryTab = [];
+  let unityTab = [];
   let filter_haberdasheries = [
     { Field: "color", Values: "" },
     { Field: "size", Values: "" },
     { Field: "haberdashery", Values: "" },
+    { Field: "unity", Values: ""},
   ];
 
   filteredCategory.map((el) => {
@@ -17,18 +19,22 @@ export const filterHaberdashery = (filteredCategory) => {
       : el.category === "Taille"
       ? sizeTab.push(el.name)
       : null;
+
+    el.unity && unityTab.push(el.unity);
   });
 
   filter_haberdasheries.map((el) => {
     return el.Field === "color"
-      ? (el.Values = colorTab)
-      : el.Field === "size"
-      ? (el.Values = sizeTab)
-      : el.Field === "haberdashery"
-      ? (el.Values = haberdasheryTab)
-      : null;
+    ? (el.Values = colorTab)
+    : el.Field === "size"
+    ? (el.Values = sizeTab)
+    : el.Field === "haberdashery"
+    ? (el.Values = haberdasheryTab)
+    : el.Field === "unity"
+    ? (el.Values = unityTab)
+    : null;
   });
-
+  
   filter_haberdasheries = filter_haberdasheries.filter((el) => el.Values.length > 0);
   
   return filter_haberdasheries;

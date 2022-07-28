@@ -122,7 +122,7 @@ export const haberdasheryInputs = [
       name:'price',
       type:"number",
       placeholder:'ex: 12.50',
-      label:"Prix au mètre ou à l'unité",
+      label:"Prix au mètre ou à l'unité (€)",
       min: 1,
       max: 200,
       pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',

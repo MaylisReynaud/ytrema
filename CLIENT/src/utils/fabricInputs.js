@@ -133,7 +133,7 @@ export const fabricInputs = [
       name:'price',
       type:"number",
       placeholder:'ex: 12.50',
-      label:'Prix au mètre',
+      label:'Prix au mètre (€)',
       min: 1,
       max: 200,
       pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',
