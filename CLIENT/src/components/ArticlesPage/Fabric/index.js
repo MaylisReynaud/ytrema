@@ -101,7 +101,7 @@ export function Fabric(props, index) {
                       <CardImg src={fabric.photo} alt={fabric.alt} />
                     </ImgContainer>
                     <CardText>
-                      {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.quantity}cm
+                      {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -318,7 +318,7 @@ export function Fabric(props, index) {
                             <CardImg src={fabric.photo} alt={fabric.alt} />
                           </ImgContainer>
                           <CardText>
-                            {fabric.name} - {fabric.designer} - {fabric.fabric} -      {fabric.quantity}cm
+                            {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -442,7 +442,7 @@ export function Fabric(props, index) {
                             </ImgContainer>
 
                             <CardText>
-                              {fabric.name} - {fabric.designer} - {fabric.fabric} - {fabric.quantity}cm
+                              {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
                             </CardText>
                           </CardContainer>
                         </Link>

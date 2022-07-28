@@ -101,7 +101,7 @@ export const Haberdashery = (props, index) => {
                       <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                     </ImgContainer>
                     <CardText>
-                    {haberdashery.name} - {haberdashery.haberdashery} - {haberdashery.size} - {haberdashery.unity} - {haberdashery.quantity}
+                    {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
                     </CardText>
                   </CardContainer>
                 </Link>
