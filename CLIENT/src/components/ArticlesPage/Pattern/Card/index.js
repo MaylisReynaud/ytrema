@@ -111,8 +111,10 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   });
 
   const [selectedFile, setSelectedFile] = useState();
+  const [selectedPdf, setSelectedPdf] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
+  const [pdfURL, setPdfURL] = useState();
 
   useEffect(() => {
     if (!selectedFile) {
@@ -128,17 +130,23 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
-  const onSelectFile = (event) => {
+  const onSelectFile = (event, type) => {
     if (!event.target.files || event.target.files.length === 0) {
-      setSelectedFile(undefined);
+
+      type === "photo" ?
+      setSelectedFile(undefined) :
+      setSelectedPdf(undefined);
+
       return;
     }
     // I've kept this example simple by using the first image instead of multiple
-    setSelectedFile(event.target.files[0]);
+    type === "photo" ?
+    setSelectedFile(event.target.files[0]) :
+    setSelectedPdf(event.target.files[0]);
   };
 
   //propre a firebase
-  const handleUpload = (file) => {
+  const handleUpload = (file, type) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
@@ -152,7 +160,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-            setPhotoURL(url);
+          console.log(url, "URL FIREBASE");
+          type === "photo" ?
+            setPhotoURL(url) : setPdfURL(url);
           });
       }
     );
@@ -163,6 +173,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     if (photoURL !== undefined) {
       values.photo = photoURL;
     }
+
+    if (pdfURL !== undefined) {
+      values.pdf_instructions = pdfURL;
+    }
+    
     const valuesToSend = values;
     // valuesToSend.photo = photoURL;
     const urlParams = {
@@ -194,9 +209,13 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
-      onSelectFile(event);
+
+      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf");
+      
       if (!event.target.files || event.target.files.length > 0) {
-        handleUpload(event.target.files[0]);
+
+        event.target.name === "photo" ?
+        handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
       }
     }
   };
