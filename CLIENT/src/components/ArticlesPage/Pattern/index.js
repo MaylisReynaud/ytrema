@@ -76,9 +76,7 @@ export function Pattern(props, index) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log(data.patterns, 'avant data.patterns')
       dispatch(addAllPatterns(data.patterns));
-      console.log(data.patterns, 'apres data.patterns')
     }
   }, [data, patterns]);
 
@@ -142,7 +140,7 @@ export function Pattern(props, index) {
     //show one filter
     let newCategory = [];
     let uniqueObject = {};
-
+console.log(categoryObject, 'categoryObject');
     categoryObject.map((el, index) => {
       let objName = el["name"];
 
@@ -256,7 +254,7 @@ export function Pattern(props, index) {
                     title: "Marques",
                   });
                 }
-                if (pattern.designer) {
+                if (pattern.gender) {
                   genderFilter.push({
                     id: pattern.id,
                     name: pattern.gender,
@@ -374,7 +372,7 @@ export function Pattern(props, index) {
                             title: "Marques",
                           });
                         }
-                        if (pattern.designer) {
+                        if (pattern.gender) {
                           genderFilter.push({
                             id: pattern.id,
                             name: pattern.gender,

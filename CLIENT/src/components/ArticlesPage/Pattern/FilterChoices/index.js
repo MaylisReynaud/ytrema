@@ -11,7 +11,7 @@ import {
 export function FilterChoices({ showFilter, showAllDesktopFilters, categories, setFilterByCategory, filterByCategory, setChosenFilter }) {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-
+console.log(categories, 'categories');
     return (
         <>
             {isMobile && (
