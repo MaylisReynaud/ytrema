@@ -214,6 +214,7 @@ export const ImageContainer = styled.div`
 export const PdfContainer = styled.div`
   display: flex;
   align-items: center;
+  width: 90%;
   margin-top: 1.2rem;
   width: 90%;
   font-family: "${(props) => props.theme.textFont}";
@@ -224,6 +225,22 @@ export const PdfContainer = styled.div`
     margin-bottom: 5em;
   }
 `;
+
+export const PatternPreviewTitle = styled.p`
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  margin-top:1.5em;
+`;
+
+export const PdfIframe = styled.iframe`
+  height: 70%;
+  width: 100%;
+  margin-top: 1.5em;
+@media screen and (min-width: 601px) {
+   
+  }
+`;
+
 export const ImageCard = styled.img`
   object-fit: cover;
   width: 100%;
@@ -311,7 +328,6 @@ export const InformationInput = styled.input`
   ::placeholder {
     color: black;
     flex-wrap: wrap;
-    background-color:red;
   }
 `;
 

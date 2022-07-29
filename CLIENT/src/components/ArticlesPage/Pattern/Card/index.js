@@ -39,7 +39,9 @@ import {
   UpdateInformationContainer,
   UpdateInformationText,
   UpdateFileInputContainer,
-PdfContainer
+  PdfContainer,
+  PdfIframe,
+  PatternPreviewTitle
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
@@ -113,6 +115,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedPdf, setSelectedPdf] = useState();
   const [preview, setPreview] = useState();
+  const [pdfPreview, setPdfPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   const [pdfURL, setPdfURL] = useState();
 
@@ -121,32 +124,41 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       // setPreview(undefined);
       setPreview(patternCard.photo);
       return;
+    } else if (!selectedPdf) {
+      setPdfPreview(patternCard.pdf_instructions);
     }
 
+    const objectUrlPdf = URL.createObjectURL(selectedPdf);
+    setPdfPreview(objectUrlPdf);
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile]);
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+      URL.revokeObjectURL(objectUrlPdf)
+    }
 
-  const onSelectFile = (event, type) => {
+      ;
+  }, [selectedFile, selectedPdf]);
+
+  const onSelectFile = async (event, type) => {
     if (!event.target.files || event.target.files.length === 0) {
 
       type === "photo" ?
-      setSelectedFile(undefined) :
-      setSelectedPdf(undefined);
+        setSelectedFile(undefined) :
+        setSelectedPdf(undefined);
 
       return;
     }
     // I've kept this example simple by using the first image instead of multiple
     type === "photo" ?
-    setSelectedFile(event.target.files[0]) :
-    setSelectedPdf(event.target.files[0]);
+      setSelectedFile(event.target.files[0]) :
+      setSelectedPdf(event.target.files[0]);
   };
 
   //propre a firebase
-  const handleUpload = (file, type) => {
+  const handleUpload = async (file, type) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
@@ -160,9 +172,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-          console.log(url, "URL FIREBASE");
-          type === "photo" ?
-            setPhotoURL(url) : setPdfURL(url);
+            console.log(url, "URL FIREBASE");
+            type === "photo" ?
+              setPhotoURL(url) : setPdfURL(url);
           });
       }
     );
@@ -177,7 +189,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     if (pdfURL !== undefined) {
       values.pdf_instructions = pdfURL;
     }
-    
+
     const valuesToSend = values;
     // valuesToSend.photo = photoURL;
     const urlParams = {
@@ -205,17 +217,17 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // setPreview(undefined);
   };
 
-  const onChange = (event) => {
+  const onChange = async (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
 
       event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf");
-      
+
       if (!event.target.files || event.target.files.length > 0) {
 
         event.target.name === "photo" ?
-        handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
+          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
       }
     }
   };
@@ -261,13 +273,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
                     />
-                    {console.log('coucou ligne 245')}
-
                   </>
                 ) : (
                   <UpdateInformationContainer
-                    // animate={{ x: 20 }}
-                    // transition={{ type: "spring", stiffness: 100 }}
                     initial={{ x: '-80px' }}
                     animate={{ x: 0 }}
                     transition={{ type: "linear" }}
@@ -290,13 +298,21 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <ImageContainer>
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
+                <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
+                <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
                 <PdfContainer>
-                <InformationLabel>Lien du patron</InformationLabel>
-                {/* <a href={patternCard.pdf_instructions}>Cliquez pour visualiser</a> */}
-                  <InformationLink href={patternCard.pdf_instructions} target="_blank"> Cliquez ici pour visualiser
+                  <InformationLabel>Lien du patron</InformationLabel>
+                  <InformationLinkContainer>
+                    <InformationLink
+                      href={patternCard.pdf_instructions} target="_blank"
+                    >
+                      Cliquez ici pour visualiser le patron
+                    </InformationLink>
+                  </InformationLinkContainer>
 
-                  </InformationLink>
+
                 </PdfContainer>
+
               </>
             ) : (
               <UpdateCardContainer>
@@ -314,9 +330,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   ></input>
                 </div>
                 {/* PDF */}
+                <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                 <UpdatePhotoInput>
-                  <iframe src={patternCard.pdf_instructions}     width="100%"
-    height="100%" ></iframe>
+                  <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
                 </UpdatePhotoInput>
                 <div>
                   <input
