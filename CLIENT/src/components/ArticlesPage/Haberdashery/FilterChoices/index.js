@@ -11,9 +11,8 @@ import {
 export function FilterChoices({ showFilter, showAllDesktopFilters, categories, setFilterByCategory, filterByCategory, setChosenFilter }) {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-
     return (
-        <>
+      <>
             {isMobile && (
                 <>
                     {showFilter ?
@@ -22,24 +21,25 @@ export function FilterChoices({ showFilter, showAllDesktopFilters, categories, s
 
                                 <CheckboxLabel
                                     key={index}
-                                    htmlFor={category.name}>
+                                    htmlFor={category.unity ? category.name + category.unity : category.name}>
 
                                     <Checkbox
                                         key={category.id}
                                         id={category.name}
                                         name={category.title}
                                         dataId={category.id}
+                                        dataUnity={category.unity}
                                         setFilterByCategory={setFilterByCategory}
                                         filterByCategory={filterByCategory}
                                         setChosenFilter={setChosenFilter}
                                         alreadyChecked={filterByCategory.find(el => {
-                                            if (el.name == category.name) {
+                                            if (el.name == category.name && el.dataId == category.id) {
                                                 return true;
                                             }
                                         })}
 
                                     />
-                                    <SpanLabel> {category.name} </SpanLabel>
+                                    <SpanLabel> {category.name} {category.unity} </SpanLabel>
                                 </CheckboxLabel>
 
                             ))}
@@ -56,24 +56,25 @@ export function FilterChoices({ showFilter, showAllDesktopFilters, categories, s
 
                                 <CheckboxLabel
                                     key={index}
-                                    htmlFor={category.name}>
+                                    htmlFor={category.unity ? category.name + category.unity : category.name}>
 
                                     <Checkbox
                                         key={category.id}
                                         id={category.name}
                                         name={category.title}
                                         dataId={category.id}
+                                        dataUnity={category.unity}
                                         setFilterByCategory={setFilterByCategory}
                                         filterByCategory={filterByCategory}
                                         setChosenFilter={setChosenFilter}
                                         alreadyChecked={filterByCategory.find(el => {
-                                            if (el.name == category.name) {
+                                            if (el.name == category.name && el.dataId == category.id) {
                                                 return true;
                                             }
                                         })}
 
                                     />
-                                    <SpanLabel> {category.name} </SpanLabel>
+                                    <SpanLabel> {category.name} {category.unity} </SpanLabel>
                                 </CheckboxLabel>
 
                             ))}
