@@ -211,6 +211,17 @@ export const ImageContainer = styled.div`
     margin-bottom: 5em;
   }
 `;
+export const PdfContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 2em;
+  @media screen and (min-width: 601px) {
+    height: 90%;
+    margin-left: 1.3em;
+    margin-bottom: 5em;
+  }
+`;
 export const ImageCard = styled.img`
   object-fit: cover;
   width: 100%;
@@ -294,6 +305,11 @@ export const InformationInput = styled.input`
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
+  }
+  ::placeholder {
+    color: black;
+    flex-wrap: wrap;
+    background-color:red;
   }
 `;
 

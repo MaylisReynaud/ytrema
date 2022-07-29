@@ -39,7 +39,7 @@ import {
   UpdateInformationContainer,
   UpdateInformationText,
   UpdateFileInputContainer,
-
+PdfContainer
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
@@ -139,7 +139,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
   //propre a firebase
   const handleUpload = (file) => {
-    const uploadTask = storage.ref(`patrons/${file.name}`).put(file);
+    const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
@@ -148,7 +148,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       },
       () => {
         storage
-          .ref("patrons")
+          .ref("images")
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
@@ -242,7 +242,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       showDeleteModal={showDeleteModal}
                       deleteCard={deleteCard}
                     />
-
+                    {console.log('coucou ligne 245')}
 
                   </>
                 ) : (
@@ -267,9 +267,18 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               <DesignerTitle>{patternCard.brand}</DesignerTitle>
             </TitleContainer>
             {!updatePatternInfo ? (
-              <ImageContainer>
-                <ImageCard src={patternCard.photo} />
-              </ImageContainer>
+              <>
+                <ImageContainer>
+                  <ImageCard src={patternCard.photo} />
+                </ImageContainer>
+                <PdfContainer>
+                <label>Lien du patron :</label>
+                {/* <a href={patternCard.pdf_instructions}>Cliquez pour visualiser</a> */}
+                  <a href={patternCard.pdf_instructions} target="_blank"> Cliquez
+
+                  </a>
+                </PdfContainer>
+              </>
             ) : (
               <UpdateCardContainer>
                 <UpdatePhotoInput>
@@ -279,6 +288,21 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   <input
                     name="photo"
                     accept="image/*"
+                    placeholder="Photo du patron"
+                    required=""
+                    type="file"
+                    onChange={onChange}
+                  ></input>
+                </div>
+                {/* PDF */}
+                <UpdatePhotoInput>
+                  <iframe src={patternCard.pdf_instructions}     width="100%"
+    height="100%" ></iframe>
+                </UpdatePhotoInput>
+                <div>
+                  <input
+                    name="pdf_instructions"
+                    accept="image/*, .pdf, .doc"
                     placeholder="Photo du patron"
                     required=""
                     type="file"
@@ -297,25 +321,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
-                        {input.type !== "select" ? (
+
+                        {(input.id !== 8) && (input.type !== "select") ? (
                           <>
-                            {input.id == 8 ? (
-                            <UpdateCardContainer>
-                              <UpdatePhotoInput>
-                                <ImageCard src={preview} alt="pattern picture" />
-                              </UpdatePhotoInput>
-                              <div>
-                                <input
-                                  name="photo"
-                                  accept="image/*"
-                                  placeholder="Photo du patron"
-                                  required=""
-                                  type="file"
-                                  onChange={onChange}
-                                ></input>
-                              </div>
-                            </UpdateCardContainer>
-                            ) : (
                             <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
@@ -324,8 +332,8 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-                            )}
-                            {input.id == 9 ? (
+
+                            {input.id == 8 ? (
                               null
                             ) :
                               <MessageHover
