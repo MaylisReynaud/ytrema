@@ -291,11 +291,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
                 <PdfContainer>
-                <label>Lien du patron :</label>
+                <InformationLabel>Lien du patron</InformationLabel>
                 {/* <a href={patternCard.pdf_instructions}>Cliquez pour visualiser</a> */}
-                  <a href={patternCard.pdf_instructions} target="_blank"> Cliquez
+                  <InformationLink href={patternCard.pdf_instructions} target="_blank"> Cliquez ici pour visualiser
 
-                  </a>
+                  </InformationLink>
                 </PdfContainer>
               </>
             ) : (

@@ -213,9 +213,11 @@ export const ImageContainer = styled.div`
 `;
 export const PdfContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  margin-top: 1.2rem;
   width: 90%;
-  height: 2em;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
   @media screen and (min-width: 601px) {
     height: 90%;
     margin-left: 1.3em;
