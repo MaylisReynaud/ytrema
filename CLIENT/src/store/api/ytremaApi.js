@@ -160,7 +160,73 @@ export const ytremaApi = createApi({
       }
     },
     invalidatesTags: ['Haberdashery'],
-  })
+  }),
+  getAllPatterns: builder.query({
+    query: (memberId) => {
+      token = sessionStorage.getItem("token");
+      return {
+        url: `/pattern/all/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Pattern'],
+  }),
+  addOnePattern: builder.mutation({
+    query: (arg) =>{
+      const {memberId, body} = arg;
+      return {
+        url: `/pattern/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Pattern'],
+  }),
+  deleteOnePattern: builder.mutation({
+    query: (arg) => {
+      const {memberId, patternId} = arg;
+    return {
+      url: `/pattern/${patternId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Pattern'],
+  }),
+  deleteAllPatterns: builder.mutation({
+    query: (memberId) => {
+    return {
+      url: `/pattern/all/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Pattern'],
+  }),
+  updateOnePattern: builder.mutation({
+    query: (arg) => {
+      const {memberId, patternId, body} = arg;
+    return {
+      url: `/pattern/${patternId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Pattern'],
+  }),
   })
 });
 
@@ -177,5 +243,10 @@ export const {
               useDeleteOneHaberdasheryMutation, 
               useDeleteAllHaberdasheriesMutation, 
               useUpdateOneHaberdasheryMutation,
+              useGetAllPatternsQuery, 
+              useAddOnePatternMutation, 
+              useDeleteOnePatternMutation, 
+              useDeleteAllPatternsMutation, 
+              useUpdateOnePatternMutation,
              } = ytremaApi;
 
