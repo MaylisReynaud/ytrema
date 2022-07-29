@@ -16,6 +16,7 @@ import { Pattern } from '../ArticlesPage/Pattern';
 import { Profil } from '../ArticlesPage/Profil';
 import { FabricCard } from '../ArticlesPage/Fabric/Card';
 import { HaberdasheryCard } from '../ArticlesPage/Haberdashery/Card';
+import { PatternCard } from '../ArticlesPage/Pattern/Card';
 import { NotFound } from '../NotFound';
 import { ToastContainer} from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux";
@@ -62,6 +63,7 @@ const App = () => {
               <Route  path='/mercerie' element={<Haberdashery />} />
               <Route  path='/mercerie/:id' element={<HaberdasheryCard /> } />
               <Route  path='/patrons' element={<Pattern />} />
+              <Route  path='/patrons/:id' element={<PatternCard />} />
               <Route  path='/profil' element={<Profil />} />
               <Route  path='*' element={<NotFound />} />
               

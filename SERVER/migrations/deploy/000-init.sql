@@ -75,10 +75,10 @@ CREATE TABLE "pattern"(
     "website" TEXT,
     "brand" TEXT NOT NULL,
     "clothing" TEXT NOT NULL,
-    "gender" TEXT NOT NULL CHECK ("gender" = 'h' OR "gender" = 'f' OR "gender" = 'e' OR "gender" = 'u'),
+    "gender" TEXT NOT NULL CHECK ("gender" = 'Accessoire' OR "gender" = 'Bébé' OR "gender" = 'Enfant' OR "gender" = 'Femme' OR "gender" = 'Homme'),
     "price" POSITIVE_NUMERIC NOT NULL,
     "personal_notes" TEXT,
-    "format" TEXT NOT NULL CHECK ("format" = 'paper' OR "format" = 'pdf'),
+    "format" TEXT NOT NULL CHECK ("format" = 'Papier' OR "format" = 'PDF'),
     "pdf_instructions" TEXT,
     "photo" TEXT,
     "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
