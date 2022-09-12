@@ -26,7 +26,7 @@ export const fabricInputs = [
       name:'website',
       type:'text',
       placeholder:'ex: www.sudocoud.fr ou Sudocoud',
-      label:'Site web ou magasin',
+      label:'Site web /magasin',
       errorMessage:'Ce champ doit comporter entre 2 et 50 caractères',
       // pattern:"^[\\w\\xc0-\\xff' ']{2,30}$",
       // pattern:"((^https?):\/\/[a-z0-9\/:%_+.,#?!@&=-]+)|\w+[\.]*\s*",
