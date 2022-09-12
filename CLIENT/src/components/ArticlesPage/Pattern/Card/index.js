@@ -367,8 +367,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       Cliquez ici pour visualiser le patron
                     </InformationLink>
                   </InformationLinkContainer>
-
-
                 </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
@@ -530,9 +528,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               </ImageContainer>
             ) : (
               <UpdateCardContainer>
-                <UpdatePhotoInput>
+                {/* <UpdatePhotoInput> */}
                   <UpdateImageCard src={preview} alt="pattern picture" />
-                </UpdatePhotoInput>
+                {/* </UpdatePhotoInput> */}
                 <UpdateFileInputContainer>
                   <input
                     name="photo"
@@ -543,10 +541,23 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     onChange={onChange}
                   ></input>
                 </UpdateFileInputContainer>
-                <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
-                  <UpdatePhotoInput>
+                <PreviewContainer>
+                  <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
+                  {/* <UpdatePhotoInput> */}
                     <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
-                  </UpdatePhotoInput>
+                  {/* </UpdatePhotoInput> */}
+                  <UpdateFileInputContainer>
+                  <input
+                    name="pdf_instructions"
+                    accept="image/*, .pdf, .doc"
+                    placeholder="Photo du patron"
+                    required=""
+                    type="file"
+                    onChange={onChange}
+                  ></input>
+                </UpdateFileInputContainer>
+                </PreviewContainer>
+
               </UpdateCardContainer>
             )}
             <InformationContainer>
@@ -557,6 +568,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               </TitleContainer>
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
+                   <PdfContainer>
+                  <InformationLabel>Lien du patron</InformationLabel>
+                  <InformationLinkContainer>
+                    <InformationLink
+                      href={patternCard.pdf_instructions} target="_blank"
+                    >
+                      Cliquez ici pour visualiser le patron
+                    </InformationLink>
+                  </InformationLinkContainer>
+                </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
@@ -610,6 +631,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
+                   <PdfContainer>
+                  <InformationLabel>Lien du patron</InformationLabel>
+                  <InformationLinkContainer>
+                    <InformationLink
+                      href={patternCard.pdf_instructions} target="_blank"
+                    >
+                      Cliquez ici pour visualiser le patron
+                    </InformationLink>
+                  </InformationLinkContainer>
+                </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>

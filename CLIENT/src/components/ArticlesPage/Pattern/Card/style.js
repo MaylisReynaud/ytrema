@@ -45,34 +45,35 @@ export const UpdatePhotoInput = styled.div`
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height:50%;
+    height:100%;
     width:90%;
     margin-left: 1.3em;
     /* margin-bottom: 5em; */
-    background-color: red;
   }
 `;
 export const UpdateImageCard = styled.img`
   object-fit: cover;
   width: 100%;
   @media screen and (min-width:601px) { 
-    height: 100%;
+    height: 40%;
   }
 `;
 
 export const UpdateCardContainer = styled.div`
   display: contents;
   @media screen and (min-width: 601px) {
+    margin-left: 1.3em;
     display:flex;
     flex-direction:column;
-    height:80%;
-    width: 70%;
+    height:91%;
+    width: 75%;
+    overflow-y: scroll;
   }
 `;
 export const UpdateFileInputContainer = styled.div`
   display: flex;
   margin-bottom: .6em;
-  margin-left: 1em;
+  margin-top: 2em;
   justify-content: center;
 `;
 
@@ -124,7 +125,6 @@ export const ReturnArrow = styled(ArrowSmLeft)`
   height: 32px;
   margin-left: 0.8em;
   color: ${(props) => props.theme.color3};
-  /* color: red; */
   @media screen and (min-width: 601px) {
     /* left: 1.5rem; */
   }
@@ -236,7 +236,7 @@ export const PreviewContainer = styled.div`
     margin-top: 2em;
   
     @media screen and (min-width: 601px) {
-    height: 90%;
+    height: 100%;
     width:100%;
     /* border-radius: 1em; */
 
@@ -251,9 +251,7 @@ export const PdfContainer = styled.div`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   @media screen and (min-width: 601px) {
-    height: 90%;
-    margin-left: 1.3em;
-    margin-bottom: 5em;
+
   }
 `;
 
@@ -266,11 +264,10 @@ export const PatternPreviewTitle = styled.p`
 `;
 
 export const PdfIframe = styled.iframe`
-  height: 85%;
+  height: 100%;
   width: 100%;
   margin-top: 1.5em;
 @media screen and (min-width: 601px) {
-   height: 80%;
    margin-top: 1.5em;
   }
 `;
