@@ -211,6 +211,15 @@ export const ImageContainer = styled.div`
     margin-bottom: 5em;
   }
 `;
+
+export const PreviewContainer = styled.div`
+background-color: #ffc43d;
+    display: flex;
+    flex-direction: column;
+    margin: 0.1em;
+    border: 4px solid #ffc43d;
+`;
+
 export const PdfContainer = styled.div`
   display: flex;
   align-items: center;
@@ -230,6 +239,7 @@ export const PatternPreviewTitle = styled.p`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   margin-top:1.5em;
+  text-align: center;
 `;
 
 export const PdfIframe = styled.iframe`

@@ -41,7 +41,8 @@ import {
   UpdateFileInputContainer,
   PdfContainer,
   PdfIframe,
-  PatternPreviewTitle
+  PatternPreviewTitle,
+  PreviewContainer
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
@@ -298,8 +299,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <ImageContainer>
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
-                <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
-                <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
+                <PreviewContainer>
+                  <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
+                  <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
+                </PreviewContainer>
+
                 <PdfContainer>
                   <InformationLabel>Lien du patron</InformationLabel>
                   <InformationLinkContainer>
