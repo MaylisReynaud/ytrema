@@ -39,13 +39,23 @@ export const CardContainer = styled.div`
 `;
 
 export const UpdatePhotoInput = styled.div`
-  height: 15rem;
+  height: 70%;
   margin: 0 1em 1em 1em;
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height: 80%;
-    width: 100%;
+    height:50%;
+    width:90%;
+    margin-left: 1.3em;
+    /* margin-bottom: 5em; */
+    background-color: red;
+  }
+`;
+export const UpdateImageCard = styled.img`
+  object-fit: cover;
+  width: 100%;
+  @media screen and (min-width:601px) { 
+    height: 100%;
   }
 `;
 
@@ -59,7 +69,10 @@ export const UpdateCardContainer = styled.div`
   }
 `;
 export const UpdateFileInputContainer = styled.div`
+  display: flex;
+  margin-bottom: .6em;
   margin-left: 1em;
+  justify-content: center;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -220,6 +233,13 @@ export const PreviewContainer = styled.div`
     flex-direction: column;
     border: 1px solid #2a9d8f;
     margin-top: 2em;
+  
+    @media screen and (min-width: 601px) {
+    height: 50%;
+    width:100%;
+    /* border-radius: 1em; */
+
+  }
 `;
 
 export const PdfContainer = styled.div`
@@ -227,7 +247,6 @@ export const PdfContainer = styled.div`
   align-items: center;
   width: 90%;
   margin-top: 1.2rem;
-  width: 90%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   @media screen and (min-width: 601px) {
@@ -246,11 +265,12 @@ export const PatternPreviewTitle = styled.p`
 `;
 
 export const PdfIframe = styled.iframe`
-  height: 70%;
+  height: 85%;
   width: 100%;
   margin-top: 1.5em;
 @media screen and (min-width: 601px) {
-   
+   height: 80%;
+   margin-top: 1.5em;
   }
 `;
 
@@ -260,10 +280,7 @@ export const ImageCard = styled.img`
   height: 100%;
 
   /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+    height: 100%;
         
   } */
 `;
@@ -323,11 +340,17 @@ export const InformationLabel = styled.label`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
+  @media screen and (min-width: 601px) {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
+  }
 `;
 
 export const InformationInput = styled.textarea`
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 70%;
+  height: 100%;
   flex-direction: row;
   resize: none;
   margin-left: 0.5rem;
