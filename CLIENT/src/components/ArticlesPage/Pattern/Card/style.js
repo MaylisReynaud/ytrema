@@ -323,10 +323,11 @@ export const InformationLabel = styled.label`
   font-size: 1rem;
 `;
 
-export const InformationInput = styled.input`
+export const InformationInput = styled.textarea`
   display: flex;
   width: 70%;
   flex-direction: row;
+  resize: none;
   margin-left: 0.5rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
