@@ -213,11 +213,13 @@ export const ImageContainer = styled.div`
 `;
 
 export const PreviewContainer = styled.div`
-background-color: #ffc43d;
+    padding: 0.5em;
+    width: 90%;
+    background-color: #2a9d8f;
     display: flex;
     flex-direction: column;
-    margin: 0.1em;
-    border: 4px solid #ffc43d;
+    border: 1px solid #2a9d8f;
+    margin-top: 2em;
 `;
 
 export const PdfContainer = styled.div`
@@ -237,9 +239,10 @@ export const PdfContainer = styled.div`
 
 export const PatternPreviewTitle = styled.p`
   font-family: "${(props) => props.theme.textFont}";
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin-top:1.5em;
   text-align: center;
+  color: ${(props) => props.theme.color4};
 `;
 
 export const PdfIframe = styled.iframe`
