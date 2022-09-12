@@ -34,6 +34,7 @@ export const CardContainer = styled.div`
   width: 100%;
   @media screen and (min-width: 601px) {
     flex-direction: row;
+    align-items: flex-start;
     height: 94vh;
   }
 `;
@@ -219,9 +220,9 @@ export const ImageContainer = styled.div`
   width: 90%;
   height: 15em;
   @media screen and (min-width: 601px) {
-    height: 90%;
+    height: 92%;
     margin-left: 1.3em;
-    margin-bottom: 5em;
+
   }
 `;
 
@@ -235,7 +236,7 @@ export const PreviewContainer = styled.div`
     margin-top: 2em;
   
     @media screen and (min-width: 601px) {
-    height: 50%;
+    height: 90%;
     width:100%;
     /* border-radius: 1em; */
 
@@ -279,10 +280,10 @@ export const ImageCard = styled.img`
   width: 100%;
   height: 100%;
 
-  /* @media screen and (min-width:601px) { 
-    height: 100%;
+  @media screen and (min-width:601px) { 
+    height: 50%;
         
-  } */
+  }
 `;
 export const InformationContainer = styled.div`
   height: 100%;
