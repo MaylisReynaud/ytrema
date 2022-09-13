@@ -21,6 +21,7 @@ import {
   InformationContainer,
   InformationForm,
   InformationInput,
+  UpdateInformationInput,
   InformationContent,
   InformationLabel,
   InformationLinkContainer,
@@ -378,14 +379,15 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
                         {(input.id !== 8) && (input.type !== "select") ? (
                           <>
-                            <InformationInput
+                            <UpdateInformationInput
                               placeholder={values[input.info]}
+                              // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></InformationInput>
+                            ></UpdateInformationInput>
 
                             {input.id == 8 ? (
                               null
@@ -443,6 +445,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                             value={patternCard[input.info]}
                             disabled="disabled"
                             type={input.type}
+                            // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
                           ></InformationInput>
                         )}
 
@@ -587,14 +590,14 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            <InformationInput
+                            <UpdateInformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></InformationInput>
+                            ></UpdateInformationInput>
                             {input.id == 6 || input.id == 8 ? (
                               null
                             ) :

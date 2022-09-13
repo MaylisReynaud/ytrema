@@ -178,15 +178,6 @@ export const CardTitle = styled.h1`
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
   color: ${(props) => props.theme.color2};
-  /* background-color: #83433e; */
-
-  /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 
 export const SizeTitle = styled.h1`
@@ -280,7 +271,7 @@ export const InformationLabel = styled.label`
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G6.png?alt=media&token=67aaada2-834a-4e3f-a517-fb2d4dfe3eba');
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
     width: 20%;

@@ -260,6 +260,7 @@ export const PatternPreviewTitle = styled.p`
   font-size: 1.2rem;
   margin-top:1.5em;
   text-align: center;
+  font-weight: 800;
   color: ${(props) => props.theme.color4};
 `;
 
@@ -336,22 +337,43 @@ export const InformationLabel = styled.label`
   margin: 0.5rem 0rem;
   color: ${(props) => props.theme.color4};
   width: 30%;
-  /* height: 20%; */
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
     width: 20%;
+    font-weight:600;
   }
 `;
 
 export const InformationInput = styled.textarea`
   display: flex;
-  justify-content: center;
   align-items: center;
   width: 70%;
-  height: 100%;
+  flex-direction: row;
+  resize: none;
+  margin-left: 0.5rem;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  border: none;
+  background-color: #fff;
+  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
+  font-weight: bold;
+  &[class~="input-false"] {
+    border: 1px solid red;
+    background-color: #ffe0d3;
+  }
+  ::placeholder {
+    color: black;
+    flex-wrap: wrap;
+  }
+`;
+
+export const UpdateInformationInput = styled.textarea`
+  display: flex;
+  align-items: center;
+  width: 70%;
   flex-direction: row;
   resize: none;
   margin-left: 0.5rem;

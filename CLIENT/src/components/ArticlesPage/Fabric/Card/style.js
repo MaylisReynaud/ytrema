@@ -271,29 +271,43 @@ export const InformationContent = styled.div`
 `;
 
 export const InformationLabel = styled.label`
-  display: flex;
+    display: flex;
   flex-direction: row;
+  padding: 0.5rem;
   margin: 0.5rem 0rem;
-  color: ${(props) => props.theme.color3};
+  color: ${(props) => props.theme.color4};
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=88d0e9af-ee2a-471b-9fbd-c00f9fae481e');
+  @media screen and (min-width: 601px) {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
+    width: 20%;
+    font-weight:600;
+  }
 `;
 
 export const InformationInput = styled.input`
-  display: flex;
+   display: flex;
+  align-items: center;
+  justify-content: flex-start;
   width: 70%;
+  height: 100%;
   flex-direction: row;
+  resize: none;
   margin-left: 0.5rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
+  }
+  ::placeholder {
+    color: black;
+    flex-wrap: wrap;
   }
 `;
 
