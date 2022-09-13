@@ -20,6 +20,7 @@ import {
   UpdatePhotoInput,
   InformationContainer,
   InformationForm,
+  InformationDiv,
   InformationInput,
   UpdateInformationInput,
   InformationContent,
@@ -40,6 +41,7 @@ import {
   UpdateInformationContainer,
   UpdateInformationText,
   UpdateFileInputContainer,
+  UpdatePdfContainer,
   PdfContainer,
   PdfIframe,
   PatternPreviewTitle,
@@ -359,16 +361,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
-                  <PdfContainer>
+                  <UpdatePdfContainer>
                   <InformationLabel>Lien du patron</InformationLabel>
                   <InformationLinkContainer>
                     <InformationLink
                       href={patternCard.pdf_instructions} target="_blank"
                     >
-                      Cliquez ici pour visualiser le patron
+                      Cliquez ici pour visualiser le patron UPDATE
                     </InformationLink>
                   </InformationLinkContainer>
-                </PdfContainer>
+                </UpdatePdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
@@ -382,6 +384,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                             <UpdateInformationInput
                               placeholder={values[input.info]}
                               // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
@@ -441,12 +444,12 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
-                            value={patternCard[input.info]}
-                            disabled="disabled"
-                            type={input.type}
+                          <InformationDiv
+                            // value={patternCard[input.info]}
+                            // disabled="disabled"
+                            // type={input.type}
                             // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
-                          ></InformationInput>
+                          >{patternCard[input.info]}</InformationDiv>
                         )}
 
                       </InformationContent>

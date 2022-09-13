@@ -250,6 +250,20 @@ export const PdfContainer = styled.div`
   margin-top: 1.2rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  /* border: 1px solid red; */
+  @media screen and (min-width: 601px) {
+    width: 100%;
+  }
+`;
+
+export const UpdatePdfContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 1.2rem;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  /* border: 1px solid red; */
   @media screen and (min-width: 601px) {
     width: 100%;
   }
@@ -347,6 +361,29 @@ export const InformationLabel = styled.label`
   }
 `;
 
+export const InformationDiv = styled.div`
+  display: flex;
+  align-items: center;
+  width: 70%;
+  flex-direction: row;
+  resize: none;
+  margin-left: 0.5rem;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  border: none;
+  background-color: #fff;
+  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
+  font-weight: bold;
+  /* &[class~="input-false"] {
+    border: 1px solid red;
+    background-color: #ffe0d3;
+  } */
+  /* ::placeholder {
+    color: black;
+    flex-wrap: wrap;
+  } */
+`;
+
 export const InformationInput = styled.textarea`
   display: flex;
   align-items: center;
@@ -395,6 +432,8 @@ export const UpdateInformationInput = styled.textarea`
 
 export const InformationLinkContainer = styled.div`
   margin-left: 0.5rem;
+  width: 70%;
+  /* background-color: yellow; */
 `;
 
 export const InformationLink = styled.a`
