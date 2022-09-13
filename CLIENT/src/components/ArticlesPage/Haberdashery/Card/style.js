@@ -235,6 +235,7 @@ export const InformationContainer = styled.div`
 
   @media screen and (min-width: 601px) {
     height: 100%;
+    width: 75%;
   }
 `;
 
@@ -273,11 +274,17 @@ export const InformationContent = styled.div`
 export const InformationLabel = styled.label`
   display: flex;
   flex-direction: row;
+  padding: 0.5rem;
   margin: 0.5rem 0rem;
-  color: ${(props) => props.theme.color3};
+  color: ${(props) => props.theme.color4};
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
+  @media screen and (min-width: 601px) {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
+    width: 20%;
+  }
 `;
 
 export const InformationInput = styled.input`

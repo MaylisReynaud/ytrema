@@ -336,6 +336,7 @@ export const InformationLabel = styled.label`
   margin: 0.5rem 0rem;
   color: ${(props) => props.theme.color4};
   width: 30%;
+  /* height: 20%; */
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
