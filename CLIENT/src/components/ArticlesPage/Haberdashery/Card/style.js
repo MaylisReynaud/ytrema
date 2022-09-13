@@ -275,6 +275,7 @@ export const InformationLabel = styled.label`
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
     width: 20%;
+    font-weight:600;
   }
 `;
 
