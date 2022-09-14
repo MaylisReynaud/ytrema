@@ -303,6 +303,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                           <>
                             <InformationInput
                               placeholder={values[input.info]}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
@@ -366,6 +367,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             value={fabricCard[input.info]}
                             disabled="disabled"
                             type={input.type}
+                            rows={values[input.info].length <= 31 ? '1' : '2'}
                           ></InformationInput>
                         )}
 
@@ -484,6 +486,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
                               type={input.type}
                               name={input.name}
                               pattern={input.pattern}
@@ -542,6 +545,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                         ) : (
                           <InformationInput
                             value={fabricCard[input.info]}
+                            rows={values[input.info].length <= 31 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>

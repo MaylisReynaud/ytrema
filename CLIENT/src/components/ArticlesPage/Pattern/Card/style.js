@@ -46,11 +46,11 @@ export const UpdatePhotoInput = styled.div`
     display:flex;
     flex-direction:column;
     height:100%;
-    width:90%;
+    width:100%;
     margin-left: 1.3em;
-    /* margin-bottom: 5em; */
   }
 `;
+
 export const UpdateImageCard = styled.img`
   object-fit: cover;
   width: 100%;
@@ -67,7 +67,6 @@ export const UpdateCardContainer = styled.div`
     flex-direction:column;
     height:91%;
     width: 75%;
-    overflow-y: scroll;
   }
 `;
 export const UpdateFileInputContainer = styled.div`
@@ -112,6 +111,7 @@ export const UpdateInformationText = styled.h3`
   @media screen and (min-width: 601px) {
   }
 `;
+
 export const ReturnArrowContainer = styled.div`
   display: flex;
   @media screen and (min-width: 601px) {
@@ -126,7 +126,6 @@ export const ReturnArrow = styled(ArrowSmLeft)`
   margin-left: 0.8em;
   color: ${(props) => props.theme.color3};
   @media screen and (min-width: 601px) {
-    /* left: 1.5rem; */
   }
 `;
 
@@ -135,7 +134,7 @@ export const ModifyDeleteContainer = styled.div`
   align-items: center;
   margin-right: 1em;
   @media screen and (min-width: 601px) {
-    margin-top: 0em;
+    margin-top: 1em;
   }
 `;
 
@@ -171,17 +170,13 @@ export const ModifyButton = styled(PencilFill)`
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content:  center; */
-  /* align-items: center; */
-  /* height: auto; */
   width: 90%;
   margin: 3rem 0rem 1rem 0rem;
-  /* background-color: blue; */
-
   @media screen and (min-width: 601px) {
     margin: 1rem 0rem;
   }
 `;
+
 export const CardTitle = styled.h1`
   display: flex;
   flex-direction: column;
@@ -205,6 +200,7 @@ export const DesignerTitle = styled.h1`
   font-weight: bold;
   color: ${(props) => props.theme.color2};
 `;
+
 export const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -238,7 +234,7 @@ export const PdfContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  margin-top: 1.2rem;
+  margin : 1.2rem 1.3rem 0 1.3rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   @media screen and (min-width: 601px) {
@@ -274,6 +270,7 @@ export const ImageCard = styled.img`
         
   }
 `;
+
 export const InformationContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -283,7 +280,7 @@ export const InformationContainer = styled.div`
   margin-top: 1rem;
   @media screen and (min-width: 601px) {
     height: 100%;
-    width: 75%;
+    width: 60%;
     margin-left: 5.5rem;
   }
 `;
@@ -300,8 +297,8 @@ export const InformationForm = styled.form`
     flex-wrap: nowrap;
     margin: 1rem 0rem;
     height: 100%;
+    width: 96%;
   }
-
   @media screen and (min-height: 800px) {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -318,6 +315,7 @@ export const InformationContent = styled.div`
   width: 100%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  margin : 0 1.3rem;
 `;
 
 export const InformationLabel = styled.label`
@@ -331,7 +329,6 @@ export const InformationLabel = styled.label`
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
-    /* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86'); */
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
     width: 20%;
     font-weight:600;
@@ -350,13 +347,17 @@ export const InformationInput = styled.textarea`
   border: none;
   background-color: #fff;
   font-weight: bold;
+  ::placeholder {
+    color: black;
+  }
+  &[class~="disabled"] {
+    ::placeholder {
+    color: grey;
+  }
+  }
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
-  }
-  ::placeholder {
-    color: black;
-    flex-wrap: wrap;
   }
 `;
 
@@ -384,9 +385,11 @@ export const InformationSelect = styled.select`
   :focus {
     border: 2px solid ${(props) => props.theme.color3};
   }
-  ::placeholder {
+  &[class~="disabled"] {
+    ::placeholder {
     color: grey;
   }
+}
 `;
 
 export const ButtonForm = styled.button`
