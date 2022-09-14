@@ -34,32 +34,46 @@ export const CardContainer = styled.div`
   width: 100%;
   @media screen and (min-width: 601px) {
     flex-direction: row;
+    align-items: flex-start;
     height: 94vh;
   }
 `;
 
 export const UpdatePhotoInput = styled.div`
-  height: 15rem;
+  height: 70%;
   margin: 0 1em 1em 1em;
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height: 80%;
-    width: 100%;
+    height:100%;
+    width:100%;
+    margin-left: 1.3em;
+  }
+`;
+
+export const UpdateImageCard = styled.img`
+  object-fit: cover;
+  width: 100%;
+  @media screen and (min-width:601px) { 
+    height: 40%;
   }
 `;
 
 export const UpdateCardContainer = styled.div`
   display: contents;
   @media screen and (min-width: 601px) {
+    margin-left: 1.3em;
     display:flex;
     flex-direction:column;
-    height:80%;
-    width: 70%;
+    height:91%;
+    width: 75%;
   }
 `;
 export const UpdateFileInputContainer = styled.div`
-  margin-left: 1em;
+  display: flex;
+  margin-bottom: .6em;
+  margin-top: 2em;
+  justify-content: center;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -97,6 +111,7 @@ export const UpdateInformationText = styled.h3`
   @media screen and (min-width: 601px) {
   }
 `;
+
 export const ReturnArrowContainer = styled.div`
   display: flex;
   @media screen and (min-width: 601px) {
@@ -110,9 +125,7 @@ export const ReturnArrow = styled(ArrowSmLeft)`
   height: 32px;
   margin-left: 0.8em;
   color: ${(props) => props.theme.color3};
-  /* color: red; */
   @media screen and (min-width: 601px) {
-    /* left: 1.5rem; */
   }
 `;
 
@@ -121,7 +134,7 @@ export const ModifyDeleteContainer = styled.div`
   align-items: center;
   margin-right: 1em;
   @media screen and (min-width: 601px) {
-    margin-top: 0em;
+    margin-top: 1em;
   }
 `;
 
@@ -157,17 +170,13 @@ export const ModifyButton = styled(PencilFill)`
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content:  center; */
-  /* align-items: center; */
-  /* height: auto; */
   width: 90%;
   margin: 3rem 0rem 1rem 0rem;
-  /* background-color: blue; */
-
   @media screen and (min-width: 601px) {
     margin: 1rem 0rem;
   }
 `;
+
 export const CardTitle = styled.h1`
   display: flex;
   flex-direction: column;
@@ -178,15 +187,6 @@ export const CardTitle = styled.h1`
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
   color: ${(props) => props.theme.color2};
-  /* background-color: #83433e; */
-
-  /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 
 export const DesignerTitle = styled.h1`
@@ -200,52 +200,88 @@ export const DesignerTitle = styled.h1`
   font-weight: bold;
   color: ${(props) => props.theme.color2};
 `;
+
 export const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
   height: 15em;
   @media screen and (min-width: 601px) {
-    height: 90%;
+    height: 92%;
     margin-left: 1.3em;
-    margin-bottom: 5em;
+
   }
 `;
+
+export const PreviewContainer = styled.div`
+    padding: 0.5em;
+    width: 90%;
+    background-color: #2a9d8f;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #2a9d8f;
+    margin-top: 2em;
+  
+    @media screen and (min-width: 601px) {
+    height: 100%;
+    width:100%;
+    /* border-radius: 1em; */
+
+  }
+`;
+
 export const PdfContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 90%;
-  height: 2em;
+  align-items: center;
+  width: 100%;
+  margin : 1.2rem 1.3rem 0 1.3rem;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
   @media screen and (min-width: 601px) {
-    height: 90%;
-    margin-left: 1.3em;
-    margin-bottom: 5em;
+    width: 100%;
   }
 `;
+
+export const PatternPreviewTitle = styled.p`
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1.2rem;
+  margin-top:1.5em;
+  text-align: center;
+  font-weight: 800;
+  color: ${(props) => props.theme.color4};
+`;
+
+export const PdfIframe = styled.iframe`
+  height: 100%;
+  width: 100%;
+  margin-top: 1.5em;
+@media screen and (min-width: 601px) {
+   margin-top: 1.5em;
+  }
+`;
+
 export const ImageCard = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
 
-  /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
+  @media screen and (min-width:601px) { 
+    height: 50%;
         
-  } */
+  }
 `;
+
 export const InformationContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   margin-top: 1rem;
-
   @media screen and (min-width: 601px) {
     height: 100%;
+    width: 60%;
+    margin-left: 5.5rem;
   }
 `;
 
@@ -253,7 +289,7 @@ export const InformationForm = styled.form`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   height: 90%;
   overflow-y: scroll;
   @media screen and (min-width: 601px) {
@@ -261,8 +297,8 @@ export const InformationForm = styled.form`
     flex-wrap: nowrap;
     margin: 1rem 0rem;
     height: 100%;
+    width: 96%;
   }
-
   @media screen and (min-height: 800px) {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -279,37 +315,49 @@ export const InformationContent = styled.div`
   width: 100%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  margin : 0 1.3rem;
 `;
 
 export const InformationLabel = styled.label`
   display: flex;
   flex-direction: row;
+  padding: 0.5rem;
   margin: 0.5rem 0rem;
-  color: ${(props) => props.theme.color3};
+  color: ${(props) => props.theme.color4};
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
+  @media screen and (min-width: 601px) {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
+    width: 20%;
+    font-weight:600;
+  }
 `;
 
-export const InformationInput = styled.input`
+export const InformationInput = styled.textarea`
   display: flex;
+  align-items: center;
   width: 70%;
   flex-direction: row;
+  resize: none;
   margin-left: 0.5rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
+  ::placeholder {
+    color: black;
+  }
+  &[class~="disabled"] {
+    ::placeholder {
+    color: grey;
+  }
+  }
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
-  }
-  ::placeholder {
-    color: black;
-    flex-wrap: wrap;
-    background-color:red;
   }
 `;
 
@@ -322,7 +370,6 @@ export const InformationLink = styled.a`
 `;
 
 export const InformationSelect = styled.select`
-  /* display: flex; */
   display: inline-block;
   width: 70%;
   flex-direction: row;
@@ -331,7 +378,6 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   :hover {
     color: ${(props) => props.theme.color3};
@@ -339,9 +385,11 @@ export const InformationSelect = styled.select`
   :focus {
     border: 2px solid ${(props) => props.theme.color3};
   }
-  ::placeholder {
+  &[class~="disabled"] {
+    ::placeholder {
     color: grey;
   }
+}
 `;
 
 export const ButtonForm = styled.button`
@@ -388,9 +436,9 @@ export const ProjectTitle = styled.h2`
 export const ProjectImageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
-  height: 7rem;
+  height: 7rem; 
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;
