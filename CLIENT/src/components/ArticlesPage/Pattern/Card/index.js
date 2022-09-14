@@ -21,7 +21,6 @@ import {
   InformationContainer,
   InformationForm,
   InformationInput,
-  UpdateInformationInput,
   InformationContent,
   InformationLabel,
   InformationLinkContainer,
@@ -305,20 +304,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
                 </PreviewContainer>
-
-                <PdfContainer>
-                  <InformationLabel>Lien du patron</InformationLabel>
-                  <InformationLinkContainer>
-                    <InformationLink
-                      href={patternCard.pdf_instructions} target="_blank"
-                    >
-                      Cliquez ici pour visualiser le patron
-                    </InformationLink>
-                  </InformationLinkContainer>
-
-
-                </PdfContainer>
-
               </>
             ) : (
               <UpdateCardContainer>
@@ -342,33 +327,23 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
                   </UpdatePhotoInput>
                   <UpdateFileInputContainer>
-                  <input
-                    name="pdf_instructions"
-                    accept="image/*, .pdf, .doc"
-                    placeholder="Photo du patron"
-                    required=""
-                    type="file"
-                    onChange={onChange}
-                  ></input>
-                </UpdateFileInputContainer>
+                    <input
+                      name="pdf_instructions"
+                      accept="image/*, .pdf, .doc"
+                      placeholder="Photo du patron"
+                      required=""
+                      type="file"
+                      onChange={onChange}
+                    ></input>
+                  </UpdateFileInputContainer>
                 </PreviewContainer>
 
               </UpdateCardContainer>
             )}
             <InformationContainer>
-              
+
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
-                  <PdfContainer>
-                  <InformationLabel>Lien du patron</InformationLabel>
-                  <InformationLinkContainer>
-                    <InformationLink
-                      href={patternCard.pdf_instructions} target="_blank"
-                    >
-                      Cliquez ici pour visualiser le patron
-                    </InformationLink>
-                  </InformationLinkContainer>
-                </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
@@ -379,15 +354,15 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
                         {(input.id !== 8) && (input.type !== "select") ? (
                           <>
-                            <UpdateInformationInput
+                            <InformationInput
                               placeholder={values[input.info]}
-                              // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></UpdateInformationInput>
+                            ></InformationInput>
 
                             {input.id == 8 ? (
                               null
@@ -426,32 +401,44 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
-                  {patternInputs.map((input, index) =>
-                    index !== 0 ? (
-                      <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
-                        {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
-                          <InformationLinkContainer
-                          >
-                            <InformationLink
-                              href={patternCard[input.info].includes("http") ? patternCard[input.info] : `https://${patternCard[input.info]}`}
-                              target="_blank"
+                  <>
+                    <PdfContainer>
+                      <InformationLabel>Lien du patron</InformationLabel>
+                      <InformationLinkContainer>
+                        <InformationLink
+                          href={patternCard.pdf_instructions} target="_blank"
+                        >
+                          Cliquez ici pour visualiser le patron
+                        </InformationLink>
+                      </InformationLinkContainer>
+                    </PdfContainer>
+                    {patternInputs.map((input, index) =>
+                      index !== 0 ? (
+                        <InformationContent key={input.id}>
+                          <InformationLabel>{input.label}</InformationLabel>
+                          {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
+                            <InformationLinkContainer
                             >
-                              {patternCard[input.info]}
-                            </InformationLink>
-                          </InformationLinkContainer>
-                        ) : (
-                          <InformationInput
-                            value={patternCard[input.info]}
-                            disabled="disabled"
-                            type={input.type}
-                            // rows={input.id == 4 || input.id == 9 ? '2' : '1'}
-                          ></InformationInput>
-                        )}
+                              <InformationLink
+                                href={patternCard[input.info].includes("http") ? patternCard[input.info] : `https://${patternCard[input.info]}`}
+                                target="_blank"
+                              >
+                                {patternCard[input.info]}
+                              </InformationLink>
+                            </InformationLinkContainer>
+                          ) : (
+                            <InformationInput
+                              value={patternCard[input.info]}
+                              disabled="disabled"
+                              type={input.type}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
+                            ></InformationInput>
+                          )}
 
-                      </InformationContent>
-                    ) : null
-                  )}
+                        </InformationContent>
+                      ) : null
+                    )}
+                  </>
                 </InformationForm>
               )}
 
@@ -532,7 +519,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
             ) : (
               <UpdateCardContainer>
                 {/* <UpdatePhotoInput> */}
-                  <UpdateImageCard src={preview} alt="pattern picture" />
+                <UpdateImageCard src={preview} alt="pattern picture" />
                 {/* </UpdatePhotoInput> */}
                 <UpdateFileInputContainer>
                   <input
@@ -547,18 +534,18 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <PreviewContainer>
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   {/* <UpdatePhotoInput> */}
-                    <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
+                  <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
                   {/* </UpdatePhotoInput> */}
                   <UpdateFileInputContainer>
-                  <input
-                    name="pdf_instructions"
-                    accept="image/*, .pdf, .doc"
-                    placeholder="Photo du patron"
-                    required=""
-                    type="file"
-                    onChange={onChange}
-                  ></input>
-                </UpdateFileInputContainer>
+                    <input
+                      name="pdf_instructions"
+                      accept="image/*, .pdf, .doc"
+                      placeholder="Photo du patron"
+                      required=""
+                      type="file"
+                      onChange={onChange}
+                    ></input>
+                  </UpdateFileInputContainer>
                 </PreviewContainer>
 
               </UpdateCardContainer>
@@ -571,16 +558,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               </TitleContainer>
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
-                   <PdfContainer>
-                  <InformationLabel>Lien du patron</InformationLabel>
-                  <InformationLinkContainer>
-                    <InformationLink
-                      href={patternCard.pdf_instructions} target="_blank"
-                    >
-                      Cliquez ici pour visualiser le patron
-                    </InformationLink>
-                  </InformationLinkContainer>
-                </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
@@ -590,14 +567,15 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            <UpdateInformationInput
+                            <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
                               type={input.type}
+                              rows={values[input.info].length <= 31 ? '1' : '2'}
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></UpdateInformationInput>
+                            ></InformationInput>
                             {input.id == 6 || input.id == 8 ? (
                               null
                             ) :
@@ -634,16 +612,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
-                   <PdfContainer>
-                  <InformationLabel>Lien du patron</InformationLabel>
-                  <InformationLinkContainer>
-                    <InformationLink
-                      href={patternCard.pdf_instructions} target="_blank"
-                    >
-                      Cliquez ici pour visualiser le patron
-                    </InformationLink>
-                  </InformationLinkContainer>
-                </PdfContainer>
+                  <PdfContainer>
+                    <InformationLabel>Lien du patron</InformationLabel>
+                    <InformationLinkContainer>
+                      <InformationLink
+                        href={patternCard.pdf_instructions} target="_blank"
+                      >
+                        Cliquez ici pour visualiser le patron
+                      </InformationLink>
+                    </InformationLinkContainer>
+                  </PdfContainer>
                   {patternInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
@@ -661,6 +639,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         ) : (
                           <InformationInput
                             value={patternCard[input.info]}
+                            rows={values[input.info].length <= 31 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>

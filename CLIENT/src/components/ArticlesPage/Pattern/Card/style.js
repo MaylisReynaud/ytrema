@@ -192,15 +192,6 @@ export const CardTitle = styled.h1`
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
   color: ${(props) => props.theme.color2};
-  /* background-color: #83433e; */
-
-  /* @media screen and (min-width:601px) { 
-        flex-direction: row;
-        position: fixed;
-        height: 100vh;
-        background-color: salmon;
-        
-  } */
 `;
 
 export const DesignerTitle = styled.h1`
@@ -246,7 +237,7 @@ export const PreviewContainer = styled.div`
 export const PdfContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 100%;
   margin-top: 1.2rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
@@ -288,13 +279,12 @@ export const InformationContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   margin-top: 1rem;
-
   @media screen and (min-width: 601px) {
     height: 100%;
     width: 75%;
+    margin-left: 5.5rem;
   }
 `;
 
@@ -302,7 +292,7 @@ export const InformationForm = styled.form`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 90%;
+  width: 100%;
   height: 90%;
   overflow-y: scroll;
   @media screen and (min-width: 601px) {
@@ -341,7 +331,8 @@ export const InformationLabel = styled.label`
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
+    /* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86'); */
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
     width: 20%;
     font-weight:600;
   }
@@ -358,30 +349,6 @@ export const InformationInput = styled.textarea`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
-  font-weight: bold;
-  &[class~="input-false"] {
-    border: 1px solid red;
-    background-color: #ffe0d3;
-  }
-  ::placeholder {
-    color: black;
-    flex-wrap: wrap;
-  }
-`;
-
-export const UpdateInformationInput = styled.textarea`
-  display: flex;
-  align-items: center;
-  width: 70%;
-  flex-direction: row;
-  resize: none;
-  margin-left: 0.5rem;
-  font-family: "${(props) => props.theme.textFont}";
-  font-size: 1rem;
-  border: none;
-  background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   &[class~="input-false"] {
     border: 1px solid red;
@@ -402,7 +369,6 @@ export const InformationLink = styled.a`
 `;
 
 export const InformationSelect = styled.select`
-  /* display: flex; */
   display: inline-block;
   width: 70%;
   flex-direction: row;
@@ -411,7 +377,6 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   :hover {
     color: ${(props) => props.theme.color3};
@@ -468,9 +433,9 @@ export const ProjectTitle = styled.h2`
 export const ProjectImageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
-  height: 7rem;
+  height: 7rem; 
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;

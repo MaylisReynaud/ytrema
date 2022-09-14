@@ -54,12 +54,16 @@ export const UpdateCardContainer = styled.div`
   @media screen and (min-width: 601px) {
     display:flex;
     flex-direction:column;
-    height:80%;
-    width: 70%;
+    height:91%;
+    width: 75%;
   }
 `;
 export const UpdateFileInputContainer = styled.div`
   margin-left: 1em;
+  display: flex;
+  margin-bottom: .6em;
+  margin-top: 2em;
+  justify-content: center;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -220,10 +224,8 @@ export const InformationContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   margin-top: 1rem;
-
   @media screen and (min-width: 601px) {
     height: 100%;
     width: 75%;
@@ -271,9 +273,10 @@ export const InformationLabel = styled.label`
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G6.png?alt=media&token=67aaada2-834a-4e3f-a517-fb2d4dfe3eba');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G6.png?alt=media&token=0d5c7933-2e7d-4190-8272-97ae4af87d17');
   @media screen and (min-width: 601px) {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86');
+    /* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86'); */
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
     width: 20%;
     font-weight:600;
   }
@@ -314,7 +317,6 @@ export const InformationLink = styled.a`
 `;
 
 export const InformationSelect = styled.select`
-  /* display: flex; */
   display: inline-block;
   width: 70%;
   flex-direction: row;
@@ -323,7 +325,6 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   :hover {
     color: ${(props) => props.theme.color3};
