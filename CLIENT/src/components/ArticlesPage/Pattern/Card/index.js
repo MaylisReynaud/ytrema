@@ -116,7 +116,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedPdf, setSelectedPdf] = useState();
   const [preview, setPreview] = useState();
-  const [pdfPreview, setPdfPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   const [pdfURL, setPdfURL] = useState();
 
@@ -125,23 +124,15 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       // setPreview(undefined);
       setPreview(patternCard.photo);
       return;
-    } else if (!selectedPdf) {
-      setPdfPreview(patternCard.pdf_instructions);
     }
 
-    const objectUrlPdf = URL.createObjectURL(selectedPdf);
-    setPdfPreview(objectUrlPdf);
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
-    return () => {
-      URL.revokeObjectURL(objectUrl);
-      URL.revokeObjectURL(objectUrlPdf)
-    }
-
-      ;
-  }, [selectedFile, selectedPdf]);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+  
 
   const onSelectFile = async (event, type) => {
     if (!event.target.files || event.target.files.length === 0) {
@@ -159,20 +150,23 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   };
 
   //specific to firebase
-  const handleUpload = async (file, type) => {
+  const handleUpload = (file, type) => {
+    console.log('coucou au debut handleupload');
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
+    console.log('coucou apres storage debut handleupload');
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
       (error) => {
         console.log(error);
       },
-      () => {
-        storage
+      async () => {
+        await storage
           .ref("images")
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
+            console.log('coucou dans Firebase');
             console.log(url, "URL FIREBASE");
             type === "photo" ?
               setPhotoURL(url) : setPdfURL(url);
@@ -223,12 +217,12 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
 
-      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf_instructions");
+      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf");
 
       if (!event.target.files || event.target.files.length > 0) {
 
         event.target.name === "photo" ?
-          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf_instructions");
+          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
       }
     }
   };
@@ -299,10 +293,10 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <ImageContainer>
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
-                <PreviewContainer>
+                {/* <PreviewContainer>
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
-                </PreviewContainer>
+                </PreviewContainer> */}
               </>
             ) : (
               <UpdateCardContainer>
