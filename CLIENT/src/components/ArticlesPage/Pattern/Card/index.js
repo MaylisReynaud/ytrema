@@ -3,7 +3,7 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   CardContainer,
@@ -45,7 +45,6 @@ import {
   PreviewContainer,
   UpdateImageCard
 } from "./style";
-import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -159,7 +158,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       setSelectedPdf(event.target.files[0]);
   };
 
-  //propre a firebase
+  //specific to firebase
   const handleUpload = async (file, type) => {
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
     uploadTask.on(
@@ -202,7 +201,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
     const { updatedPatternData } = await updateOnePattern(urlParams).unwrap();
 
-    //  Mettre à jour le store
+    //  Update the store
     dispatch(updatePattern(updatedPatternData));
     setUpdatePatternInfo(false);
     toast.success('Patron modifié avec succès👌', {
@@ -219,17 +218,17 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // setPreview(undefined);
   };
 
-  const onChange = async (event) => {
+  const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
 
-      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf");
+      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf_instructions");
 
       if (!event.target.files || event.target.files.length > 0) {
 
         event.target.name === "photo" ?
-          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
+          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf_instructions");
       }
     }
   };
