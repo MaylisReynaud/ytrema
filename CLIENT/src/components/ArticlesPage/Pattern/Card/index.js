@@ -3,7 +3,7 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   CardContainer,
@@ -45,7 +45,6 @@ import {
   PreviewContainer,
   UpdateImageCard
 } from "./style";
-import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -117,7 +116,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedPdf, setSelectedPdf] = useState();
   const [preview, setPreview] = useState();
-  const [pdfPreview, setPdfPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   const [pdfURL, setPdfURL] = useState();
 
@@ -126,25 +124,18 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       // setPreview(undefined);
       setPreview(patternCard.photo);
       return;
-    } else if (!selectedPdf) {
-      setPdfPreview(patternCard.pdf_instructions);
     }
 
-    const objectUrlPdf = URL.createObjectURL(selectedPdf);
-    setPdfPreview(objectUrlPdf);
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
-    return () => {
-      URL.revokeObjectURL(objectUrl);
-      URL.revokeObjectURL(objectUrlPdf)
-    }
-
-      ;
-  }, [selectedFile, selectedPdf]);
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+  
 
   const onSelectFile = async (event, type) => {
+
     if (!event.target.files || event.target.files.length === 0) {
 
       type === "photo" ?
@@ -159,21 +150,24 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       setSelectedPdf(event.target.files[0]);
   };
 
-  //propre a firebase
-  const handleUpload = async (file, type) => {
+  //specific to firebase
+  const handleUpload = (file, type) => {
+    console.log('coucou au debut handleupload');
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
+    console.log('coucou apres storage debut handleupload');
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
       (error) => {
         console.log(error);
       },
-      () => {
-        storage
+      async () => {
+        await storage
           .ref("images")
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
+            console.log('coucou dans Firebase');
             console.log(url, "URL FIREBASE");
             type === "photo" ?
               setPhotoURL(url) : setPdfURL(url);
@@ -202,7 +196,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
     const { updatedPatternData } = await updateOnePattern(urlParams).unwrap();
 
-    //  Mettre à jour le store
+    //  Update the store
     dispatch(updatePattern(updatedPatternData));
     setUpdatePatternInfo(false);
     toast.success('Patron modifié avec succès👌', {
@@ -219,7 +213,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // setPreview(undefined);
   };
 
-  const onChange = async (event) => {
+  const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
