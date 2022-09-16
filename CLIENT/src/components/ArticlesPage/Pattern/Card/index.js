@@ -135,6 +135,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   
 
   const onSelectFile = async (event, type) => {
+
     if (!event.target.files || event.target.files.length === 0) {
 
       type === "photo" ?
@@ -293,10 +294,10 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <ImageContainer>
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
-                {/* <PreviewContainer>
+                <PreviewContainer>
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
-                </PreviewContainer> */}
+                </PreviewContainer>
               </>
             ) : (
               <UpdateCardContainer>
