@@ -25,6 +25,7 @@ import {
   InformationLabel,
   InformationLinkContainer,
   InformationLink,
+  InformationTextarea,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -132,7 +133,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
-  
+
 
   const onSelectFile = async (event, type) => {
 
@@ -340,7 +341,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    (index !== 0 && index !==7) ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
@@ -349,39 +350,51 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
                         {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
 
                           </>
-                        ) : (
-                          <InformationSelect
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                        )}
+                        )
+                          : (
+                            <InformationSelect
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info]}
+                            >
+                              {input.optionsList.sort().map((option, index) =>
+                                option === values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          )}
                       </InformationContent>
                     ) : null
                   )}
@@ -553,18 +566,29 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
-                        {input.type !== "select" ? (
+                        {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              type={input.type}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-                     
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
+
                           </>
                         ) : (
                           <InformationSelect
