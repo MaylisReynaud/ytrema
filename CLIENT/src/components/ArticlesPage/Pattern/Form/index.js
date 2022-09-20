@@ -129,6 +129,7 @@ export function PatternForm({ setShowModal, showModal }) {
     event.preventDefault();
     const valuesToSend = values;
     valuesToSend.photo = photoURL;
+    valuesToSend.pdf_instructions = pdfURL;
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&

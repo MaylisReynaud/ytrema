@@ -340,14 +340,14 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !==7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
 
-                        {(input.id !== 8) && (input.type !== "select") ? (
+                        {(input.type !== "select") ? (
                           <>
                             <InformationInput
                               placeholder={values[input.info]}
@@ -358,13 +358,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-
-                            {input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
 
                           </>
                         ) : (
@@ -408,7 +401,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       </InformationLinkContainer>
                     </PdfContainer>
                     {patternInputs.map((input, index) =>
-                      index !== 0 ? (
+                      (index !== 0 && index !== 7) ? (
                         <InformationContent key={input.id}>
                           <InformationLabel>{input.label}</InformationLabel>
                           {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
@@ -554,7 +547,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
@@ -571,12 +564,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                               pattern={input.pattern}
                               data-error={input.errorMessage}
                             ></InformationInput>
-                            {input.id == 6 || input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                     
                           </>
                         ) : (
                           <InformationSelect
@@ -618,7 +606,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     </InformationLinkContainer>
                   </PdfContainer>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
                         {index === 2 && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
