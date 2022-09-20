@@ -25,6 +25,7 @@ import {
   InformationLabel,
   InformationLinkContainer,
   InformationLink,
+  InformationTextarea,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -301,15 +302,29 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
+                            {(input.id == 9 || input.id == 10 || input.id == 11 || input.id == 12) ? (
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) :
+                              (
+                                <InformationTextarea
+                                  placeholder={values[input.info]}
+                                  rows={values[input.info].length <= 31 ? '1' : '2'}
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationTextarea>
+                              )
+                            }
+
 
                             {input.id == 6 || input.id == 8 ? (
                               null
@@ -483,15 +498,28 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
+                            {(input.id == 9 || input.id == 10 || input.id == 11 || input.id == 12) ? (
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) :
+                              (
+                                <InformationTextarea
+                                  placeholder={values[input.info]}
+                                  rows={values[input.info].length <= 31 ? '1' : '2'}
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationTextarea>
+                              )
+                            }
                             {input.id == 6 || input.id == 8 ? (
                               null
                             ) :
