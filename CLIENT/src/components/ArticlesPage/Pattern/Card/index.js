@@ -161,8 +161,8 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       (error) => {
         console.log(error);
       },
-      async () => {
-        await storage
+      () => {
+        storage
           .ref("images")
           .child(file.name)
           .getDownloadURL()
@@ -178,15 +178,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const valuesToSend = values;
     if (photoURL !== undefined) {
-      values.photo = photoURL;
+      valuesToSend.photo = photoURL;
     }
 
     if (pdfURL !== undefined) {
-      values.pdf_instructions = pdfURL;
+      valuesToSend.pdf_instructions = pdfURL;
     }
 
-    const valuesToSend = values;
+
     // valuesToSend.photo = photoURL;
     const urlParams = {
       memberId: auth.id,

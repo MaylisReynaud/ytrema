@@ -73,6 +73,7 @@ export function PatternForm({ setShowModal, showModal }) {
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
+  const [pdfURL, setPdfURL] = useState();
   const [isVerif, setIsVerif] = useState(false);
 
 
@@ -100,7 +101,7 @@ export function PatternForm({ setShowModal, showModal }) {
   }
 
   //propre a firebase
-  const handleUpload = (file) => {
+  const handleUpload = (file, type) => {
 
     const uploadTask = storage.ref(`patrons/${file.name}`).put(file);
     uploadTask.on(
@@ -115,8 +116,11 @@ export function PatternForm({ setShowModal, showModal }) {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
-            setPhotoURL(url);
+            console.log(url, 'url fin handle upload');
+            type === "photo" ?
+              setPhotoURL(url) : setPdfURL(url);
           });
+
       }
     );
   };
@@ -131,13 +135,15 @@ export function PatternForm({ setShowModal, showModal }) {
       valuesToSend.brand != "" &&
       valuesToSend.clothing != "" &&
       valuesToSend.gender != "" &&
-      valuesToSend.personal_notes != "" &&
+      // valuesToSend.personal_notes != "" &&
       valuesToSend.format != "" &&
-      valuesToSend.pdf_instructions != "" &&
+      // valuesToSend.pdf_instructions != "" &&
       valuesToSend.price != "") {
+        console.log('coucou avant addOne pattern');
       await addOnePattern({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
+      console.log(valuesToSend,'values to send coucoudans le else handlesubmit');
       patternInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           setIsVerif(true);
@@ -154,9 +160,12 @@ export function PatternForm({ setShowModal, showModal }) {
     setValues({ ...values, [event.target.name]: event.target.value });
     //ici on check avec un switch les patterns et on affiche les messages d'erreur en fonction
     if (event.target.name === 'photo' || event.target.name === 'pdf_instructions') {
-      onSelectFile(event);
+      event.target.name === "photo" ? onSelectFile(event, "photo") : onSelectFile(event, "pdf");
+
       if (!event.target.files || event.target.files.length > 0) {
-        handleUpload(event.target.files[0]);
+
+        event.target.name === "photo" ?
+          handleUpload(event.target.files[0], "photo") : handleUpload(event.target.files[0], "pdf");
       }
     }
   };
