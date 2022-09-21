@@ -657,7 +657,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         ) : (
                           <InformationTextarea
                             value={haberdasheryCard[input.info] === false ? 'non' : (haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
-                            rows={values[input.info].length <= 31 ? '1' : '2'}
+                            rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationTextarea>

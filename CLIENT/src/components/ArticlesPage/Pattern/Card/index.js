@@ -646,7 +646,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         ) : (
                           <InformationInput
                             value={patternCard[input.info]}
-                            rows={values[input.info].length <= 31 ? '1' : '2'}
+                            rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
