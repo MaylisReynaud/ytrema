@@ -25,6 +25,7 @@ import {
   InformationLabel,
   InformationLinkContainer,
   InformationLink,
+  InformationTextarea,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -308,7 +309,8 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                            {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
+                         {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
+                            // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
                          
                             <InformationInput
                               placeholder={values[input.info]}
@@ -317,16 +319,26 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></InformationInput>
-                              :
+                            ></InformationInput> 
+                          ) :
+                              (input.id == 8 && values.is_cut == true) ? (
                               <InformationInput
                                 placeholder={values[input.info]}
                                 type={input.type}
                                 name={input.name}
                                 disabled
                                 className="disabled"
-                              ></InformationInput>}
-
+                              ></InformationInput>
+                         ) :
+                         ( <InformationTextarea
+                          placeholder={values[input.info]}
+                          rows={values[input.info].length <= 31 ? '1' : '2'}
+                          onChange={onChange}
+                          type={input.type}
+                          name={input.name}
+                          pattern={input.pattern}
+                          data-error={input.errorMessage}
+                        ></InformationTextarea> )}
 
                             {input.id == 10 || input.id == 8 ? (
                               null
@@ -411,12 +423,12 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={haberdasheryCard[input.info] === false ? 'non' : (haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
-
+                            rows={values[input.info].length <= 31 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>
@@ -530,24 +542,36 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                           {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
-                           <InformationInput
+                         {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
+                            // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
+                         
+                            <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
                               type={input.type}
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></InformationInput>
-                              :
+                            ></InformationInput> 
+                          ) :
+                              (input.id == 8 && values.is_cut == true) ? (
                               <InformationInput
                                 placeholder={values[input.info]}
                                 type={input.type}
                                 name={input.name}
                                 disabled
                                 className="disabled"
-                              ></InformationInput>}
-
+                              ></InformationInput>
+                         ) :
+                         ( <InformationTextarea
+                          placeholder={values[input.info]}
+                          rows={values[input.info].length <= 31 ? '1' : '2'}
+                          onChange={onChange}
+                          type={input.type}
+                          name={input.name}
+                          pattern={input.pattern}
+                          data-error={input.errorMessage}
+                        ></InformationTextarea> )}
 
                             {input.id == 10 || input.id == 8 ? (
                               null
@@ -631,11 +655,12 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={haberdasheryCard[input.info] === false ? 'non' : (haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
+                            rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>

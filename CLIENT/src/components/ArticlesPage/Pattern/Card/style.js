@@ -335,7 +335,33 @@ export const InformationLabel = styled.label`
   }
 `;
 
-export const InformationInput = styled.textarea`
+export const InformationTextarea = styled.textarea`
+  display: flex;
+  align-items: center;
+  width: 70%;
+  flex-direction: row;
+  resize: none;
+  margin-left: 0.5rem;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  border: none;
+  background-color: #fff;
+  font-weight: bold;
+  ::placeholder {
+    color: black;
+  }
+  &[class~="disabled"] {
+    ::placeholder {
+    color: grey;
+  }
+  }
+  &[class~="input-false"] {
+    border: 1px solid red;
+    background-color: #ffe0d3;
+  }
+`;
+
+export const InformationInput = styled.input`
   display: flex;
   align-items: center;
   width: 70%;

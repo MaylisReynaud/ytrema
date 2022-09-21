@@ -25,6 +25,7 @@ import {
   InformationLabel,
   InformationLinkContainer,
   InformationLink,
+  InformationTextarea,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -132,7 +133,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
-  
+
 
   const onSelectFile = async (event, type) => {
 
@@ -161,8 +162,8 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       (error) => {
         console.log(error);
       },
-      async () => {
-        await storage
+      () => {
+        storage
           .ref("images")
           .child(file.name)
           .getDownloadURL()
@@ -178,15 +179,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const valuesToSend = values;
     if (photoURL !== undefined) {
-      values.photo = photoURL;
+      valuesToSend.photo = photoURL;
     }
 
     if (pdfURL !== undefined) {
-      values.pdf_instructions = pdfURL;
+      valuesToSend.pdf_instructions = pdfURL;
     }
 
-    const valuesToSend = values;
+
     // valuesToSend.photo = photoURL;
     const urlParams = {
       memberId: auth.id,
@@ -339,55 +341,60 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
 
-                        {(input.id !== 8) && (input.type !== "select") ? (
+                        {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-
-                            {input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
 
                           </>
-                        ) : (
-                          <InformationSelect
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                        )}
+                        )
+                          : (
+                            <InformationSelect
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info]}
+                            >
+                              {input.optionsList.sort().map((option, index) =>
+                                option === values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          )}
                       </InformationContent>
                     ) : null
                   )}
@@ -407,7 +414,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       </InformationLinkContainer>
                     </PdfContainer>
                     {patternInputs.map((input, index) =>
-                      index !== 0 ? (
+                      (index !== 0 && index !== 7) ? (
                         <InformationContent key={input.id}>
                           <InformationLabel>{input.label}</InformationLabel>
                           {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
@@ -553,29 +560,35 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
-                        {input.type !== "select" ? (
+                        {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              type={input.type}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-                            {input.id == 6 || input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
+
                           </>
                         ) : (
                           <InformationSelect
@@ -617,7 +630,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     </InformationLinkContainer>
                   </PdfContainer>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
                         {index === 2 && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
@@ -633,7 +646,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         ) : (
                           <InformationInput
                             value={patternCard[input.info]}
-                            rows={values[input.info].length <= 31 ? '1' : '2'}
+                            rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>
