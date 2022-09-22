@@ -327,7 +327,8 @@ export const InformationTextarea = styled.textarea`
 `;
 
 export const InformationLinkContainer = styled.div`
-  margin-left: 0.5rem;
+  margin-left: 0.7rem;
+  width:70%;
 `;
 
 export const InformationLink = styled.a`
@@ -335,7 +336,6 @@ export const InformationLink = styled.a`
 `;
 
 export const InformationSelect = styled.select`
-  /* display: flex; */
   display: inline-block;
   width: 70%;
   flex-direction: row;

@@ -378,12 +378,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={fabricCard[input.info]}
                             disabled="disabled"
                             type={input.type}
                             rows={values[input.info].length <= 31 ? '1' : '2'}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>
@@ -571,12 +571,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={fabricCard[input.info]}
                             rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>
