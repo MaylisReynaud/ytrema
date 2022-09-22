@@ -205,7 +205,7 @@ export const ImageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
-  height: 15em;
+  height: 11em;
   @media screen and (min-width: 601px) {
     height: 92%;
     margin-left: 1.3em;
@@ -252,7 +252,7 @@ export const PatternPreviewTitle = styled.p`
 `;
 
 export const PdfIframe = styled.iframe`
-  height: 100%;
+  height: 15rem;
   width: 100%;
   margin-top: 1.5em;
 @media screen and (min-width: 601px) {
