@@ -3,7 +3,7 @@ import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { DeviceSize } from "../../../Navbar/Responsive";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {
   CardContainer,
@@ -25,6 +25,7 @@ import {
   InformationLabel,
   InformationLinkContainer,
   InformationLink,
+  InformationTextarea,
   ButtonForm,
   ModifyButton,
   ReturnArrow,
@@ -45,7 +46,6 @@ import {
   PreviewContainer,
   UpdateImageCard
 } from "./style";
-import { fabricData } from "../../../../utils/fabricData";
 import { patternInputs } from "../../../../utils/patternInputs";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -117,7 +117,6 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const [selectedFile, setSelectedFile] = useState();
   const [selectedPdf, setSelectedPdf] = useState();
   const [preview, setPreview] = useState();
-  const [pdfPreview, setPdfPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   const [pdfURL, setPdfURL] = useState();
 
@@ -126,25 +125,18 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       // setPreview(undefined);
       setPreview(patternCard.photo);
       return;
-    } else if (!selectedPdf) {
-      setPdfPreview(patternCard.pdf_instructions);
     }
 
-    const objectUrlPdf = URL.createObjectURL(selectedPdf);
-    setPdfPreview(objectUrlPdf);
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
-    return () => {
-      URL.revokeObjectURL(objectUrl);
-      URL.revokeObjectURL(objectUrlPdf)
-    }
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
 
-      ;
-  }, [selectedFile, selectedPdf]);
 
   const onSelectFile = async (event, type) => {
+
     if (!event.target.files || event.target.files.length === 0) {
 
       type === "photo" ?
@@ -159,9 +151,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
       setSelectedPdf(event.target.files[0]);
   };
 
-  //propre a firebase
-  const handleUpload = async (file, type) => {
+  //specific to firebase
+  const handleUpload = (file, type) => {
+    console.log('coucou au debut handleupload');
     const uploadTask = storage.ref(`images/${file.name}`).put(file);
+    console.log('coucou apres storage debut handleupload');
     uploadTask.on(
       "state_changed",
       (snapshot) => { },
@@ -174,6 +168,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
           .child(file.name)
           .getDownloadURL()
           .then((url) => {
+            console.log('coucou dans Firebase');
             console.log(url, "URL FIREBASE");
             type === "photo" ?
               setPhotoURL(url) : setPdfURL(url);
@@ -184,15 +179,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const valuesToSend = values;
     if (photoURL !== undefined) {
-      values.photo = photoURL;
+      valuesToSend.photo = photoURL;
     }
 
     if (pdfURL !== undefined) {
-      values.pdf_instructions = pdfURL;
+      valuesToSend.pdf_instructions = pdfURL;
     }
 
-    const valuesToSend = values;
+
     // valuesToSend.photo = photoURL;
     const urlParams = {
       memberId: auth.id,
@@ -202,7 +198,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
 
     const { updatedPatternData } = await updateOnePattern(urlParams).unwrap();
 
-    //  Mettre à jour le store
+    //  Update the store
     dispatch(updatePattern(updatedPatternData));
     setUpdatePatternInfo(false);
     toast.success('Patron modifié avec succès👌', {
@@ -219,7 +215,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
     // setPreview(undefined);
   };
 
-  const onChange = async (event) => {
+  const onChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
 
     if (event.target.name === "photo" || event.target.name === "pdf_instructions") {
@@ -345,55 +341,60 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
 
-                        {(input.id !== 8) && (input.type !== "select") ? (
+                        {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-
-                            {input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
 
                           </>
-                        ) : (
-                          <InformationSelect
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option === values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                        )}
+                        )
+                          : (
+                            <InformationSelect
+                              placeholder={values[input.info]}
+                              onChange={onChange}
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info]}
+                            >
+                              {input.optionsList.sort().map((option, index) =>
+                                option === values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          )}
                       </InformationContent>
                     ) : null
                   )}
@@ -413,7 +414,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       </InformationLinkContainer>
                     </PdfContainer>
                     {patternInputs.map((input, index) =>
-                      index !== 0 ? (
+                      (index !== 0 && index !== 7) ? (
                         <InformationContent key={input.id}>
                           <InformationLabel>{input.label}</InformationLabel>
                           {(index === 2) || (index === 8) && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
@@ -559,29 +560,35 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               {updatePatternInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
-                        {input.type !== "select" ? (
+                        {(input.type !== "select") ? (
                           <>
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              type={input.type}
-                              rows={values[input.info].length <= 31 ? '1' : '2'}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-                            {input.id == 6 || input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                            {input.id == 10 ? (
+                              
+                              <InformationInput
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationInput>
+                            ) : (
+                              <InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}></InformationTextarea>
+                            )}
+
                           </>
                         ) : (
                           <InformationSelect
@@ -623,7 +630,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     </InformationLinkContainer>
                   </PdfContainer>
                   {patternInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
                         {index === 2 && (patternCard[input.info].includes("http") | patternCard[input.info].includes("www") | patternCard[input.info].includes(".fr") | patternCard[input.info].includes(".com") | patternCard[input.info].includes(".net")) ? (
@@ -639,7 +646,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         ) : (
                           <InformationInput
                             value={patternCard[input.info]}
-                            rows={values[input.info].length <= 31 ? '1' : '2'}
+                            rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationInput>

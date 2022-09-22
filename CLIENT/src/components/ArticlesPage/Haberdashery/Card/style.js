@@ -301,6 +301,33 @@ export const InformationInput = styled.input`
   
 `;
 
+export const InformationTextarea = styled.textarea`
+  display: flex;
+  align-items: center;
+  width: 70%;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  resize: none;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  border: none;
+  background-color: #fff;
+  font-weight: bold;
+  ::placeholder {
+    color: black;
+  }
+  &[class~="disabled"] {
+    ::placeholder {
+    color: grey;
+  }
+  }
+  &[class~="input-false"] {
+    border: 1px solid red;
+    background-color: #ffe0d3;
+  }
+  
+`;
+
 export const InformationLinkContainer = styled.div`
   margin-left: 0.5rem;
 `;
@@ -333,9 +360,8 @@ export const InformationSelect = styled.select`
 `;
 
 export const ButtonForm = styled.button`
-  width: 100%;
-  height: 45px;
-  padding: 10px;
+  width: 90%;
+  height: 10%;
   background: ${(props) => props.theme.color1};
   font-family: "${(props) => props.theme.textFont}";
   color: ${(props) => props.theme.color4};
@@ -344,9 +370,11 @@ export const ButtonForm = styled.button`
   font-weight: bold;
   font-size: 1.3rem;
   cursor: pointer;
-  margin: 10px 0px;
+  margin-left: 1rem;
   @media screen and (min-width: 601px) {
-    width: 100%;
+    width: 94%;
+    margin-top: 2rem;
+    padding: 1rem;
   }
 `;
 
