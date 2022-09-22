@@ -252,7 +252,7 @@ export const PatternPreviewTitle = styled.p`
 `;
 
 export const PdfIframe = styled.iframe`
-  height: 15rem;
+  height: 17rem;
   width: 100%;
   margin-top: 1.5em;
 @media screen and (min-width: 601px) {
