@@ -90,7 +90,7 @@ export const patternInputs = [
       id: 8,
       name:'pdf_instructions',
       type:'file',
-      accept:'image/*',
+      accept:'image/*, .pdf, .doc',
       placeholder:"charger votre patron",
       label:"Charger votre patron",
       errorMessage:"Veuillez fusionner l'ensemble de vos PDF en un seul pdf, vous pouvez utiliser 'https://www.ilovepdf.com/fr'. Doit être un fichier de type .pdf, .doc ou image",
