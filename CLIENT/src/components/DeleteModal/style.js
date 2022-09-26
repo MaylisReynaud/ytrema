@@ -130,10 +130,10 @@ export const CloseModalButton = styled(Close)`
     cursor: pointer;
     color: ${props => props.theme.color5};
     position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
     padding: 0;
     z-index: 10;
 `;

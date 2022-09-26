@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { DeviceSize } from "../../components/Navbar/Responsive";
 import { fabricsDefaultState } from "../../store/state/fabricSlice";
 import { useDeleteAllFabricsMutation } from '../../store/api/ytremaApi';
-import { DeleteFabricModal } from "../DeleteModal";
+import { DeleteModal } from "../DeleteModal";
 import {
     Container,
     Title,
@@ -81,7 +81,7 @@ export const Profile = (props, index) => {
                                     Supprimer l’ensemble de mes tissus dans ma tissuthèque
                                 </p><button
                                     onClick={isOpenDeleteModalAll}>Supprimer</button>
-                                <DeleteFabricModal
+                                <DeleteModal
                                     setShowDeleteModal={setShowDeleteModalAll}
                                     showDeleteModal={showDeleteModalAll}
                                     deleteAction={deleteAllFabricsStore}

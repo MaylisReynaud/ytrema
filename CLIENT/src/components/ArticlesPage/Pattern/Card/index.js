@@ -57,7 +57,7 @@ import {
   deletePattern,
 } from "../../../../store/state/patternSlice";
 import { MessageHover } from "./MessageHover";
-import { DeletePatternModal } from "./DeleteModal";
+import { DeleteModal } from "../../../DeleteModal";
 
 export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -266,10 +266,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeletePatternModal
+                    <DeleteModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
-                      deleteCard={deleteCard}
+                      deleteAction={deleteCard}
+                      word={' CE PATRON'}
                     />
                   </>
                 ) : (
@@ -486,10 +487,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeletePatternModal
+                  <DeleteModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
-                    deleteCard={deleteCard}
+                    deleteAction={deleteCard}
+                    word={' CE PATRON'}
                   />
 
 

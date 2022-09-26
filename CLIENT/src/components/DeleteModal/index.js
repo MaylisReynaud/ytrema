@@ -17,7 +17,7 @@ import {
 
 
 
-export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteAction, word }) => {
+export const DeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteAction, word }) => {
     const deleteModalRef = useRef();
     const closeDeleteModal = () => {
             setShowDeleteModal(false);

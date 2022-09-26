@@ -54,7 +54,7 @@ import {
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
 import { MessageHover } from "./MessageHover";
-import { DeleteFabricModal } from "../../../DeleteModal";
+import { DeleteModal } from "../../../DeleteModal";
 
 export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -240,7 +240,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteFabricModal
+                    <DeleteModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteAction={deleteCard}
@@ -436,7 +436,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeleteFabricModal
+                  <DeleteModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteAction={deleteCard}
