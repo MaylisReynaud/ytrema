@@ -51,7 +51,7 @@ export const DeleteFabricModal = ({ showDeleteModal, setShowDeleteModal, deleteA
                         >
                             <ModalContent>
 
-                                <DeleteTitle>SUPPRIMER {word}</DeleteTitle>
+                                <DeleteTitle>{word}</DeleteTitle>
                                 <DeleteParagraph>Cette action est irréversible, êtes vous sûr(e)? </DeleteParagraph>
                                 <ButtonsContainer>
                                     <CancelContainer>
