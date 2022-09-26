@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { DeviceSize } from "../../components/Navbar/Responsive";
 import { fabricsDefaultState } from "../../store/state/fabricSlice";
 import { useDeleteAllFabricsMutation } from '../../store/api/ytremaApi';
-import { DeleteFabricModal } from "../ArticlesPage/Fabric/Card/DeleteModal";
+import { DeleteFabricModal } from "../DeleteModal";
 import {
     Container,
     Title,
