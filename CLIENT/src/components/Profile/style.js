@@ -14,7 +14,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     height: 70vh;
-    overflow-y:hidden;
+    overflow-y: scroll;
     background-color: pink;
     margin: 0 1.3rem;
     @media screen and (min-width:601px) { 
