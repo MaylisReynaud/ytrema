@@ -15,7 +15,7 @@ export const Container = styled.div`
     align-items: center;
     height: 70vh;
     overflow-y:hidden;
-    background-color: red;
+    background-color: pink;
     margin: 0 1.3rem;
     @media screen and (min-width:601px) { 
         flex-direction: row;

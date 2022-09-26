@@ -38,13 +38,37 @@ const authSlice = createSlice({
         ...newUserData
       }
     },
+    updateUser: (state, action) => {
+      state.value = state.value.map((user) => {
+        if (user.id === action.payload.id) {
+          return {
+            ...user,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...user
+          };
+        }
+      });
+    },
+    deleteUser: (state, action) => {
+      state.value = state.value.filter((user) => {
+        return user.id !== action.payload;
+      });
+    },
     defaultState: (state) => {
       state = initialState;
     }
   },
 });
 
-export const { setUser, addUser, defaultState } = authSlice.actions;
+export const { setUser, 
+               addUser,
+               updateUser,
+               deleteUser, 
+               defaultState, 
+              } = authSlice.actions;
 
 export default authSlice.reducer;
 

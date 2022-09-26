@@ -243,7 +243,8 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                     <DeleteFabricModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
-                      deleteCard={deleteCard}
+                      deleteAction={deleteCard}
+                      word={' CE TISSU'}
                     />
 
 
@@ -438,7 +439,9 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   <DeleteFabricModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
-                    deleteCard={deleteCard}
+                    deleteAction={deleteCard}
+                    word={' CE TISSU'}
+                    
                   />
 
 

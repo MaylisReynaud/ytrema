@@ -48,7 +48,7 @@ export function Profil (props) {
                     Supprimer ma Tissuthèque
                 </RegisterArticleButton>
             </TopContainer>
-            <CardsContainer>
+            {/* <CardsContainer>
                 {fabricData.map(fabric => (
                     <CardContainer key={fabric.id} >
                     <CardImg src={fabric.image} alt={fabric.alt}/>
@@ -58,7 +58,7 @@ export function Profil (props) {
                 </CardContainer>
                 ))}
                 
-            </CardsContainer>
+            </CardsContainer> */}
         </Container>
     </>
   )

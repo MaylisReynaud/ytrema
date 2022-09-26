@@ -22,6 +22,6 @@ export const navLinks = [
     {
       id:5,
       name: 'Profil',
-      path: '/profil',
+      path: '/profile',
     },
   ]
