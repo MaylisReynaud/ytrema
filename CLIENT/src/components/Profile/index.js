@@ -53,8 +53,8 @@ export const Profile = (props, index) => {
   };
 
   const deleteAllPatternsStore = () => {
-    // deleteAllPatterns(`${auth.id}`);
-    // dispatch(patternsDefaultState("initialState"));
+    deleteAllPatterns(`${auth.id}`);
+    dispatch(patternsDefaultState("initialState"));
     navigate("/patrons");
     console.log("coucou Patron");
   };
