@@ -161,6 +161,28 @@ const patternDataMapper = {
         // Here, the pattern data has been deleted
         return true;
     },
+
+    async deleteAll(id) {
+        //  Query to delete all patterns in DB
+        const query = {
+            text: `DELETE FROM "pattern" WHERE "member_id" = $1`,
+            values: [id],
+        };
+
+        // Send the query to DB
+        const allPatternsToDeleteResult = client.query(query);
+
+        // Get request result
+        const { rowCount } = allPatternsToDeleteResult;
+
+        // Any rows weren't deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here, all patterns data have been deleted
+        return true;
+    }
 };
 
 module.exports = patternDataMapper;

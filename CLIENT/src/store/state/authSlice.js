@@ -39,27 +39,6 @@ const authSlice = createSlice({
         ...newUserData
       }
     },
-    // updateUser: (state, action) => {
-    //   console.log(action, 'action');
-    //   console.log(state.value, 'state.value');
-    //   state.value = state.value.map((auth) => {
-    //     if (auth.id === action.payload.id) {
-    //       return {
-    //         ...auth,
-    //         ...action.payload,
-    //       };
-    //     } else {
-    //       return {
-    //         ...auth
-    //       };
-    //     }
-    //   });
-    // },
-    deleteUser: (state, action) => {
-      state.value = state.value.filter((user) => {
-        return user.id !== action.payload;
-      });
-    },
     defaultState: (state) => {
       state = initialState;
     }
@@ -68,8 +47,6 @@ const authSlice = createSlice({
 
 export const { setUser, 
                addUser,
-              //  updateUser,
-               deleteUser, 
                defaultState, 
               } = authSlice.actions;
 

@@ -5,10 +5,17 @@ import { storage } from "../../../src/Firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { DeviceSize } from "../../components/Navbar/Responsive";
+
 import { fabricsDefaultState } from "../../store/state/fabricSlice";
+import { haberdasheriesDefaultState } from "../../store/state/haberdasherySlice";
+import { patternsDefaultState } from "../../store/state/patternSlice";
+import { defaultState } from "../../store/state/authSlice";
+
 import {
     useDeleteAllFabricsMutation,
     useUpdateOneUserMutation,
+    useDeleteAllHaberdasheriesMutation,
+    useDeleteAllPatternsMutation,
     useDeleteOneUserMutation
 } from '../../store/api/ytremaApi';
 import {
@@ -16,6 +23,7 @@ import {
     deleteUser,
 } from "../../../src/store/state/authSlice";
 import { DeleteModal } from "../DeleteModal";
+
 import {
     Container,
     Title,
@@ -32,16 +40,64 @@ export const Profile = (props, index) => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
+
     const [deleteAllFabrics] = useDeleteAllFabricsMutation(auth.id);
+    const [deleteAllHaberdasheries] = useDeleteAllHaberdasheriesMutation(auth.id);
+    const [deleteAllPatterns] = useDeleteAllPatternsMutation(auth.id);
+    const [deleteOneUser] = useDeleteOneUserMutation(auth.id);
+
+
+    // DELETE FUNCTIONS
     const deleteAllFabricsStore = () => {
         deleteAllFabrics(`${auth.id}`);
-        dispatch(fabricsDefaultState('initialState'));
+        dispatch(fabricsDefaultState("initialState"));
         navigate("/tissus");
     };
+
+    const deleteAllHaberdasheriesStore = () => {
+        deleteAllHaberdasheries(`${auth.id}`);
+        dispatch(haberdasheriesDefaultState("initialState"));
+        navigate("/mercerie");
+    };
+
+    const deleteAllPatternsStore = () => {
+        deleteAllPatterns(`${auth.id}`);
+        dispatch(patternsDefaultState("initialState"));
+        navigate("/patrons");
+    };
+
+    const deleteOneUserStore = () => {
+        deleteOneUser(`${auth.id}`);
+        dispatch(defaultState("initialState"));
+        navigate("/inscription");
+    };
+
     // DELETE MODAL
-    const [showDeleteModalAll, setShowDeleteModalAll] = useState(false);
-    const isOpenDeleteModalAll = () => {
-        setShowDeleteModalAll(!showDeleteModalAll);
+    const [showDeleteModalAllFabrics, setShowDeleteModalAllFabrics] =
+        useState(false);
+    const [
+        showDeleteModalAllHaberdasheries,
+        setShowDeleteModalAllHaberdasheries,
+    ] = useState(false);
+    const [showDeleteModalAllPatterns, setShowDeleteModalAllPatterns] =
+        useState(false);
+    const [showDeleteModalAllProjects, setShowDeleteModalAllProjects] =
+        useState(false);
+    const [showDeleteModalProfil, setShowDeleteModalProfil] = useState(false);
+
+    const isOpenDeleteModalAll = (modal) => {
+
+        modal == "fabrics" &&
+            setShowDeleteModalAllFabrics(!showDeleteModalAllFabrics);
+
+        modal == "haberdasheries" &&
+            setShowDeleteModalAllHaberdasheries(!showDeleteModalAllHaberdasheries);
+
+        modal == "patterns" &&
+            setShowDeleteModalAllPatterns(!showDeleteModalAllPatterns);
+
+        modal == "profil" &&
+            setShowDeleteModalProfil(!showDeleteModalProfil);
     };
 
     //UPDATE USER INFO
@@ -116,7 +172,7 @@ export const Profile = (props, index) => {
             }
         }
     };
- 
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const valuesToSend = values;
@@ -127,12 +183,12 @@ export const Profile = (props, index) => {
         //if email / pseudo is already use in database, don't send it to server
         valuesToSend.email == auth.email && delete valuesToSend.email;
         valuesToSend.pseudo == auth.pseudo && delete valuesToSend.pseudo;
- 
+
         // Send data to server
         const urlParams = {
             memberId: auth.id,
             body: valuesToSend,
-          };
+        };
         const { updateMemberProfil } = await updateOneUser(urlParams).unwrap();
 
         //  Update the store
@@ -219,7 +275,7 @@ export const Profile = (props, index) => {
                                         <form
                                             onSubmit={handleSubmit}
                                         >
-                                            <div 
+                                            <div
                                                 key={auth.id}
                                             >
                                                 <label>Pseudo</label> <input
@@ -246,7 +302,7 @@ export const Profile = (props, index) => {
                                                 </input>
                                             </div>
                                             <div>
-                                                <label>Tour de taille</label> 
+                                                <label>Tour de taille</label>
                                                 <input
                                                     placeholder={auth.waist_measurement}
                                                     onChange={onChange}
@@ -255,7 +311,7 @@ export const Profile = (props, index) => {
                                                 </input>
                                             </div>
                                             <div>
-                                                <label>Tour de hanches</label> 
+                                                <label>Tour de hanches</label>
                                                 <input
                                                     placeholder={auth.hip_measurement}
                                                     onChange={onChange}
@@ -275,46 +331,71 @@ export const Profile = (props, index) => {
                         </div>
                         {/* deuxième section */}
                         <div className="Suppression">
-                            <SubsectionTitle>
-                                Supprimer mes données
-                            </SubsectionTitle>
+                            <SubsectionTitle>Supprimer mes données</SubsectionTitle>
+
+                            {/* SUPPRESSION FABRIC */}
                             <div className="supprFabric">
-                                <p>
-                                    Supprimer l’ensemble de mes tissus dans ma tissuthèque
-                                </p><button
-                                    onClick={isOpenDeleteModalAll}>Supprimer</button>
+                                <p>Supprimer l’ensemble de mes tissus dans ma tissuthèque</p>
+                                <button onClick={() => isOpenDeleteModalAll("fabrics")}>
+                                    Supprimer
+                                </button>
                                 <DeleteModal
-                                    setShowDeleteModal={setShowDeleteModalAll}
-                                    showDeleteModal={showDeleteModalAll}
+                                    setShowDeleteModal={setShowDeleteModalAllFabrics}
+                                    showDeleteModal={showDeleteModalAllFabrics}
                                     deleteAction={deleteAllFabricsStore}
-                                    word={' MA TISSUTHEQUE'}
+                                    word={"SUPPRIMER MA TISSUTHEQUE"}
                                 />
                             </div>
+
+                            {/* SUPPRESSION HABERDASHERY */}
                             <div className="supprHaberdashery">
                                 <p>
                                     Supprimer l’ensemble de ma mercerie dans ma merceriethèque
-                                </p><button>Supprimer</button>
+                                </p>
+                                <button onClick={() => isOpenDeleteModalAll("haberdasheries")}>
+                                    Supprimer
+                                </button>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalAllHaberdasheries}
+                                    showDeleteModal={showDeleteModalAllHaberdasheries}
+                                    deleteAction={deleteAllHaberdasheriesStore}
+                                    word={"SUPPRIMER MA MERCERIETHEQUE"}
+                                />
                             </div>
+
+                            {/* SUPPRESSION PATTERN */}
                             <div className="supprPattern">
-                                <p>
-                                    Supprimer l’ensemble de mes patrons dans ma patronthèque
-                                </p><button>Supprimer</button>
+                                <p>Supprimer l’ensemble de mes patrons dans ma patronthèque</p>
+                                <button onClick={() => isOpenDeleteModalAll("patterns")}>Supprimer</button>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalAllPatterns}
+                                    showDeleteModal={showDeleteModalAllPatterns}
+                                    deleteAction={deleteAllPatternsStore}
+                                    word={"SUPPRIMER MA PATRONTHEQUE"}
+                                />
                             </div>
+
+                            {/* SUPPRESSION PROJECT */}
                             <div className="supprProject">
-                                <p>
-                                    Supprimer l’ensemble de mes projets
-                                </p><button>Supprimer</button>
+                                <p>Supprimer l’ensemble de mes projets</p>
+                                <button>Supprimer</button>
                             </div>
+
+                            {/* SUPPRESSION PROFILE */}
                             <div className="supprProfil">
-                                <p>
-                                    Supprimer mon profil
-                                </p><button>Supprimer</button>
+                                <p>Supprimer mon profil</p>
+                                <button onClick={() => isOpenDeleteModalAll("profil")}>Supprimer</button>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalProfil}
+                                    showDeleteModal={showDeleteModalProfil}
+                                    deleteAction={deleteOneUserStore}
+                                    word={"SUPPRIMER MON PROFIL"}
+                                />
                             </div>
                         </div>
                     </Container>
                 </>
             )}
         </>
-
     );
-}
+};
