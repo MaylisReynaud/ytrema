@@ -52,11 +52,6 @@ const authSlice = createSlice({
         }
       });
     },
-    deleteUser: (state, action) => {
-      state.value = state.value.filter((user) => {
-        return user.id !== action.payload;
-      });
-    },
     defaultState: (state) => {
       state = initialState;
     }
@@ -66,7 +61,6 @@ const authSlice = createSlice({
 export const { setUser, 
                addUser,
                updateUser,
-               deleteUser, 
                defaultState, 
               } = authSlice.actions;
 

@@ -7,7 +7,6 @@ import { DeviceSize } from "../../components/Navbar/Responsive";
 import { fabricsDefaultState } from "../../store/state/fabricSlice";
 import { haberdasheriesDefaultState } from "../../store/state/haberdasherySlice";
 import { patternsDefaultState } from "../../store/state/patternSlice";
-// Ici pas certaine voir en lançant deleteUser
 import { defaultState } from "../../store/state/authSlice";
 
 import { useDeleteAllFabricsMutation } from "../../store/api/ytremaApi";
@@ -42,28 +41,24 @@ export const Profile = (props, index) => {
     deleteAllFabrics(`${auth.id}`);
     dispatch(fabricsDefaultState("initialState"));
     navigate("/tissus");
-    console.log("coucou tissu");
   };
 
   const deleteAllHaberdasheriesStore = () => {
     deleteAllHaberdasheries(`${auth.id}`);
     dispatch(haberdasheriesDefaultState("initialState"));
     navigate("/mercerie");
-    console.log("coucou Mercerie");
   };
 
   const deleteAllPatternsStore = () => {
     deleteAllPatterns(`${auth.id}`);
     dispatch(patternsDefaultState("initialState"));
     navigate("/patrons");
-    console.log("coucou Patron");
   };
 
   const deleteOneUserStore = () => {
-    // deleteOneUser(`${auth.id}`);
-    // dispatch(defaultState("initialState"));
-    navigate("/");
-    console.log("coucou suppression membre");
+    deleteOneUser(`${auth.id}`);
+    dispatch(defaultState("initialState"));
+    navigate("/inscription");
   };
 
   // DELETE MODAL
