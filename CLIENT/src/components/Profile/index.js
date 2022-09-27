@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { storage } from "../../../src/Firebase";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 import { DeviceSize } from "../../components/Navbar/Responsive";
 import { fabricsDefaultState } from "../../store/state/fabricSlice";
 import {
@@ -11,7 +12,7 @@ import {
     useDeleteOneUserMutation
 } from '../../store/api/ytremaApi';
 import {
-    updateUser,
+    setUser,
     deleteUser,
 } from "../../../src/store/state/authSlice";
 import { DeleteModal } from "../DeleteModal";
@@ -36,7 +37,6 @@ export const Profile = (props, index) => {
         deleteAllFabrics(`${auth.id}`);
         dispatch(fabricsDefaultState('initialState'));
         navigate("/tissus");
-        console.log('coucou')
     };
     // DELETE MODAL
     const [showDeleteModalAll, setShowDeleteModalAll] = useState(false);
@@ -46,6 +46,7 @@ export const Profile = (props, index) => {
 
     //UPDATE USER INFO
     const [updateOneUser] = useUpdateOneUserMutation(auth.id);
+    //to open /close update section
     const [updateUserInfo, setUpdateUserInfo] = useState(false);
     const [values, setValues] = useState({
         pseudo: auth.pseudo,
@@ -96,7 +97,6 @@ export const Profile = (props, index) => {
                     .child(avatar.name)
                     .getDownloadURL()
                     .then((url) => {
-                        console.log('coucou dans Firebase');
                         console.log(url, "URL FIREBASE");
                         setAvatarURL(url);
                     });
@@ -116,24 +116,27 @@ export const Profile = (props, index) => {
             }
         }
     };
-    const updateUser = () => {
-        setUpdateUserInfo(true);
-    };
+ 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const valuesToSend = values;
+
         if (avatarURL !== undefined) {
             valuesToSend.avatar = avatarURL;
         };
-
+        //if email / pseudo is already use in database, don't send it to server
+        valuesToSend.email == auth.email && delete valuesToSend.email;
+        valuesToSend.pseudo == auth.pseudo && delete valuesToSend.pseudo;
+ 
+        // Send data to server
         const urlParams = {
-            userId: auth.id,
+            memberId: auth.id,
             body: valuesToSend,
           };
+        const { updateMemberProfil } = await updateOneUser(urlParams).unwrap();
 
-        const { updatedUserData } = await updateOneUser(urlParams).unwrap();
         //  Update the store
-        dispatch(updateUser(updatedUserData));
+        dispatch(setUser(updateMemberProfil));
         setUpdateUserInfo(false);
         toast.success('Données de profil modifiées avec succès👌', {
             position: "top-right",
@@ -147,7 +150,9 @@ export const Profile = (props, index) => {
             role: "alert"
         });
     };
-
+    const updateProfile = () => {
+        setUpdateUserInfo(true);
+    };
 
 
 
@@ -168,7 +173,7 @@ export const Profile = (props, index) => {
                                 <ModifyContainer>
                                     <ModifyButton
                                         aria-label="Modifier les données du membre"
-                                        onClick={updateUser}
+                                        onClick={updateProfile}
                                     />
                                 </ModifyContainer>
                             </Subsection>
@@ -185,10 +190,10 @@ export const Profile = (props, index) => {
                                             <span>E-mail</span> <span>{auth.email} </span>
                                         </div>
                                         <div>
-                                            <span>Tour de poitrine</span> <span>{auth.waist_measurement} </span>
+                                            <span>Tour de poitrine</span> <span>{auth.chest_measurement} </span>
                                         </div>
                                         <div>
-                                            <span>Tour de taille</span> <span>{auth.chest_measurement} </span>
+                                            <span>Tour de taille</span> <span>{auth.waist_measurement} </span>
                                         </div>
                                         <div>
                                             <span>Tour de hanches</span> <span>{auth.hip_measurement} </span>
@@ -234,9 +239,9 @@ export const Profile = (props, index) => {
                                             </div>
                                             <div>
                                                 <label>Tour de poitrine</label> <input
-                                                    placeholder={auth.waist_measurement}
+                                                    placeholder={auth.chest_measurement}
                                                     onChange={onChange}
-                                                    name={'tour de poitrine'}
+                                                    name={'chest_measurement'}
                                                 >
                                                 </input>
                                             </div>
@@ -245,7 +250,7 @@ export const Profile = (props, index) => {
                                                 <input
                                                     placeholder={auth.waist_measurement}
                                                     onChange={onChange}
-                                                    name={'tour de taille'}
+                                                    name={'waist_measurement'}
                                                 >
                                                 </input>
                                             </div>
@@ -254,11 +259,14 @@ export const Profile = (props, index) => {
                                                 <input
                                                     placeholder={auth.hip_measurement}
                                                     onChange={onChange}
-                                                    name={'tour de hanches'}
+                                                    name={'hip_measurement'}
                                                 >
                                                 </input>
                                             </div>
-                                            <button>Enregistrer</button>
+                                            <button
+                                                onClick={updateProfile}
+                                            >
+                                                Enregistrer</button>
                                         </form>
                                     </>
                                 )

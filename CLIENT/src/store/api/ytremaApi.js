@@ -230,9 +230,9 @@ export const ytremaApi = createApi({
   }),
   updateOneUser: builder.mutation({
     query: (arg) => {
-      const {userId, body} = arg;
+      const {memberId, body} = arg;
     return {
-      url: `/member/${userId}`,
+      url: `/member/${memberId}`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -243,9 +243,9 @@ export const ytremaApi = createApi({
     invalidatesTags: ['Auth'],
   }),
   deleteOneUser: builder.mutation({
-    query: (userId) => {
+    query: (memberId) => {
     return {
-      url: `/member/${userId}`,
+      url: `/member/${memberId}`,
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
