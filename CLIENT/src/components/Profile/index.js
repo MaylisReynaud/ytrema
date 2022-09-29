@@ -31,7 +31,7 @@ import {
     SubsectionTitle,
     ModifyContainer,
     ModifyButton,
-    ProfileInfo,
+    ProfileSection,
     TitleContainer,
     ProfilePictureContainer,
     ProfilePicture,
@@ -45,7 +45,11 @@ import {
     LabelForm,
     InputForm,
     UpdateInformationContainer,
-    UpdateInformationText
+    UpdateInformationText,
+    ButtonForm,
+    ArticleContainer,
+    ArticleText,
+    DeleteButton
 } from "./style";
 
 export const Profile = (props, index) => {
@@ -231,7 +235,7 @@ export const Profile = (props, index) => {
                 <>
                     <Title>MON COMPTE</Title>
                     <Container>
-                        <ProfileInfo>
+                        <ProfileSection>
 
                             {!updateUserInfo ? (
                                 <>
@@ -346,80 +350,80 @@ export const Profile = (props, index) => {
                                                 >
                                                 </InputForm>
                                             </InformationSection>
-                                            <button
+                                            <ButtonForm
                                                 onClick={updateProfile}
                                             >
-                                                Enregistrer</button>
+                                                Enregistrer</ButtonForm>
                                         </MemberInformationForm>
                                     </>
                                 )
                             }
 
-                        </ProfileInfo>
+                        </ProfileSection>
                         {/* deuxième section */}
-                        <div className="Suppression">
+                        <ProfileSection className="Suppression">
                             <SubsectionTitle>Supprimer mes données</SubsectionTitle>
 
                             {/* SUPPRESSION FABRIC */}
-                            <div className="supprFabric">
-                                <p>Supprimer l’ensemble de mes tissus dans ma tissuthèque</p>
-                                <button onClick={() => isOpenDeleteModalAll("fabrics")}>
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous les tissus dans ma tissuthèque</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("fabrics")}>
                                     Supprimer
-                                </button>
+                                </DeleteButton>
                                 <DeleteModal
                                     setShowDeleteModal={setShowDeleteModalAllFabrics}
                                     showDeleteModal={showDeleteModalAllFabrics}
                                     deleteAction={deleteAllFabricsStore}
                                     word={"SUPPRIMER MA TISSUTHEQUE"}
                                 />
-                            </div>
+                            </ArticleContainer>
 
                             {/* SUPPRESSION HABERDASHERY */}
-                            <div className="supprHaberdashery">
-                                <p>
-                                    Supprimer l’ensemble de ma mercerie dans ma merceriethèque
-                                </p>
-                                <button onClick={() => isOpenDeleteModalAll("haberdasheries")}>
+                            <ArticleContainer>
+                                <ArticleText>
+                                    Supprimer tous les articles dans ma merceriethèque
+                                </ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("haberdasheries")}>
                                     Supprimer
-                                </button>
+                                </DeleteButton>
                                 <DeleteModal
                                     setShowDeleteModal={setShowDeleteModalAllHaberdasheries}
                                     showDeleteModal={showDeleteModalAllHaberdasheries}
                                     deleteAction={deleteAllHaberdasheriesStore}
                                     word={"SUPPRIMER MA MERCERIETHEQUE"}
                                 />
-                            </div>
+                            </ArticleContainer>
 
                             {/* SUPPRESSION PATTERN */}
-                            <div className="supprPattern">
-                                <p>Supprimer l’ensemble de mes patrons dans ma patronthèque</p>
-                                <button onClick={() => isOpenDeleteModalAll("patterns")}>Supprimer</button>
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous les patrons dans ma patronthèque</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("patterns")}>Supprimer</DeleteButton>
                                 <DeleteModal
                                     setShowDeleteModal={setShowDeleteModalAllPatterns}
                                     showDeleteModal={showDeleteModalAllPatterns}
                                     deleteAction={deleteAllPatternsStore}
                                     word={"SUPPRIMER MA PATRONTHEQUE"}
                                 />
-                            </div>
+                            </ArticleContainer>
 
                             {/* SUPPRESSION PROJECT */}
-                            <div className="supprProject">
-                                <p>Supprimer l’ensemble de mes projets</p>
-                                <button>Supprimer</button>
-                            </div>
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous mes projets réalisés et en cours</ArticleText>
+                                <DeleteButton>Supprimer</DeleteButton>
+                            </ArticleContainer>
 
                             {/* SUPPRESSION PROFILE */}
-                            <div className="supprProfil">
-                                <p>Supprimer mon profil</p>
-                                <button onClick={() => isOpenDeleteModalAll("profil")}>Supprimer</button>
+                            <ArticleContainer>
+                                <ArticleText>Supprimer l'ensemble de mon profil</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("profil")}>Supprimer</DeleteButton>
                                 <DeleteModal
                                     setShowDeleteModal={setShowDeleteModalProfil}
                                     showDeleteModal={showDeleteModalProfil}
                                     deleteAction={deleteOneUserStore}
                                     word={"SUPPRIMER MON PROFIL"}
                                 />
-                            </div>
-                        </div>
+                            </ArticleContainer>
+                        </ProfileSection>
                     </Container>
                 </>
             )}

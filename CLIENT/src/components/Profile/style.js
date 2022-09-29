@@ -23,14 +23,14 @@ export const Container = styled.div`
         height:100%;        
   }
 `;
-export const ProfileInfo = styled.div`
+export const ProfileSection = styled.div`
   display:flex;
   flex-direction: column;
   align-items: center;
   width:100%;
 `;
 
-export const TitleContainer  = styled.div`
+export const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -225,4 +225,58 @@ color: ${(props) => props.theme.color4};
 background-color: ${(props) => props.theme.color1};
 @media screen and (min-width: 601px) {
 }
+`;
+
+export const ButtonForm = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 12%;  
+  padding: 1rem;
+  background: ${(props) => props.theme.color1};
+  font-family: "${(props) => props.theme.textFont}";
+  color: ${(props) => props.theme.color4};
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  cursor: pointer;
+  @media screen and (min-width: 601px) {
+    width: 94%;
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+`;
+
+export const ArticleContainer = styled.div`
+  display: flex;
+  
+`;
+
+export const ArticleText = styled.p`
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+`;
+
+export const DeleteButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  height: 12%;  
+  padding: 1rem;
+  background: red;
+  font-family: "${(props) => props.theme.textFont}";
+  color: ${(props) => props.theme.color4};
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  @media screen and (min-width: 601px) {
+    width: 94%;
+    margin-top: 2rem;
+    padding: 1rem;
+  }
 `;
