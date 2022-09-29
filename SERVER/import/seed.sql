@@ -107,6 +107,7 @@ INSERT INTO "pattern"("name", "website", "brand", "clothing", "gender", "price",
     ('Betty Boop', 'https://www.chutcharlotte.com/', 'Chut Charlotte', 'Robe', 'Femme', 8.90 , 'Coudre une taille en dessous si tissus stretch', 'Papier', '-', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-betty-boop-chut-charlotte.png?alt=media&token=a5c8dca5-38e0-444a-be4d-61d80a0b8a0eo', 1),
     ('Georges', 'https://www.laboutiquedeviny.com/', 'Viny DIY', 'Sac', 'Accessoire', 3.00, 'aucune pour le moment', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FLivret_Gaston.pdf?alt=media&token=ad677019-0613-49f8-a216-6c5f4a00956e', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Fsac-georges-vinidiy.png?alt=media&token=f565c04a-d917-4e4e-8dca-66ff8bbffbc2', 1);
 
+
 -- ------------------------------------
 -- loading data in "photo" table
 -- ------------------------------------
@@ -115,7 +116,7 @@ INSERT INTO "photo"("photo", "personal_notes", "project_id")
     (Default, 'Photo 1 - projet 1', 1),
     ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 2 - projet 1', 1),
     ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 1 - projet 2', 2),
-    (Default, 'Photo 2 - projet 2', 2);
+
 
 -- ------------------------------------
 -- loading data in "project_has_fabric" table
