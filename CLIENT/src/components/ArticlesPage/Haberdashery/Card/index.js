@@ -53,7 +53,7 @@ import {
   deleteHaberdashery,
 } from "../../../../store/state/haberdasherySlice";
 import { MessageHover } from "./MessageHover";
-import { DeleteHaberdasheryModal } from "./DeleteModal";
+import { DeleteModal } from "../../../DeleteModal";
 
 export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -247,10 +247,11 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteHaberdasheryModal
+                    <DeleteModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
-                      deleteCard={deleteCard}
+                      deleteAction={deleteCard}
+                      word={' CET ARTICLE'}
                     />
 
 
@@ -480,10 +481,11 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeleteHaberdasheryModal
+                  <DeleteModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
-                    deleteCard={deleteCard}
+                    deleteAction={deleteCard}
+                    word={' CET ARTICLE'}
                   />
 
 

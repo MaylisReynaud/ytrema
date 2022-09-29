@@ -102,10 +102,11 @@ INSERT INTO "project"("name", "cost_price", "status", "member_id")
 -- ------------------------------------
 INSERT INTO "pattern"("name", "website", "brand", "clothing", "gender", "price", "personal_notes", "format", "pdf_instructions", "photo", "member_id")
     VALUES
-    ('Cassandre', 'https://www.clematisse-pattern.com/', 'Clématisse Pattern', 'Robe', 'Femme', 11.00, 'Coudre une taille en dessous', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FPATRON_A0_SALOPETTE_MADEBYMEWITH%C3%94%C3%98%C3%B1%C2%B4%C2%A9%C3%85ANDTAO.pdf?alt=media&token=c0459294-6fb8-4e9d-b59f-44a93c107110', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-cassandre-clematisse-pattern.png?alt=media&token=7126a0e6-eb92-46c5-af65-592e0534cea6', 1),
-    ('Gloria', 'https://www.clematisse-pattern.com/', 'Clématisse Pattern & Mon Idylle créations', 'Robe', 'Femme', 11.00, 'Coudre une taille en dessous', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FPATRON_A0_SALOPETTE_MADEBYMEWITH%C3%94%C3%98%C3%B1%C2%B4%C2%A9%C3%85ANDTAO.pdf?alt=media&token=c0459294-6fb8-4e9d-b59f-44a93c107110', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-gloria-clematisse-pattern-mon-idylle.png?alt=media&token=535a7f50-69f9-4da5-be13-c028cba63289', 1),
+    ('Cassandre', 'https://www.clematisse-pattern.com/', 'Clématisse Pattern', 'Robe', 'Femme', 11.00, 'Coudre une taille en dessous', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FLivret_Gaston.pdf?alt=media&token=ad677019-0613-49f8-a216-6c5f4a00956e', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-cassandre-clematisse-pattern.png?alt=media&token=7126a0e6-eb92-46c5-af65-592e0534cea6', 1),
+    ('Gloria', 'https://www.clematisse-pattern.com/', 'Clématisse Pattern & Mon Idylle créations', 'Robe', 'Femme', 11.00, 'Coudre une taille en dessous', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FLivret_Gaston.pdf?alt=media&token=ad677019-0613-49f8-a216-6c5f4a00956e', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-gloria-clematisse-pattern-mon-idylle.png?alt=media&token=535a7f50-69f9-4da5-be13-c028cba63289', 1),
     ('Betty Boop', 'https://www.chutcharlotte.com/', 'Chut Charlotte', 'Robe', 'Femme', 8.90 , 'Coudre une taille en dessous si tissus stretch', 'Papier', '-', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Frobe-betty-boop-chut-charlotte.png?alt=media&token=a5c8dca5-38e0-444a-be4d-61d80a0b8a0eo', 1),
-    ('Georges', 'https://www.laboutiquedeviny.com/', 'Viny DIY', 'Sac', 'Accessoire', 3.00, 'aucune pour le moment', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FPATRON_A0_SALOPETTE_MADEBYMEWITH%C3%94%C3%98%C3%B1%C2%B4%C2%A9%C3%85ANDTAO.pdf?alt=media&token=c0459294-6fb8-4e9d-b59f-44a93c107110', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Fsac-georges-vinidiy.png?alt=media&token=f565c04a-d917-4e4e-8dca-66ff8bbffbc2', 1);
+    ('Georges', 'https://www.laboutiquedeviny.com/', 'Viny DIY', 'Sac', 'Accessoire', 3.00, 'aucune pour le moment', 'PDF', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FLivret_Gaston.pdf?alt=media&token=ad677019-0613-49f8-a216-6c5f4a00956e', 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Fsac-georges-vinidiy.png?alt=media&token=f565c04a-d917-4e4e-8dca-66ff8bbffbc2', 1);
+
 
 -- ------------------------------------
 -- loading data in "photo" table
@@ -113,9 +114,9 @@ INSERT INTO "pattern"("name", "website", "brand", "clothing", "gender", "price",
 INSERT INTO "photo"("photo", "personal_notes", "project_id")
     VALUES
     (Default, 'Photo 1 - projet 1', 1),
-    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Ffelin-hysope.jpg?alt=media&token=e6b1cb74-9d42-494d-8bb6-841645f6131d', 'Photo 2 - projet 1', 1),
-    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2Ffelin-hysope.jpg?alt=media&token=e6b1cb74-9d42-494d-8bb6-841645f6131d', 'Photo 1 - projet 2', 2),
-    (Default, 'Photo 2 - projet 2', 2);
+    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 2 - projet 1', 1),
+    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 1 - projet 2', 2),
+
 
 -- ------------------------------------
 -- loading data in "project_has_fabric" table

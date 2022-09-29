@@ -7,8 +7,9 @@ let token = sessionStorage.getItem("token");
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
-  tagTypes: ['Fabric', 'Haberdashery', 'Pattern'],
+  // baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+  tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {
@@ -227,6 +228,32 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Pattern'],
   }),
+  updateOneUser: builder.mutation({
+    query: (arg) => {
+      const {memberId, body} = arg;
+    return {
+      url: `/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Auth'],
+  }),
+  deleteOneUser: builder.mutation({
+    query: (memberId) => {
+    return {
+      url: `/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Auth'],
+  }),
   })
 });
 
@@ -248,5 +275,7 @@ export const {
               useDeleteOnePatternMutation, 
               useDeleteAllPatternsMutation, 
               useUpdateOnePatternMutation,
+              useUpdateOneUserMutation,
+              useDeleteOneUserMutation
              } = ytremaApi;
 

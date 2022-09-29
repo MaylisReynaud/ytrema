@@ -25,6 +25,7 @@ const authSlice = createSlice({
         ...action.payload,
       };
       userData.isLogged = true;
+      console.log(userData,'userdata slice');
       return {
         ...userData
       }
@@ -44,7 +45,10 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, addUser, defaultState } = authSlice.actions;
+export const { setUser, 
+               addUser,
+               defaultState, 
+              } = authSlice.actions;
 
 export default authSlice.reducer;
 

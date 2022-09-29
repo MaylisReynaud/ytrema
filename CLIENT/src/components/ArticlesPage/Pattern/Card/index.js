@@ -57,7 +57,7 @@ import {
   deletePattern,
 } from "../../../../store/state/patternSlice";
 import { MessageHover } from "./MessageHover";
-import { DeletePatternModal } from "./DeleteModal";
+import { DeleteModal } from "../../../DeleteModal";
 
 export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -266,10 +266,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeletePatternModal
+                    <DeleteModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
-                      deleteCard={deleteCard}
+                      deleteAction={deleteCard}
+                      word={' CE PATRON'}
                     />
                   </>
                 ) : (
@@ -428,12 +429,12 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                               </InformationLink>
                             </InformationLinkContainer>
                           ) : (
-                            <InformationInput
+                            <InformationTextarea
                               value={patternCard[input.info]}
                               disabled="disabled"
                               type={input.type}
                               rows={values[input.info].length <= 31 ? '1' : '2'}
-                            ></InformationInput>
+                            ></InformationTextarea>
                           )}
 
                         </InformationContent>
@@ -486,10 +487,11 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeletePatternModal
+                  <DeleteModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
-                    deleteCard={deleteCard}
+                    deleteAction={deleteCard}
+                    word={' CE PATRON'}
                   />
 
 
@@ -644,12 +646,12 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={patternCard[input.info]}
                             rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>

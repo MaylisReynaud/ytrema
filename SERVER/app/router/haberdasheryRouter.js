@@ -9,6 +9,7 @@ router.post('/member/:userId(\\d+)', haberdasheryController.create);
 router.get('/all/member/:userId(\\d+)', haberdasheryController.findAll);
 router.get('/:haberdasheryId(\\d+)/member/:userId(\\d+)', haberdasheryController.findById);
 router.patch('/:haberdasheryId(\\d+)/member/:userId(\\d+)', haberdasheryController.update);
+router.delete('/all/member/:userId(\\d+)', haberdasheryController.deleteAll);
 router.delete('/:haberdasheryId(\\d+)/member/:userId(\\d+)', haberdasheryController.delete);
 
 module.exports = router;

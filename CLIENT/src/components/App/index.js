@@ -21,7 +21,9 @@ import { NotFound } from '../NotFound';
 import { ToastContainer} from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux";
 import { defaultState } from '../../store/state/authSlice';
+import { Profile } from '../Profile';
 import { LoginForm } from '../Registrationpage/RegisterBox/Forms/LoginForm';
+import { Profiler } from 'react';
 
 
 
@@ -64,6 +66,7 @@ const App = () => {
               <Route  path='/mercerie/:id' element={<HaberdasheryCard /> } />
               <Route  path='/patrons' element={<Pattern />} />
               <Route  path='/patrons/:id' element={<PatternCard />} />
+              <Route  path='/profile' element={<Profile />} />
               <Route  path='/profil' element={<Profil />} />
               <Route  path='*' element={<NotFound />} />
               
