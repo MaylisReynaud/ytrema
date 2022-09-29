@@ -19,8 +19,9 @@ export const Container = styled.div`
     margin: 0 1.3rem;
     @media screen and (min-width:601px) { 
         flex-direction: row;
-        margin-bottom:3.5em;
-        height:100%;        
+        height:100%;   
+        justify-content: space-between;
+        align-items:flex-start;     
   }
 `;
 export const ProfileSection = styled.div`
@@ -28,6 +29,10 @@ export const ProfileSection = styled.div`
   flex-direction: column;
   align-items: center;
   width:100%;
+  @media screen and (min-width:601px) { 
+      width: 40%;
+      margin-left: 1.3rem;       
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -35,7 +40,8 @@ export const TitleContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    @media screen and (min-width:601px) {   
+    @media screen and (min-width:601px) {
+      justify-content: space-between;   
   }
 `;
 
@@ -45,8 +51,8 @@ export const SubsectionTitle = styled.h2`
   align-items: center;
   margin: 1em 0;
   @media screen and (min-width:601px) { 
-    justify-content:center;
-    text-align: center;
+    font-size: 1.3rem;
+    text-align: left;
   }
   `;
 
@@ -72,10 +78,20 @@ export const ProfilePictureContainer = styled.div`
   width: 8rem;
   margin-top:1rem;
   border-radius: 65px;
+  @media screen and (min-width: 601px) {
+    align-self: center;
+  }
 `;
 
 export const ProfilePicture = styled.img`
   /* object-fit:cover; */
+  width: 100%;
+`;
+
+export const InformationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
 `;
 
@@ -87,6 +103,9 @@ export const InformationSectionContainer = styled.div`
   width: 100%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  @media screen and (min-width: 601px) {
+   width: 70%;
+  }
 `;
 
 export const InformationSection = styled.div`
@@ -112,7 +131,7 @@ export const InformationTitle = styled.span`
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
-    width: 20%;
+    width: 30%;
     font-weight:600;
   }
 `;
@@ -174,7 +193,6 @@ display: flex;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
-    width: 20%;
     font-weight:600;
   }
 `;
@@ -203,10 +221,11 @@ export const InputForm = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   };
+
   `;
 
 export const UpdateInformationContainer = styled(motion.div)`
-transition: all, 240ms ease-in-out;
+transition: all, 800ms ease-in-out;
 background: rgb(241, 196, 15);
 background: linear-gradient(
   58deg,
@@ -243,7 +262,7 @@ export const ButtonForm = styled.button`
   font-size: 1.3rem;
   cursor: pointer;
   @media screen and (min-width: 601px) {
-    width: 94%;
+    width: 100%;
     margin-top: 2rem;
     padding: 1rem;
   }
@@ -251,6 +270,14 @@ export const ButtonForm = styled.button`
 
 export const ArticleContainer = styled.div`
   display: flex;
+  margin-top: 0.5rem;
+  @media screen and (min-width: 601px) {
+    width: 100%;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    
+  }
   
 `;
 
@@ -275,8 +302,8 @@ export const DeleteButton = styled.button`
   font-size: 1rem;
   cursor: pointer;
   @media screen and (min-width: 601px) {
-    width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    width: 30%;
+    
   }
 `;
+

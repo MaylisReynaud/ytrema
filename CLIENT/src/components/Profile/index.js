@@ -49,7 +49,8 @@ import {
     ButtonForm,
     ArticleContainer,
     ArticleText,
-    DeleteButton
+    DeleteButton,
+    InformationContainer
 } from "./style";
 
 export const Profile = (props, index) => {
@@ -363,6 +364,207 @@ export const Profile = (props, index) => {
                         {/* deuxième section */}
                         <ProfileSection className="Suppression">
                             <SubsectionTitle>Supprimer mes données</SubsectionTitle>
+
+                            {/* SUPPRESSION FABRIC */}
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous les tissus dans ma tissuthèque</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("fabrics")}>
+                                    Supprimer
+                                </DeleteButton>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalAllFabrics}
+                                    showDeleteModal={showDeleteModalAllFabrics}
+                                    deleteAction={deleteAllFabricsStore}
+                                    word={"SUPPRIMER MA TISSUTHEQUE"}
+                                />
+                            </ArticleContainer>
+
+                            {/* SUPPRESSION HABERDASHERY */}
+                            <ArticleContainer>
+                                <ArticleText>
+                                    Supprimer tous les articles dans ma merceriethèque
+                                </ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("haberdasheries")}>
+                                    Supprimer
+                                </DeleteButton>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalAllHaberdasheries}
+                                    showDeleteModal={showDeleteModalAllHaberdasheries}
+                                    deleteAction={deleteAllHaberdasheriesStore}
+                                    word={"SUPPRIMER MA MERCERIETHEQUE"}
+                                />
+                            </ArticleContainer>
+
+                            {/* SUPPRESSION PATTERN */}
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous les patrons dans ma patronthèque</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("patterns")}>Supprimer</DeleteButton>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalAllPatterns}
+                                    showDeleteModal={showDeleteModalAllPatterns}
+                                    deleteAction={deleteAllPatternsStore}
+                                    word={"SUPPRIMER MA PATRONTHEQUE"}
+                                />
+                            </ArticleContainer>
+
+                            {/* SUPPRESSION PROJECT */}
+                            <ArticleContainer>
+                                <ArticleText>Supprimer tous mes projets réalisés et en cours</ArticleText>
+                                <DeleteButton>Supprimer</DeleteButton>
+                            </ArticleContainer>
+
+                            {/* SUPPRESSION PROFILE */}
+                            <ArticleContainer>
+                                <ArticleText>Supprimer l'ensemble de mon profil</ArticleText>
+                                <DeleteButton onClick={() => isOpenDeleteModalAll("profil")}>Supprimer</DeleteButton>
+                                <DeleteModal
+                                    setShowDeleteModal={setShowDeleteModalProfil}
+                                    showDeleteModal={showDeleteModalProfil}
+                                    deleteAction={deleteOneUserStore}
+                                    word={"SUPPRIMER MON PROFIL"}
+                                />
+                            </ArticleContainer>
+                        </ProfileSection>
+                    </Container>
+                </>
+            )}
+            {isDesktop && (
+                <>
+                    <Title>MON COMPTE</Title>
+                    <Container>
+                        <ProfileSection>
+
+                            {!updateUserInfo ? (
+                                <>
+                                    <TitleContainer>
+                                        <SubsectionTitle>
+                                            Information du compte
+                                        </SubsectionTitle>
+                                        <ModifyContainer>
+                                            <ModifyButton
+                                                aria-label="Modifier les données du membre"
+                                                onClick={updateProfile}
+                                            />
+                                        </ModifyContainer>
+                                    </TitleContainer>
+                                    <InformationContainer>
+                                    <ProfilePictureContainer>
+                                        <ProfilePicture src={auth.avatar} alt="photo de profil"></ProfilePicture>
+                                    </ProfilePictureContainer>
+                                    <InformationSectionContainer>
+                                        <InformationSection>
+                                            <InformationTitle>Pseudo</InformationTitle> <MemberInformation>{auth.pseudo} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>E-mail</InformationTitle> <MemberInformation>{auth.email} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de poitrine</InformationTitle> <MemberInformation>{auth.chest_measurement} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de taille</InformationTitle> <MemberInformation>{auth.waist_measurement} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de hanches</InformationTitle> <MemberInformation>{auth.hip_measurement} </MemberInformation>
+                                        </InformationSection>
+                                    </InformationSectionContainer>
+                                </InformationContainer>
+                                </>
+                            ) :
+                                (
+                                    <>
+                                        <TitleContainer>
+                                            {/* <SubsectionTitle>
+                                                Information du compte
+                                            </SubsectionTitle> */}
+                                            <UpdateInformationContainer
+                                                initial={{ x: '-80px' }}
+                                                animate={{ x: 400 }}
+                                                transition={{ type: "linear" }}
+                                            >
+                                                <UpdateInformationText>
+                                                    Informations en cours de modification
+                                                </UpdateInformationText>
+
+                                            </UpdateInformationContainer>
+                                        </TitleContainer>
+                                        <ProfilePictureContainer>
+                                            <ProfilePicture src={preview} alt="member's avatar preview"></ProfilePicture>
+                                        </ProfilePictureContainer>
+                                        <InputPictureContainer>
+                                            <InputPicture
+                                                name="avatar"
+                                                accept="image/*"
+                                                placeholder="avatar du membre"
+                                                required=""
+                                                type="file"
+                                                onChange={onChange}
+                                            ></InputPicture>
+                                        </InputPictureContainer>
+                                        <MemberInformationForm
+                                            onSubmit={handleSubmit}
+                                        >
+
+                                            <InformationSection
+                                                key={auth.id}
+                                            >
+                                                <LabelForm>Pseudo</LabelForm> <InputForm
+                                                    placeholder={auth.pseudo}
+                                                    onChange={onChange}
+                                                    name={'pseudo'}
+                                                >
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>E-mail</LabelForm> <InputForm
+                                                    placeholder={auth.email}
+                                                    onChange={onChange}
+                                                    name={'email'}
+                                                >
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de poitrine</LabelForm> <InputForm
+                                                    placeholder={auth.chest_measurement}
+                                                    onChange={onChange}
+                                                    name={'chest_measurement'}
+                                                >
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de taille</LabelForm>
+                                                <InputForm
+                                                    placeholder={auth.waist_measurement}
+                                                    onChange={onChange}
+                                                    name={'waist_measurement'}
+                                                >
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de hanches</LabelForm>
+                                                <InputForm
+                                                    placeholder={auth.hip_measurement}
+                                                    onChange={onChange}
+                                                    name={'hip_measurement'}
+                                                >
+                                                </InputForm>
+                                            </InformationSection>
+                                            <ButtonForm
+                                                onClick={updateProfile}
+                                            >
+                                                Enregistrer</ButtonForm>
+                                        </MemberInformationForm>
+                                    </>
+                                )
+                            }
+
+                        </ProfileSection>
+                        {/* deuxième section */}
+                        <ProfileSection className="Suppression">
+                            <TitleContainer>
+                                <SubsectionTitle>Supprimer mes données</SubsectionTitle>
+                            </TitleContainer>
+
 
                             {/* SUPPRESSION FABRIC */}
                             <ArticleContainer>
