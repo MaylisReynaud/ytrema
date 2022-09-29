@@ -31,6 +31,21 @@ import {
     SubsectionTitle,
     ModifyContainer,
     ModifyButton,
+    ProfileInfo,
+    TitleContainer,
+    ProfilePictureContainer,
+    ProfilePicture,
+    InformationSection,
+    InformationSectionContainer,
+    InformationTitle,
+    MemberInformation,
+    InputPictureContainer,
+    InputPicture,
+    MemberInformationForm,
+    LabelForm,
+    InputForm,
+    UpdateInformationContainer,
+    UpdateInformationText
 } from "./style";
 
 export const Profile = (props, index) => {
@@ -210,125 +225,137 @@ export const Profile = (props, index) => {
         setUpdateUserInfo(true);
     };
 
-
-
-
-
-
     return (
         <>
             {isMobile && (
                 <>
                     <Title>MON COMPTE</Title>
                     <Container>
-                        <div className="InfoCompte">
-                            <Subsection>
-                                <SubsectionTitle>
-                                    Information du compte
-                                </SubsectionTitle>
-                                <ModifyContainer>
-                                    <ModifyButton
-                                        aria-label="Modifier les données du membre"
-                                        onClick={updateProfile}
-                                    />
-                                </ModifyContainer>
-                            </Subsection>
+                        <ProfileInfo>
+
                             {!updateUserInfo ? (
                                 <>
-                                    <div>
-                                        <img src={auth.avatar}></img>
-                                    </div>
-                                    <div>
-                                        <div>
-                                            <span>Pseudo</span> <span>{auth.pseudo} </span>
-                                        </div>
-                                        <div>
-                                            <span>E-mail</span> <span>{auth.email} </span>
-                                        </div>
-                                        <div>
-                                            <span>Tour de poitrine</span> <span>{auth.chest_measurement} </span>
-                                        </div>
-                                        <div>
-                                            <span>Tour de taille</span> <span>{auth.waist_measurement} </span>
-                                        </div>
-                                        <div>
-                                            <span>Tour de hanches</span> <span>{auth.hip_measurement} </span>
-                                        </div>
-                                    </div>
+                                    <TitleContainer>
+                                        <SubsectionTitle>
+                                            Information du compte
+                                        </SubsectionTitle>
+                                        <ModifyContainer>
+                                            <ModifyButton
+                                                aria-label="Modifier les données du membre"
+                                                onClick={updateProfile}
+                                            />
+                                        </ModifyContainer>
+                                    </TitleContainer>
+                                    <ProfilePictureContainer>
+                                        <ProfilePicture src={auth.avatar} alt="photo de profil"></ProfilePicture>
+                                    </ProfilePictureContainer>
+                                    <InformationSectionContainer>
+                                        <InformationSection>
+                                            <InformationTitle>Pseudo</InformationTitle> <MemberInformation>{auth.pseudo} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>E-mail</InformationTitle> <MemberInformation>{auth.email} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de poitrine</InformationTitle> <MemberInformation>{auth.chest_measurement} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de taille</InformationTitle> <MemberInformation>{auth.waist_measurement} </MemberInformation>
+                                        </InformationSection>
+                                        <InformationSection>
+                                            <InformationTitle>Tour de hanches</InformationTitle> <MemberInformation>{auth.hip_measurement} </MemberInformation>
+                                        </InformationSection>
+                                    </InformationSectionContainer>
                                 </>
                             ) :
                                 (
                                     <>
-                                        <div>
-                                            <img src={preview} alt="member's avatar preview"></img>
-                                        </div>
-                                        <div>
-                                            <input
+                                        <TitleContainer>
+                                            {/* <SubsectionTitle>
+                                                Information du compte
+                                            </SubsectionTitle> */}
+                                            <UpdateInformationContainer
+                                                initial={{ x: '-80px' }}
+                                                animate={{ x: 0 }}
+                                                transition={{ type: "linear" }}
+                                            >
+                                                <UpdateInformationText>
+                                                    Informations en cours de modification
+                                                </UpdateInformationText>
+
+                                            </UpdateInformationContainer>
+                                        </TitleContainer>
+                                        <ProfilePictureContainer>
+                                            <ProfilePicture src={preview} alt="member's avatar preview"></ProfilePicture>
+                                        </ProfilePictureContainer>
+                                        <InputPictureContainer>
+                                            <InputPicture
                                                 name="avatar"
                                                 accept="image/*"
                                                 placeholder="avatar du membre"
                                                 required=""
                                                 type="file"
                                                 onChange={onChange}
-                                            ></input>
-                                        </div>
-                                        <form
+                                            ></InputPicture>
+                                        </InputPictureContainer>
+                                        <MemberInformationForm
                                             onSubmit={handleSubmit}
                                         >
-                                            <div
+
+                                            <InformationSection
                                                 key={auth.id}
                                             >
-                                                <label>Pseudo</label> <input
+                                                <LabelForm>Pseudo</LabelForm> <InputForm
                                                     placeholder={auth.pseudo}
                                                     onChange={onChange}
                                                     name={'pseudo'}
                                                 >
-                                                </input>
-                                            </div>
-                                            <div>
-                                                <label>E-mail</label> <input
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>E-mail</LabelForm> <InputForm
                                                     placeholder={auth.email}
                                                     onChange={onChange}
                                                     name={'email'}
                                                 >
-                                                </input>
-                                            </div>
-                                            <div>
-                                                <label>Tour de poitrine</label> <input
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de poitrine</LabelForm> <InputForm
                                                     placeholder={auth.chest_measurement}
                                                     onChange={onChange}
                                                     name={'chest_measurement'}
                                                 >
-                                                </input>
-                                            </div>
-                                            <div>
-                                                <label>Tour de taille</label>
-                                                <input
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de taille</LabelForm>
+                                                <InputForm
                                                     placeholder={auth.waist_measurement}
                                                     onChange={onChange}
                                                     name={'waist_measurement'}
                                                 >
-                                                </input>
-                                            </div>
-                                            <div>
-                                                <label>Tour de hanches</label>
-                                                <input
+                                                </InputForm>
+                                            </InformationSection>
+                                            <InformationSection>
+                                                <LabelForm>Tour de hanches</LabelForm>
+                                                <InputForm
                                                     placeholder={auth.hip_measurement}
                                                     onChange={onChange}
                                                     name={'hip_measurement'}
                                                 >
-                                                </input>
-                                            </div>
+                                                </InputForm>
+                                            </InformationSection>
                                             <button
                                                 onClick={updateProfile}
                                             >
                                                 Enregistrer</button>
-                                        </form>
+                                        </MemberInformationForm>
                                     </>
                                 )
                             }
 
-                        </div>
+                        </ProfileInfo>
                         {/* deuxième section */}
                         <div className="Suppression">
                             <SubsectionTitle>Supprimer mes données</SubsectionTitle>
