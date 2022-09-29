@@ -30,7 +30,7 @@ const memberDataMapper = {
         // Member info to update
         const { pseudo, email, password, checkPassword, ...rest } =
             memberInfoToUpdate;
-
+            
         // Booleans to control if the data update is allowed
         let updateEmailAllowed = false;
         let updatePseudoAllowed = false;

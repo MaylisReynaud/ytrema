@@ -366,7 +366,6 @@ export const InformationInput = styled.input`
   align-items: center;
   width: 70%;
   flex-direction: row;
-  resize: none;
   margin-left: 0.5rem;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
@@ -388,7 +387,8 @@ export const InformationInput = styled.input`
 `;
 
 export const InformationLinkContainer = styled.div`
-  margin-left: 0.5rem;
+  margin-left: 0.7rem;
+  width:70%;
 `;
 
 export const InformationLink = styled.a`

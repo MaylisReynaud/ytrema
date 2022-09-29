@@ -264,6 +264,28 @@ const haberdasheryDataMapper = {
         // Here, the haberdashery data has been deleted
         return true;
     },
+
+    async deleteAll(id) {
+        //  Query to delete all fhaberdasheries in DB
+        const query = {
+            text: `DELETE FROM "haberdashery" WHERE "member_id" = $1`,
+            values: [id],
+        };
+
+        // Send the query to DB
+        const allHaberdasheriesToDeleteResult = client.query(query);
+
+        // Get request result
+        const { rowCount } = allHaberdasheriesToDeleteResult;
+
+        // Any rows weren't deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here, all haberdasheries data have been deleted
+        return true;
+    }
 };
 
 module.exports = haberdasheryDataMapper;

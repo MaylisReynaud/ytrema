@@ -54,7 +54,7 @@ import {
   deleteFabric,
 } from "../../../../store/state/fabricSlice";
 import { MessageHover } from "./MessageHover";
-import { DeleteFabricModal } from "./DeleteModal";
+import { DeleteModal } from "../../../DeleteModal";
 
 export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
   const { id } = useParams();
@@ -240,10 +240,11 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                         onClick={isOpenDeleteModal}
                       />
                     </TrashContainer>
-                    <DeleteFabricModal
+                    <DeleteModal
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
-                      deleteCard={deleteCard}
+                      deleteAction={deleteCard}
+                      word={' CE TISSU'}
                     />
 
 
@@ -378,12 +379,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={fabricCard[input.info]}
                             disabled="disabled"
                             type={input.type}
                             rows={values[input.info].length <= 31 ? '1' : '2'}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>
@@ -435,10 +436,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       onClick={isOpenDeleteModal}
                     />
                   </TrashContainer>
-                  <DeleteFabricModal
+                  <DeleteModal
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
-                    deleteCard={deleteCard}
+                    deleteAction={deleteCard}
+                    word={' CE TISSU'}
+                    
                   />
 
 
@@ -571,12 +574,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
-                          <InformationInput
+                          <InformationTextarea
                             value={fabricCard[input.info]}
                             rows={values[input.info].length <= 40 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
-                          ></InformationInput>
+                          ></InformationTextarea>
                         )}
 
                       </InformationContent>

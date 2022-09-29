@@ -17,7 +17,7 @@ import {
 
 
 
-export const DeletePatternModal = ({ showDeleteModal, setShowDeleteModal, deleteCard }) => {
+export const DeleteModal = ({ showDeleteModal, setShowDeleteModal, deleteAction, word }) => {
     const deleteModalRef = useRef();
     const closeDeleteModal = () => {
             setShowDeleteModal(false);
@@ -51,7 +51,7 @@ export const DeletePatternModal = ({ showDeleteModal, setShowDeleteModal, delete
                         >
                             <ModalContent>
 
-                                <DeleteTitle>SUPPRIMER CE PATRON</DeleteTitle>
+                                <DeleteTitle>{word}</DeleteTitle>
                                 <DeleteParagraph>Cette action est irréversible, êtes vous sûr(e)? </DeleteParagraph>
                                 <ButtonsContainer>
                                     <CancelContainer>
@@ -63,7 +63,7 @@ export const DeletePatternModal = ({ showDeleteModal, setShowDeleteModal, delete
                                     </CancelContainer>
                                     <DeleteContainer>
                                         <DeleteButton
-                                            onClick={deleteCard}
+                                            onClick={deleteAction}
 
                                         >
                                             Supprimer

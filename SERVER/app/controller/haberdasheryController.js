@@ -130,6 +130,29 @@ const haberdasheryController = {
             next(error);
         }
     },
+
+    async deleteAll(request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id } = request.params;
+
+            // Delete all haberdasheries data in DB
+            const deleteAllHaberdasheries = await haberdasheryDataMapper.deleteAll(id);
+
+            // No data deleted because this account does'nt have any fabrics yet
+            if (!deleteAllHaberdasheries) {
+                response.locals.notFound =
+                    "Aucun article de mercerie n'est répertorié dans votre merceriethèque, vous ne pouvez donc pas procéder à sa suppression";
+                return next();
+            }
+
+            // Here, all fabric data have been in DB
+            return response.status(204).json();
+
+        } catch (error) {
+            next(error)
+        }
+    }
 };
 
 module.exports = haberdasheryController;
