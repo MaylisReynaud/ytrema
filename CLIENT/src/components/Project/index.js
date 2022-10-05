@@ -6,13 +6,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { DeviceSize } from "../../components/Navbar/Responsive";
 import { addAllFabrics } from "../../store/state/fabricSlice";
-import { AddButton,
-         CardsMapContainer,
-         CardContainer,
-         ImgContainer,
-         CardImg,
-         CardText
- } from "./style";
+import {
+    AddButton,
+    CardsMapContainer,
+    CardContainer,
+    ImgContainer,
+    CardImg,
+    CardText,
+    AddProjectContainer,
+    TitleContainer,
+    Title
+} from "./style";
+import YtremaLogo from '../../assets/images/logo.png';
+
 
 
 
@@ -25,25 +31,60 @@ export const Project = (props) => {
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
 
-    //MODAL
+    //Show all fabrics
     const [showAllFabrics, setShowAllFabrics] = useState(false);
     const isOpenFabricSection = () => {
         setShowAllFabrics((prev) => !prev);
         console.log('coucou dans IS Open Fabric Section');
     };
 
+
+    const [values, setValues] = useState({
+        name: "",
+        cost_price: "",
+        status: "",
+        member_id: ""
+    });
+
+    const onChange = (event) => {
+        setValues()
+    }
+
+    //Fabric Preview
+    const [selectedFabric, setSelectedFabric] = useState();
+    const [fabricPreview, setFabricPreview] = useState();
+    console.log(selectedFabric, 'selected Fabric')
+
     return (
         <>
-            <div>
-                <h1> CREER VOTRE PROJET</h1>
+            <AddProjectContainer>
+                <TitleContainer>
+                    <Title> CREER VOTRE PROJET</Title>
+                </TitleContainer>
+
                 <form>
                     <div className="project title">
                         <label htmlFor="name">Nom du projet</label>
-                        <input id="name" type="text"></input>
+                        <input
+                            id="name"
+                            type="text"
+                            name="name"
+                        // onChange={onChange}
+                        ></input>
                     </div>
-                    <div className="timestamp">
-                        <label htmlFor="timestamp">date</label>
-                        <input id="timestamp" type="date"></input>
+                    <div className="statut">
+                        <label htmlFor="statut">Statut</label>
+                        <select
+                            id="statut"
+                            name="statut"
+                        //add a key
+                        >
+                            <option value="" defaultValue>--Choisissez un statut--</option>
+                            <option value="Découpe du patron">Découpe du patron</option>
+                            <option value="Découpe du tissu">Découpe du tissu</option>
+                            <option value="Couture">Couture</option>
+                            <option value="Terminé">Terminé</option>
+                        </select>
                     </div>
                     <div className="Fabric section">
                         <div>
@@ -58,52 +99,63 @@ export const Project = (props) => {
                                         width: '90%',
                                     }
                                     }
-                                    src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/images%2Ftissu-crepe-cactus.jpg?alt=media&token=d56efbc2-c28f-41a7-aba8-b8ebc7750895"
+                                    src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
                                 >
                                 </img>
                                 <AddButton
                                     onClick={isOpenFabricSection}
                                 />
+
                                 {fabrics && showAllFabrics && (
                                     <div className="All Fabrics"
 
                                     >
                                         {fabrics.value.map((fabric) => (
-                                            <CardsMapContainer 
+                                            <CardsMapContainer
                                                 key={fabric.id}
+                                                onClick={() => {
+                                                    setSelectedFabric(fabric);
+                                                    setFabricPreview(fabric.photo);
+                                                    isOpenFabricSection();
+                                                }}
                                             >
-                                                    <CardContainer 
-                                                        key={fabric.id}
-                                                    >
-                                                        <ImgContainer>
-                                                            <CardImg 
-                                                                src={fabric.photo} 
-                                                                alt={fabric.alt} 
-                                                            />
-                                                        </ImgContainer>
+                                                <CardContainer
+                                                    key={fabric.id}
 
-                                                        <CardText>
-                                                            {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
-                                                        </CardText>
-                                                    </CardContainer>
+                                                >
+                                                    <ImgContainer>
+                                                        <CardImg
+                                                            src={fabric.photo}
+                                                            alt={fabric.alt}
+                                                        />
+                                                    </ImgContainer>
+
+                                                    <CardText>
+                                                        {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+                                                    </CardText>
+                                                </CardContainer>
                                             </CardsMapContainer>
                                         ))}
-
-
                                     </div>
                                 )}
-
-
                             </div>
-                            <div>
-                                <label htmlFor="quantity">Quantité</label>
-                                <input
-                                    id="quantity"
-                                    type="number"
-                                >
+                            {selectedFabric && (
+                                <>
+                                    <h3>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</h3>
+                                    <div>
+                                        <label htmlFor="quantity">Quantité</label>
+                                        <input
+                                            id="quantity"
+                                            type="number"
+                                            max={selectedFabric.quantity}
+                                            step="10"
+                                        >
 
-                                </input>
-                            </div>
+                                        </input>
+                                    </div>
+                                </>
+                            )}
+
                         </div>
 
                     </div>
@@ -111,7 +163,7 @@ export const Project = (props) => {
 
 
                 </form>
-            </div>
+            </AddProjectContainer>
         </>
     );
 };

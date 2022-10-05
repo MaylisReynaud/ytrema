@@ -1,6 +1,32 @@
 import styled from 'styled-components';
 import { PatchPlusFill } from "@styled-icons/bootstrap"
 
+export const AddProjectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  background-color: pink;
+  @media screen and (min-width:601px) { 
+      flex-direction: row;
+      margin-bottom:3.5em;
+      height:100%;        
+  }
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+`;
+
+export const Title = styled.h1`
+    color: ${props => props.theme.color3};
+    font-family: '${props => props.theme.titleFont}';
+    font-size: 2rem;
+    margin: 1rem;
+    text-align: center;
+`;
+
 export const AddButton = styled(PatchPlusFill)`
     display: flex;
     cursor: pointer;
