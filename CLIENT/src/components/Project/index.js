@@ -15,9 +15,24 @@ import {
     CardText,
     AddProjectContainer,
     TitleContainer,
-    Title
+    Title,
+    FormContainer,
+    Form,
+    LabelInputContainer,
+    InformationLabel,
+    InformationInput,
+    InformationSelect,
+    FabricSection,
+    TitleSection,
+    TitleSectionContainer,
+    AddOneFabricContainer,
+    AllFabricsContainer,
+    PreviewContainer,
+    Preview,
+    Text
 } from "./style";
 import YtremaLogo from '../../assets/images/logo.png';
+
 
 
 
@@ -62,52 +77,52 @@ export const Project = (props) => {
                     <Title> CREER VOTRE PROJET</Title>
                 </TitleContainer>
 
-                <form>
-                    <div className="project title">
-                        <label htmlFor="name">Nom du projet</label>
-                        <input
-                            id="name"
-                            type="text"
-                            name="name"
-                        // onChange={onChange}
-                        ></input>
-                    </div>
-                    <div className="statut">
-                        <label htmlFor="statut">Statut</label>
-                        <select
-                            id="statut"
-                            name="statut"
-                        //add a key
-                        >
-                            <option value="" defaultValue>--Choisissez un statut--</option>
-                            <option value="Découpe du patron">Découpe du patron</option>
-                            <option value="Découpe du tissu">Découpe du tissu</option>
-                            <option value="Couture">Couture</option>
-                            <option value="Terminé">Terminé</option>
-                        </select>
-                    </div>
-                    <div className="Fabric section">
-                        <div>
-                            <h2>
-                                TISSUS
-                            </h2>
-                        </div>
-                        <div className="Add One Fabric">
-                            <div>
-                                <img
-                                    style={{
-                                        width: '90%',
-                                    }
-                                    }
-                                    src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
-                                >
-                                </img>
-                                <AddButton
-                                    onClick={isOpenFabricSection}
-                                />
-
+                <FormContainer>
+                    <Form>
+                        <LabelInputContainer className="project title">
+                            <InformationLabel htmlFor="name">
+                                Nom du projet
+                            </InformationLabel>
+                            <InformationInput
+                                id="name"
+                                type="text"
+                                name="name"
+                            // onChange={onChange}
+                            ></InformationInput>
+                        </LabelInputContainer>
+                        <LabelInputContainer className="statut">
+                            <InformationLabel htmlFor="statut">Statut</InformationLabel>
+                            <InformationSelect
+                                id="statut"
+                                name="statut"
+                            //add a key
+                            >
+                                <option value="" defaultValue>--Choisissez un statut--</option>
+                                <option value="Découpe du patron">Découpe du patron</option>
+                                <option value="Découpe du tissu">Découpe du tissu</option>
+                                <option value="Couture">Couture</option>
+                                <option value="Terminé">Terminé</option>
+                            </InformationSelect>
+                        </LabelInputContainer>
+                        <FabricSection className="Fabric section">
+                            <TitleSectionContainer>
+                                <TitleSection>
+                                    TISSUS
+                                </TitleSection>
+                            </TitleSectionContainer>
+                            <AddOneFabricContainer className="Add One Fabric">
+                                <PreviewContainer>
+                                    <Text>Sélectionner votre premier tissu</Text>
+                                    <Preview
+                                        src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
+                                    >
+                                    </Preview>
+                                    <AddButton
+                                        onClick={isOpenFabricSection}
+                                    />
+                                </PreviewContainer>
                                 {fabrics && showAllFabrics && (
-                                    <div className="All Fabrics"
+                                    <AllFabricsContainer className="All Fabrics"
 
                                     >
                                         {fabrics.value.map((fabric) => (
@@ -136,33 +151,32 @@ export const Project = (props) => {
                                                 </CardContainer>
                                             </CardsMapContainer>
                                         ))}
-                                    </div>
+                                    </AllFabricsContainer>
                                 )}
-                            </div>
-                            {selectedFabric && (
-                                <>
-                                    <h3>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</h3>
-                                    <div>
-                                        <label htmlFor="quantity">Quantité</label>
-                                        <input
-                                            id="quantity"
-                                            type="number"
-                                            max={selectedFabric.quantity}
-                                            step="10"
-                                        >
 
-                                        </input>
-                                    </div>
-                                </>
-                            )}
+                                {selectedFabric && (
+                                    <>
+                                        <h3>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</h3>
+                                        <div>
+                                            <label htmlFor="quantity">Quantité</label>
+                                            <input
+                                                id="quantity"
+                                                type="number"
+                                                max={selectedFabric.quantity}
+                                                step="10"
+                                            >
 
-                        </div>
+                                            </input>
+                                        </div>
+                                    </>
+                                )}
 
-                    </div>
-                    <button>Sélectionner un tissu supplémentaire</button>
+                            </AddOneFabricContainer>
 
-
-                </form>
+                        </FabricSection>
+                        <button>Sélectionner un tissu supplémentaire</button>
+                    </Form>
+                </FormContainer>
             </AddProjectContainer>
         </>
     );
