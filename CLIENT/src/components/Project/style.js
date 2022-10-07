@@ -3,20 +3,24 @@ import { PatchPlusFill } from "@styled-icons/bootstrap"
 
 export const AddProjectContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+  display: none;}
+  overflow-y: scroll;
+  height:100vh;
   width:100%;
-  @media screen and (min-width:601px) { 
-      flex-direction: row;
-      margin-bottom:3.5em;
-      height:100%;        
-  }
+  margin-bottom:3em;
+   
 `;
 export const FormContainer = styled.div`
     display: flex;
     flex-direction:column;
     font-family:'${props => props.theme.textFont}';
-    /* overflow:hidden;
-    height:77vh; */
     @media screen and (min-width:601px) { 
         width: 90%;
         height:100%;
@@ -28,6 +32,7 @@ export const Form = styled.form`
     flex-direction:column;
     font-family:'${props => props.theme.textFont}';
     margin: 0 1.3rem;
+    overflow-y: scroll;
     @media screen and (min-width:601px) { 
         width: 90%;
         height:100%;
@@ -87,6 +92,9 @@ export const InformationInput = styled.input`
   padding: 0.8rem;
   color:  ${(props) => props.theme.color4};
   background-color:  ${(props) => props.theme.color2};
+  :focus {
+    border: 2px solid ${(props) => props.theme.color1};
+  }
   ::placeholder {
     color: black;
   }
@@ -116,7 +124,7 @@ export const InformationSelect = styled.select`
     color: ${(props) => props.theme.color4};
   }
   :focus {
-    border: 2px solid ${(props) => props.theme.color4};
+    border: 2px solid ${(props) => props.theme.color1};
   }
   ::placeholder {
     color: grey;
@@ -132,8 +140,6 @@ export const FabricSection = styled.div`
 export const TitleSectionContainer = styled.div`
   display: flex;
   margin-top: 1rem;
-
-
 `;
 
 export const TitleSection = styled.h2`
@@ -148,8 +154,7 @@ export const TitleSection = styled.h2`
 export const AddOneFabricContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color:  ${(props) => props.theme.color2}; */
-
+  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
 `;
 
 export const Text = styled.p`
@@ -164,13 +169,15 @@ export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items:center;
-  background-color: ${(props) => props.theme.color2};
+
 `;
 
 export const Preview = styled.img`
   display: flex;  
   margin: 1rem 1rem 0 1rem;
-  width: 78%;
+  width: 69vw;
+  height: 25vh;
+  object-fit:cover;
   background-color:  ${(props) => props.theme.color4};
 `;
 
@@ -239,5 +246,87 @@ export const CardText = styled.h3`
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;
+  }
+`;
+
+export const SelectedFabricInfo = styled.h3`
+  text-align: center;
+  display: flex;
+  align-items: center;
+
+  font : 1rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color4};
+  @media screen and (min-width:601px) { 
+    justify-content:center;
+    text-align: center;
+  }
+`;
+
+export const QuantityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.2rem;
+  width: 100%;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+`;
+
+export const QuantityLabel = styled.label`
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+  margin: 0.5rem 0rem;
+  color: ${(props) => props.theme.color4};
+  width: 30%;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  
+  @media screen and (min-width: 601px) {
+    width: 20%;
+    font-weight:600;
+  }
+`;
+
+export const QuantityInput = styled.input`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  font-family: "${(props) => props.theme.textFont}";
+  border: 1px solid ${(props) => props.theme.color2};
+  font-size: 1rem;
+  color:  ${(props) => props.theme.color5};
+  background-color:  ${(props) => props.theme.color4};
+  padding-left:.5rem;
+  ::placeholder {
+    color: black;
+    font-size: 0.7rem;
+  }
+  &[class~="input-false"] {
+    border: 1px solid red;
+    background-color: #ffe0d3;
+  }
+`;
+
+export const AddOneMoreButton = styled.button`
+  width: 90%;
+  height: 15%;
+  padding: .5rem;
+  background: ${(props) => props.theme.color1};
+  font-family: "${(props) => props.theme.textFont}";
+  color: ${(props) => props.theme.color4};
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 601px) {
+    width: 94%;
+    margin-top: 2rem;
+    padding: 1rem;
   }
 `;

@@ -29,7 +29,12 @@ import {
     AllFabricsContainer,
     PreviewContainer,
     Preview,
-    Text
+    Text,
+    SelectedFabricInfo,
+    QuantityLabel,
+    QuantityInput,
+    QuantityContainer,
+    AddOneMoreButton
 } from "./style";
 import YtremaLogo from '../../assets/images/logo.png';
 
@@ -69,6 +74,82 @@ export const Project = (props) => {
     const [selectedFabric, setSelectedFabric] = useState();
     const [fabricPreview, setFabricPreview] = useState();
     console.log(selectedFabric, 'selected Fabric')
+
+    //Add one more Fabric
+    const addOneMoreFabric = () => {
+        
+        return(
+            <AddOneFabricContainer className="Add One Fabric">
+            <PreviewContainer>
+                <Text>Sélectionner votre premier tissu</Text>
+                <Preview
+                    src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
+                >
+                </Preview>
+                <AddButton
+                    onClick={isOpenFabricSection}
+                />
+                {selectedFabric && (
+                    <>
+                        <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
+                        <QuantityContainer>
+                            <QuantityLabel htmlFor="quantity">Quantité</QuantityLabel>
+                            <QuantityInput
+                                type="number"
+                                id="quantity"
+                                name="quantity"
+                                max={selectedFabric.quantity}
+                                step="1"
+                                placeholder="ex: 120"
+                            >
+
+                            </QuantityInput>
+                        </QuantityContainer>
+                    </>
+                )}
+            </PreviewContainer>
+
+
+            {fabrics && showAllFabrics && (
+                <AllFabricsContainer className="All Fabrics"
+
+                >
+                    {fabrics.value.map((fabric) => (
+                        <CardsMapContainer
+                            key={fabric.id}
+                            onClick={() => {
+                                setSelectedFabric(fabric);
+                                setFabricPreview(fabric.photo);
+                                isOpenFabricSection();
+                            }}
+                        >
+                            <CardContainer
+                                key={fabric.id}
+
+                            >
+                                <ImgContainer>
+                                    <CardImg
+                                        src={fabric.photo}
+                                        alt={fabric.alt}
+                                    />
+                                </ImgContainer>
+
+                                <CardText>
+                                    {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+                                </CardText>
+                            </CardContainer>
+                        </CardsMapContainer>
+                    ))}
+                </AllFabricsContainer>
+            )}
+            {selectedFabric && (
+                <AddOneMoreButton>Sélectionner un tissu supplémentaire</AddOneMoreButton>
+            )}
+
+        </AddOneFabricContainer>
+
+        )
+    };
 
     return (
         <>
@@ -120,7 +201,27 @@ export const Project = (props) => {
                                     <AddButton
                                         onClick={isOpenFabricSection}
                                     />
+                                    {selectedFabric && (
+                                        <>
+                                            <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
+                                            <QuantityContainer>
+                                                <QuantityLabel htmlFor="quantity">Quantité</QuantityLabel>
+                                                <QuantityInput
+                                                    type="number"
+                                                    id="quantity"
+                                                    name="quantity"
+                                                    max={selectedFabric.quantity}
+                                                    step="1"
+                                                    placeholder="ex: 120"
+                                                >
+
+                                                </QuantityInput>
+                                            </QuantityContainer>
+                                        </>
+                                    )}
                                 </PreviewContainer>
+
+
                                 {fabrics && showAllFabrics && (
                                     <AllFabricsContainer className="All Fabrics"
 
@@ -153,28 +254,16 @@ export const Project = (props) => {
                                         ))}
                                     </AllFabricsContainer>
                                 )}
-
                                 {selectedFabric && (
-                                    <>
-                                        <h3>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</h3>
-                                        <div>
-                                            <label htmlFor="quantity">Quantité</label>
-                                            <input
-                                                id="quantity"
-                                                type="number"
-                                                max={selectedFabric.quantity}
-                                                step="10"
-                                            >
-
-                                            </input>
-                                        </div>
-                                    </>
+                                    <AddOneMoreButton
+                                        addOneMoreFabric= {addOneMoreFabric}
+                                    >Sélectionner un tissu supplémentaire</AddOneMoreButton>
                                 )}
 
                             </AddOneFabricContainer>
 
                         </FabricSection>
-                        <button>Sélectionner un tissu supplémentaire</button>
+
                     </Form>
                 </FormContainer>
             </AddProjectContainer>
