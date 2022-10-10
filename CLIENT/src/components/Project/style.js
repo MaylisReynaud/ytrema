@@ -91,6 +91,8 @@ export const InformationInput = styled.input`
   font-size: 1rem;
   padding: 0.8rem;
   color:  ${(props) => props.theme.color4};
+
+  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
   background-color:  ${(props) => props.theme.color2};
   :focus {
     border: 2px solid ${(props) => props.theme.color1};
@@ -98,11 +100,11 @@ export const InformationInput = styled.input`
   ::placeholder {
     color: black;
   }
-  &[class~="disabled"] {
+  /* &[class~="disabled"] {
     ::placeholder {
     color: grey;
-  }
-  }
+  } */
+  /* } */
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
@@ -119,6 +121,7 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: 1px solid ${(props) => props.theme.color2};
   padding: 0.2rem;
+  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
   background-color:  ${(props) => props.theme.color2};
   :hover {
     color: ${(props) => props.theme.color4};
@@ -154,7 +157,6 @@ export const TitleSection = styled.h2`
 export const AddOneFabricContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
 `;
 
 export const Text = styled.p`
@@ -169,7 +171,7 @@ export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items:center;
-
+  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
 `;
 
 export const Preview = styled.img`
@@ -178,6 +180,7 @@ export const Preview = styled.img`
   width: 69vw;
   height: 25vh;
   object-fit:cover;
+  border: .5rem solid ${(props) => props.theme.color4};
   background-color:  ${(props) => props.theme.color4};
 `;
 
@@ -318,6 +321,7 @@ export const AddOneMoreButton = styled.button`
   font-family: "${(props) => props.theme.textFont}";
   color: ${(props) => props.theme.color4};
   border: none;
+  margin-top: 1rem;
   border-radius: 5px;
   font-weight: bold;
   font-size: 1rem;

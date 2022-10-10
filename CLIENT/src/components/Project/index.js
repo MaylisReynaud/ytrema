@@ -60,18 +60,49 @@ export const Project = (props) => {
 
 
     const [values, setValues] = useState({
-        name: "",
-        cost_price: "",
-        status: "",
-        member_id: ""
+        name: '',
+        status: '',
+        personal_notes: '',
+        photo: '',
+        fabrics: [],
+        haberdasheries: [
+            {
+                haberdashery_id: '',
+                haberdashery_quantity: '',
+                haberdashery_is_cut: '',
+                haberdashery_price: '',
+                haberdashery_used_price: ''
+            }
+        ],
+        patterns: [
+            {
+                patter_id:''
+            }
+        ]
+        
     });
 
     const onChange = (event) => {
-        setValues()
-    }
+        console.log(event.target.dataset.selectedfabricid, "event target")
+        if(event.target.dataset.selectedfabricid ) {
+            console.log('coucou')
+            let fabricObject = values;
+            fabricObject.fabrics = [{
+                fabric_id:event.target.dataset.selectedfabricid,
+                fabric_quantity:event.target.dataset.selectedfabricquantity,
+                fabric_price: event.target.dataset.selectedfabricprice,
+                fabric_used_size: event.target.value,
+            }];
+            setValues(fabricObject);
+            
+        } else {
+            setValues({...values, [event.target.name]: event.target.value})
+        }
+        console.log(values, 'values on change');
+    };
 
     //Fabric Preview
-    const [selectedFabric, setSelectedFabric] = useState();
+    const [selectedFabric, setSelectedFabric] = useState([]);
     const [fabricPreview, setFabricPreview] = useState();
     console.log(selectedFabric, 'selected Fabric')
 
@@ -93,11 +124,11 @@ export const Project = (props) => {
                     <>
                         <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
                         <QuantityContainer>
-                            <QuantityLabel htmlFor="quantity">Quantité</QuantityLabel>
+                            <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
                             <QuantityInput
                                 type="number"
-                                id="quantity"
-                                name="quantity"
+                                id="fabric_used_size"
+                                name="fabric_used_size"
                                 max={selectedFabric.quantity}
                                 step="1"
                                 placeholder="ex: 120"
@@ -168,14 +199,16 @@ export const Project = (props) => {
                                 id="name"
                                 type="text"
                                 name="name"
+                                onChange={onChange}
                             // onChange={onChange}
                             ></InformationInput>
                         </LabelInputContainer>
-                        <LabelInputContainer className="statut">
-                            <InformationLabel htmlFor="statut">Statut</InformationLabel>
+                        <LabelInputContainer>
+                            <InformationLabel htmlFor="status">Statut</InformationLabel>
                             <InformationSelect
-                                id="statut"
-                                name="statut"
+                                id="status"
+                                name="status"
+                                onChange={onChange}
                             //add a key
                             >
                                 <option value="" defaultValue>--Choisissez un statut--</option>
@@ -185,15 +218,15 @@ export const Project = (props) => {
                                 <option value="Terminé">Terminé</option>
                             </InformationSelect>
                         </LabelInputContainer>
-                        <FabricSection className="Fabric section">
+                        <FabricSection>
                             <TitleSectionContainer>
                                 <TitleSection>
                                     TISSUS
                                 </TitleSection>
                             </TitleSectionContainer>
-                            <AddOneFabricContainer className="Add One Fabric">
+                            <AddOneFabricContainer>
                                 <PreviewContainer>
-                                    <Text>Sélectionner votre premier tissu</Text>
+                                    <Text>Sélectionner votre tissu</Text>
                                     <Preview
                                         src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
                                     >
@@ -205,14 +238,18 @@ export const Project = (props) => {
                                         <>
                                             <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
                                             <QuantityContainer>
-                                                <QuantityLabel htmlFor="quantity">Quantité</QuantityLabel>
+                                                <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
                                                 <QuantityInput
                                                     type="number"
-                                                    id="quantity"
-                                                    name="quantity"
+                                                    id="fabric_used_size"
+                                                    data-selectedfabricid= {selectedFabric.id}
+                                                    data-selectedfabricquantity = {selectedFabric.quantity}
+                                                    data-selectedfabricprice = {selectedFabric.price}
+                                                    name="fabric_used_size"
                                                     max={selectedFabric.quantity}
                                                     step="1"
                                                     placeholder="ex: 120"
+                                                    onChange={onChange}
                                                 >
 
                                                 </QuantityInput>
