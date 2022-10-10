@@ -76,27 +76,27 @@ export const Project = (props) => {
         ],
         patterns: [
             {
-                patter_id:''
+                pattern_id: ''
             }
         ]
-        
+
     });
 
     const onChange = (event) => {
         console.log(event.target.dataset.selectedfabricid, "event target")
-        if(event.target.dataset.selectedfabricid ) {
+        if (event.target.dataset.selectedfabricid) {
             console.log('coucou')
             let fabricObject = values;
             fabricObject.fabrics = [{
-                fabric_id:event.target.dataset.selectedfabricid,
-                fabric_quantity:event.target.dataset.selectedfabricquantity,
+                fabric_id: event.target.dataset.selectedfabricid,
+                fabric_quantity: event.target.dataset.selectedfabricquantity,
                 fabric_price: event.target.dataset.selectedfabricprice,
                 fabric_used_size: event.target.value,
             }];
             setValues(fabricObject);
-            
+
         } else {
-            setValues({...values, [event.target.name]: event.target.value})
+            setValues({ ...values, [event.target.name]: event.target.value })
         }
         console.log(values, 'values on change');
     };
@@ -107,80 +107,87 @@ export const Project = (props) => {
     console.log(selectedFabric, 'selected Fabric')
 
     //Add one more Fabric
-    const addOneMoreFabric = () => {
-        
-        return(
-            <AddOneFabricContainer className="Add One Fabric">
-            <PreviewContainer>
-                <Text>Sélectionner votre premier tissu</Text>
-                <Preview
-                    src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
-                >
-                </Preview>
-                <AddButton
-                    onClick={isOpenFabricSection}
-                />
-                {selectedFabric && (
-                    <>
-                        <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
-                        <QuantityContainer>
-                            <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
-                            <QuantityInput
-                                type="number"
-                                id="fabric_used_size"
-                                name="fabric_used_size"
-                                max={selectedFabric.quantity}
-                                step="1"
-                                placeholder="ex: 120"
-                            >
+    // const addOneMoreFabric = () => {
 
-                            </QuantityInput>
-                        </QuantityContainer>
-                    </>
-                )}
-            </PreviewContainer>
+    //     return (
+    //         <AddOneFabricContainer className="Add One Fabric">
+    //             <PreviewContainer>
+    //                 <Text>Sélectionner votre premier tissu</Text>
+    //                 <Preview
+    //                     src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
+    //                 >
+    //                 </Preview>
+    //                 <AddButton
+    //                     onClick={isOpenFabricSection}
+    //                 />
+    //                 {(selectedFabric.length != 0) && (
+
+    //                     <>
+    //                         {console.log(selectedFabric, 'selectedFabric length')}
+    //                         {selectedFabric.map(selectedFab =>
+    //                             <>
+    //                                 <SelectedFabricInfo>{selectedFab.name} - {selectedFab.designer} - {selectedFab.quantity} cm</SelectedFabricInfo>
+    //                                 <QuantityContainer>
+    //                                     <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
+    //                                     <QuantityInput
+    //                                         type="number"
+    //                                         id="fabric_used_size"
+    //                                         name="fabric_used_size"
+    //                                         max={selectedFab.quantity}
+    //                                         step="1"
+    //                                         placeholder="ex: 120"
+    //                                     >
+
+    //                                     </QuantityInput>
+    //                                 </QuantityContainer>
+    //                             </>
+    //                         )}
+
+    //                     </>
+    //                 )}
+    //             </PreviewContainer>
 
 
-            {fabrics && showAllFabrics && (
-                <AllFabricsContainer className="All Fabrics"
+    //             {fabrics && showAllFabrics && (
+    //                 <AllFabricsContainer className="All Fabrics"
 
-                >
-                    {fabrics.value.map((fabric) => (
-                        <CardsMapContainer
-                            key={fabric.id}
-                            onClick={() => {
-                                setSelectedFabric(fabric);
-                                setFabricPreview(fabric.photo);
-                                isOpenFabricSection();
-                            }}
-                        >
-                            <CardContainer
-                                key={fabric.id}
+    //                 >
+    //                     {fabrics.value.map((fabric) => (
+    //                         <CardsMapContainer
+    //                             key={fabric.id}
+    //                             onClick={() => {
+    //                                 setSelectedFabric(...selectedFabric, fabric);
+    //                                 setFabricPreview(fabric.photo);
+    //                                 isOpenFabricSection();
+    //                             }}
+    //                         >
+    //                             <CardContainer
+    //                                 key={fabric.id}
 
-                            >
-                                <ImgContainer>
-                                    <CardImg
-                                        src={fabric.photo}
-                                        alt={fabric.alt}
-                                    />
-                                </ImgContainer>
+    //                             >
+    //                                 <ImgContainer>
+    //                                     <CardImg
+    //                                         src={fabric.photo}
+    //                                         alt={fabric.alt}
+    //                                     />
+    //                                 </ImgContainer>
 
-                                <CardText>
-                                    {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
-                                </CardText>
-                            </CardContainer>
-                        </CardsMapContainer>
-                    ))}
-                </AllFabricsContainer>
-            )}
-            {selectedFabric && (
-                <AddOneMoreButton>Sélectionner un tissu supplémentaire</AddOneMoreButton>
-            )}
+    //                                 <CardText>
+    //                                     {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+    //                                 </CardText>
+    //                             </CardContainer>
+    //                         </CardsMapContainer>
+    //                     ))}
+    //                 </AllFabricsContainer>
+    //             )}
+    //             {selectedFabric && (
+    //                 <AddOneMoreButton>Sélectionner un tissu supplémentaire</AddOneMoreButton>
+    //             )}
 
-        </AddOneFabricContainer>
+    //         </AddOneFabricContainer>
 
-        )
-    };
+    //     )
+    // };
 
     return (
         <>
@@ -234,28 +241,32 @@ export const Project = (props) => {
                                     <AddButton
                                         onClick={isOpenFabricSection}
                                     />
-                                    {selectedFabric && (
+                                    {selectedFabric.length > 0 ? (
                                         <>
-                                            <SelectedFabricInfo>{selectedFabric.name} - {selectedFabric.designer} - {selectedFabric.quantity} cm</SelectedFabricInfo>
-                                            <QuantityContainer>
-                                                <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
-                                                <QuantityInput
-                                                    type="number"
-                                                    id="fabric_used_size"
-                                                    data-selectedfabricid= {selectedFabric.id}
-                                                    data-selectedfabricquantity = {selectedFabric.quantity}
-                                                    data-selectedfabricprice = {selectedFabric.price}
-                                                    name="fabric_used_size"
-                                                    max={selectedFabric.quantity}
-                                                    step="1"
-                                                    placeholder="ex: 120"
-                                                    onChange={onChange}
-                                                >
+                                            {selectedFabric.map(selectedFab =>
+                                                <div key = {selectedFab.id}>
+                                                    <SelectedFabricInfo>{selectedFab.name} - {selectedFab.designer} - {selectedFab.quantity} cm</SelectedFabricInfo>
+                                                    <QuantityContainer>
+                                                        <QuantityLabel htmlFor="fabric_used_size">Quantité</QuantityLabel>
+                                                        <QuantityInput
+                                                            type="number"
+                                                            id="fabric_used_size"
+                                                            data-selectedfabricid={selectedFab.id}
+                                                            data-selectedfabricquantity={selectedFab.quantity}
+                                                            data-selectedfabricprice={selectedFab.price}
+                                                            name="fabric_used_size"
+                                                            max={selectedFab.quantity}
+                                                            step="1"
+                                                            placeholder="ex: 120"
+                                                            onChange={onChange}
+                                                        >
 
-                                                </QuantityInput>
-                                            </QuantityContainer>
+                                                        </QuantityInput>
+                                                    </QuantityContainer>
+                                                </div>
+                                            )}
                                         </>
-                                    )}
+                                    ) : null}
                                 </PreviewContainer>
 
 
@@ -267,11 +278,15 @@ export const Project = (props) => {
                                             <CardsMapContainer
                                                 key={fabric.id}
                                                 onClick={() => {
-                                                    setSelectedFabric(fabric);
-                                                    setFabricPreview(fabric.photo);
                                                     isOpenFabricSection();
+                                                    let object = selectedFabric;
+                                                    object.push(fabric);
+                                                    setSelectedFabric(object);
+                                                    setFabricPreview(fabric.photo);
+                                                    
                                                 }}
                                             >
+                                                {console.log(selectedFabric, 'selectedFabric dans cards map container')}
                                                 <CardContainer
                                                     key={fabric.id}
 
@@ -293,7 +308,7 @@ export const Project = (props) => {
                                 )}
                                 {selectedFabric && (
                                     <AddOneMoreButton
-                                        addOneMoreFabric= {addOneMoreFabric}
+                                        // addOneMoreFabric={addOneMoreFabric}
                                     >Sélectionner un tissu supplémentaire</AddOneMoreButton>
                                 )}
 

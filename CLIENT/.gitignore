@@ -5,3 +5,4 @@ dist/
 Thumbs.db
 
 yarn-error.log
+SERVER/test-requete.sql
