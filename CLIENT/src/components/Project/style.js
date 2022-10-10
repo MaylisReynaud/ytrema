@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { PatchPlusFill } from "@styled-icons/bootstrap"
+import { Trash } from "@styled-icons/boxicons-solid";
 
 export const AddProjectContainer = styled.div`
   display: flex;
@@ -157,6 +158,12 @@ export const TitleSection = styled.h2`
 export const AddOneFabricContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top:.5rem;
+`;
+export const TextTrashContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const Text = styled.p`
@@ -165,6 +172,22 @@ export const Text = styled.p`
   font-size: 1rem;
   margin-top: 1rem;
   text-align: center;
+`;
+
+export const TrashContainer = styled.div`
+  height: 23px;
+  width: 23px;
+  margin-top:.8rem;
+  margin-left: 2rem;
+  @media screen and (min-width: 601px) {
+    right: 2rem;
+  }
+`;
+
+export const TrashButton = styled(Trash)`
+  cursor: pointer;
+  color: red;
+  object-fit: fill;
 `;
 
 export const PreviewContainer = styled.div`
@@ -193,6 +216,8 @@ export const AddButton = styled(PatchPlusFill)`
     color: ${(props) => props.theme.color1};
     width:17%;
 `;
+
+
 
 export const AllFabricsContainer = styled.div`
   display: flex;
@@ -256,8 +281,8 @@ export const SelectedFabricInfo = styled.h3`
   text-align: center;
   display: flex;
   align-items: center;
-
-  font : 1rem/1.5 '${props => props.theme.textFont}';
+  margin-top:1.2rem;
+  font : 600 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   @media screen and (min-width:601px) { 
     justify-content:center;
