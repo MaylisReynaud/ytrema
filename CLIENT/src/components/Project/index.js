@@ -35,7 +35,6 @@ import {
     QuantityInput,
     QuantityContainer,
     AddOneMoreButton,
-    TrashContainer,
     RemoveButton
 } from "./style";
 import YtremaLogo from "../../assets/images/logo.png";
@@ -186,6 +185,16 @@ export const Project = (props) => {
         );
     };
 
+    const removeFabric = () => {
+        setSelectedFabric(current =>
+            current.filter(fabric => {
+                console.log(fabric.id, selectedFabric.id, 'fabric dans remove fabric')
+                return fabric.id !== selectedFabric.id
+            }),
+        );
+    };
+
+
     return (
         <>
             <AddProjectContainer>
@@ -252,7 +261,16 @@ export const Project = (props) => {
                                             <PreviewContainer >
                                                 <Text>Tissu sélectionné n°{index + 1}</Text>
                                                 <Preview src={selectedFab.photo}></Preview>
-                                                <RemoveButton />
+                                                <RemoveButton
+                                                    onClick= {() => {
+                                                        setSelectedFabric(current =>
+                                                            current.filter(fabric => {
+                                                                console.log(fabric.id, selectedFab.id, 'fabric dans remove button')
+                                                                return fabric.id !== selectedFab.id
+                                                            }),
+                                                        );
+                                                    }}
+                                                />
                                                 <SelectedFabricInfo>
                                                     {selectedFab.name} - {selectedFab.designer} -{" "}
                                                     {selectedFab.quantity} cm

@@ -8,7 +8,6 @@ export const AddProjectContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   align-content: flex-start;
-  justify-content: space-evenly;
   -ms-overflow-style: none;
   scrollbar-width: none;
   ::-webkit-scrollbar {
@@ -22,18 +21,21 @@ export const AddProjectContainer = styled.div`
 export const FormContainer = styled.div`
     display: flex;
     flex-direction:column;
+    width: 100%;
+    margin: 0 1.3rem;
     font-family:'${props => props.theme.textFont}';
     @media screen and (min-width:601px) { 
-        width: 90%;
-        height:100%;
+        /* width: 90%;
+        height:100%; */
   }
 `;
 
 export const Form = styled.form`
     display: flex;
     flex-direction:column;
+
     font-family:'${props => props.theme.textFont}';
-    margin: 0 1.3rem;
+   
     overflow-y: scroll;
     @media screen and (min-width:601px) { 
         width: 90%;
@@ -144,7 +146,6 @@ export const FabricSection = styled.div`
 
 export const TitleSectionContainer = styled.div`
   display: flex;
-  margin-top: 1rem;
 `;
 
 export const TitleSection = styled.h2`
@@ -179,7 +180,7 @@ export const PreviewContainer = styled.div`
 
 export const Preview = styled.img`
   display: flex;  
-  margin: 1rem 1rem 0 1rem;
+  margin-top: 1rem;
   width: 69vw;
   height: 25vh;
   object-fit:cover;
@@ -188,23 +189,23 @@ export const Preview = styled.img`
 `;
 
 export const AddButton = styled(PatchPlusFill)`
-    display: flex;
-    position:relative;
-    top:-1.5rem;
-    left:7.7rem;
-    cursor: pointer;
-    color: ${(props) => props.theme.color1};
-    width:17%;
+  display: flex;
+  position:relative;
+  top:-1.4rem;
+  left:8.6rem;
+  cursor: pointer;
+  color: ${(props) => props.theme.color1};
+  width:15%;
 `;
 
 export const RemoveButton = styled(PatchMinusFill)`
   display: flex;
   position:relative;
-  top:-1.5rem;
-  left:7.7rem;
+  top:-1.4rem;
+  left:8.4rem;
   cursor: pointer;
   color: #ff515d;
-  width:17%;
+  width:15%;
 `;
 
 
@@ -214,7 +215,6 @@ export const AllFabricsContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
 `;
-
 
 export const CardsMapContainer = styled.div`
   display: flex;
@@ -270,8 +270,7 @@ export const SelectedFabricInfo = styled.h3`
   text-align: center;
   display: flex;
   align-items: center;
-  margin-top:1.2rem;
-  font : 600 1rem/1.5 '${props => props.theme.textFont}';
+  font : 600 1rem '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   @media screen and (min-width:601px) { 
     justify-content:center;
@@ -283,7 +282,7 @@ export const QuantityContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
   width: 100%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
