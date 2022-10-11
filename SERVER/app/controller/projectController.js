@@ -6,9 +6,23 @@ const projectController = {
 
     // },
 
-    // async findAll (request, response, next) {
+    async findAll (request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id } = request.params;
 
-    // },
+            // Get all member's projects
+            const projects = await projectDataMapper.getAllProjects(id);
+
+            // send 
+            projects === "No data"
+                ? response.status(204).json()
+                : // Send data to the client
+                response.status(200).json({ projects });
+        } catch (error) {
+            next(error);
+        }
+    },
 
     async findById(request, response, next) {
         try {
