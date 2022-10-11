@@ -58,8 +58,22 @@ export const Project = (props) => {
 
   //Show all fabrics
   const [showAllFabrics, setShowAllFabrics] = useState(false);
+  const [fabricsFiltered, setFabricsFiltered] = useState([]);
+
   const isOpeningFabricSection = () => {
     setShowAllFabrics((prev) => !prev);
+
+    // Create array with all fabrics remaining 
+    if (selectedFabric.length > 0) {
+      let fabricsFilteredArray = [];
+      let selectedFabricIdsArray = selectedFabric.map(elem => elem.id);
+
+      fabrics.value.map(fabric => {
+        !selectedFabricIdsArray.includes(fabric.id) && fabricsFilteredArray.push(fabric);
+      })
+
+      setFabricsFiltered(fabricsFilteredArray);
+    }
   };
 
   const isOpeningOneMoreFabric = (event) => {
@@ -191,7 +205,6 @@ export const Project = (props) => {
                     </PreviewContainer>
                   </AddOneFabricContainer>
 
-                  {console.log(selectedFabric, "selectedFabric")}
                   {selectedFabric.length > 0 ? (
                     <>
                       {selectedFabric.map((selectedFab, index) => (
@@ -320,9 +333,41 @@ export const Project = (props) => {
                     </AddOneFabricContainer>
                   )}
 
-                  {fabrics && showAllFabrics && (
+                  {/* AFFICHAGE DES TISSUS A SELECTIONNER AU DEMARRAGE */}
+                  {fabrics && showAllFabrics && selectedFabric.length == 0 && (
                     <AllFabricsContainer className="All Fabrics">
                       {fabrics.value.map((fabric) => (
+                        <CardsMapContainer
+                          key={fabric.id}
+                          onClick={() => {
+                            isOpeningFabricSection();
+                            let object = selectedFabric;
+                            object.push(fabric);
+                            setSelectedFabric(object);
+                            setFabricPreview(fabric.photo);
+                            showAddOneMoreFabric && isOpeningOneMoreFabric();
+                          }}
+                        >
+                          <CardContainer key={fabric.id}>
+                            <ImgContainer>
+                              <CardImg src={fabric.photo} alt={fabric.alt} />
+                            </ImgContainer>
+
+                            <CardText>
+                              {fabric.fabric} - {fabric.name} -{" "}
+                              {fabric.designer} - {fabric.quantity} cm
+                            </CardText>
+                          </CardContainer>
+                        </CardsMapContainer>
+                      ))}
+                    </AllFabricsContainer>
+                  )}
+
+                  {/* AFFICHAGE FILTRE DES TISSUS RESTANTS A SELECTIONNER */}
+                  {/* fabricsFiltered */}
+                  {showAllFabrics && selectedFabric.length > 0 && (
+                    <AllFabricsContainer className="All Fabrics">
+                      {fabricsFiltered.map((fabric) => (
                         <CardsMapContainer
                           key={fabric.id}
                           onClick={() => {
