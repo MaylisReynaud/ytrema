@@ -10,6 +10,7 @@ const fabricRouter = require('./fabricRouter');
 const haberdasheryRouter = require('./haberdasheryRouter');
 const patternRouter = require('./patternRouter');
 const reviewRouter = require('./reviewRouter.js');
+const projectRouter = require('./projectRouter.js');
 
 // Middleware import
 const auth = require('../middleware/auth');
@@ -34,6 +35,7 @@ router.use('/haberdashery', haberdasheryRouter);
 // review router
 router.use('/review', reviewRouter);
 // project router
+router.use('/project', projectRouter);
 // pattern router
 router.use('/pattern', patternRouter);
 // photo router
