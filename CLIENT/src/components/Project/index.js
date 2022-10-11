@@ -110,6 +110,7 @@ export const Project = (props) => {
 
             fabricObject.fabrics = fabricsResult;
             setValues(fabricObject);
+            console.log(fabricObject, 'fabric object')
             setShowAddOneMoreButton(true);
         } else {
             setValues({ ...values, [event.target.name]: event.target.value });
@@ -177,12 +178,12 @@ export const Project = (props) => {
                                         <PreviewContainer>
                                             {selectedFabric.length == 0 && (
                                                 <>
+                                                {console.log(selectedFabric, "selectedFabric dans selectionnez votre 1er tissu")}
                                                     <Text>Sélectionnez votre premier tissu</Text>
                                                     <Preview
-                                                        src={
-                                                            fabricPreview !== undefined ? fabricPreview : YtremaLogo
-                                                        }
+                                                        src={YtremaLogo}
                                                     ></Preview>
+
                                                 </>
                                             )}
                                             {selectedFabric.length == 0 &&
@@ -190,7 +191,7 @@ export const Project = (props) => {
                                         </PreviewContainer>
                                     </AddOneFabricContainer>
 
-
+                                    {console.log(selectedFabric, "selectedFabric")}
                                     {selectedFabric.length > 0 ? (
                                         <>
                                             {selectedFabric.map((selectedFab, index) => (
@@ -200,11 +201,18 @@ export const Project = (props) => {
                                                         <Preview src={selectedFab.photo}></Preview>
                                                         <RemoveButton
                                                             onClick={() => {
+                                                                console.log(values, 'values dans remove button')
                                                                 setSelectedFabric(current =>
                                                                     current.filter(fabric => {
                                                                         return fabric.id !== selectedFab.id
                                                                     }),
                                                                 );
+                                                                let updatedFabrics = values.fabrics.filter(fabric => {
+                                                                        return fabric.fabric_id != selectedFab.id
+                                                                    })
+                                                                    let valuesUpdated = values;
+                                                                    valuesUpdated.fabrics = updatedFabrics;
+                                                                setValues(valuesUpdated);
                                                             }}
                                                         />
                                                         <SelectedFabricInfo>
@@ -316,7 +324,7 @@ export const Project = (props) => {
                                         </AllFabricsContainer>
                                     )}
 
-                                    {showAddOneMoreButton && (
+                                    {showAddOneMoreButton && selectedFabric.length > 0  && (
                                         <AddOneMoreButton onClick={isOpeningOneMoreFabric}>
                                             Sélectionner un tissu supplémentaire
                                         </AddOneMoreButton>
