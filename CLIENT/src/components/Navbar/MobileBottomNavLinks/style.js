@@ -11,7 +11,7 @@ export const BottomNavLinksContainer = styled.div`
     justify-content: center;
     position: fixed;
     bottom: 0;
-    left: 0;
+    /* left: 0; */
     width: 100%;
     height: 60px;
     background-color: ${props => props.theme.color5};

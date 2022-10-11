@@ -24,6 +24,7 @@ import { defaultState } from '../../store/state/authSlice';
 import { Profile } from '../Profile';
 import { LoginForm } from '../Registrationpage/RegisterBox/Forms/LoginForm';
 import { Profiler } from 'react';
+import { Project } from '../Project';
 
 
 
@@ -68,6 +69,7 @@ const App = () => {
               <Route  path='/patrons/:id' element={<PatternCard />} />
               <Route  path='/profile' element={<Profile />} />
               <Route  path='/profil' element={<Profil />} />
+              <Route path='/projets' element={<Project />} />
               <Route  path='*' element={<NotFound />} />
               
 
