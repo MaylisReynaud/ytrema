@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { PatchPlusFill } from "@styled-icons/bootstrap"
 import { PatchMinusFill } from '@styled-icons/bootstrap'
-
+import { MinusSm } from '@styled-icons/heroicons-solid';
+import { PlusSm } from '@styled-icons/heroicons-solid';
 
 export const AddProjectContainer = styled.div`
   display: flex;
@@ -146,6 +147,8 @@ export const FabricSection = styled.div`
 
 export const TitleSectionContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const TitleSection = styled.h2`
@@ -155,6 +158,25 @@ export const TitleSection = styled.h2`
     font-weight:bold;
     margin: 1rem 0;
     text-align: center;
+
+`;
+
+export const MinusIcon = styled(MinusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color5};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
+export const PlusIcon = styled(PlusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color5};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
 `;
 
 export const AddOneFabricContainer = styled.div`

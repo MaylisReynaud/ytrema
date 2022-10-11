@@ -35,7 +35,9 @@ import {
     QuantityInput,
     QuantityContainer,
     AddOneMoreButton,
-    RemoveButton
+    RemoveButton,
+    MinusIcon,
+    PlusIcon
 } from "./style";
 import YtremaLogo from "../../assets/images/logo.png";
 
@@ -48,6 +50,11 @@ export const Project = (props) => {
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
 
+    //show one section
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    };
 
     //Show all fabrics
     const [showAllFabrics, setShowAllFabrics] = useState(false);
@@ -185,16 +192,6 @@ export const Project = (props) => {
         );
     };
 
-    const removeFabric = () => {
-        setSelectedFabric(current =>
-            current.filter(fabric => {
-                console.log(fabric.id, selectedFabric.id, 'fabric dans remove fabric')
-                return fabric.id !== selectedFabric.id
-            }),
-        );
-    };
-
-
     return (
         <>
             <AddProjectContainer>
@@ -234,160 +231,172 @@ export const Project = (props) => {
                         <FabricSection>
                             <TitleSectionContainer>
                                 <TitleSection>TISSUS</TitleSection>
-                            </TitleSectionContainer>
-                            <AddOneFabricContainer>
-                                {/* AFFICHAGE DES TISSUS DEJA SELECTIONNES */}
-                                <PreviewContainer>
-                                    {selectedFabric.length == 0 && (
-                                        <>
-                                            <Text>Sélectionnez votre premier tissu</Text>
-                                            <Preview
-                                                src={
-                                                    fabricPreview !== undefined ? fabricPreview : YtremaLogo
-                                                }
-                                            ></Preview>
-                                        </>
+                                {showSection ? (
+                                    <MinusIcon onClick={isOpeningSection} />
+                                )
+                                    :
+                                    (
+                                        <PlusIcon onClick={isOpeningSection} />
                                     )}
-                                    {selectedFabric.length == 0 &&
-                                        (<AddButton onClick={isOpeningFabricSection} />)}
-                                </PreviewContainer>
-                            </AddOneFabricContainer>
-
-
-                            {selectedFabric.length > 0 ? (
+                            </TitleSectionContainer>
+                            {showSection && (
                                 <>
-                                    {selectedFabric.map((selectedFab, index) => (
-                                        <AddOneFabricContainer key={selectedFab.id}>
-                                            <PreviewContainer >
-                                                <Text>Tissu sélectionné n°{index + 1}</Text>
-                                                <Preview src={selectedFab.photo}></Preview>
-                                                <RemoveButton
-                                                    onClick= {() => {
-                                                        setSelectedFabric(current =>
-                                                            current.filter(fabric => {
-                                                                console.log(fabric.id, selectedFab.id, 'fabric dans remove button')
-                                                                return fabric.id !== selectedFab.id
-                                                            }),
-                                                        );
-                                                    }}
-                                                />
-                                                <SelectedFabricInfo>
-                                                    {selectedFab.name} - {selectedFab.designer} -{" "}
-                                                    {selectedFab.quantity} cm
-                                                </SelectedFabricInfo>
-                                                <QuantityContainer>
-                                                    <QuantityLabel htmlFor="fabric_used_size">
-                                                        Quantité
-                                                    </QuantityLabel>
-                                                    <QuantityInput
-                                                        type="number"
-                                                        id="fabric_used_size"
-                                                        data-selectedfabricid={selectedFab.id}
-                                                        data-selectedfabricquantity={selectedFab.quantity}
-                                                        data-selectedfabricprice={selectedFab.price}
-                                                        name="fabric_used_size"
-                                                        max={selectedFab.quantity}
-                                                        step="1"
-                                                        placeholder="ex: 120"
-                                                        onChange={onChange}
-                                                    ></QuantityInput>
-                                                </QuantityContainer>
-                                            </PreviewContainer>
-                                        </AddOneFabricContainer>
-                                    ))}
-                                </>
-                            ) : null}
-
-
-                            {/* AJOUT TISSU SUPP */}
-
-                            {showAddOneMoreFabric && (
-                                <AddOneFabricContainer>
-                                    <PreviewContainer >
-                                        <Text>Sélectionner votre tissu</Text>
-                                        <Preview
-                                            src={
-                                                addFabricPreview !== undefined
-                                                    ? addFabricPreview
-                                                    : YtremaLogo
-                                            }
-                                        ></Preview>
-                                        <AddButton onClick={isOpeningFabricSection} />
-                                        {selectedFabric >= 1 && (
-                                            <>
-                                                <SelectedFabricInfo>
-                                                    {selectedFabric[selectedFabric.length - 1].name} -{" "}
-                                                    {selectedFabric[selectedFabric.length - 1].designer} -{" "}
-                                                    {selectedFabric[selectedFabric.length - 1].quantity} cm
-                                                </SelectedFabricInfo>
-                                                <QuantityContainer>
-                                                    <QuantityLabel htmlFor="fabric_used_size">
-                                                        Quantité
-                                                    </QuantityLabel>
-                                                    <QuantityInput
-                                                        type="number"
-                                                        id="fabric_used_size"
-                                                        data-selectedfabricid={
-                                                            selectedFabric[selectedFabric.length - 1].id
+                                    <AddOneFabricContainer>
+                                        {/* AFFICHAGE DES TISSUS DEJA SELECTIONNES */}
+                                        <PreviewContainer>
+                                            {selectedFabric.length == 0 && (
+                                                <>
+                                                    <Text>Sélectionnez votre premier tissu</Text>
+                                                    <Preview
+                                                        src={
+                                                            fabricPreview !== undefined ? fabricPreview : YtremaLogo
                                                         }
-                                                        data-selectedfabricquantity={
-                                                            selectedFabric[selectedFabric.length - 1].quantity
-                                                        }
-                                                        data-selectedfabricprice={
-                                                            selectedFabric[selectedFabric.length - 1].price
-                                                        }
-                                                        name="fabric_used_size"
-                                                        max={
-                                                            selectedFabric[selectedFabric.length - 1].quantity
-                                                        }
-                                                        step="1"
-                                                        placeholder="ex: 120"
-                                                        onChange={onChange}
-                                                    ></QuantityInput>
-                                                </QuantityContainer>
-                                            </>
-                                        )}
-                                    </PreviewContainer>
-                                </AddOneFabricContainer>)}
-
-
-                            {fabrics && showAllFabrics && (
-                                <AllFabricsContainer className="All Fabrics">
-                                    {fabrics.value.map((fabric) => (
-                                        <CardsMapContainer
-                                            key={fabric.id}
-                                            onClick={() => {
-                                                isOpeningFabricSection();
-                                                let object = selectedFabric;
-                                                object.push(fabric);
-                                                setSelectedFabric(object);
-                                                setFabricPreview(fabric.photo);
-                                                showAddOneMoreFabric && isOpeningOneMoreFabric();
-                                            }}
-                                        >
-                                            {console.log(
-                                                selectedFabric,
-                                                "selectedFabric dans cards map container"
+                                                    ></Preview>
+                                                </>
                                             )}
-                                            <CardContainer key={fabric.id}>
-                                                <ImgContainer>
-                                                    <CardImg src={fabric.photo} alt={fabric.alt} />
-                                                </ImgContainer>
+                                            {selectedFabric.length == 0 &&
+                                                (<AddButton onClick={isOpeningFabricSection} />)}
+                                        </PreviewContainer>
+                                    </AddOneFabricContainer>
 
-                                                <CardText>
-                                                    {fabric.fabric} - {fabric.name} - {fabric.designer}{" "}
-                                                    - {fabric.quantity} cm
-                                                </CardText>
-                                            </CardContainer>
-                                        </CardsMapContainer>
-                                    ))}
-                                </AllFabricsContainer>
-                            )}
 
-                            {showAddOneMoreButton && (
-                                <AddOneMoreButton onClick={isOpeningOneMoreFabric}>
-                                    Sélectionner un tissu supplémentaire
-                                </AddOneMoreButton>
+                                    {selectedFabric.length > 0 ? (
+                                        <>
+                                            {selectedFabric.map((selectedFab, index) => (
+                                                <AddOneFabricContainer key={selectedFab.id}>
+                                                    <PreviewContainer >
+                                                        <Text>Tissu sélectionné n°{index + 1}</Text>
+                                                        <Preview src={selectedFab.photo}></Preview>
+                                                        <RemoveButton
+                                                            onClick={() => {
+                                                                setSelectedFabric(current =>
+                                                                    current.filter(fabric => {
+                                                                        console.log(fabric.id, selectedFab.id, 'fabric dans remove button')
+                                                                        return fabric.id !== selectedFab.id
+                                                                    }),
+                                                                );
+                                                            }}
+                                                        />
+                                                        <SelectedFabricInfo>
+                                                            {selectedFab.name} - {selectedFab.designer} -{" "}
+                                                            {selectedFab.quantity} cm
+                                                        </SelectedFabricInfo>
+                                                        <QuantityContainer>
+                                                            <QuantityLabel htmlFor="fabric_used_size">
+                                                                Quantité
+                                                            </QuantityLabel>
+                                                            <QuantityInput
+                                                                type="number"
+                                                                id="fabric_used_size"
+                                                                data-selectedfabricid={selectedFab.id}
+                                                                data-selectedfabricquantity={selectedFab.quantity}
+                                                                data-selectedfabricprice={selectedFab.price}
+                                                                name="fabric_used_size"
+                                                                max={selectedFab.quantity}
+                                                                step="1"
+                                                                placeholder="ex: 120"
+                                                                onChange={onChange}
+                                                            ></QuantityInput>
+                                                        </QuantityContainer>
+                                                    </PreviewContainer>
+                                                </AddOneFabricContainer>
+                                            ))}
+                                        </>
+                                    ) : null}
+
+
+                                    {/* AJOUT TISSU SUPP */}
+
+                                    {showAddOneMoreFabric && (
+                                        <AddOneFabricContainer>
+                                            <PreviewContainer >
+                                                <Text>Sélectionner votre tissu</Text>
+                                                <Preview
+                                                    src={
+                                                        addFabricPreview !== undefined
+                                                            ? addFabricPreview
+                                                            : YtremaLogo
+                                                    }
+                                                ></Preview>
+                                                <AddButton onClick={isOpeningFabricSection} />
+                                                {selectedFabric >= 1 && (
+                                                    <>
+                                                        <SelectedFabricInfo>
+                                                            {selectedFabric[selectedFabric.length - 1].name} -{" "}
+                                                            {selectedFabric[selectedFabric.length - 1].designer} -{" "}
+                                                            {selectedFabric[selectedFabric.length - 1].quantity} cm
+                                                        </SelectedFabricInfo>
+                                                        <QuantityContainer>
+                                                            <QuantityLabel htmlFor="fabric_used_size">
+                                                                Quantité
+                                                            </QuantityLabel>
+                                                            <QuantityInput
+                                                                type="number"
+                                                                id="fabric_used_size"
+                                                                data-selectedfabricid={
+                                                                    selectedFabric[selectedFabric.length - 1].id
+                                                                }
+                                                                data-selectedfabricquantity={
+                                                                    selectedFabric[selectedFabric.length - 1].quantity
+                                                                }
+                                                                data-selectedfabricprice={
+                                                                    selectedFabric[selectedFabric.length - 1].price
+                                                                }
+                                                                name="fabric_used_size"
+                                                                max={
+                                                                    selectedFabric[selectedFabric.length - 1].quantity
+                                                                }
+                                                                step="1"
+                                                                placeholder="ex: 120"
+                                                                onChange={onChange}
+                                                            ></QuantityInput>
+                                                        </QuantityContainer>
+                                                    </>
+                                                )}
+                                            </PreviewContainer>
+                                        </AddOneFabricContainer>)}
+
+
+                                    {fabrics && showAllFabrics && (
+                                        <AllFabricsContainer className="All Fabrics">
+                                            {fabrics.value.map((fabric) => (
+                                                <CardsMapContainer
+                                                    key={fabric.id}
+                                                    onClick={() => {
+                                                        isOpeningFabricSection();
+                                                        let object = selectedFabric;
+                                                        object.push(fabric);
+                                                        setSelectedFabric(object);
+                                                        setFabricPreview(fabric.photo);
+                                                        showAddOneMoreFabric && isOpeningOneMoreFabric();
+                                                    }}
+                                                >
+                                                    {console.log(
+                                                        selectedFabric,
+                                                        "selectedFabric dans cards map container"
+                                                    )}
+                                                    <CardContainer key={fabric.id}>
+                                                        <ImgContainer>
+                                                            <CardImg src={fabric.photo} alt={fabric.alt} />
+                                                        </ImgContainer>
+
+                                                        <CardText>
+                                                            {fabric.fabric} - {fabric.name} - {fabric.designer}{" "}
+                                                            - {fabric.quantity} cm
+                                                        </CardText>
+                                                    </CardContainer>
+                                                </CardsMapContainer>
+                                            ))}
+                                        </AllFabricsContainer>
+                                    )}
+
+                                    {showAddOneMoreButton && (
+                                        <AddOneMoreButton onClick={isOpeningOneMoreFabric}>
+                                            Sélectionner un tissu supplémentaire
+                                        </AddOneMoreButton>
+                                    )}
+
+                                </>
                             )}
 
                         </FabricSection>
