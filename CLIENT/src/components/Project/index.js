@@ -60,7 +60,6 @@ export const Project = (props) => {
     const [showAllFabrics, setShowAllFabrics] = useState(false);
     const isOpeningFabricSection = () => {
         setShowAllFabrics((prev) => !prev);
-        console.log("coucou dans IS Open Fabric Section");
     };
 
     const isOpeningOneMoreFabric = (event) => {
@@ -90,26 +89,31 @@ export const Project = (props) => {
             },
         ],
     });
-
+  
     const onChange = (event) => {
-        console.log(event.target.dataset.selectedfabricid, "event target");
+
         if (event.target.dataset.selectedfabricid) {
-            console.log("coucou");
             let fabricObject = values;
-            fabricObject.fabrics = [
+            fabricObject.fabrics.push(
                 {
                     fabric_id: event.target.dataset.selectedfabricid,
                     fabric_quantity: event.target.dataset.selectedfabricquantity,
                     fabric_price: event.target.dataset.selectedfabricprice,
                     fabric_used_size: event.target.value,
-                },
-            ];
+                }
+            )
+
+            // keep last fabric object with same the id
+            let fabricsResult =   [...fabricObject.fabrics.reduce((acc, cur) => {
+                return acc.set(cur.fabric_id, cur);
+            }, new Map()).values()]; 
+
+            fabricObject.fabrics = fabricsResult;
             setValues(fabricObject);
             setShowAddOneMoreButton(true);
         } else {
             setValues({ ...values, [event.target.name]: event.target.value });
-        }
-        console.log(values, "values on change");
+        };
     };
 
     //Fabric Preview
@@ -118,80 +122,7 @@ export const Project = (props) => {
     const [addFabricPreview, setAddFabricPreview] = useState();
     const [showAddOneMoreFabric, setShowAddOneMoreFabric] = useState(false);
     const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
-    //Add one more Fabric
-    const addOneMoreFabric = (event) => {
-        event.preventDefault();
-        console.log(event.target, "Je suis dans ajout dun tissu");
-        return (
-            <AddOneFabricContainer className="Add One Fabric">
-                <PreviewContainer>
-                    <Text>Sélectionner votre premier tissu</Text>
-                    <Preview
-                        src={fabricPreview !== undefined ? fabricPreview : YtremaLogo}
-                    ></Preview>
-                    <AddButton onClick={isOpeningFabricSection} />
-                    {selectedFabric.length != 0 && (
-                        <>
-                            {console.log(selectedFabric, "selectedFabric length")}
-                            {selectedFabric.map((selectedFab) => (
-                                <>
-                                    <SelectedFabricInfo>
-                                        {selectedFab.name} - {selectedFab.designer} -{" "}
-                                        {selectedFab.quantity} cm
-                                    </SelectedFabricInfo>
-                                    <QuantityContainer>
-                                        <QuantityLabel htmlFor="fabric_used_size">
-                                            Quantité
-                                        </QuantityLabel>
-                                        <QuantityInput
-                                            type="number"
-                                            id="fabric_used_size"
-                                            name="fabric_used_size"
-                                            max={selectedFab.quantity}
-                                            step="1"
-                                            placeholder="ex: 120"
-                                        ></QuantityInput>
-                                    </QuantityContainer>
-                                </>
-                            ))}
-                        </>
-                    )}
-                </PreviewContainer>
-
-                {fabrics && showAllFabrics && (
-                    <AllFabricsContainer className="All Fabrics">
-                        {fabrics.value.map((fabric) => (
-                            <CardsMapContainer
-                                key={fabric.id}
-                                onClick={() => {
-                                    setSelectedFabric(...selectedFabric, fabric);
-                                    setFabricPreview(fabric.photo);
-                                    isOpeningFabricSection();
-                                }}
-                            >
-                                <CardContainer key={fabric.id}>
-                                    <ImgContainer>
-                                        <CardImg src={fabric.photo} alt={fabric.alt} />
-                                    </ImgContainer>
-
-                                    <CardText>
-                                        {fabric.fabric} - {fabric.name} - {fabric.designer} -{" "}
-                                        {fabric.quantity} cm
-                                    </CardText>
-                                </CardContainer>
-                            </CardsMapContainer>
-                        ))}
-                    </AllFabricsContainer>
-                )}
-                {selectedFabric && (
-                    <AddOneMoreButton>
-                        Sélectionner un tissu supplémentaire
-                    </AddOneMoreButton>
-                )}
-            </AddOneFabricContainer>
-        );
-    };
-
+   
     return (
         <>
             <AddProjectContainer>
@@ -271,7 +202,6 @@ export const Project = (props) => {
                                                             onClick={() => {
                                                                 setSelectedFabric(current =>
                                                                     current.filter(fabric => {
-                                                                        console.log(fabric.id, selectedFab.id, 'fabric dans remove button')
                                                                         return fabric.id !== selectedFab.id
                                                                     }),
                                                                 );
@@ -371,10 +301,6 @@ export const Project = (props) => {
                                                         showAddOneMoreFabric && isOpeningOneMoreFabric();
                                                     }}
                                                 >
-                                                    {console.log(
-                                                        selectedFabric,
-                                                        "selectedFabric dans cards map container"
-                                                    )}
                                                     <CardContainer key={fabric.id}>
                                                         <ImgContainer>
                                                             <CardImg src={fabric.photo} alt={fabric.alt} />
