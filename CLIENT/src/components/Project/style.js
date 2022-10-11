@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { PatchPlusFill } from "@styled-icons/bootstrap"
-import { Trash } from "@styled-icons/boxicons-solid";
+import { PatchMinusFill } from '@styled-icons/bootstrap'
+
 
 export const AddProjectContainer = styled.div`
   display: flex;
@@ -160,11 +161,6 @@ export const AddOneFabricContainer = styled.div`
   flex-direction: column;
   margin-top:.5rem;
 `;
-export const TextTrashContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
 
 export const Text = styled.p`
   color: ${props => props.theme.color4};
@@ -172,22 +168,6 @@ export const Text = styled.p`
   font-size: 1rem;
   margin-top: 1rem;
   text-align: center;
-`;
-
-export const TrashContainer = styled.div`
-  height: 23px;
-  width: 23px;
-  margin-top:.8rem;
-  margin-left: 2rem;
-  @media screen and (min-width: 601px) {
-    right: 2rem;
-  }
-`;
-
-export const TrashButton = styled(Trash)`
-  cursor: pointer;
-  color: red;
-  object-fit: fill;
 `;
 
 export const PreviewContainer = styled.div`
@@ -217,6 +197,15 @@ export const AddButton = styled(PatchPlusFill)`
     width:17%;
 `;
 
+export const RemoveButton = styled(PatchMinusFill)`
+  display: flex;
+  position:relative;
+  top:-1.5rem;
+  left:7.7rem;
+  cursor: pointer;
+  color: #ff515d;
+  width:17%;
+`;
 
 
 export const AllFabricsContainer = styled.div`

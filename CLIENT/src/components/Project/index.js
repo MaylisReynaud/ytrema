@@ -36,8 +36,7 @@ import {
     QuantityContainer,
     AddOneMoreButton,
     TrashContainer,
-    TrashButton,
-    TextTrashContainer
+    RemoveButton
 } from "./style";
 import YtremaLogo from "../../assets/images/logo.png";
 
@@ -49,6 +48,7 @@ export const Project = (props) => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
+
 
     //Show all fabrics
     const [showAllFabrics, setShowAllFabrics] = useState(false);
@@ -229,7 +229,6 @@ export const Project = (props) => {
                             <AddOneFabricContainer>
                                 {/* AFFICHAGE DES TISSUS DEJA SELECTIONNES */}
                                 <PreviewContainer>
-                                    {/* <Text>Tissu sélectionné n°{selectedFabric.length}</Text> */}
                                     {selectedFabric.length == 0 && (
                                         <>
                                             <Text>Sélectionnez votre premier tissu</Text>
@@ -249,14 +248,11 @@ export const Project = (props) => {
                             {selectedFabric.length > 0 ? (
                                 <>
                                     {selectedFabric.map((selectedFab, index) => (
-                                        <AddOneFabricContainer>
-                                            <PreviewContainer key={selectedFab.id}>
-                                                <TextTrashContainer> <Text>Tissu sélectionné n°{index + 1}</Text>
-                                                    <TrashContainer>
-                                                        <TrashButton />
-                                                    </TrashContainer>
-                                                </TextTrashContainer>
+                                        <AddOneFabricContainer key={selectedFab.id}>
+                                            <PreviewContainer >
+                                                <Text>Tissu sélectionné n°{index + 1}</Text>
                                                 <Preview src={selectedFab.photo}></Preview>
+                                                <RemoveButton />
                                                 <SelectedFabricInfo>
                                                     {selectedFab.name} - {selectedFab.designer} -{" "}
                                                     {selectedFab.quantity} cm
