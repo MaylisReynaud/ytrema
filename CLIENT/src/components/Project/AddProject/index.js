@@ -22,15 +22,15 @@ import {
     InformationLabel,
     InformationInput,
     InformationSelect,
-    FabricSection,
+    Section,
     TitleSection,
     TitleSectionContainer,
-    AddOneFabricContainer,
+    AddOneArticleContainer,
     AllFabricsContainer,
     PreviewContainer,
     Preview,
     Text,
-    SelectedFabricInfo,
+    SelectedArticleInfo,
     QuantityLabel,
     QuantityInput,
     QuantityContainer,
@@ -39,7 +39,8 @@ import {
     MinusIcon,
     PlusIcon,
     ReturnButton,
-    AddReturnButtonContainer
+    AddReturnButtonContainer,
+    CardsContainer
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 
@@ -51,6 +52,7 @@ export const AddProject = (props) => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
+    const haberdasheries = persistedReducer.haberdasheries;
 
     //show one section
     const [showSection, setShowSection] = useState(true);
@@ -104,7 +106,7 @@ export const AddProject = (props) => {
                 haberdashery_quantity: "",
                 haberdashery_is_cut: "",
                 haberdashery_price: "",
-                haberdashery_used_price: "",
+                haberdashery_used_size: "",
             },
         ],
         patterns: [
@@ -137,7 +139,31 @@ export const AddProject = (props) => {
             setValues(fabricObject);
             console.log(fabricObject, "fabric object");
             setShowAddOneMoreButton(true);
-        } else {
+        };
+        if (event.target.dataset.selectedhaberdasheryid) {
+            let haberdasheryObject = values;
+            haberdasheryObject.haberdasheries.push({
+                haberdashery_id: event.target.dataset.selectedhaberdasheryid,
+                haberdashery_quantity: event.target.dataset.selectedhaberdasheryquantity,
+                haberdashery_price: event.target.dataset.selectedhaberdasheryprice,
+                haberdashery_used_size: event.target.value,
+            });
+
+            // keep last fabric object with same the id
+            let haberdasheriesResult = [
+                ...haberdasheryObject.haberdasheries
+                    .reduce((acc, cur) => {
+                        return acc.set(cur.haberdashery_id, cur);
+                    }, new Map())
+                    .values(),
+            ];
+
+            haberdasheryObject.haberdasheries = haberdasheriesResult;
+            setValues(haberdasheryObject);
+            console.log(haberdasheryObject, "haberdashery object");
+            setShowAddOneMoreButton(true);
+        }
+        else {
             setValues({ ...values, [event.target.name]: event.target.value });
         }
     };
@@ -148,6 +174,47 @@ export const AddProject = (props) => {
     const [addFabricPreview, setAddFabricPreview] = useState();
     const [showAddOneMoreFabric, setShowAddOneMoreFabric] = useState(false);
     const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
+
+    //HABERDASHERY
+    //Show all haberdasheries
+    const [showAllHaberdasheries, setShowAllHaberdasheries] = useState(false);
+    const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
+
+    const isOpeningHaberdasherySection = () => {
+        setShowAllHaberdasheries((prev) => !prev);
+
+        // Create array with all haberdasheries remaining 
+        if (selectedHaberdashery.length > 0) {
+            let haberdasheriesFilteredArray = [];
+            let selectedHaberdasheryIdsArray = selectedHaberdashery.map(elem => elem.id);
+
+            haberdasheries.value.map(haberdashery => {
+                !selectedHaberdasheryIdsArray.includes(haberdashery.id) && haberdasheriesFilteredArray.push(haberdashery);
+            })
+
+            setHaberdasheriesFiltered(haberdasheriesFilteredArray);
+        }
+    };
+
+    const isOpeningOneMoreHaberdashery = (event) => {
+        setShowAddOneMoreButton(false);
+        !showAddOneMoreFabric && event.preventDefault();
+        setShowAddOneMoreHaberdashery((prev) => !prev);
+    };
+
+    //Close the section to add one more haberdashery but show the button to add one haberdashery
+    const isClosingAddOneMoreHaberdashery = (event) => {
+        !showAddOneMoreHaberdashery && event.preventDefault();
+        setShowAddOneMoreHaberdashery(false);
+        setShowAllHaberdasheries(false);
+        setShowAddOneMoreButton(true);
+    };
+
+    //Haberdashery Preview
+    const [selectedHaberdashery, setSelectedHaberdashery] = useState([]);
+    const [haberdasheryPreview, setHaberdasheryPreview] = useState();
+    const [addHaberdasheryPreview, setAddHaberdasheryPreview] = useState();
+    const [showAddOneMoreHaberdashery, setShowAddOneMoreHaberdashery] = useState(false);
 
     return (
         <>
@@ -185,7 +252,8 @@ export const AddProject = (props) => {
                                 <option value="Terminé">Terminé</option>
                             </InformationSelect>
                         </LabelInputContainer>
-                        <FabricSection>
+                        {/* Fabric Section */}
+                        <Section>
                             <TitleSectionContainer>
                                 <TitleSection>TISSUS</TitleSection>
                                 {showSection ? (
@@ -196,7 +264,7 @@ export const AddProject = (props) => {
                             </TitleSectionContainer>
                             {showSection && (
                                 <>
-                                    <AddOneFabricContainer>
+                                    <AddOneArticleContainer>
                                         {/* AFFICHAGE DES TISSUS DEJA SELECTIONNES */}
                                         <PreviewContainer>
                                             {selectedFabric.length == 0 && (
@@ -211,19 +279,19 @@ export const AddProject = (props) => {
                                             )}
                                             {selectedFabric.length == 0 && (
                                                 <AddReturnButtonContainer>
-                                                {/* <ReturnButton /> */}
-                                                <AddButton 
-                                                    onClick={isOpeningFabricSection}
-                                                    className = "Alone" />
-                                            </AddReturnButtonContainer>
+                                                    {/* <ReturnButton /> */}
+                                                    <AddButton
+                                                        onClick={isOpeningFabricSection}
+                                                        className="Alone" />
+                                                </AddReturnButtonContainer>
                                             )}
                                         </PreviewContainer>
-                                    </AddOneFabricContainer>
+                                    </AddOneArticleContainer>
 
                                     {selectedFabric.length > 0 ? (
                                         <>
                                             {selectedFabric.map((selectedFab, index) => (
-                                                <AddOneFabricContainer key={selectedFab.id}>
+                                                <AddOneArticleContainer key={selectedFab.id}>
                                                     <PreviewContainer>
                                                         <Text>Tissu sélectionné n°{index + 1}</Text>
                                                         <Preview src={selectedFab.photo}></Preview>
@@ -248,10 +316,10 @@ export const AddProject = (props) => {
                                                                 setValues(valuesUpdated);
                                                             }}
                                                         />
-                                                        <SelectedFabricInfo>
+                                                        <SelectedArticleInfo>
                                                             {selectedFab.name} - {selectedFab.designer} -{" "}
                                                             {selectedFab.quantity} cm
-                                                        </SelectedFabricInfo>
+                                                        </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel htmlFor="fabric_used_size">
                                                                 Quantité
@@ -280,7 +348,7 @@ export const AddProject = (props) => {
                                                             ></QuantityInput>
                                                         </QuantityContainer>
                                                     </PreviewContainer>
-                                                </AddOneFabricContainer>
+                                                </AddOneArticleContainer>
                                             ))}
                                         </>
                                     ) : null}
@@ -288,7 +356,7 @@ export const AddProject = (props) => {
                                     {/* AJOUT TISSU SUPP */}
 
                                     {showAddOneMoreFabric && (
-                                        <AddOneFabricContainer>
+                                        <AddOneArticleContainer>
                                             <PreviewContainer>
                                                 <Text>Sélectionnez votre tissu</Text>
                                                 <Preview
@@ -298,7 +366,7 @@ export const AddProject = (props) => {
                                                             : YtremaLogo
                                                     }
                                                 ></Preview>
-                                               <AddReturnButtonContainer>
+                                                <AddReturnButtonContainer>
                                                     <ReturnButton
                                                         onClick={isClosingAddOneMoreFabric}
                                                     />
@@ -306,7 +374,7 @@ export const AddProject = (props) => {
                                                 </AddReturnButtonContainer>
                                                 {selectedFabric >= 1 && (
                                                     <>
-                                                        <SelectedFabricInfo>
+                                                        <SelectedArticleInfo>
                                                             {selectedFabric[selectedFabric.length - 1].name} -{" "}
                                                             {
                                                                 selectedFabric[selectedFabric.length - 1]
@@ -318,7 +386,7 @@ export const AddProject = (props) => {
                                                                     .quantity
                                                             }{" "}
                                                             cm
-                                                        </SelectedFabricInfo>
+                                                        </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel htmlFor="fabric_used_size">
                                                                 Quantité
@@ -350,7 +418,7 @@ export const AddProject = (props) => {
                                                     </>
                                                 )}
                                             </PreviewContainer>
-                                        </AddOneFabricContainer>
+                                        </AddOneArticleContainer>
                                     )}
 
                                     {/* AFFICHAGE DES TISSUS A SELECTIONNER AU DEMARRAGE */}
@@ -421,7 +489,232 @@ export const AddProject = (props) => {
                                     )}
                                 </>
                             )}
-                        </FabricSection>
+                        </Section>
+
+                        {/* Haberdashery Section */}
+                        <Section>
+                            <TitleSectionContainer>
+                                <TitleSection>MERCERIE</TitleSection>
+                                {showSection ? (
+                                    <MinusIcon onClick={isOpeningSection} />
+                                ) : (
+                                    <PlusIcon onClick={isOpeningSection} />
+                                )}
+                            </TitleSectionContainer>
+                            {showSection && (
+                                <>
+                                    <AddOneArticleContainer>
+                                        {/* AFFICHAGE DE LA MERCERIE DEJA SELECTIONNES */}
+                                        <PreviewContainer>
+                                            {selectedHaberdashery.length == 0 && (
+                                                <>
+                                                    {console.log(
+                                                        selectedHaberdashery,
+                                                        "selectedHaberdashery dans selectionnez votre 1er article"
+                                                    )}
+                                                    <Text>Sélectionnez votre premier article</Text>
+                                                    <Preview src={YtremaLogo}></Preview>
+                                                </>
+                                            )}
+                                            {selectedHaberdashery.length == 0 && (
+                                                <AddReturnButtonContainer>
+                                                    {/* <ReturnButton /> */}
+                                                    <AddButton
+                                                        onClick={isOpeningFabricSection}
+                                                        className="Alone" />
+                                                </AddReturnButtonContainer>
+                                            )}
+                                        </PreviewContainer>
+                                    </AddOneArticleContainer>
+
+                                    {selectedHaberdashery.length > 0 ? (
+                                        <>
+                                            {selectedHaberdashery.map((selectedHab, index) => (
+                                                <AddOneArticleContainer key={selectedHab.id}>
+                                                    <PreviewContainer>
+                                                        <Text>Mercerie sélectionnée n°{index + 1}</Text>
+                                                        <Preview src={selectedHab.photo}></Preview>
+                                                        <RemoveButton
+                                                            onClick={() => {
+                                                                console.log(
+                                                                    values,
+                                                                    "values dans remove button"
+                                                                );
+                                                                setSelectedHaberdashery((current) =>
+                                                                    current.filter((haberdashery) => {
+                                                                        return haberdashery.id !== selectedHab.id;
+                                                                    })
+                                                                );
+                                                                let updatedHaberdasheries = values.haberdasherie.filter(
+                                                                    (haberdashery) => {
+                                                                        return haberdashery.haberdashery_id != selectedHab.id;
+                                                                    }
+                                                                );
+                                                                let valuesUpdated = values;
+                                                                valuesUpdated.haberdasheries = updatedHaberdasheries;
+                                                                setValues(valuesUpdated);
+                                                            }}
+                                                        />
+                                                        <SelectedArticleInfo>
+                                                            {selectedHab.name} - {selectedHab.designer} -{" "}
+                                                            {selectedHab.quantity} cm
+                                                        </SelectedArticleInfo>
+                                                        <QuantityContainer>
+                                                            <QuantityLabel>
+                                                                Quantité
+                                                            </QuantityLabel>
+                                                            <QuantityInput
+                                                                type="number"
+                                                                id="haberdashery_used_size"
+                                                                data-selectedhaberdasheryid={selectedHab.id}
+                                                                data-selectedhaberdasheryquantity={
+                                                                    selectedHab.quantity
+                                                                }
+                                                                data-selectedhaberdasheryprice={selectedHab.price}
+                                                                name="haberdashery_used_size"
+                                                                max={selectedHab.quantity}
+                                                                step="1"
+                                                                placeholder={
+                                                                    values.haberdasheries.find(
+                                                                        (elem) => elem.haberdashery_id == selectedHab.id
+                                                                    )
+                                                                        ? values.haberdasheries[values.haberdasheries.indexOf(values.haberdasheries.find(
+                                                                            (elem) => elem.haberdashery_id == selectedHab.id
+                                                                        ))].haberdashery_used_size
+                                                                        : null
+                                                                }
+                                                                onChange={onChange}
+                                                            ></QuantityInput>
+                                                        </QuantityContainer>
+                                                    </PreviewContainer>
+                                                </AddOneArticleContainer>
+                                            ))}
+                                        </>
+                                    ) : null}
+
+                                    {/* AJOUT MERCERIE SUPP */}
+
+                                    {showAddOneMoreHaberdashery && (
+                                        <AddOneArticleContainer>
+                                            <PreviewContainer>
+                                                <Text>Sélectionnez votre atricle</Text>
+                                                <Preview
+                                                    src={
+                                                        addHaberdasheryPreview !== undefined
+                                                            ? addHaberdasheryPreview
+                                                            : YtremaLogo
+                                                    }
+                                                ></Preview>
+                                                <AddReturnButtonContainer>
+                                                    <ReturnButton
+                                                        onClick={isClosingAddOneMoreHaberdashery}
+                                                    />
+                                                    <AddButton onClick={isOpeningHaberdasherySection} />
+                                                </AddReturnButtonContainer>
+                                                {selectedHaberdashery >= 1 && (
+                                                    <>
+                                                        <SelectedArticleInfo>
+                                                            {selectedHaberdashery[selectedHaberdashery.length - 1].name} -{" "}
+                                                            {
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                    .designer
+                                                            }{" "}
+                                                            -{" "}
+                                                            {
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                    .quantity
+                                                            }{" "}
+                                                            cm
+                                                        </SelectedArticleInfo>
+                                                        <QuantityContainer>
+                                                            <QuantityLabel htmlFor="haberdashery_used_size">
+                                                                Quantité
+                                                            </QuantityLabel>
+                                                            <QuantityInput
+                                                                type="number"
+                                                                id="haberdashery_used_size"
+                                                                data-selectedhaberdasheryid={
+                                                                    selectedHaberdashery[selectedHaberdashery.length - 1].id
+                                                                }
+                                                                data-selectedhaberdasheryquantity={
+                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                        .quantity
+                                                                }
+                                                                data-selectedhaberdasheryprice={
+                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                        .price
+                                                                }
+                                                                name="haberdashery_used_size"
+                                                                max={
+                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                        .quantity
+                                                                }
+                                                                step="1"
+                                                                placeholder="ex: 120"
+                                                                onChange={onChange}
+                                                            ></QuantityInput>
+                                                        </QuantityContainer>
+                                                    </>
+                                                )}
+                                            </PreviewContainer>
+                                        </AddOneArticleContainer>
+                                    )}
+
+                                    {/* AFFICHAGE DES ARTCLES DE MERCERIE A SELECTIONNER AU DEMARRAGE */}
+                                    {haberdasheries && showAllHaberdasheries && selectedHaberdasheries.length == 0 && (
+                                        <CardsContainer>
+                                            {haberdasheries.value.map((haberdashery) => (
+                                                <CardsMapContainer key={haberdashery.id}>
+                                                    <CardContainer key={haberdashery.id} >
+                                                        <ImgContainer>
+                                                            <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
+                                                        </ImgContainer>
+                                                        <CardText>
+                                                            {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                                                        </CardText>
+                                                    </CardContainer>
+                                                </CardsMapContainer>
+                                            ))}
+                                        </CardsContainer>
+                                    )}
+
+                                    {/* AFFICHAGE FILTRE DES ARTICLES DE MERCERIE RESTANTS A SELECTIONNER */}
+                                    {showAllHaberdasheries && selectedHaberdashery.length == 0 && (
+                                        <CardsContainer>
+                                            {haberdasheriesFiltered.map((haberdashery) => (
+                                                <CardsMapContainer
+                                                    key={haberdashery.id}
+                                                    onClick={() => {
+                                                        isOpeningHaberdasherySection();
+                                                        let habObject = selectedHaberdashery;
+                                                        habObject.push(haberdashery);
+                                                        setSelectedHaberdashery(habObject);
+                                                        setHaberdasheryPreview(haberdashery.photo);
+                                                        showAddOneMoreHaberdashery && isOpeningOneMoreHaberdashery();
+                                                    }}
+                                                >
+                                                    <CardContainer key={haberdashery.id}>
+                                                        <ImgContainer>
+                                                            <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
+                                                        </ImgContainer>
+
+                                                        <CardText>
+                                                            {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                                                        </CardText>
+                                                    </CardContainer>
+                                                </CardsMapContainer>
+                                            ))}
+                                        </CardsContainer>
+                                    )}
+
+                                    {showAddOneMoreButton && selectedHaberdashery.length > 0 && (
+                                        <AddOneMoreButton onClick={isOpeningOneMoreHaberdashery}>
+                                            Sélectionner un article supplémentaire
+                                        </AddOneMoreButton>
+                                    )}
+                                </>
+                            )}
+                        </Section>
                     </Form>
                 </FormContainer>
             </AddProjectContainer>

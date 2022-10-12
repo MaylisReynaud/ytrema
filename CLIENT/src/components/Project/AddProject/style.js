@@ -140,7 +140,7 @@ export const InformationSelect = styled.select`
   }
 `;
 
-export const FabricSection = styled.div`
+export const Section = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -180,7 +180,7 @@ export const PlusIcon = styled(PlusSm)`
     z-index: 100;
 `;
 
-export const AddOneFabricContainer = styled.div`
+export const AddOneArticleContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top:.5rem;
@@ -261,6 +261,27 @@ export const AllFabricsContainer = styled.div`
   justify-content: space-around;
 `;
 
+export const CardsContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: space-evenly;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+    display: none;}
+    overflow-y: scroll;
+    height:100vh;
+    width:100%;
+    margin-bottom:1.5em;
+   
+    @media screen and (min-width:601px) { 
+      height:100%;
+
+    }
+  `;
+
 export const CardsMapContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -311,7 +332,7 @@ export const CardText = styled.h3`
   }
 `;
 
-export const SelectedFabricInfo = styled.h3`
+export const SelectedArticleInfo = styled.h3`
   text-align: center;
   display: flex;
   align-items: center;
