@@ -25,6 +25,7 @@ import { Profile } from '../Profile';
 import { LoginForm } from '../Registrationpage/RegisterBox/Forms/LoginForm';
 import { Profiler } from 'react';
 import { Project } from '../Project';
+import { AddProject } from '../Project/AddProject';
 
 
 
@@ -70,6 +71,8 @@ const App = () => {
               <Route  path='/profile' element={<Profile />} />
               <Route  path='/profil' element={<Profil />} />
               <Route path='/projets' element={<Project />} />
+              <Route path='/projets/nouveau' element={<AddProject />} />
+
               <Route  path='*' element={<NotFound />} />
               
 
