@@ -43,6 +43,8 @@ import {
     CardsContainer
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
+import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
+import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 
 export const AddProject = (props) => {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -53,6 +55,13 @@ export const AddProject = (props) => {
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
+    const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
+
+    useEffect(() => {
+        if (isSuccess && data) {
+          dispatch(addAllHaberdasheries(data.haberdasheries));
+        }
+      }, [data, haberdasheries]);
 
     //show fabric section
     const [showFabricSection, setShowFabricSection] = useState(true);
@@ -177,7 +186,7 @@ export const AddProject = (props) => {
     const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
 
     //HABERDASHERY
-    
+
     //show haberdashery section
     const [showHaberdasherySection, setShowHaberdasherySection] = useState(true);
     const isOpeningHaberdasherySection = () => {
@@ -514,7 +523,9 @@ export const AddProject = (props) => {
                                 <>
                                     <AddOneArticleContainer>
                                         {/* AFFICHAGE DE LA MERCERIE DEJA SELECTIONNES */}
-                                        <PreviewContainer>
+                                        <PreviewContainer
+                                            className="haberdashery"
+                                        >
                                             {selectedHaberdashery.length == 0 && (
                                                 <>
                                                     {console.log(
@@ -540,7 +551,9 @@ export const AddProject = (props) => {
                                         <>
                                             {selectedHaberdashery.map((selectedHab, index) => (
                                                 <AddOneArticleContainer key={selectedHab.id}>
-                                                    <PreviewContainer>
+                                                    <PreviewContainer
+                                                        className="haberdashery"
+                                                    >
                                                         <Text>Mercerie sélectionnée n°{index + 1}</Text>
                                                         <Preview src={selectedHab.photo}></Preview>
                                                         <RemoveButton
@@ -566,7 +579,7 @@ export const AddProject = (props) => {
                                                         />
                                                         <SelectedArticleInfo>
                                                             {selectedHab.name} - {selectedHab.size} {" "}{selectedHab.unity} - qté:{" "}
-                                                            {selectedHab.quantity} 
+                                                            {selectedHab.quantity}
                                                         </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel>
@@ -605,7 +618,9 @@ export const AddProject = (props) => {
 
                                     {showAddOneMoreHaberdashery && (
                                         <AddOneArticleContainer>
-                                            <PreviewContainer>
+                                            <PreviewContainer
+                                                className="haberdashery"
+                                            >
                                                 <Text>Sélectionnez votre article</Text>
                                                 <Preview
                                                     src={
@@ -677,9 +692,9 @@ export const AddProject = (props) => {
                                     {haberdasheries && showAllHaberdasheries && selectedHaberdashery.length == 0 && (
                                         <CardsContainer>
                                             {haberdasheries.value.map((haberdashery) => (
-                                                <CardsMapContainer 
+                                                <CardsMapContainer
                                                     key={haberdashery.id}
-                                                    onClick= {() => {
+                                                    onClick={() => {
                                                         isOpeningHaberdasheriesCards();
                                                         let habObject = selectedHaberdashery;
                                                         habObject.push(haberdashery);

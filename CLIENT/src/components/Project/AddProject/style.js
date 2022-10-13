@@ -106,11 +106,7 @@ export const InformationInput = styled.input`
   ::placeholder {
     color: black;
   }
-  /* &[class~="disabled"] {
-    ::placeholder {
-    color: grey;
-  } */
-  /* } */
+  
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
@@ -199,6 +195,9 @@ export const PreviewContainer = styled.div`
   flex-direction: column;
   align-items:center;
   background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
+  &[class~="haberdashery"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
+  }
 `;
 
 export const Preview = styled.img`
