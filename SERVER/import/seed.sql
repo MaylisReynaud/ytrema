@@ -116,6 +116,7 @@ INSERT INTO "photo"("photo", "personal_notes", "project_id")
     (Default, 'Photo 1 - projet 1', 1),
     ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 2 - projet 1', 1),
     ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/patrons%2FFLEUR.png?alt=media&token=e56c71ba-a8a2-4401-a03f-3d0d1f6400c3', 'Photo 1 - projet 2', 2),
+    (Default, 'Photo 2 - projet 2', 2);
 
 
 -- ------------------------------------
@@ -138,7 +139,8 @@ INSERT INTO "project_has_haberdashery"("project_id", "haberdashery_id", "used_si
 -- ------------------------------------
 INSERT INTO "project_has_pattern"("project_id", "pattern_id")
     VALUES
-    (1, 2); 
+    (1, 2), 
+    (2, 2); 
 
 
 COMMIT;

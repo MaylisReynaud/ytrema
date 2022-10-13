@@ -137,7 +137,14 @@ const haberdasheryDataMapper = {
     async getAllHaberdasheries(id) {
         // Query to get all haberdasheries in DB
         const query = {
-            text: `SELECT * FROM "haberdashery" WHERE "member_id" = $1`,
+            text: `SELECT h.*,
+            JSON_AGG(DISTINCT vpopwhu) AS project_profile_photo_array
+            FROM "haberdashery" h
+            LEFT OUTER JOIN "view_photos_of_project_with_haberdasheries_used" vpopwhu
+                ON h.id = vpopwhu.haberdashery_id
+            WHERE h.member_id = $1
+            GROUP BY h.id
+            `,
             values: [id],
         };
 
@@ -151,6 +158,29 @@ const haberdasheryDataMapper = {
 
         // Get request result
         const { rows: allHaberdasheries } = getAllHaberdasheriesResult;
+
+        // Treatment of the project profile photo array
+        allHaberdasheries.map((h) =>
+            {
+                // For each array of project profile photo replace NULL value by an empty array when the haberdashery has not been used in any project yet
+                h.project_profile_photo_array.length == 1 &&
+            h.project_profile_photo_array[0] == null
+                ? (h.project_profile_photo_array = [])
+                : null;
+
+                // Keep only the profile's photo for each project concerned
+                if (h.project_profile_photo_array.length > 0) {
+                    // Array of the projects' ids
+                    const projectIdTab = h.project_profile_photo_array.map(e => e.project_id);
+
+                    // Remove duplicates
+                    h.project_profile_photo_array = h.project_profile_photo_array.filter(
+                        ({ project_id }, index) => projectIdTab.indexOf(project_id) === index
+                    );
+
+                }
+            }
+        );
 
         // Return result
         return allHaberdasheries;
@@ -216,10 +246,9 @@ const haberdasheryDataMapper = {
 
         // If is_cut property is true and quantity property greater than 1, only the existing row in the DB can be updated, it is necessary to create the other rows.
         if (is_cut && quantity > 1) {
-            
             // Update the quantity to subtract the row that will be updated in the DB
             haberdasheryInfoToUpdate.quantity = quantity - 1;
-            
+
             // Create the other rows
             await this.createHaberdashery(haberdasheryInfoToUpdate, id);
 
@@ -257,7 +286,6 @@ const haberdasheryDataMapper = {
 
         // Any rows weren't deleted in DB --error404
         if (rowCount == 0) {
-            
             return null;
         }
 
@@ -285,7 +313,7 @@ const haberdasheryDataMapper = {
 
         // Here, all haberdasheries data have been deleted
         return true;
-    }
+    },
 };
 
 module.exports = haberdasheryDataMapper;

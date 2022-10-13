@@ -2,3 +2,6 @@
 %project=ytrema
 
 000-init 2022-02-04T14:39:27Z lin,,, <lin@lin-VirtualBox> # Database init
+010-v_f_getProjectById 2022-10-06T12:29:07Z lin,,, <lin@lin-VirtualBox> # Views and functions to manage the display of a single project
+020-v_f_getAllProjects 2022-10-11T13:43:02Z lin,,, <lin@lin-VirtualBox> # Views and functions to manage the display of all projects
+030-v_f_getProjectPhoto 2022-10-13T12:46:54Z lin,,, <lin@lin-VirtualBox> # Views and functions to get the projects photos according to article used
