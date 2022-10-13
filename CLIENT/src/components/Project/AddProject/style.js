@@ -226,18 +226,19 @@ export const RemoveButton = styled(PatchMinusFill)`
   right: -9%;
   cursor: pointer;
   color: #ff515d;
-  width:18%;
+  width:17%;
 `;
 export const AddReturnButtonContainer = styled.div`
-  display:flex;
-  flex-direction: row;
+  display: block;
+  /* position: relative; */
+  background-color: red;
 `;
 
 export const AddButton = styled(PatchPlusFill)`
   display: flex;
   position:absolute;
-  bottom: -12%;
-  right: -9%;
+  bottom: -8%;
+  right: -10%;
   cursor: pointer;
   width:18%;
   color: ${(props) => props.theme.color1};
@@ -245,18 +246,24 @@ export const AddButton = styled(PatchPlusFill)`
     bottom: 8%;
     right: -10%;
   }
+  &[class~="AddOneMoreSection"] {
+    bottom: 8%;
+    right: -10%;
+  }
 `;
 
 export const ReturnButton = styled(ArrowLeftCircleFill)`
   display: flex;
-  position:relative;
-  top:-1.4rem;
-  left:1.1rem;
-  /* top:35.5rem;
-  left:2.2rem; */
+  position:absolute;
+  bottom: -12%;
+  right: -9%;
   cursor: pointer;
   color: ${(props) => props.theme.color1};
-  width:13%;
+  width:15%;
+  &[class~="AddOneMoreSection"] {
+    bottom: 9%;
+    left: -8%;
+  }
 `;
 
 export const AllFabricsContainer = styled.div`
