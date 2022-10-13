@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { storage } from "../../../Firebase";
@@ -54,17 +54,18 @@ export const AddProject = (props) => {
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
 
-    //show one section
-    const [showSection, setShowSection] = useState(true);
-    const isOpeningSection = () => {
-        setShowSection((prev) => !prev);
+    //show fabric section
+    const [showFabricSection, setShowFabricSection] = useState(true);
+    const isOpeningFabricSection = () => {
+        setShowFabricSection((prev) => !prev);
     };
 
     //Show all fabrics
     const [showAllFabrics, setShowAllFabrics] = useState(false);
     const [fabricsFiltered, setFabricsFiltered] = useState([]);
 
-    const isOpeningFabricSection = () => {
+    const isOpeningFabricsCards = () => {
+        console.log(fabrics, "fabrics ")
         setShowAllFabrics((prev) => !prev);
 
         // Create array with all fabrics remaining 
@@ -176,11 +177,19 @@ export const AddProject = (props) => {
     const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
 
     //HABERDASHERY
+    
+    //show haberdashery section
+    const [showHaberdasherySection, setShowHaberdasherySection] = useState(true);
+    const isOpeningHaberdasherySection = () => {
+        setShowHaberdasherySection((prev) => !prev);
+    };
     //Show all haberdasheries
     const [showAllHaberdasheries, setShowAllHaberdasheries] = useState(false);
     const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
 
-    const isOpeningHaberdasherySection = () => {
+    const isOpeningHaberdasheriesCards = () => {
+        console.log(haberdasheries, "haberdasheries ")
+        console.log(showAllHaberdasheries, 'dans is openings Haberdasheries Cards')
         setShowAllHaberdasheries((prev) => !prev);
 
         // Create array with all haberdasheries remaining 
@@ -198,7 +207,7 @@ export const AddProject = (props) => {
 
     const isOpeningOneMoreHaberdashery = (event) => {
         setShowAddOneMoreButton(false);
-        !showAddOneMoreFabric && event.preventDefault();
+        !showAddOneMoreHaberdashery && event.preventDefault();
         setShowAddOneMoreHaberdashery((prev) => !prev);
     };
 
@@ -256,13 +265,13 @@ export const AddProject = (props) => {
                         <Section>
                             <TitleSectionContainer>
                                 <TitleSection>TISSUS</TitleSection>
-                                {showSection ? (
-                                    <MinusIcon onClick={isOpeningSection} />
+                                {showFabricSection ? (
+                                    <MinusIcon onClick={isOpeningFabricSection} />
                                 ) : (
-                                    <PlusIcon onClick={isOpeningSection} />
+                                    <PlusIcon onClick={isOpeningFabricSection} />
                                 )}
                             </TitleSectionContainer>
-                            {showSection && (
+                            {showFabricSection && (
                                 <>
                                     <AddOneArticleContainer>
                                         {/* AFFICHAGE DES TISSUS DEJA SELECTIONNES */}
@@ -281,7 +290,7 @@ export const AddProject = (props) => {
                                                 <AddReturnButtonContainer>
                                                     {/* <ReturnButton /> */}
                                                     <AddButton
-                                                        onClick={isOpeningFabricSection}
+                                                        onClick={isOpeningFabricsCards}
                                                         className="Alone" />
                                                 </AddReturnButtonContainer>
                                             )}
@@ -370,7 +379,7 @@ export const AddProject = (props) => {
                                                     <ReturnButton
                                                         onClick={isClosingAddOneMoreFabric}
                                                     />
-                                                    <AddButton onClick={isOpeningFabricSection} />
+                                                    <AddButton onClick={isOpeningFabricsCards} />
                                                 </AddReturnButtonContainer>
                                                 {selectedFabric >= 1 && (
                                                     <>
@@ -428,7 +437,7 @@ export const AddProject = (props) => {
                                                 <CardsMapContainer
                                                     key={fabric.id}
                                                     onClick={() => {
-                                                        isOpeningFabricSection();
+                                                        isOpeningFabricsCards();
                                                         let object = selectedFabric;
                                                         object.push(fabric);
                                                         setSelectedFabric(object);
@@ -459,7 +468,7 @@ export const AddProject = (props) => {
                                                 <CardsMapContainer
                                                     key={fabric.id}
                                                     onClick={() => {
-                                                        isOpeningFabricSection();
+                                                        isOpeningFabricsCards();
                                                         let object = selectedFabric;
                                                         object.push(fabric);
                                                         setSelectedFabric(object);
@@ -495,13 +504,13 @@ export const AddProject = (props) => {
                         <Section>
                             <TitleSectionContainer>
                                 <TitleSection>MERCERIE</TitleSection>
-                                {showSection ? (
-                                    <MinusIcon onClick={isOpeningSection} />
+                                {showHaberdasherySection ? (
+                                    <MinusIcon onClick={isOpeningHaberdasherySection} />
                                 ) : (
-                                    <PlusIcon onClick={isOpeningSection} />
+                                    <PlusIcon onClick={isOpeningHaberdasherySection} />
                                 )}
                             </TitleSectionContainer>
-                            {showSection && (
+                            {showHaberdasherySection && (
                                 <>
                                     <AddOneArticleContainer>
                                         {/* AFFICHAGE DE LA MERCERIE DEJA SELECTIONNES */}
@@ -520,7 +529,7 @@ export const AddProject = (props) => {
                                                 <AddReturnButtonContainer>
                                                     {/* <ReturnButton /> */}
                                                     <AddButton
-                                                        onClick={isOpeningFabricSection}
+                                                        onClick={isOpeningHaberdasheriesCards}
                                                         className="Alone" />
                                                 </AddReturnButtonContainer>
                                             )}
@@ -545,7 +554,7 @@ export const AddProject = (props) => {
                                                                         return haberdashery.id !== selectedHab.id;
                                                                     })
                                                                 );
-                                                                let updatedHaberdasheries = values.haberdasherie.filter(
+                                                                let updatedHaberdasheries = values.haberdasheries.filter(
                                                                     (haberdashery) => {
                                                                         return haberdashery.haberdashery_id != selectedHab.id;
                                                                     }
@@ -556,8 +565,8 @@ export const AddProject = (props) => {
                                                             }}
                                                         />
                                                         <SelectedArticleInfo>
-                                                            {selectedHab.name} - {selectedHab.designer} -{" "}
-                                                            {selectedHab.quantity} cm
+                                                            {selectedHab.name} - {selectedHab.size} {" "}{selectedHab.unity} - qté:{" "}
+                                                            {selectedHab.quantity} 
                                                         </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel>
@@ -597,7 +606,7 @@ export const AddProject = (props) => {
                                     {showAddOneMoreHaberdashery && (
                                         <AddOneArticleContainer>
                                             <PreviewContainer>
-                                                <Text>Sélectionnez votre atricle</Text>
+                                                <Text>Sélectionnez votre article</Text>
                                                 <Preview
                                                     src={
                                                         addHaberdasheryPreview !== undefined
@@ -609,7 +618,7 @@ export const AddProject = (props) => {
                                                     <ReturnButton
                                                         onClick={isClosingAddOneMoreHaberdashery}
                                                     />
-                                                    <AddButton onClick={isOpeningHaberdasherySection} />
+                                                    <AddButton onClick={isOpeningHaberdasheriesCards} />
                                                 </AddReturnButtonContainer>
                                                 {selectedHaberdashery >= 1 && (
                                                     <>
@@ -617,14 +626,18 @@ export const AddProject = (props) => {
                                                             {selectedHaberdashery[selectedHaberdashery.length - 1].name} -{" "}
                                                             {
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .designer
+                                                                    .size
                                                             }{" "}
-                                                            -{" "}
+                                                            {" "}
+                                                            {
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                    .unity
+                                                            }{" - "}
+                                                            qté:
                                                             {
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
                                                                     .quantity
                                                             }{" "}
-                                                            cm
                                                         </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel htmlFor="haberdashery_used_size">
@@ -661,10 +674,20 @@ export const AddProject = (props) => {
                                     )}
 
                                     {/* AFFICHAGE DES ARTCLES DE MERCERIE A SELECTIONNER AU DEMARRAGE */}
-                                    {haberdasheries && showAllHaberdasheries && selectedHaberdasheries.length == 0 && (
+                                    {haberdasheries && showAllHaberdasheries && selectedHaberdashery.length == 0 && (
                                         <CardsContainer>
                                             {haberdasheries.value.map((haberdashery) => (
-                                                <CardsMapContainer key={haberdashery.id}>
+                                                <CardsMapContainer 
+                                                    key={haberdashery.id}
+                                                    onClick= {() => {
+                                                        isOpeningHaberdasheriesCards();
+                                                        let habObject = selectedHaberdashery;
+                                                        habObject.push(haberdashery);
+                                                        setSelectedHaberdashery(habObject);
+                                                        setHaberdasheryPreview(haberdashery.photo);
+                                                        showAddOneMoreHaberdashery && isOpeningOneMoreHaberdashery();
+                                                    }}
+                                                >
                                                     <CardContainer key={haberdashery.id} >
                                                         <ImgContainer>
                                                             <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
@@ -679,18 +702,19 @@ export const AddProject = (props) => {
                                     )}
 
                                     {/* AFFICHAGE FILTRE DES ARTICLES DE MERCERIE RESTANTS A SELECTIONNER */}
-                                    {showAllHaberdasheries && selectedHaberdashery.length == 0 && (
+                                    {showAllHaberdasheries && selectedHaberdashery.length > 0 && (
                                         <CardsContainer>
                                             {haberdasheriesFiltered.map((haberdashery) => (
                                                 <CardsMapContainer
                                                     key={haberdashery.id}
                                                     onClick={() => {
-                                                        isOpeningHaberdasherySection();
+                                                        isOpeningHaberdasheriesCards();
                                                         let habObject = selectedHaberdashery;
                                                         habObject.push(haberdashery);
                                                         setSelectedHaberdashery(habObject);
                                                         setHaberdasheryPreview(haberdashery.photo);
                                                         showAddOneMoreHaberdashery && isOpeningOneMoreHaberdashery();
+                                                        console.log(showAddOneMoreHaberdashery, 'show add one more haberdashery in on click fabric filter')
                                                     }}
                                                 >
                                                     <CardContainer key={haberdashery.id}>
