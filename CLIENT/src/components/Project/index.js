@@ -43,6 +43,8 @@ import {
 } from "./style";
 import YtremaLogo from "../../assets/images/logo.png";
 import { AddProject } from "./AddProject";
+import { addAllPatterns } from "../../store/state/patternSlice";
+import { useGetAllPatternsQuery } from "../../store/api/ytremaApi";
 
 export const Project = (props) => {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -51,7 +53,14 @@ export const Project = (props) => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
-    const fabrics = persistedReducer.fabrics;
+    const patterns = persistedReducer.patterns;
+    const { data, error, isLoading, isSuccess, isError }  = useGetAllPatternsQuery(auth.id);
+
+    useEffect(() => {
+        if (isSuccess && data) {
+            dispatch(addAllPatterns(data.patterns));
+        }
+    }, [data, patterns]);
 
     return (
         <div>

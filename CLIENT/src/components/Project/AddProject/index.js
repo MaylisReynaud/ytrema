@@ -47,6 +47,7 @@ import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
 import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 
+
 export const AddProject = (props) => {
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -57,6 +58,7 @@ export const AddProject = (props) => {
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
     const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
+
 
     useEffect(() => {
         if (isSuccess && data) {
@@ -244,7 +246,7 @@ export const AddProject = (props) => {
 
                 <FormContainer>
                     <Form>
-                        <LabelInputContainer className="project title">
+                        <LabelInputContainer>
                             <InformationLabel htmlFor="name">Nom du projet</InformationLabel>
                             <InformationInput
                                 id="name"
@@ -638,77 +640,87 @@ export const AddProject = (props) => {
                                     {/* AJOUT MERCERIE SUPP */}
 
                                     {showAddOneMoreHaberdashery && (
-                                        <AddOneArticleContainer>
-                                            <PreviewContainer
-                                                className="haberdashery"
-                                            >
-                                                <Text>Sélectionnez votre article</Text>
-                                                <PreviewButtonContainer>
-                                                    <Preview
-                                                        src={
-                                                            addHaberdasheryPreview !== undefined
-                                                                ? addHaberdasheryPreview
-                                                                : YtremaLogo
-                                                        }
-                                                    ></Preview>
+                                        <>
+                                            <AddOneArticleContainer>
+                                                <PreviewContainer
+                                                    className="haberdashery"
+                                                >
+                                                    <Text>Sélectionnez votre article</Text>
+                                                    <PreviewButtonContainer
+                                                        className="firstShow"
+                                                    >
+                                                        <Preview
+                                                            src={
+                                                                addHaberdasheryPreview !== undefined
+                                                                    ? addHaberdasheryPreview
+                                                                    : YtremaLogo
+                                                            }
+                                                        ></Preview>
+                                                        <AddReturnButtonContainer>
+                                                            <ReturnButton
+                                                                onClick={isClosingAddOneMoreHaberdashery}
+                                                                className="AddOneMoreSection"
+                                                            />
+                                                            <AddButton
+                                                                onClick={isOpeningHaberdasheriesCards}
+                                                                className="AddOneMoreSection"
+                                                            />
+                                                        </AddReturnButtonContainer>
 
-                                                    <ReturnButton
-                                                        onClick={isClosingAddOneMoreHaberdashery}
-                                                    />
-                                                    <AddButton onClick={isOpeningHaberdasheriesCards} />
-                                                </PreviewButtonContainer>
+                                                    </PreviewButtonContainer>
+                                                </PreviewContainer>
+                                            </AddOneArticleContainer>
 
-                                                {selectedHaberdashery >= 1 && (
-                                                    <>
-                                                        <SelectedArticleInfo>
-                                                            {selectedHaberdashery[selectedHaberdashery.length - 1].name} -{" "}
-                                                            {
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .size
-                                                            }{" "}
-                                                            {" "}
-                                                            {
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .unity
-                                                            }{" - "}
-                                                            qté:
-                                                            {
+                                            {selectedHaberdashery >= 1 && (
+                                                <>
+                                                    <SelectedArticleInfo>
+                                                        {selectedHaberdashery[selectedHaberdashery.length - 1].name} -{" "}
+                                                        {
+                                                            selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                .size
+                                                        }{" "}
+                                                        {" "}
+                                                        {
+                                                            selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                .unity
+                                                        }{" - "}
+                                                        qté:
+                                                        {
+                                                            selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                .quantity
+                                                        }{" "}
+                                                    </SelectedArticleInfo>
+                                                    <QuantityContainer>
+                                                        <QuantityLabel htmlFor="haberdashery_used_size">
+                                                            Quantité
+                                                        </QuantityLabel>
+                                                        <QuantityInput
+                                                            type="number"
+                                                            id="haberdashery_used_size"
+                                                            data-selectedhaberdasheryid={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1].id
+                                                            }
+                                                            data-selectedhaberdasheryquantity={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
                                                                     .quantity
-                                                            }{" "}
-                                                        </SelectedArticleInfo>
-                                                        <QuantityContainer>
-                                                            <QuantityLabel htmlFor="haberdashery_used_size">
-                                                                Quantité
-                                                            </QuantityLabel>
-                                                            <QuantityInput
-                                                                type="number"
-                                                                id="haberdashery_used_size"
-                                                                data-selectedhaberdasheryid={
-                                                                    selectedHaberdashery[selectedHaberdashery.length - 1].id
-                                                                }
-                                                                data-selectedhaberdasheryquantity={
-                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                        .quantity
-                                                                }
-                                                                data-selectedhaberdasheryprice={
-                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                        .price
-                                                                }
-                                                                name="haberdashery_used_size"
-                                                                max={
-                                                                    selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                        .quantity
-                                                                }
-                                                                step="1"
-                                                                placeholder="ex: 120"
-                                                                onChange={onChange}
-                                                            ></QuantityInput>
-                                                        </QuantityContainer>
-                                                    </>
-                                                )}
-                                            </PreviewContainer>
-                                        </AddOneArticleContainer>
+                                                            }
+                                                            data-selectedhaberdasheryprice={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                    .price
+                                                            }
+                                                            name="haberdashery_used_size"
+                                                            max={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                                    .quantity
+                                                            }
+                                                            step="1"
+                                                            placeholder="ex: 120"
+                                                            onChange={onChange}
+                                                        ></QuantityInput>
+                                                    </QuantityContainer>
+                                                </>
+                                            )}
+                                        </>
                                     )}
 
                                     {/* AFFICHAGE DES ARTCLES DE MERCERIE A SELECTIONNER AU DEMARRAGE */}
