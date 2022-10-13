@@ -40,7 +40,8 @@ import {
     PlusIcon,
     ReturnButton,
     AddReturnButtonContainer,
-    CardsContainer
+    CardsContainer,
+    PreviewButtonContainer
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
@@ -59,9 +60,9 @@ export const AddProject = (props) => {
 
     useEffect(() => {
         if (isSuccess && data) {
-          dispatch(addAllHaberdasheries(data.haberdasheries));
+            dispatch(addAllHaberdasheries(data.haberdasheries));
         }
-      }, [data, haberdasheries]);
+    }, [data, haberdasheries]);
 
     //show fabric section
     const [showFabricSection, setShowFabricSection] = useState(true);
@@ -287,21 +288,18 @@ export const AddProject = (props) => {
                                         <PreviewContainer>
                                             {selectedFabric.length == 0 && (
                                                 <>
-                                                    {console.log(
-                                                        selectedFabric,
-                                                        "selectedFabric dans selectionnez votre 1er tissu"
-                                                    )}
+
                                                     <Text>Sélectionnez votre premier tissu</Text>
-                                                    <Preview src={YtremaLogo}></Preview>
+                                                    <PreviewButtonContainer
+                                                        className="firstShow"
+                                                    >
+                                                        <Preview src={YtremaLogo}></Preview>
+                                                        <AddButton
+                                                            onClick={isOpeningFabricsCards}
+                                                            className="Alone"
+                                                        />
+                                                    </PreviewButtonContainer>
                                                 </>
-                                            )}
-                                            {selectedFabric.length == 0 && (
-                                                <AddReturnButtonContainer>
-                                                    {/* <ReturnButton /> */}
-                                                    <AddButton
-                                                        onClick={isOpeningFabricsCards}
-                                                        className="Alone" />
-                                                </AddReturnButtonContainer>
                                             )}
                                         </PreviewContainer>
                                     </AddOneArticleContainer>
@@ -312,28 +310,31 @@ export const AddProject = (props) => {
                                                 <AddOneArticleContainer key={selectedFab.id}>
                                                     <PreviewContainer>
                                                         <Text>Tissu sélectionné n°{index + 1}</Text>
-                                                        <Preview src={selectedFab.photo}></Preview>
-                                                        <RemoveButton
-                                                            onClick={() => {
-                                                                console.log(
-                                                                    values,
-                                                                    "values dans remove button"
-                                                                );
-                                                                setSelectedFabric((current) =>
-                                                                    current.filter((fabric) => {
-                                                                        return fabric.id !== selectedFab.id;
-                                                                    })
-                                                                );
-                                                                let updatedFabrics = values.fabrics.filter(
-                                                                    (fabric) => {
-                                                                        return fabric.fabric_id != selectedFab.id;
-                                                                    }
-                                                                );
-                                                                let valuesUpdated = values;
-                                                                valuesUpdated.fabrics = updatedFabrics;
-                                                                setValues(valuesUpdated);
-                                                            }}
-                                                        />
+                                                        <PreviewButtonContainer>
+                                                            <Preview src={selectedFab.photo}></Preview>
+                                                            <RemoveButton
+                                                                onClick={() => {
+                                                                    console.log(
+                                                                        values,
+                                                                        "values dans remove button"
+                                                                    );
+                                                                    setSelectedFabric((current) =>
+                                                                        current.filter((fabric) => {
+                                                                            return fabric.id !== selectedFab.id;
+                                                                        })
+                                                                    );
+                                                                    let updatedFabrics = values.fabrics.filter(
+                                                                        (fabric) => {
+                                                                            return fabric.fabric_id != selectedFab.id;
+                                                                        }
+                                                                    );
+                                                                    let valuesUpdated = values;
+                                                                    valuesUpdated.fabrics = updatedFabrics;
+                                                                    setValues(valuesUpdated);
+                                                                }}
+                                                            />
+                                                        </PreviewButtonContainer>
+
                                                         <SelectedArticleInfo>
                                                             {selectedFab.name} - {selectedFab.designer} -{" "}
                                                             {selectedFab.quantity} cm
@@ -344,6 +345,7 @@ export const AddProject = (props) => {
                                                             </QuantityLabel>
                                                             <QuantityInput
                                                                 type="number"
+                                                                mobile
                                                                 id="fabric_used_size"
                                                                 data-selectedfabricid={selectedFab.id}
                                                                 data-selectedfabricquantity={
@@ -377,19 +379,20 @@ export const AddProject = (props) => {
                                         <AddOneArticleContainer>
                                             <PreviewContainer>
                                                 <Text>Sélectionnez votre tissu</Text>
-                                                <Preview
-                                                    src={
-                                                        addFabricPreview !== undefined
-                                                            ? addFabricPreview
-                                                            : YtremaLogo
-                                                    }
-                                                ></Preview>
-                                                <AddReturnButtonContainer>
+                                                <PreviewButtonContainer>
+                                                    <Preview
+                                                        src={
+                                                            addFabricPreview !== undefined
+                                                                ? addFabricPreview
+                                                                : YtremaLogo
+                                                        }
+                                                    ></Preview>
                                                     <ReturnButton
                                                         onClick={isClosingAddOneMoreFabric}
                                                     />
                                                     <AddButton onClick={isOpeningFabricsCards} />
-                                                </AddReturnButtonContainer>
+                                                </PreviewButtonContainer>
+
                                                 {selectedFabric >= 1 && (
                                                     <>
                                                         <SelectedArticleInfo>
@@ -533,16 +536,16 @@ export const AddProject = (props) => {
                                                         "selectedHaberdashery dans selectionnez votre 1er article"
                                                     )}
                                                     <Text>Sélectionnez votre premier article</Text>
-                                                    <Preview src={YtremaLogo}></Preview>
+                                                    <PreviewButtonContainer
+                                                        className="firstShow"
+                                                    >
+                                                        <Preview src={YtremaLogo}></Preview>
+                                                        <AddButton
+                                                            onClick={isOpeningHaberdasheriesCards}
+                                                            className="Alone" />
+                                                    </PreviewButtonContainer>
+
                                                 </>
-                                            )}
-                                            {selectedHaberdashery.length == 0 && (
-                                                <AddReturnButtonContainer>
-                                                    {/* <ReturnButton /> */}
-                                                    <AddButton
-                                                        onClick={isOpeningHaberdasheriesCards}
-                                                        className="Alone" />
-                                                </AddReturnButtonContainer>
                                             )}
                                         </PreviewContainer>
                                     </AddOneArticleContainer>
@@ -555,28 +558,31 @@ export const AddProject = (props) => {
                                                         className="haberdashery"
                                                     >
                                                         <Text>Mercerie sélectionnée n°{index + 1}</Text>
-                                                        <Preview src={selectedHab.photo}></Preview>
-                                                        <RemoveButton
-                                                            onClick={() => {
-                                                                console.log(
-                                                                    values,
-                                                                    "values dans remove button"
-                                                                );
-                                                                setSelectedHaberdashery((current) =>
-                                                                    current.filter((haberdashery) => {
-                                                                        return haberdashery.id !== selectedHab.id;
-                                                                    })
-                                                                );
-                                                                let updatedHaberdasheries = values.haberdasheries.filter(
-                                                                    (haberdashery) => {
-                                                                        return haberdashery.haberdashery_id != selectedHab.id;
-                                                                    }
-                                                                );
-                                                                let valuesUpdated = values;
-                                                                valuesUpdated.haberdasheries = updatedHaberdasheries;
-                                                                setValues(valuesUpdated);
-                                                            }}
-                                                        />
+                                                        <PreviewButtonContainer>
+                                                            <Preview src={selectedHab.photo}></Preview>
+                                                            <RemoveButton
+                                                                onClick={() => {
+                                                                    console.log(
+                                                                        values,
+                                                                        "values dans remove button"
+                                                                    );
+                                                                    setSelectedHaberdashery((current) =>
+                                                                        current.filter((haberdashery) => {
+                                                                            return haberdashery.id !== selectedHab.id;
+                                                                        })
+                                                                    );
+                                                                    let updatedHaberdasheries = values.haberdasheries.filter(
+                                                                        (haberdashery) => {
+                                                                            return haberdashery.haberdashery_id != selectedHab.id;
+                                                                        }
+                                                                    );
+                                                                    let valuesUpdated = values;
+                                                                    valuesUpdated.haberdasheries = updatedHaberdasheries;
+                                                                    setValues(valuesUpdated);
+                                                                }}
+                                                            />
+                                                        </PreviewButtonContainer>
+
                                                         <SelectedArticleInfo>
                                                             {selectedHab.name} - {selectedHab.size} {" "}{selectedHab.unity} - qté:{" "}
                                                             {selectedHab.quantity}
@@ -622,19 +628,21 @@ export const AddProject = (props) => {
                                                 className="haberdashery"
                                             >
                                                 <Text>Sélectionnez votre article</Text>
-                                                <Preview
-                                                    src={
-                                                        addHaberdasheryPreview !== undefined
-                                                            ? addHaberdasheryPreview
-                                                            : YtremaLogo
-                                                    }
-                                                ></Preview>
-                                                <AddReturnButtonContainer>
+                                                <PreviewButtonContainer>
+                                                    <Preview
+                                                        src={
+                                                            addHaberdasheryPreview !== undefined
+                                                                ? addHaberdasheryPreview
+                                                                : YtremaLogo
+                                                        }
+                                                    ></Preview>
+
                                                     <ReturnButton
                                                         onClick={isClosingAddOneMoreHaberdashery}
                                                     />
                                                     <AddButton onClick={isOpeningHaberdasheriesCards} />
-                                                </AddReturnButtonContainer>
+                                                </PreviewButtonContainer>
+
                                                 {selectedHaberdashery >= 1 && (
                                                     <>
                                                         <SelectedArticleInfo>

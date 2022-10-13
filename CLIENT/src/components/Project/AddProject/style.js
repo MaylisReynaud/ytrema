@@ -200,8 +200,17 @@ export const PreviewContainer = styled.div`
   }
 `;
 
+export const PreviewButtonContainer = styled.div`
+  position: relative;
+  display: block;
+  &[class~="firstShow"] {
+    padding-bottom: 3rem;
+  }
+`;
+
 export const Preview = styled.img`
-  display: flex;  
+  display: block;  
+  box-sizing: border-box;
   margin-top: 1rem;
   width: 69vw;
   height: 25vh;
@@ -212,12 +221,12 @@ export const Preview = styled.img`
 
 export const RemoveButton = styled(PatchMinusFill)`
   display: flex;
-  position:relative;
-  top:-1.4rem;
-  left:8.4rem;
+  position:absolute;
+  bottom: -12%;
+  right: -9%;
   cursor: pointer;
   color: #ff515d;
-  width:15%;
+  width:18%;
 `;
 export const AddReturnButtonContainer = styled.div`
   display:flex;
@@ -226,18 +235,15 @@ export const AddReturnButtonContainer = styled.div`
 
 export const AddButton = styled(PatchPlusFill)`
   display: flex;
-  position:relative;
-  top:-1.4rem;
-  left:15.1rem;
-  /* top:35.4rem;
-  left:19.1rem; */
+  position:absolute;
+  bottom: -12%;
+  right: -9%;
   cursor: pointer;
+  width:18%;
   color: ${(props) => props.theme.color1};
-  width:15%;
   &[class~="Alone"] {
-    top:-1.3rem;
-    left:16.4rem;
-    width:17%;
+    bottom: 8%;
+    right: -10%;
   }
 `;
 
@@ -335,9 +341,10 @@ export const SelectedArticleInfo = styled.h3`
   text-align: center;
   display: flex;
   align-items: center;
-  margin: 0 1.5rem;
+  margin: 2rem 1.5rem 0 1.5rem;
   font : 600 1rem '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
+
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;
