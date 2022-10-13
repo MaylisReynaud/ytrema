@@ -49,7 +49,14 @@ const fabricDataMapper = {
     async getAllFabrics(id) {
         // Query to get all fabrics in DB
         const query = {
-            text: `SELECT * FROM "fabric" WHERE "member_id" = $1`,
+            text: `SELECT f.*,
+            JSON_AGG(DISTINCT vpopwfu) AS project_profile_photo_array
+            FROM "fabric" f
+            LEFT OUTER JOIN "view_photos_of_project_with_fabrics_used" vpopwfu
+                ON f.id = vpopwfu.fabric_id
+            WHERE f.member_id = $1
+            GROUP BY f.id
+            `,
             values: [id]
         };
 
@@ -63,6 +70,29 @@ const fabricDataMapper = {
 
         // Get request result
         const {rows: allFabrics} = getAllFabricsResult;
+
+        // Treatment of the project profile photo array
+        allFabrics.map((f) =>
+            {
+                // For each array of project profile photo replace NULL value by an empty array when the fabric has not been used in any project yet
+                f.project_profile_photo_array.length == 1 &&
+            f.project_profile_photo_array[0] == null
+                ? (f.project_profile_photo_array = [])
+                : null;
+
+                // Keep only the profile's photo for each project concerned
+                if (f.project_profile_photo_array.length > 0) {
+                    // Array of the projects' ids
+                    const projectIdTab = f.project_profile_photo_array.map(e => e.project_id);
+
+                    // Remove duplicates
+                    f.project_profile_photo_array = f.project_profile_photo_array.filter(
+                        ({ project_id }, index) => projectIdTab.indexOf(project_id) === index
+                    );
+
+                }
+            }
+        );
 
         // Return result
         return allFabrics;

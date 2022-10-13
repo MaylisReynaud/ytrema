@@ -48,7 +48,14 @@ const patternDataMapper = {
     async getAllPatterns(id) {
         // Query to get all patterns in DB
         const query = {
-            text: `SELECT * FROM "pattern" WHERE "member_id" = $1`,
+            text: `SELECT p.*,
+            JSON_AGG(DISTINCT vpopwpu) AS project_profile_photo_array
+            FROM "pattern" p
+            LEFT OUTER JOIN "view_photos_of_project_with_patterns_used" vpopwpu
+                ON p.id = vpopwpu.pattern_id
+            WHERE p.member_id = $1
+            GROUP BY p.id
+            `,
             values: [id],
         };
 
@@ -62,6 +69,29 @@ const patternDataMapper = {
 
         // Get request result
         const { rows: allPatterns } = getAllPatternsResult;
+
+        // Treatment of the project profile photo array
+        allPatterns.map((p) =>
+            {
+                // For each array of project profile photo replace NULL value by an empty array when the pattern has not been used in any project yet
+                p.project_profile_photo_array.length == 1 &&
+            p.project_profile_photo_array[0] == null
+                ? (p.project_profile_photo_array = [])
+                : null;
+
+                // Keep only the profile's photo for each project concerned
+                if (p.project_profile_photo_array.length > 0) {
+                    // Array of the projects' ids
+                    const projectIdTab = p.project_profile_photo_array.map(e => e.project_id);
+
+                    // Remove duplicates
+                    p.project_profile_photo_array = p.project_profile_photo_array.filter(
+                        ({ project_id }, index) => projectIdTab.indexOf(project_id) === index
+                    );
+
+                }
+            }
+        );        
 
         // Return result
         return allPatterns;
