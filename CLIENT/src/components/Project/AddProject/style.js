@@ -429,3 +429,22 @@ export const AddOneMoreButton = styled.button`
     padding: 1rem;
   }
 `;
+
+export const ButtonForm = styled.button`
+    width:100%;
+    height:45px;
+    padding: 10px;
+    background: ${props => props.theme.color1};
+    font-family: '${props => props.theme.textFont}';
+    color: ${props => props.theme.color4};
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin: 10px 0px;
+    @media screen and (min-width:601px) { 
+        width: 70%;
+        margin-left: 3.5rem;
+  }
+`;

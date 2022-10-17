@@ -41,7 +41,8 @@ import {
     ReturnButton,
     AddReturnButtonContainer,
     CardsContainer,
-    PreviewButtonContainer
+    PreviewButtonContainer,
+    ButtonForm
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
@@ -118,23 +119,11 @@ export const AddProject = (props) => {
     const [values, setValues] = useState({
         name: "",
         status: "",
-        personal_notes: "",
+        personal_notes: "Photo du projet",
         photo: "",
         fabrics: [],
-        haberdasheries: [
-            {
-                haberdashery_id: "",
-                haberdashery_quantity: "",
-                haberdashery_is_cut: "",
-                haberdashery_price: "",
-                haberdashery_used_size: "",
-            },
-        ],
-        patterns: [
-            {
-                pattern_id: "",
-            },
-        ],
+        haberdasheries: [],
+        patterns: [],
     });
 
     const onChange = (event) => {
@@ -163,7 +152,7 @@ export const AddProject = (props) => {
             setShowAddOneMoreButton(true);
         };
         if (event.target.dataset.selectedhaberdasheryid) {
-           
+
             let haberdasheryObject = values;
             haberdasheryObject.haberdasheries.push({
                 haberdashery_id: event.target.dataset.selectedhaberdasheryid,
@@ -186,32 +175,18 @@ export const AddProject = (props) => {
             console.log(haberdasheryObject, "haberdashery object");
             setShowAddOneMoreButton(true);
         }
-        // if (event.target.dataset.selectedpatternid) {
-           
-        //     let patternObject = values;
-        //     console.log(patternObject, 'pattern object dans on change')
-        //     patternObject.patterns.push({
-        //         pattern_id: event.target.dataset.selectedpatternid
-        //     });
-
-        //     // keep last pattern object with same the id
-        //     let patternsResult = [
-        //         ...patternObject.patterns
-        //             .reduce((acc, cur) => {
-        //                 return acc.set(cur.pattern_id, cur);
-        //             }, new Map())
-        //             .values(),
-        //     ];
-
-        //     patternObject.patterns = patternsResult;
-        //     setValues(patternObject);
-        //     console.log(patternObject, "pattern object");
-        //     setShowAddOneMoreButton(true);
-        // }
+        if (event.target.name === 'photo') {
+            onSelectPicture(event);
+            if (!event.target.files || event.target.files.length > 0) {
+                console.log(handleUpload(event.target.files[0]), 'handleUpload(event.target.files[0]) dans on change')
+                handleUpload(event.target.files[0]);
+            }
+        }
         else {
             setValues({ ...values, [event.target.name]: event.target.value });
         }
     };
+    console.log(values, "values après on change")
 
     //HABERDASHERY
 
@@ -262,7 +237,7 @@ export const AddProject = (props) => {
     const [addHaberdasheryPreview, setAddHaberdasheryPreview] = useState();
     const [showAddOneMoreHaberdashery, setShowAddOneMoreHaberdashery] = useState(false);
 
-     //PATTERNS
+    //PATTERNS
 
     //show pattern section
     const [showPatternSection, setShowPatternSection] = useState(false);
@@ -311,6 +286,73 @@ export const AddProject = (props) => {
     const [addPatternPreview, setAddPatternPreview] = useState();
     const [showAddOneMorePattern, setShowAddOneMorePattern] = useState(false);
 
+    //PICTURE
+    //show picture section
+    const [showPictureSection, setShowPictureSection] = useState(false);
+    const isOpeningPictureSection = () => {
+        setShowPictureSection((prev) => !prev);
+    };
+
+    //
+    const [selectedPicture, setSelectedPicture] = useState();
+    const [preview, setPreview] = useState();
+    const [pictureURL, setPictureURL] = useState();
+
+    useEffect(() => {
+        if (!selectedPicture) {
+            setPreview(YtremaLogo);
+            return;
+        }
+        const objectUrl = URL.createObjectURL(selectedPicture);
+        setPreview(objectUrl);
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedPicture]);
+
+    const onSelectPicture = (event) => {
+        if (!event.target.files || event.target.files.length === 0) {
+            setSelectedPicture(undefined);
+            return
+        }
+        // I've kept this example simple by using the first image instead of multiple
+        setSelectedPicture(event.target.files[0]);
+    }
+
+    //propre a firebase
+    const handleUpload = (picture) => {
+
+        const uploadTask = storage.ref(`projet/${picture.name}`).put(picture);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => { },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(picture.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                        console.log(url, 'url dans handleupload');
+                        setPictureURL(url);
+                    });
+            }
+        );
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const valuesToSend = values;
+        valuesToSend.photo = pictureURL;
+        console.log(valuesToSend, 'values to send dans submit');
+
+        // await addOneProject({ memberId: auth.id, body: valuesToSend });
+
+
+
+    };
 
     return (
         <>
@@ -865,8 +907,8 @@ export const AddProject = (props) => {
                             )}
                         </Section>
 
-                         {/* Pattern Section */}
-                         <Section>
+                        {/* Pattern Section */}
+                        <Section>
                             <TitleSectionContainer>
                                 <TitleSection>PATRONS</TitleSection>
                                 {showPatternSection ? (
@@ -912,7 +954,7 @@ export const AddProject = (props) => {
                                                     >
                                                         <Text>Patron sélectionné n°{index + 1}</Text>
                                                         <PreviewButtonContainer>
-                                                            <Preview 
+                                                            <Preview
                                                                 src={selectedPat.photo}
                                                                 data-selectedpatternid={selectedPat.id}
                                                             ></Preview>
@@ -940,9 +982,9 @@ export const AddProject = (props) => {
                                                         </PreviewButtonContainer>
 
                                                         <SelectedArticleInfo
-                                                             className="pattern"
+                                                            className="pattern"
                                                         >
-                                                            {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand} {" - "}
+                                                            {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand}
                                                         </SelectedArticleInfo>
                                                         {/* <QuantityContainer>
                                                             <QuantityLabel>
@@ -1012,14 +1054,14 @@ export const AddProject = (props) => {
                                             </AddOneArticleContainer>
 
                                             {selectedPattern >= 1 && (
-                                                    <SelectedArticleInfo
-                                                        className="pattern"
-                                                        data-selectedpatternid={
-                                                            selectedPattern[selectedPattern.length - 1].id
-                                                        }
-                                                    >
-                                                        {selectedPattern[selectedPattern.length - 1].name} -{" "}
-                                                    </SelectedArticleInfo>
+                                                <SelectedArticleInfo
+                                                    className="pattern"
+                                                    data-selectedpatternid={
+                                                        selectedPattern[selectedPattern.length - 1].id
+                                                    }
+                                                >
+                                                    {selectedPattern[selectedPattern.length - 1].name} -{" "}
+                                                </SelectedArticleInfo>
                                             )}
                                         </>
                                     )}
@@ -1043,7 +1085,7 @@ export const AddProject = (props) => {
                                                         patternObject.patterns.push({
                                                             pattern_id: pattern.id
                                                         });
-                                            
+
                                                         // keep last pattern object with same the id
                                                         let patternsResult = [
                                                             ...patternObject.patterns
@@ -1052,22 +1094,22 @@ export const AddProject = (props) => {
                                                                 }, new Map())
                                                                 .values(),
                                                         ];
-                                            
+
                                                         patternObject.patterns = patternsResult;
                                                         setValues(patternObject);
                                                         console.log(patternObject, "pattern object");
                                                         setShowAddOneMoreButton(true);
                                                     }}
-                                                    
+
                                                 >
-                                                    <CardContainer 
+                                                    <CardContainer
                                                         key={pattern.id}
                                                     >
                                                         <ImgContainer>
                                                             <CardImg src={pattern.photo} alt={pattern.alt} />
                                                         </ImgContainer>
                                                         <CardText>
-                                                        {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
                                                         </CardText>
                                                     </CardContainer>
                                                 </CardsMapContainer>
@@ -1097,7 +1139,7 @@ export const AddProject = (props) => {
                                                         </ImgContainer>
 
                                                         <CardText>
-                                                        {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
                                                         </CardText>
                                                     </CardContainer>
                                                 </CardsMapContainer>
@@ -1113,6 +1155,55 @@ export const AddProject = (props) => {
                                 </>
                             )}
                         </Section>
+
+                        {/* Project picture */}
+                        <Section>
+                            <TitleSectionContainer>
+                                <TitleSection>PHOTO DU PROJET</TitleSection>
+                                {showPatternSection ? (
+                                    <MinusIcon onClick={isOpeningPictureSection} />
+                                ) : (
+                                    <PlusIcon onClick={isOpeningPictureSection} />
+                                )}
+                            </TitleSectionContainer>
+                            {showPictureSection && (
+                                <>
+                                    <AddOneArticleContainer>
+                                        {/* CHOISIR UNE PHOTO DE PROFIL AU PROJET */}
+                                        <PreviewContainer>
+
+
+                                            <Text>Sélectionnez une photo pour votre projet</Text>
+                                            <PreviewButtonContainer
+                                                className="firstShow"
+                                            >
+                                                <Preview src={values.photo.length == 0 ? YtremaLogo : preview}></Preview>
+
+                                            </PreviewButtonContainer>
+                                            <div>
+                                                <label htmlFor="projectPicture"></label>
+                                                <input
+                                                    htmlFor="projectPicture"
+                                                    accept="image/*"
+                                                    placeholder="Photo du projet"
+                                                    type="file"
+                                                    name="photo"
+                                                    onChange={onChange}
+                                                >
+                                                </input>
+                                            </div>
+                                        </PreviewContainer>
+                                    </AddOneArticleContainer>
+                                </>
+                            )}
+
+                        </Section>
+                        <ButtonForm
+                            type='submit'
+                            onClick={handleSubmit}
+                        >
+                            Enregister ce projet
+                        </ButtonForm>
                     </Form>
                 </FormContainer>
             </AddProjectContainer>
