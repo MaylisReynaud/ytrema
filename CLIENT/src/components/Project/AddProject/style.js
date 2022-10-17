@@ -351,7 +351,9 @@ export const SelectedArticleInfo = styled.h3`
   margin: 2rem 1.5rem 0 1.5rem;
   font : 600 1rem '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
-
+  &[class~="pattern"] {
+    margin-bottom: 1.5rem;
+  }
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;
