@@ -448,3 +448,24 @@ export const ButtonForm = styled.button`
         margin-left: 3.5rem;
   }
 `;
+
+export const PictureInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  width: 100%;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+`;
+
+export const PictureInput = styled.input`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  width: 79%;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  color: ${props => props.theme.color4};
+`;

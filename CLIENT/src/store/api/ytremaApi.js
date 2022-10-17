@@ -9,7 +9,7 @@ export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   // baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
-  tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth'],
+  tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth', 'Project'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {
@@ -254,6 +254,20 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Auth'],
   }),
+  addOneProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, body} = arg;
+      return {
+        url: `/project/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
   })
 });
 
@@ -276,6 +290,7 @@ export const {
               useDeleteAllPatternsMutation, 
               useUpdateOnePatternMutation,
               useUpdateOneUserMutation,
-              useDeleteOneUserMutation
+              useDeleteOneUserMutation,
+              useAddOneProjectMutation
              } = ytremaApi;
 

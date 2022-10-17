@@ -80,12 +80,15 @@ export function FabricForm({ setShowModal, showModal }) {
 
   useEffect(() => {
     if (!selectedFile) {
+      console.log('dan sif de use effect')
       setPreview(undefined);
       return
     }
 
     const objectUrl = URL.createObjectURL(selectedFile);
+   
     setPreview(objectUrl);
+    console.log('objectUrl', objectUrl, preview);
 
     // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
@@ -158,6 +161,7 @@ export function FabricForm({ setShowModal, showModal }) {
     if (event.target.name === 'photo') {
       onSelectFile(event);
       if (!event.target.files || event.target.files.length > 0) {
+        console.log(handleUpload(event.target.files[0]), 'handleUpload(event.target.files[0]) dans on change')
         handleUpload(event.target.files[0]);
       }
     }
@@ -169,7 +173,7 @@ export function FabricForm({ setShowModal, showModal }) {
       >
         <InputContainer>
           {values.photo ?
-            <ArticlePicture src={preview} alt="default fabric picture" />
+            <ArticlePicture src={preview} alt="fabric preview" />
             :
             <DefaultArticlePicture src={YtremaLogo} alt="default fabric picture" />
           }

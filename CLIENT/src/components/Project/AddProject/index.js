@@ -5,7 +5,7 @@ import { storage } from "../../../Firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { DeviceSize } from "../../Navbar/Responsive";
-import { addAllFabrics } from "../../../store/state/fabricSlice";
+import { addOneProject } from "../../../store/state/projectSlice";
 import {
     AddButton,
     CardsMapContainer,
@@ -42,7 +42,9 @@ import {
     AddReturnButtonContainer,
     CardsContainer,
     PreviewButtonContainer,
-    ButtonForm
+    ButtonForm,
+    PictureInputContainer,
+    PictureInput
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
@@ -79,7 +81,6 @@ export const AddProject = (props) => {
     const [fabricsFiltered, setFabricsFiltered] = useState([]);
 
     const isOpeningFabricsCards = () => {
-        console.log(fabrics, "fabrics ")
         setShowAllFabrics((prev) => !prev);
 
         // Create array with all fabrics remaining 
@@ -127,7 +128,8 @@ export const AddProject = (props) => {
     });
 
     const onChange = (event) => {
-        console.log(event.target.value, 'event target value dans onchange');
+        setValues({ ...values, [event.target.name]: event.target.value });
+
         if (event.target.dataset.selectedfabricid) {
             let fabricObject = values;
             fabricObject.fabrics.push({
@@ -145,10 +147,8 @@ export const AddProject = (props) => {
                     }, new Map())
                     .values(),
             ];
-
             fabricObject.fabrics = fabricsResult;
             setValues(fabricObject);
-            console.log(fabricObject, "fabric object");
             setShowAddOneMoreButton(true);
         };
         if (event.target.dataset.selectedhaberdasheryid) {
@@ -172,21 +172,17 @@ export const AddProject = (props) => {
 
             haberdasheryObject.haberdasheries = haberdasheriesResult;
             setValues(haberdasheryObject);
-            console.log(haberdasheryObject, "haberdashery object");
             setShowAddOneMoreButton(true);
         }
         if (event.target.name === 'photo') {
+            
             onSelectPicture(event);
             if (!event.target.files || event.target.files.length > 0) {
-                console.log(handleUpload(event.target.files[0]), 'handleUpload(event.target.files[0]) dans on change')
                 handleUpload(event.target.files[0]);
             }
         }
-        else {
-            setValues({ ...values, [event.target.name]: event.target.value });
-        }
     };
-    console.log(values, "values après on change")
+
 
     //HABERDASHERY
 
@@ -200,8 +196,6 @@ export const AddProject = (props) => {
     const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
 
     const isOpeningHaberdasheriesCards = () => {
-        console.log(haberdasheries, "haberdasheries ")
-        console.log(showAllHaberdasheries, 'dans is openings Haberdasheries Cards')
         setShowAllHaberdasheries((prev) => !prev);
 
         // Create array with all haberdasheries remaining 
@@ -249,8 +243,6 @@ export const AddProject = (props) => {
     const [patternsFiltered, setPatternsFiltered] = useState([]);
 
     const isOpeningPatternsCards = () => {
-        console.log(patterns, "patterns ")
-        console.log(showAllPatterns, 'dans is openings Patterns Cards')
         setShowAllPatterns((prev) => !prev);
 
         // Create array with all patterns remaining 
@@ -300,11 +292,10 @@ export const AddProject = (props) => {
 
     useEffect(() => {
         if (!selectedPicture) {
-            setPreview(YtremaLogo);
+            setPreview(undefined);
             return;
         }
         const objectUrl = URL.createObjectURL(selectedPicture);
-        setPreview(objectUrl);
 
         // free memory when ever this component is unmounted
         return () => URL.revokeObjectURL(objectUrl);
@@ -337,16 +328,17 @@ export const AddProject = (props) => {
                     .then((url) => {
                         console.log(url, 'url dans handleupload');
                         setPictureURL(url);
+                        setPreview(url);
                     });
             }
         );
     };
 
+    //Submit form
     const handleSubmit = async (event) => {
         event.preventDefault();
         const valuesToSend = values;
         valuesToSend.photo = pictureURL;
-        console.log(valuesToSend, 'values to send dans submit');
 
         // await addOneProject({ memberId: auth.id, body: valuesToSend });
 
@@ -433,10 +425,6 @@ export const AddProject = (props) => {
                                                             <Preview src={selectedFab.photo}></Preview>
                                                             <RemoveButton
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        values,
-                                                                        "values dans remove button"
-                                                                    );
                                                                     setSelectedFabric((current) =>
                                                                         current.filter((fabric) => {
                                                                             return fabric.id !== selectedFab.id;
@@ -665,10 +653,6 @@ export const AddProject = (props) => {
                                         >
                                             {selectedHaberdashery.length == 0 && (
                                                 <>
-                                                    {console.log(
-                                                        selectedHaberdashery,
-                                                        "selectedHaberdashery dans selectionnez votre 1er article"
-                                                    )}
                                                     <Text>Sélectionnez votre premier article</Text>
                                                     <PreviewButtonContainer
                                                         className="firstShow"
@@ -696,10 +680,6 @@ export const AddProject = (props) => {
                                                             <Preview src={selectedHab.photo}></Preview>
                                                             <RemoveButton
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        values,
-                                                                        "values dans remove button"
-                                                                    );
                                                                     setSelectedHaberdashery((current) =>
                                                                         current.filter((haberdashery) => {
                                                                             return haberdashery.id !== selectedHab.id;
@@ -881,7 +861,6 @@ export const AddProject = (props) => {
                                                         setSelectedHaberdashery(habObject);
                                                         setHaberdasheryPreview(haberdashery.photo);
                                                         showAddOneMoreHaberdashery && isOpeningOneMoreHaberdashery();
-                                                        console.log(showAddOneMoreHaberdashery, 'show add one more haberdashery in on click fabric filter')
                                                     }}
                                                 >
                                                     <CardContainer key={haberdashery.id}>
@@ -926,10 +905,6 @@ export const AddProject = (props) => {
                                         >
                                             {selectedPattern.length == 0 && (
                                                 <>
-                                                    {console.log(
-                                                        selectedPattern,
-                                                        "selectedPattern dans selectionnez votre 1er article"
-                                                    )}
                                                     <Text>Sélectionnez votre premier patron</Text>
                                                     <PreviewButtonContainer
                                                         className="firstShow"
@@ -960,10 +935,6 @@ export const AddProject = (props) => {
                                                             ></Preview>
                                                             <RemoveButton
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        values,
-                                                                        "values dans remove button"
-                                                                    );
                                                                     setSelectedPattern((current) =>
                                                                         current.filter((pattern) => {
                                                                             return pattern.id !== selectedPat.id;
@@ -1076,12 +1047,10 @@ export const AddProject = (props) => {
                                                         isOpeningPatternsCards();
                                                         let patObject = selectedPattern;
                                                         patObject.push(pattern);
-                                                        console.log(patObject, "patObject dans on click")
                                                         setSelectedPattern(patObject);
                                                         setPatternPreview(pattern.photo);
                                                         showAddOneMorePattern && isOpeningOneMorePattern();
                                                         let patternObject = values;
-                                                        console.log(patternObject, 'pattern object dans on change')
                                                         patternObject.patterns.push({
                                                             pattern_id: pattern.id
                                                         });
@@ -1097,7 +1066,6 @@ export const AddProject = (props) => {
 
                                                         patternObject.patterns = patternsResult;
                                                         setValues(patternObject);
-                                                        console.log(patternObject, "pattern object");
                                                         setShowAddOneMoreButton(true);
                                                     }}
 
@@ -1129,8 +1097,7 @@ export const AddProject = (props) => {
                                                         patObject.push(pattern);
                                                         setSelectedPattern(patObject);
                                                         setPatternPreview(pattern.photo);
-                                                        showAddOneMorePattern && isOpeningOneMorePattern();
-                                                        console.log(showAddOneMorePattern, 'show add one more pattern in on click pattern filter')
+                                                        showAddOneMorePattern && isOpeningOneMorePattern
                                                     }}
                                                 >
                                                     <CardContainer key={pattern.id}>
@@ -1160,7 +1127,7 @@ export const AddProject = (props) => {
                         <Section>
                             <TitleSectionContainer>
                                 <TitleSection>PHOTO DU PROJET</TitleSection>
-                                {showPatternSection ? (
+                                {showPictureSection ? (
                                     <MinusIcon onClick={isOpeningPictureSection} />
                                 ) : (
                                     <PlusIcon onClick={isOpeningPictureSection} />
@@ -1175,14 +1142,19 @@ export const AddProject = (props) => {
 
                                             <Text>Sélectionnez une photo pour votre projet</Text>
                                             <PreviewButtonContainer
-                                                className="firstShow"
+                                            // className="firstShow"
                                             >
-                                                <Preview src={values.photo.length == 0 ? YtremaLogo : preview}></Preview>
+                                                {values.photo ?
+                                                <Preview src={preview}></Preview>
+                                                :
+                                                <Preview src={YtremaLogo}></Preview>
+                                                }
+                                                {/* <Preview src={values.photo.length == 0 ? YtremaLogo : preview}></Preview> */}
 
                                             </PreviewButtonContainer>
-                                            <div>
+                                            <PictureInputContainer>
                                                 <label htmlFor="projectPicture"></label>
-                                                <input
+                                                <PictureInput
                                                     htmlFor="projectPicture"
                                                     accept="image/*"
                                                     placeholder="Photo du projet"
@@ -1190,8 +1162,8 @@ export const AddProject = (props) => {
                                                     name="photo"
                                                     onChange={onChange}
                                                 >
-                                                </input>
-                                            </div>
+                                                </PictureInput>
+                                            </PictureInputContainer>
                                         </PreviewContainer>
                                     </AddOneArticleContainer>
                                 </>
