@@ -254,6 +254,19 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Auth'],
   }),
+  getAllProjects: builder.query({
+    query: (memberId) => {
+      token = sessionStorage.getItem("token");
+      return {
+        url: `/project/all/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Project'],
+  }),
   addOneProject: builder.mutation({
     query: (arg) =>{
       const {memberId, body} = arg;
@@ -262,6 +275,45 @@ export const ytremaApi = createApi({
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  deleteOneProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId} = arg;
+    return {
+      url: `/project/${projectId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  deleteAllProjects: builder.mutation({
+    query: (memberId) => {
+    return {
+      url: `/project/all/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  updateOneProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, body} = arg;
+    return {
+      url: `/project/${projectId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
         },
         body
       }
@@ -291,6 +343,10 @@ export const {
               useUpdateOnePatternMutation,
               useUpdateOneUserMutation,
               useDeleteOneUserMutation,
-              useAddOneProjectMutation
+              useGetAllProjectsQuery,
+              useAddOneProjectMutation,
+              useDeleteOneProjectMutation, 
+              useDeleteAllProjectsMutation, 
+              useUpdateOneProjectMutation,
              } = ytremaApi;
 

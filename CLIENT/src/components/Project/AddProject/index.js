@@ -60,8 +60,9 @@ export const AddProject = (props) => {
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
-    const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
     const patterns = persistedReducer.patterns;
+    const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
+  
 
 
     useEffect(() => {
@@ -131,11 +132,13 @@ export const AddProject = (props) => {
         setValues({ ...values, [event.target.name]: event.target.value });
 
         if (event.target.dataset.selectedfabricid) {
+            const fabricCard = fabrics.value.find((fabric) => fabric.id == event.target.dataset.selectedfabricid);
             let fabricObject = values;
             fabricObject.fabrics.push({
-                fabric_id: event.target.dataset.selectedfabricid,
-                fabric_quantity: event.target.dataset.selectedfabricquantity,
-                fabric_price: event.target.dataset.selectedfabricprice,
+                fabric_id: fabricCard.id,
+                fabric_purchase_qty: fabricCard.quantity,
+                fabric_qty_stock:fabricCard.qty_stock,
+                fabric_price: fabricCard.price,
                 fabric_used_size: event.target.value,
             });
 
@@ -152,15 +155,15 @@ export const AddProject = (props) => {
             setShowAddOneMoreButton(true);
         };
         if (event.target.dataset.selectedhaberdasheryid) {
-
+            const haberdasheryCard = haberdasheries.value.find((haberdashery) => haberdashery.id == event.target.dataset.selectedhaberdasheryid);
             let haberdasheryObject = values;
             haberdasheryObject.haberdasheries.push({
-                haberdashery_id: event.target.dataset.selectedhaberdasheryid,
-                haberdashery_is_cut : event.target.dataset.selectedhaberdasheryiscut,
-                haberdashery_is_a_set : event.target.dataset.selectedhaberdasheryisaset,
-                haberdashery_purchase_qty : event.target.dataset.selectedhaberdasherypurchaseqty,
-                haberdashery_qty_stock: event.target.dataset.selectedhaberdasheryqtystock,
-                haberdashery_price: event.target.dataset.selectedhaberdasheryprice,
+                haberdashery_id: haberdasheryCard.id,
+                haberdashery_is_cut : haberdasheryCard.is_cut,
+                haberdashery_is_a_set : haberdasheryCard.is_a_set,
+                haberdashery_purchase_qty : haberdasheryCard.purchase_qty,
+                haberdashery_qty_stock: haberdasheryCard.qty_stock,
+                haberdashery_price: haberdasheryCard.price,
                 haberdashery_used_size: event.target.value,
             });
 
@@ -459,10 +462,6 @@ export const AddProject = (props) => {
                                                                 mobile
                                                                 id="fabric_used_size"
                                                                 data-selectedfabricid={selectedFab.id}
-                                                                data-selectedfabricquantity={
-                                                                    selectedFab.quantity
-                                                                }
-                                                                data-selectedfabricprice={selectedFab.price}
                                                                 name="fabric_used_size"
                                                                 max={selectedFab.quantity}
                                                                 step="1"
@@ -544,14 +543,14 @@ export const AddProject = (props) => {
                                                             data-selectedfabricid={
                                                                 selectedFabric[selectedFabric.length - 1].id
                                                             }
-                                                            data-selectedfabricquantity={
-                                                                selectedFabric[selectedFabric.length - 1]
-                                                                    .quantity
-                                                            }
-                                                            data-selectedfabricprice={
-                                                                selectedFabric[selectedFabric.length - 1]
-                                                                    .price
-                                                            }
+                                                            // data-selectedfabricquantity={
+                                                            //     selectedFabric[selectedFabric.length - 1]
+                                                            //         .quantity
+                                                            // }
+                                                            // data-selectedfabricprice={
+                                                            //     selectedFabric[selectedFabric.length - 1]
+                                                            //         .price
+                                                            // }
                                                             name="fabric_used_size"
                                                             max={
                                                                 selectedFabric[selectedFabric.length - 1]
@@ -713,11 +712,11 @@ export const AddProject = (props) => {
                                                                 type="number"
                                                                 id="haberdashery_used_size"
                                                                 data-selectedhaberdasheryid={selectedHab.id}
-                                                                data-selectedhaberdasheryiscut={selectedHab.is_cut}
-                                                                data-selectedhaberdasheryisaset={selectedHab.isaset}
-                                                                data-selectedhaberdasherypurchaseqty={selectedHab.purchase_qty}
-                                                                data-selectedhaberdasheryqtystock={selectedHab.qty_stock}
-                                                                data-selectedhaberdasheryprice={selectedHab.price}
+                                                                // data-selectedhaberdasheryiscut={selectedHab.is_cut}
+                                                                // data-selectedhaberdasheryisaset={selectedHab.isaset}
+                                                                // data-selectedhaberdasherypurchaseqty={selectedHab.purchase_qty}
+                                                                // data-selectedhaberdasheryqtystock={selectedHab.qty_stock}
+                                                                // data-selectedhaberdasheryprice={selectedHab.price}
                                                                 name="haberdashery_used_size"
                                                                 max={selectedHab.quantity}
                                                                 step="1"
@@ -802,23 +801,23 @@ export const AddProject = (props) => {
                                                             data-selectedhaberdasheryid={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1].id
                                                             }
-                                                            data-selectedhaberdasheryiscut={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1].is_cut
-                                                            }
-                                                            data-selectedhaberdasheryisaset={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1].is_a_set
-                                                            }
-                                                            data-selectedhaberdasherypurchaseqty={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .purchase_qty
-                                                            }
-                                                            data-selectedhaberdasheryqtystock={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1].qty_stock
-                                                            }
-                                                            data-selectedhaberdasheryprice={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .price
-                                                            }
+                                                            // data-selectedhaberdasheryiscut={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].is_cut
+                                                            // }
+                                                            // data-selectedhaberdasheryisaset={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].is_a_set
+                                                            // }
+                                                            // data-selectedhaberdasherypurchaseqty={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                            //         .purchase_qty
+                                                            // }
+                                                            // data-selectedhaberdasheryqtystock={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].qty_stock
+                                                            // }
+                                                            // data-selectedhaberdasheryprice={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                            //         .price
+                                                            // }
                                                             name="haberdashery_used_size"
                                                             max={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
