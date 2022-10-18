@@ -4,6 +4,7 @@ import authReducer from './state/authSlice';
 import fabricsReducer from './state/fabricSlice';
 import haberdasheriesReducer from './state/haberdasherySlice';
 import patternsReducer from './state/patternSlice';
+import projectsReducer from './state/projectSlice';
 import { ytremaApi } from './api/ytremaApi';
 import { combineReducers } from 'redux';
 import {
@@ -22,7 +23,8 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   fabrics: fabricsReducer,
   haberdasheries: haberdasheriesReducer,
-  patterns: patternsReducer
+  patterns: patternsReducer,
+  projects: projectsReducer
 });
 
 export const persistConfig = {

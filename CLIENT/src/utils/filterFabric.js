@@ -38,4 +38,3 @@ export const filterFabric = (filteredCategory) => {
   
   return filter_fabrics;
 };
-

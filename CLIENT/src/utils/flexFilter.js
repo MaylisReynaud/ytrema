@@ -34,6 +34,7 @@ Array.prototype.flexFilter = function(criteria) {
 export const FiltersCards = (articles, filterArticles) => {
 
   const filtered = articles.flexFilter(filterArticles);
+  console.log(filtered, 'filtered dans FiltersCards')
 
   return filtered;
 }
