@@ -1,9 +1,98 @@
 const client = require("./client");
 
-const projectDataMapper = {
-    // async createProject(projectInfo, id) {
 
-    // },
+const projectDataMapper = {
+    async createProject(projectInfo, id) {
+        const {name, status, personal_notes, photo, fabrics, haberdasheries, patterns} = projectInfo;
+        
+        // 1/ CALCULATE THE PRJECT'S COST OF PRODUCTION
+        let projectCost = 0;
+
+        // Cost of fabric used
+        fabrics.map(({fabric_price: price, fabric_used_size: used, fabric_purchase_qty: bought}) => {
+            projectCost += (price * used) / bought;
+        });
+
+        // Cost of haberdashery used
+        haberdasheries.map(({haberdashery_price: price, haberdashery_used_size: used, haberdashery_purchase_qty: bought}) => {
+            projectCost += (price * used) / bought;
+        });
+
+        // Cost of pattern
+        patterns.map(({pattern_price: price}) => {
+            projectCost += price;
+        });
+
+        // Add the cost of production to projectInfo
+        projectInfo.cost_price = Number(projectCost.toFixed(2));
+
+        // 2/ SAVE THE PROJECT AND GET ITS ID
+        // Query to create project in DB
+        let query = {
+            text: `INSERT INTO "project"("name", "cost_price", "status", "member_id") VALUES($1, $2, $3, $4) RETURNING id`,
+            values: [
+                name,
+                projectInfo.cost_price,
+                status,
+                id
+            ]
+        };
+
+        // Send query to DB
+        const createdProjectResult = await client.query(query);
+
+        // Get request result
+        const { rows: createdProject } = createdProjectResult;
+        // Get project ID
+        const {id: projectId} = createdProject[0];
+
+        // Query to save project's photo in DB
+        query = {
+            text: `INSERT INTO "photo"("photo", "personal_notes", "project_id") VALUES($1, $2, $3)`,
+            values: [
+                photo,
+                personal_notes,
+                projectId
+            ]
+        };
+
+        // Send query to DB
+        await client.query(query);
+
+        // 3/ UPDATE STOCK OF FABRICS AND HABERDASHERIES AND ADD THEM IN THE TABLES OF ASSOCIATION
+        // Add in project_has_fabric and update stock in fabric
+        fabrics.map( async ({fabric_id: id, fabric_qty_stock: stock, fabric_used_size: used}) => {
+            await client.query(`INSERT INTO "project_has_fabric"("project_id", "fabric_id", "used_size") VALUES ($1, $2, $3) RETURNING *`,
+            [
+                projectId,
+                id,
+                used    
+            ]);
+
+        });
+
+        // Add in project_has_haberdashery and update stock in haberdashery
+        haberdasheries.map( async ({haberdashery_id: id, haberdashery_qty_stock: stock, haberdashery_used_size: used}) => {
+            await client.query(`INSERT INTO "project_has_haberdashery"("project_id", "haberdashery_id", "used_size") VALUES ($1, $2, $3) RETURNING *`,
+            [
+                projectId,
+                id,
+                used    
+            ])
+        });
+
+        // Add in project_has_pattern
+        patterns.map( async ({pattern_id: id}) => {
+            await client.query(`INSERT INTO "project_has_pattern" ("project_id", "pattern_id") VALUES ($1, $2)`,
+            [
+                projectId,
+                id
+            ])
+        });
+
+        return "ok";
+
+    },
 
     async getAllProjects(id) {
         // Query to get allproject in DB without
@@ -12,6 +101,7 @@ const projectDataMapper = {
             pro.name,
             pro.date,
             pro.status,
+            pro.cost_price,
             JSON_AGG(DISTINCT vofu) AS fabric_array,
             JSON_AGG(DISTINCT vohu) AS haberdashery_array,
             JSON_AGG(DISTINCT vopu) AS pattern_array,
@@ -59,6 +149,7 @@ const projectDataMapper = {
             pro.name,
             pro.date,
             pro.status,
+            pro.cost_price,
             JSON_AGG(DISTINCT vofu) AS fabric_array,
             JSON_AGG(DISTINCT vohu) AS haberdashery_array,
             JSON_AGG(DISTINCT vopu) AS pattern_array
