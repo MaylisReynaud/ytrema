@@ -156,7 +156,10 @@ export const AddProject = (props) => {
             let haberdasheryObject = values;
             haberdasheryObject.haberdasheries.push({
                 haberdashery_id: event.target.dataset.selectedhaberdasheryid,
-                haberdashery_quantity: event.target.dataset.selectedhaberdasheryquantity,
+                haberdashery_is_cut : event.target.dataset.selectedhaberdasheryiscut,
+                haberdashery_is_a_set : event.target.dataset.selectedhaberdasheryisaset,
+                haberdashery_purchase_qty : event.target.dataset.selectedhaberdasherypurchaseqty,
+                haberdashery_qty_stock: event.target.dataset.selectedhaberdasheryqtystock,
                 haberdashery_price: event.target.dataset.selectedhaberdasheryprice,
                 haberdashery_used_size: event.target.value,
             });
@@ -339,6 +342,7 @@ export const AddProject = (props) => {
         event.preventDefault();
         const valuesToSend = values;
         valuesToSend.photo = pictureURL;
+        console.log(valuesToSend, 'valuesToSend dans submit form');
 
         // await addOneProject({ memberId: auth.id, body: valuesToSend });
 
@@ -709,9 +713,10 @@ export const AddProject = (props) => {
                                                                 type="number"
                                                                 id="haberdashery_used_size"
                                                                 data-selectedhaberdasheryid={selectedHab.id}
-                                                                data-selectedhaberdasheryquantity={
-                                                                    selectedHab.quantity
-                                                                }
+                                                                data-selectedhaberdasheryiscut={selectedHab.is_cut}
+                                                                data-selectedhaberdasheryisaset={selectedHab.isaset}
+                                                                data-selectedhaberdasherypurchaseqty={selectedHab.purchase_qty}
+                                                                data-selectedhaberdasheryqtystock={selectedHab.qty_stock}
                                                                 data-selectedhaberdasheryprice={selectedHab.price}
                                                                 name="haberdashery_used_size"
                                                                 max={selectedHab.quantity}
@@ -797,9 +802,18 @@ export const AddProject = (props) => {
                                                             data-selectedhaberdasheryid={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1].id
                                                             }
-                                                            data-selectedhaberdasheryquantity={
+                                                            data-selectedhaberdasheryiscut={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1].is_cut
+                                                            }
+                                                            data-selectedhaberdasheryisaset={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1].is_a_set
+                                                            }
+                                                            data-selectedhaberdasherypurchaseqty={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .quantity
+                                                                    .purchase_qty
+                                                            }
+                                                            data-selectedhaberdasheryqtystock={
+                                                                selectedHaberdashery[selectedHaberdashery.length - 1].qty_stock
                                                             }
                                                             data-selectedhaberdasheryprice={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
