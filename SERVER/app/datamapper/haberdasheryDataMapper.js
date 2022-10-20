@@ -6,7 +6,10 @@ const haberdasheryDataMapper = {
             name,
             website,
             haberdashery,
-            quantity,
+            // quantity,
+            unit_qty,
+            purchase_qty,
+            stock_qty,
             price,
             size,
             unity,
@@ -14,6 +17,7 @@ const haberdasheryDataMapper = {
             precise_color,
             photo,
             is_cut,
+            is_a_set
         } = haberdasheryInfo;
 
         let query;

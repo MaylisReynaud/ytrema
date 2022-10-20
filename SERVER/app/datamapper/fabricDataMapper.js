@@ -11,7 +11,8 @@ const fabricDataMapper = {
             fabric,
             composition,
             weight,
-            quantity,
+            purchase_qty,
+            stock_qty,
             width,
             price,
             photo
@@ -19,7 +20,7 @@ const fabricDataMapper = {
 
         // Query to create fabric in DB
         const query = {
-            text: `INSERT INTO "fabric"("name", "website", "designer", "color", "precise_color", "fabric", "composition", "weight", "quantity", "width", "price", "photo", "member_id") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+            text: `INSERT INTO "fabric"("name", "website", "designer", "color", "precise_color", "fabric", "composition", "weight", "purchase_qty", "stock_qty", "width", "price", "photo", "member_id") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
             values: [
                 name,
                 website,
@@ -29,7 +30,8 @@ const fabricDataMapper = {
                 fabric,
                 composition,
                 weight,
-                quantity,
+                purchase_qty,
+                stock_qty,
                 width,
                 price,
                 photo,
@@ -131,7 +133,8 @@ const fabricDataMapper = {
             fabric,
             composition,
             weight,
-            quantity,
+            purchase_qty,
+            stock_qty,
             width,
             price,
             photo
@@ -139,7 +142,7 @@ const fabricDataMapper = {
 
         // Query to update fabric in DB
         const query = {
-            text: `UPDATE "fabric" SET "name" = $1, "website" = $2, "designer" = $3, "color" = $4, "precise_color" = $5, "fabric" = $6, "composition" = $7, "weight" = $8, "quantity" = $9, "width" = $10, "price" = $11, "photo" = $12 WHERE "member_id" = $13 AND "id" = $14 RETURNING *`,
+            text: `UPDATE "fabric" SET "name" = $1, "website" = $2, "designer" = $3, "color" = $4, "precise_color" = $5, "fabric" = $6, "composition" = $7, "weight" = $8, "purchase_qty" = $9, "stock_qty" = $10, "width" = $11, "price" = $12, "photo" = $13 WHERE "member_id" = $14 AND "id" = $15 RETURNING *`,
             values: [
                 name,
                 website,
@@ -149,7 +152,8 @@ const fabricDataMapper = {
                 fabric,
                 composition,
                 weight,
-                quantity,
+                purchase_qty,
+                stock_qty,
                 width,
                 price,
                 photo,
