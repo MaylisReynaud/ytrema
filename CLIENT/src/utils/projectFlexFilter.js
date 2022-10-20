@@ -1,50 +1,80 @@
-Array.prototype.flexFilter = function(criteria) {
+Array.prototype.flexFilter = function (criteria) {
 
   //set variables
   let matchFilters;
   let matches = [];
   let counter;
+  let criteriaValuesCounter=0;
 
-  console.log(criteria, 'criteria dans flexfilter');
 
   //helper function to iterate over the criteria (filter criteria)
-  matchFilters = function(item) {
-      counter = 0;
+  matchFilters = function (item) {
+    counter = 0;
 
-      for (let n = 0; n < criteria.length; n++) {
-        console.log(criteria, "criteria");
-        console.log(item, "item");
+    for (let n = 0; n < criteria.length; n++) {
+      console.log(criteria, "criteria");
 
-       //For all properties in object
-        if([criteria[n]['Field']] == "status") {
-            if (criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1){
-              console.log(counter, "counter++");
-              counter++;
-            }
-        } 
 
-        //Adapter 
-          // if (
-          //     criteria[n]['Values'].indexOf(item.fabric_array[0][criteria[n]['Field']]) > -1
-          // ) 
-          // {
-          //   console.log(counter, "counter++");
-          //     counter++;
-          // }
-   
+      //For all properties in object
+      if ([criteria[n]['Field']] == "status") {
+        if (criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1) {
+          console.log(counter, "counter++");
+          counter++;
+        }
       }
-      // The array's current items satisfies all the filter criteria, if it is true
-      return counter == criteria.length;
+
+      //For fabric and pattern array
+      // if (
+      //     criteria[n]['Values'].indexOf(item.fabric_array[0][criteria[n]['Field']]) > -1
+      // ) 
+      // {
+      //   console.log(counter, "counter++");
+      //     counter++;
+      // }
+      if ([criteria[n]['Array']] == "fabric_array") {
+        item.fabric_array.map((el) => {
+
+          if (criteria[n]['Values'].indexOf(el[criteria[n]['Field']]) > -1) {
+
+
+            counter++;
+            console.log(counter, "counter");
+          }
+
+        })
+      }
+
+
+
+    }
+    // The array's current items satisfies all the filter criteria, if it is true
+    console.log(counter, criteria.length, criteria.values.length, 'counter, criteria.length, criteria.values.length');
+    // console.log((counter == criteria.length) , "(counter == criteria.length)")
+    console.log((counter == criteria.values.length), "|| (counter == criteria.values.length)")
+    
+    if (counter != criteria.length ) {
+      criteria.map(( {Values}) => {
+        console.log(Values.length, 'values.length')
+        criteriaValuesCounter = criteriaValuesCounter + Values.length;
+        console.log(criteriaValuesCounter, 'criteriavaluescounter')
+      }
+      )
+
+    }
+    return (counter == criteria.length) || (counter == criteriaValuesCounter);
+
   };
 
   //loop through every item of the array
   //and checks if the item satisfies the filter criteria
   for (let i = 0; i < this.length; i++) {
-      if (matchFilters(this[i])) {
-          matches.push(this[i]);
-      }
+    console.log(matchFilters(this[i]), "matchFilters(this[i])");
+    if (matchFilters(this[i])) {
+      matches.push(this[i]);
+      console.log('je pousse un object')
+    }
   }
-  console.log(matches, 'matches');
+
   // returns a new array holding the objects that fulfill the filter criteria
   return matches;
 };
@@ -52,10 +82,10 @@ Array.prototype.flexFilter = function(criteria) {
 // filterArticles = filterFabrics or filterHaberdasheries or filterPatterns
 export const ProjectFiltersCards = (articles, filterArticles) => {
 
-  console.log(articles, 'articles');
-  console.log( filterArticles, 'filterArticles');
+
+
   const filtered = articles.flexFilter(filterArticles);
- console.log(filtered, 'filtered dans FiltersCards');
+
 
   return filtered;
 }

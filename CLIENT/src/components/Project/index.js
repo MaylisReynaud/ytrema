@@ -88,9 +88,7 @@ export const Project = (props, index) => {
 
     useEffect(() => {
         if (isSuccess && data) {
-            console.log(data.projects, 'data.projects dans use effect');
             dispatch(addAllProjects(data.projects));
-            console.log('coucou')
         }
     }, [data, projects]);
 
@@ -357,7 +355,6 @@ export const Project = (props, index) => {
                             filterByCategory.length == 0 ? (
                             <>
                                 <CardsContainer>
-                                    {console.log(projects, 'projects')}
                                     {projects.value.map((project) => (
                                        
                                         <CardsMapContainer key={project.id}>
