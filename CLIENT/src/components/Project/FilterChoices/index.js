@@ -18,6 +18,7 @@ export function FilterChoices({ showFilter, showAllDesktopFilters, categories, s
                 <>
                     {showFilter ?
                         <CheckboxesContainer>
+                            {console.log(categories, "categories")}
                             {categories.map((category, index) => (
 
                                 <CheckboxLabel

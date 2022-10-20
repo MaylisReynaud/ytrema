@@ -46,7 +46,7 @@ import { FilterAlt } from "@styled-icons/boxicons-solid";
 import YtremaLogo from "../../assets/images/logo.png";
 import { AddProject } from "./AddProject";
 import { FilterChoices } from "./FilterChoices";
-import { FiltersCards } from "../../utils/flexFilter";
+import { ProjectFiltersCards } from "../../utils/projectFlexFilter";
 import { filterProject } from "../../utils/filterProject";
 
 
@@ -100,7 +100,8 @@ export const Project = (props, index) => {
         console.log(filterProjects, 'filterProjects dans mapfiltered cards')
 
         // Array including selected project cards  which match from the user choices
-        const resultFiltersCards = FiltersCards(projects.value, filterProjects);
+        const resultFiltersCards = ProjectFiltersCards(projects.value, filterProjects);
+      
 
         return (
             <CardsContainer>

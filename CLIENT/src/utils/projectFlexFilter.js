@@ -10,18 +10,28 @@ Array.prototype.flexFilter = function(criteria) {
   //helper function to iterate over the criteria (filter criteria)
   matchFilters = function(item) {
       counter = 0;
+
       for (let n = 0; n < criteria.length; n++) {
-  
-        console.log(criteria[n]['Values'], "criteria[n]['Values']");
-        console.log(item, 'item');
-        console.log(item[criteria[n]['Field']], "item[criteria[n]['Field']]");
-        
-          if (
-              criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1
-          ) {
-            console.log(criteria[n]['Values'].indexOf(item[criteria[n]['Field']]), "criteria[n]['Values'].indexOf(item[criteria[n]['Field']])");
+        console.log(criteria, "criteria");
+        console.log(item, "item");
+
+       //For all properties in object
+        if([criteria[n]['Field']] == "status") {
+            if (criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1){
+              console.log(counter, "counter++");
               counter++;
-          }
+            }
+        } 
+
+        //Adapter 
+          // if (
+          //     criteria[n]['Values'].indexOf(item.fabric_array[0][criteria[n]['Field']]) > -1
+          // ) 
+          // {
+          //   console.log(counter, "counter++");
+          //     counter++;
+          // }
+   
       }
       // The array's current items satisfies all the filter criteria, if it is true
       return counter == criteria.length;
@@ -40,7 +50,7 @@ Array.prototype.flexFilter = function(criteria) {
 };
 // articles = fabrics or haberdasheries or patterns or projects
 // filterArticles = filterFabrics or filterHaberdasheries or filterPatterns
-export const FiltersCards = (articles, filterArticles) => {
+export const ProjectFiltersCards = (articles, filterArticles) => {
 
   console.log(articles, 'articles');
   console.log( filterArticles, 'filterArticles');

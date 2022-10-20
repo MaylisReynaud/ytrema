@@ -8,13 +8,13 @@ export const filterProject = (filteredCategory) => {
   let patternGendersTab = [];
   let statusTab = [];
   let filter_projects = [
-    { Field: "fabrics", Values: "" },
-    { Field: "fabricsDesigner", Values: "" },
-    { Field: "fabricsColor", Values: "" },
-    { Field: "patternBrands", Values: "" },
-    { Field: "patternClothings", Values: "" },
-    { Field: "patternGenders", Values: "" },
-    { Field: "status", Values: "" },
+    { Field: "fabric", Values: "", Array:"fabric_array" },
+    { Field: "designer", Values: "", Array:"fabric_array" },
+    { Field: "color", Values: "", Array:"fabric_array" },
+    { Field: "brand", Values: "", Array:"pattern_array" },
+    { Field: "clothing", Values: "", Array:"pattern_array" },
+    { Field: "gender", Values: "", Array:"pattern_array" },
+    { Field: "status", Values: "", Array:null },
   ];
 
   filteredCategory.map((el) => {
@@ -36,22 +36,23 @@ export const filterProject = (filteredCategory) => {
   });
 
   filter_projects.map((el) => {
-    return el.Field === "fabrics"
+    return el.Field === "fabric"
       ? (el.Values = fabricsTab)
-      : el.Field === "fabricsDesigner"
+      : el.Field === "designer"
       ? (el.Values = fabricDesignersTab)
-      : el.Field === "fabricsColor"
+      : el.Field === "color"
       ? (el.Values = fabricColorsTab)
-      : el.Field === "patternBrands"
+      : el.Field === "brand"
       ? (el.Values = patternBrandsTab)
-      : el.Field === "patternClothings"
+      : el.Field === "clothing"
       ? (el.Values = patternClothingsTab)
-      : el.Field === "patternGenders"
+      : el.Field === "gender"
       ? (el.Values = patternGendersTab)
       : el.Field === "status"
       ? (el.Values = statusTab)
       : null
   });
+
 
   filter_projects = filter_projects.filter((el) => el.Values.length > 0);
   

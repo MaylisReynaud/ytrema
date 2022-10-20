@@ -5,6 +5,7 @@ export const CheckboxesContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin-left: 1rem;
+    overflow-y: scroll;
     
     @media screen and (max-width:600px) {
         overflow-y: scroll;
