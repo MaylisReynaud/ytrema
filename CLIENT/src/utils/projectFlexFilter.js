@@ -1,10 +1,10 @@
-Array.prototype.flexFilter = function (criteria) {
+Array.prototype.projectFlexFilter = function (criteria) {
 
   //set variables
   let matchFilters;
   let matches = [];
   let counter;
-  let criteriaValuesCounter=0;
+  let criteriaValuesCounter = 0;
 
 
   //helper function to iterate over the criteria (filter criteria)
@@ -35,15 +35,23 @@ Array.prototype.flexFilter = function (criteria) {
         item.fabric_array.map((el) => {
 
           if (criteria[n]['Values'].indexOf(el[criteria[n]['Field']]) > -1) {
-
-
             counter++;
-            console.log(counter, "counter");
-          }
+            console.log(counter, "counter fabric");
+          };
 
-        })
-      }
+        });
+      };
+      if ([criteria[n]['Array']] == "pattern_array") {
+        item.pattern_array.map((el) => {
 
+          if (criteria[n]['Values'].indexOf(el[criteria[n]['Field']]) > -1) {
+            counter++;
+            console.log(counter, "counter pattern");
+          };
+
+        });
+      };
+     
 
 
     }
@@ -51,16 +59,16 @@ Array.prototype.flexFilter = function (criteria) {
     console.log(counter, criteria.length, criteria.values.length, 'counter, criteria.length, criteria.values.length');
     // console.log((counter == criteria.length) , "(counter == criteria.length)")
     console.log((counter == criteria.values.length), "|| (counter == criteria.values.length)")
-    
-    if (counter != criteria.length ) {
-      criteria.map(( {Values}) => {
+
+    if (counter != criteria.length) {
+      criteria.map(({ Values }) => {
         console.log(Values.length, 'values.length')
         criteriaValuesCounter = criteriaValuesCounter + Values.length;
         console.log(criteriaValuesCounter, 'criteriavaluescounter')
       }
       )
-
     }
+    console.log(counter, 'counter avant RETURN')
     return (counter == criteria.length) || (counter == criteriaValuesCounter);
 
   };
@@ -84,7 +92,7 @@ export const ProjectFiltersCards = (articles, filterArticles) => {
 
 
 
-  const filtered = articles.flexFilter(filterArticles);
+  const filtered = articles.projectFlexFilter(filterArticles);
 
 
   return filtered;

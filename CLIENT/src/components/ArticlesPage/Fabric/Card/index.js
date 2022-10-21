@@ -244,7 +244,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteAction={deleteCard}
-                      word={' CE TISSU'}
+                      word={'SUPPRIMER CE TISSU'}
                     />
 
 

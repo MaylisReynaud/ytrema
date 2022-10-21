@@ -10,7 +10,6 @@ export const projectSlice = createSlice({
   reducers: {
     addAllProjects: (state, action) => {
       state.value = action.payload;
-      console.log('coucou dans project slice')
     },
     addProject: (state, action) => {
       state.value.push(action.payload);

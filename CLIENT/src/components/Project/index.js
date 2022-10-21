@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { DeviceSize } from "../../components/Navbar/Responsive";
 import { addAllProjects } from "../../store/state/projectSlice";
 import { useGetAllProjectsQuery } from "../../store/api/ytremaApi";
+import { useGetAllPatternsQuery } from "../../store/api/ytremaApi";
 import {
     Container,
     Title,
@@ -146,7 +147,7 @@ export const Project = (props, index) => {
         //show one filter
         let newCategory = [];
         let uniqueObject = {};
-
+        console.log(categoryObject, "categoryObject dans mapCategoriesFilter")
         categoryObject.map((el, index) => {
             let objName = el["name"];
 
@@ -188,6 +189,7 @@ export const Project = (props, index) => {
                     <>
                         <FilterContainer>
                             <FilterTitle>
+                                {console.log(categoryObject, "category object")}
                                 {categoryObject[0].title}
                                 {showFilter ? (
                                     <MinusIcon onClick={isOpenFilter} />
@@ -249,32 +251,63 @@ export const Project = (props, index) => {
 
                             </>
                         )}
-                        {fabrics
-                            ? fabrics.value.map((fabric) => {
-                                if (fabric.fabric) {
+                        {projects ?
+                        projects.value.map((project) => {
+                            project.fabric_array.map((el) => {
+                                if (el.fabric) {
                                     fabricsFilter.push({
-                                        id: fabric.id,
-                                        name: fabric.fabric,
+                                        id: el.id,
+                                        name: el.fabric,
                                         title: "Tissus",
                                     });
                                 }
-                                if (fabric.designer) {
+                                if (el.designer) {
                                     fabricDesignersFilter.push({
-                                        id: fabric.id,
-                                        name: fabric.designer,
+                                        id: el.id,
+                                        name: el.designer,
                                         title: "Designers",
                                     });
                                 }
-                                if (fabric.color) {
+                                if (el.color) {
                                     fabricColorsFilter.push({
-                                        id: fabric.id,
-                                        name: fabric.color,
+                                        id: el.id,
+                                        name: el.color,
                                         title: "Couleurs",
                                     });
                                 }
                             })
+                            }
+                            )
                             : null}
-                        {patterns
+                                                {projects ?
+                        projects.value.map((project) => {
+                            project.pattern_array.map((el) => {
+                                if (el.brand) {
+                                    patternBrandsFilter.push({
+                                        id: el.id,
+                                        name: el.brand,
+                                        title: "Marques",
+                                    });
+                                }
+                                if (el.gender) {
+                                    patternGendersFilter.push({
+                                        id: el.id,
+                                        name: el.gender,
+                                        title: "Genre",
+                                    });
+                                }
+                                if (el.clothing) {
+                                    patternClothingsFilter.push({
+                                        id: el.id,
+                                        name: el.clothing,
+                                        title: "Catégories",
+                                    });
+                                }
+                            })
+                            }
+                            )
+                            : null}
+                        {/* {patterns
                             ? patterns.value.map((pattern) => {
                                 if (pattern.brand) {
                                     patternBrandsFilter.push({
@@ -298,7 +331,7 @@ export const Project = (props, index) => {
                                     });
                                 }
                             })
-                            : null}
+                            : null} */}
 
                         {projects
                             ? projects.value.map((project) => {

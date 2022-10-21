@@ -5,21 +5,13 @@ Array.prototype.flexFilter = function(criteria) {
   let matches = [];
   let counter;
 
-  console.log(criteria, 'criteria dans flexfilter');
-
   //helper function to iterate over the criteria (filter criteria)
   matchFilters = function(item) {
       counter = 0;
       for (let n = 0; n < criteria.length; n++) {
-  
-        console.log(criteria[n]['Values'], "criteria[n]['Values']");
-        console.log(item, 'item');
-        console.log(item[criteria[n]['Field']], "item[criteria[n]['Field']]");
-        
           if (
               criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1
           ) {
-            console.log(criteria[n]['Values'].indexOf(item[criteria[n]['Field']]), "criteria[n]['Values'].indexOf(item[criteria[n]['Field']])");
               counter++;
           }
       }
@@ -34,18 +26,14 @@ Array.prototype.flexFilter = function(criteria) {
           matches.push(this[i]);
       }
   }
-  console.log(matches, 'matches');
   // returns a new array holding the objects that fulfill the filter criteria
   return matches;
 };
-// articles = fabrics or haberdasheries or patterns or projects
+// articles = fabrics or haberdasheries or patterns
 // filterArticles = filterFabrics or filterHaberdasheries or filterPatterns
 export const FiltersCards = (articles, filterArticles) => {
 
-  console.log(articles, 'articles');
-  console.log( filterArticles, 'filterArticles');
   const filtered = articles.flexFilter(filterArticles);
- console.log(filtered, 'filtered dans FiltersCards');
 
   return filtered;
 }

@@ -26,6 +26,7 @@ import { LoginForm } from '../Registrationpage/RegisterBox/Forms/LoginForm';
 import { Profiler } from 'react';
 import { Project } from '../Project';
 import { AddProject } from '../Project/AddProject';
+import { ProjectCard } from '../Project/ProjectCard';
 
 
 
@@ -72,6 +73,7 @@ const App = () => {
               <Route  path='/profil' element={<Profil />} />
               <Route path='/projets' element={<Project />} />
               <Route path='/projets/nouveau' element={<AddProject />} />
+              <Route path='/projets/:id' element={<ProjectCard />} />
 
               <Route  path='*' element={<NotFound />} />
               
