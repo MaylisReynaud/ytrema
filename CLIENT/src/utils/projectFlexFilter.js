@@ -18,8 +18,9 @@ Array.prototype.projectFlexFilter = function (criteria) {
       //For all properties in object
       if ([criteria[n]['Field']] == "status") {
         if (criteria[n]['Values'].indexOf(item[criteria[n]['Field']]) > -1) {
-          console.log(counter, "counter++");
+
           counter++;
+          
         }
       }
 
@@ -37,6 +38,7 @@ Array.prototype.projectFlexFilter = function (criteria) {
           if (criteria[n]['Values'].indexOf(el[criteria[n]['Field']]) > -1) {
             counter++;
             console.log(counter, "counter fabric");
+            console.log((el[criteria[n]['Field']]), "<== el criteria n field");
           };
 
         });
@@ -69,7 +71,8 @@ Array.prototype.projectFlexFilter = function (criteria) {
       )
     }
     console.log(counter, 'counter avant RETURN')
-    return (counter == criteria.length) || (counter == criteriaValuesCounter);
+    // return (counter == criteria.length) || (counter == criteriaValuesCounter);
+    return (counter == criteria.length);
 
   };
 
