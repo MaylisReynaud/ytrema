@@ -124,7 +124,9 @@ INSERT INTO "photo"("photo", "personal_notes", "project_id")
 -- ------------------------------------
 INSERT INTO "project_has_fabric"("project_id", "fabric_id", "used_size")
     VALUES
-    (1, 2, 110);
+    (1, 2, 110),
+    (1, 3, 50),
+    (2, 12, 20);
 
 -- ------------------------------------
 -- loading data in "project_has_haberdashery" table
