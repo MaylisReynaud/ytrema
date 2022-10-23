@@ -5,7 +5,7 @@ import { storage } from "../../../Firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { DeviceSize } from "../../Navbar/Responsive";
-import { addAllFabrics } from "../../../store/state/fabricSlice";
+import { addOneProject } from "../../../store/state/projectSlice";
 import {
     AddButton,
     CardsMapContainer,
@@ -41,7 +41,10 @@ import {
     ReturnButton,
     AddReturnButtonContainer,
     CardsContainer,
-    PreviewButtonContainer
+    PreviewButtonContainer,
+    ButtonForm,
+    PictureInputContainer,
+    PictureInput
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
@@ -57,7 +60,9 @@ export const AddProject = (props) => {
     const auth = persistedReducer.auth;
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
+    const patterns = persistedReducer.patterns;
     const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
+  
 
 
     useEffect(() => {
@@ -77,7 +82,6 @@ export const AddProject = (props) => {
     const [fabricsFiltered, setFabricsFiltered] = useState([]);
 
     const isOpeningFabricsCards = () => {
-        console.log(fabrics, "fabrics ")
         setShowAllFabrics((prev) => !prev);
 
         // Create array with all fabrics remaining 
@@ -107,35 +111,34 @@ export const AddProject = (props) => {
         setShowAddOneMoreButton(true);
     };
 
+    //Fabric Preview
+    const [selectedFabric, setSelectedFabric] = useState([]);
+    const [fabricPreview, setFabricPreview] = useState();
+    const [addFabricPreview, setAddFabricPreview] = useState();
+    const [showAddOneMoreFabric, setShowAddOneMoreFabric] = useState(false);
+    const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
+
     const [values, setValues] = useState({
         name: "",
         status: "",
-        personal_notes: "",
+        personal_notes: "Photo du projet",
         photo: "",
         fabrics: [],
-        haberdasheries: [
-            {
-                haberdashery_id: "",
-                haberdashery_quantity: "",
-                haberdashery_is_cut: "",
-                haberdashery_price: "",
-                haberdashery_used_size: "",
-            },
-        ],
-        patterns: [
-            {
-                pattern_id: "",
-            },
-        ],
+        haberdasheries: [],
+        patterns: [],
     });
 
     const onChange = (event) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
+
         if (event.target.dataset.selectedfabricid) {
+            const fabricCard = fabrics.value.find((fabric) => fabric.id == event.target.dataset.selectedfabricid);
             let fabricObject = values;
             fabricObject.fabrics.push({
-                fabric_id: event.target.dataset.selectedfabricid,
-                fabric_quantity: event.target.dataset.selectedfabricquantity,
-                fabric_price: event.target.dataset.selectedfabricprice,
+                fabric_id: fabricCard.id,
+                fabric_purchase_qty: fabricCard.quantity,
+                fabric_qty_stock:fabricCard.qty_stock,
+                fabric_price: fabricCard.price,
                 fabric_used_size: event.target.value,
             });
 
@@ -147,18 +150,20 @@ export const AddProject = (props) => {
                     }, new Map())
                     .values(),
             ];
-
             fabricObject.fabrics = fabricsResult;
             setValues(fabricObject);
-            console.log(fabricObject, "fabric object");
             setShowAddOneMoreButton(true);
         };
         if (event.target.dataset.selectedhaberdasheryid) {
+            const haberdasheryCard = haberdasheries.value.find((haberdashery) => haberdashery.id == event.target.dataset.selectedhaberdasheryid);
             let haberdasheryObject = values;
             haberdasheryObject.haberdasheries.push({
-                haberdashery_id: event.target.dataset.selectedhaberdasheryid,
-                haberdashery_quantity: event.target.dataset.selectedhaberdasheryquantity,
-                haberdashery_price: event.target.dataset.selectedhaberdasheryprice,
+                haberdashery_id: haberdasheryCard.id,
+                haberdashery_is_cut : haberdasheryCard.is_cut,
+                haberdashery_is_a_set : haberdasheryCard.is_a_set,
+                haberdashery_purchase_qty : haberdasheryCard.purchase_qty,
+                haberdashery_qty_stock: haberdasheryCard.qty_stock,
+                haberdashery_price: haberdasheryCard.price,
                 haberdashery_used_size: event.target.value,
             });
 
@@ -173,25 +178,22 @@ export const AddProject = (props) => {
 
             haberdasheryObject.haberdasheries = haberdasheriesResult;
             setValues(haberdasheryObject);
-            console.log(haberdasheryObject, "haberdashery object");
             setShowAddOneMoreButton(true);
         }
-        else {
-            setValues({ ...values, [event.target.name]: event.target.value });
+        if (event.target.name === 'photo') {
+            
+            onSelectPicture(event);
+            if (!event.target.files || event.target.files.length > 0) {
+                handleUpload(event.target.files[0]);
+            }
         }
     };
 
-    //Fabric Preview
-    const [selectedFabric, setSelectedFabric] = useState([]);
-    const [fabricPreview, setFabricPreview] = useState();
-    const [addFabricPreview, setAddFabricPreview] = useState();
-    const [showAddOneMoreFabric, setShowAddOneMoreFabric] = useState(false);
-    const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
 
     //HABERDASHERY
 
     //show haberdashery section
-    const [showHaberdasherySection, setShowHaberdasherySection] = useState(true);
+    const [showHaberdasherySection, setShowHaberdasherySection] = useState(false);
     const isOpeningHaberdasherySection = () => {
         setShowHaberdasherySection((prev) => !prev);
     };
@@ -200,8 +202,6 @@ export const AddProject = (props) => {
     const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
 
     const isOpeningHaberdasheriesCards = () => {
-        console.log(haberdasheries, "haberdasheries ")
-        console.log(showAllHaberdasheries, 'dans is openings Haberdasheries Cards')
         setShowAllHaberdasheries((prev) => !prev);
 
         // Create array with all haberdasheries remaining 
@@ -236,6 +236,122 @@ export const AddProject = (props) => {
     const [haberdasheryPreview, setHaberdasheryPreview] = useState();
     const [addHaberdasheryPreview, setAddHaberdasheryPreview] = useState();
     const [showAddOneMoreHaberdashery, setShowAddOneMoreHaberdashery] = useState(false);
+
+    //PATTERNS
+
+    //show pattern section
+    const [showPatternSection, setShowPatternSection] = useState(false);
+    const isOpeningPatternSection = () => {
+        setShowPatternSection((prev) => !prev);
+    };
+    //Show all patterns
+    const [showAllPatterns, setShowAllPatterns] = useState(false);
+    const [patternsFiltered, setPatternsFiltered] = useState([]);
+
+    const isOpeningPatternsCards = () => {
+        setShowAllPatterns((prev) => !prev);
+
+        // Create array with all patterns remaining 
+        if (selectedPattern.length > 0) {
+            let patternsFilteredArray = [];
+            let selectedPatternIdsArray = selectedPattern.map(elem => elem.id);
+
+            patterns.value.map(pattern => {
+                !selectedPatternIdsArray.includes(pattern.id) && patternsFilteredArray.push(pattern);
+            })
+
+            setPatternsFiltered(patternsFilteredArray);
+        }
+    };
+
+    const isOpeningOneMorePattern = (event) => {
+        setShowAddOneMoreButton(true);
+        !showAddOneMorePattern && event.preventDefault();
+        setShowAddOneMorePattern((prev) => !prev);
+    };
+
+    //Close the section to add one more pattern but show the button to add one pattern
+    const isClosingAddOneMorePattern = (event) => {
+        !showAddOneMorePattern && event.preventDefault();
+        setShowAddOneMorePattern(false);
+        setShowAllPatterns(false);
+        setShowAddOneMoreButton(true);
+    };
+
+    //Pattern Preview
+    const [selectedPattern, setSelectedPattern] = useState([]);
+    const [patternPreview, setPatternPreview] = useState();
+    const [addPatternPreview, setAddPatternPreview] = useState();
+    const [showAddOneMorePattern, setShowAddOneMorePattern] = useState(false);
+
+    //PICTURE
+    //show picture section
+    const [showPictureSection, setShowPictureSection] = useState(false);
+    const isOpeningPictureSection = () => {
+        setShowPictureSection((prev) => !prev);
+    };
+
+    //
+    const [selectedPicture, setSelectedPicture] = useState();
+    const [preview, setPreview] = useState();
+    const [pictureURL, setPictureURL] = useState();
+
+    useEffect(() => {
+        if (!selectedPicture) {
+            setPreview(undefined);
+            return;
+        }
+        const objectUrl = URL.createObjectURL(selectedPicture);
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedPicture]);
+
+    const onSelectPicture = (event) => {
+        if (!event.target.files || event.target.files.length === 0) {
+            setSelectedPicture(undefined);
+            return
+        }
+        // I've kept this example simple by using the first image instead of multiple
+        setSelectedPicture(event.target.files[0]);
+    }
+
+    //propre a firebase
+    const handleUpload = (picture) => {
+
+        const uploadTask = storage.ref(`projet/${picture.name}`).put(picture);
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => { },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref("images")
+                    .child(picture.name)
+                    .getDownloadURL()
+                    .then((url) => {
+                        console.log(url, 'url dans handleupload');
+                        setPictureURL(url);
+                        setPreview(url);
+                    });
+            }
+        );
+    };
+
+    //Submit form
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const valuesToSend = values;
+        valuesToSend.photo = pictureURL;
+        console.log(valuesToSend, 'valuesToSend dans submit form');
+
+        // await addOneProject({ memberId: auth.id, body: valuesToSend });
+
+
+
+    };
 
     return (
         <>
@@ -316,10 +432,6 @@ export const AddProject = (props) => {
                                                             <Preview src={selectedFab.photo}></Preview>
                                                             <RemoveButton
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        values,
-                                                                        "values dans remove button"
-                                                                    );
                                                                     setSelectedFabric((current) =>
                                                                         current.filter((fabric) => {
                                                                             return fabric.id !== selectedFab.id;
@@ -350,10 +462,6 @@ export const AddProject = (props) => {
                                                                 mobile
                                                                 id="fabric_used_size"
                                                                 data-selectedfabricid={selectedFab.id}
-                                                                data-selectedfabricquantity={
-                                                                    selectedFab.quantity
-                                                                }
-                                                                data-selectedfabricprice={selectedFab.price}
                                                                 name="fabric_used_size"
                                                                 max={selectedFab.quantity}
                                                                 step="1"
@@ -435,14 +543,14 @@ export const AddProject = (props) => {
                                                             data-selectedfabricid={
                                                                 selectedFabric[selectedFabric.length - 1].id
                                                             }
-                                                            data-selectedfabricquantity={
-                                                                selectedFabric[selectedFabric.length - 1]
-                                                                    .quantity
-                                                            }
-                                                            data-selectedfabricprice={
-                                                                selectedFabric[selectedFabric.length - 1]
-                                                                    .price
-                                                            }
+                                                            // data-selectedfabricquantity={
+                                                            //     selectedFabric[selectedFabric.length - 1]
+                                                            //         .quantity
+                                                            // }
+                                                            // data-selectedfabricprice={
+                                                            //     selectedFabric[selectedFabric.length - 1]
+                                                            //         .price
+                                                            // }
                                                             name="fabric_used_size"
                                                             max={
                                                                 selectedFabric[selectedFabric.length - 1]
@@ -548,10 +656,6 @@ export const AddProject = (props) => {
                                         >
                                             {selectedHaberdashery.length == 0 && (
                                                 <>
-                                                    {console.log(
-                                                        selectedHaberdashery,
-                                                        "selectedHaberdashery dans selectionnez votre 1er article"
-                                                    )}
                                                     <Text>Sélectionnez votre premier article</Text>
                                                     <PreviewButtonContainer
                                                         className="firstShow"
@@ -579,10 +683,6 @@ export const AddProject = (props) => {
                                                             <Preview src={selectedHab.photo}></Preview>
                                                             <RemoveButton
                                                                 onClick={() => {
-                                                                    console.log(
-                                                                        values,
-                                                                        "values dans remove button"
-                                                                    );
                                                                     setSelectedHaberdashery((current) =>
                                                                         current.filter((haberdashery) => {
                                                                             return haberdashery.id !== selectedHab.id;
@@ -612,10 +712,11 @@ export const AddProject = (props) => {
                                                                 type="number"
                                                                 id="haberdashery_used_size"
                                                                 data-selectedhaberdasheryid={selectedHab.id}
-                                                                data-selectedhaberdasheryquantity={
-                                                                    selectedHab.quantity
-                                                                }
-                                                                data-selectedhaberdasheryprice={selectedHab.price}
+                                                                // data-selectedhaberdasheryiscut={selectedHab.is_cut}
+                                                                // data-selectedhaberdasheryisaset={selectedHab.isaset}
+                                                                // data-selectedhaberdasherypurchaseqty={selectedHab.purchase_qty}
+                                                                // data-selectedhaberdasheryqtystock={selectedHab.qty_stock}
+                                                                // data-selectedhaberdasheryprice={selectedHab.price}
                                                                 name="haberdashery_used_size"
                                                                 max={selectedHab.quantity}
                                                                 step="1"
@@ -700,14 +801,23 @@ export const AddProject = (props) => {
                                                             data-selectedhaberdasheryid={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1].id
                                                             }
-                                                            data-selectedhaberdasheryquantity={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .quantity
-                                                            }
-                                                            data-selectedhaberdasheryprice={
-                                                                selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                                    .price
-                                                            }
+                                                            // data-selectedhaberdasheryiscut={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].is_cut
+                                                            // }
+                                                            // data-selectedhaberdasheryisaset={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].is_a_set
+                                                            // }
+                                                            // data-selectedhaberdasherypurchaseqty={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                            //         .purchase_qty
+                                                            // }
+                                                            // data-selectedhaberdasheryqtystock={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1].qty_stock
+                                                            // }
+                                                            // data-selectedhaberdasheryprice={
+                                                            //     selectedHaberdashery[selectedHaberdashery.length - 1]
+                                                            //         .price
+                                                            // }
                                                             name="haberdashery_used_size"
                                                             max={
                                                                 selectedHaberdashery[selectedHaberdashery.length - 1]
@@ -764,7 +874,6 @@ export const AddProject = (props) => {
                                                         setSelectedHaberdashery(habObject);
                                                         setHaberdasheryPreview(haberdashery.photo);
                                                         showAddOneMoreHaberdashery && isOpeningOneMoreHaberdashery();
-                                                        console.log(showAddOneMoreHaberdashery, 'show add one more haberdashery in on click fabric filter')
                                                     }}
                                                 >
                                                     <CardContainer key={haberdashery.id}>
@@ -789,6 +898,297 @@ export const AddProject = (props) => {
                                 </>
                             )}
                         </Section>
+
+                        {/* Pattern Section */}
+                        <Section>
+                            <TitleSectionContainer>
+                                <TitleSection>PATRONS</TitleSection>
+                                {showPatternSection ? (
+                                    <MinusIcon onClick={isOpeningPatternSection} />
+                                ) : (
+                                    <PlusIcon onClick={isOpeningPatternSection} />
+                                )}
+                            </TitleSectionContainer>
+                            {showPatternSection && (
+                                <>
+                                    <AddOneArticleContainer>
+                                        {/* AFFICHAGE DES PATRONS DEJA SELECTIONNES */}
+                                        <PreviewContainer
+                                            className="pattern"
+                                        >
+                                            {selectedPattern.length == 0 && (
+                                                <>
+                                                    <Text>Sélectionnez votre premier patron</Text>
+                                                    <PreviewButtonContainer
+                                                        className="firstShow"
+                                                    >
+                                                        <Preview src={YtremaLogo}></Preview>
+                                                        <AddButton
+                                                            onClick={isOpeningPatternsCards}
+                                                            className="Alone" />
+                                                    </PreviewButtonContainer>
+
+                                                </>
+                                            )}
+                                        </PreviewContainer>
+                                    </AddOneArticleContainer>
+
+                                    {selectedPattern.length > 0 ? (
+                                        <>
+                                            {selectedPattern.map((selectedPat, index) => (
+                                                <AddOneArticleContainer key={selectedPat.id}>
+                                                    <PreviewContainer
+                                                        className="pattern"
+                                                    >
+                                                        <Text>Patron sélectionné n°{index + 1}</Text>
+                                                        <PreviewButtonContainer>
+                                                            <Preview
+                                                                src={selectedPat.photo}
+                                                                data-selectedpatternid={selectedPat.id}
+                                                            ></Preview>
+                                                            <RemoveButton
+                                                                onClick={() => {
+                                                                    setSelectedPattern((current) =>
+                                                                        current.filter((pattern) => {
+                                                                            return pattern.id !== selectedPat.id;
+                                                                        })
+                                                                    );
+                                                                    let updatedPatterns = values.patterns.filter(
+                                                                        (pattern) => {
+                                                                            return pattern.pattern_id != selectedPat.id;
+                                                                        }
+                                                                    );
+                                                                    let valuesUpdated = values;
+                                                                    valuesUpdated.patterns = updatedPatterns;
+                                                                    setValues(valuesUpdated);
+                                                                }}
+                                                            />
+                                                        </PreviewButtonContainer>
+
+                                                        <SelectedArticleInfo
+                                                            className="pattern"
+                                                        >
+                                                            {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand}
+                                                        </SelectedArticleInfo>
+                                                        {/* <QuantityContainer>
+                                                            <QuantityLabel>
+                                                                Quantité
+                                                            </QuantityLabel>
+                                                            <QuantityInput
+                                                                type="number"
+                                                                id="pattern"
+                                                                disabled
+                                                                data-selectedpatternid={selectedPat.id}
+                                                                data-selectedhaberdasheryquantity={
+                                                                    selectedPat.quantity
+                                                                }
+                                                        
+                                                                name="pattern"
+                                                                placeholder={
+                                                                    1
+                                                                    // values.patterns.find(
+                                                                    //     (elem) => elem.pattern_id == selectedPat.id
+                                                                    // )
+                                                                    //     ? values.patterns[values.patterns.indexOf(values.patterns.find(
+                                                                    //         (elem) => elem.pattern_id == selectedPat.id
+                                                                    //     ))].pattern_id
+                                                                    //     : null
+                                                                }
+                                                                onChange={onChange}
+                                                            ></QuantityInput>
+                                                        </QuantityContainer> */}
+                                                    </PreviewContainer>
+                                                </AddOneArticleContainer>
+                                            ))}
+                                        </>
+                                    ) : null}
+
+                                    {/* AJOUT PATRON SUPP */}
+
+                                    {showAddOneMorePattern && (
+                                        <>
+                                            <AddOneArticleContainer>
+                                                <PreviewContainer
+                                                    className="pattern"
+                                                >
+                                                    <Text>Sélectionnez votre patron</Text>
+                                                    <PreviewButtonContainer
+                                                        className="firstShow"
+                                                    >
+                                                        <Preview
+                                                            src={
+                                                                addPatternPreview !== undefined
+                                                                    ? addPatternPreview
+                                                                    : YtremaLogo
+                                                            }
+                                                        ></Preview>
+                                                        <AddReturnButtonContainer>
+                                                            <ReturnButton
+                                                                onClick={isClosingAddOneMorePattern}
+                                                                className="AddOneMoreSection"
+                                                            />
+                                                            <AddButton
+                                                                onClick={isOpeningPatternsCards}
+                                                                className="AddOneMoreSection"
+                                                            />
+                                                        </AddReturnButtonContainer>
+
+                                                    </PreviewButtonContainer>
+                                                </PreviewContainer>
+                                            </AddOneArticleContainer>
+
+                                            {selectedPattern >= 1 && (
+                                                <SelectedArticleInfo
+                                                    className="pattern"
+                                                    data-selectedpatternid={
+                                                        selectedPattern[selectedPattern.length - 1].id
+                                                    }
+                                                >
+                                                    {selectedPattern[selectedPattern.length - 1].name} -{" "}
+                                                </SelectedArticleInfo>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {/* AFFICHAGE DES PATRONS A SELECTIONNER AU DEMARRAGE */}
+                                    {patterns && showAllPatterns && selectedPattern.length == 0 && (
+                                        <CardsContainer>
+                                            {patterns.value.map((pattern) => (
+                                                <CardsMapContainer
+                                                    key={pattern.id}
+                                                    onClick={() => {
+                                                        isOpeningPatternsCards();
+                                                        let patObject = selectedPattern;
+                                                        patObject.push(pattern);
+                                                        setSelectedPattern(patObject);
+                                                        setPatternPreview(pattern.photo);
+                                                        showAddOneMorePattern && isOpeningOneMorePattern();
+                                                        let patternObject = values;
+                                                        patternObject.patterns.push({
+                                                            pattern_id: pattern.id
+                                                        });
+
+                                                        // keep last pattern object with same the id
+                                                        let patternsResult = [
+                                                            ...patternObject.patterns
+                                                                .reduce((acc, cur) => {
+                                                                    return acc.set(cur.pattern_id, cur);
+                                                                }, new Map())
+                                                                .values(),
+                                                        ];
+
+                                                        patternObject.patterns = patternsResult;
+                                                        setValues(patternObject);
+                                                        setShowAddOneMoreButton(true);
+                                                    }}
+
+                                                >
+                                                    <CardContainer
+                                                        key={pattern.id}
+                                                    >
+                                                        <ImgContainer>
+                                                            <CardImg src={pattern.photo} alt={pattern.alt} />
+                                                        </ImgContainer>
+                                                        <CardText>
+                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                                        </CardText>
+                                                    </CardContainer>
+                                                </CardsMapContainer>
+                                            ))}
+                                        </CardsContainer>
+                                    )}
+
+                                    {/* AFFICHAGE FILTRE DES PATRONS RESTANTS A SELECTIONNER */}
+                                    {showAllPatterns && selectedPattern.length > 0 && (
+                                        <CardsContainer>
+                                            {patternsFiltered.map((pattern) => (
+                                                <CardsMapContainer
+                                                    key={pattern.id}
+                                                    onClick={() => {
+                                                        isOpeningPatternsCards();
+                                                        let patObject = selectedPattern;
+                                                        patObject.push(pattern);
+                                                        setSelectedPattern(patObject);
+                                                        setPatternPreview(pattern.photo);
+                                                        showAddOneMorePattern && isOpeningOneMorePattern
+                                                    }}
+                                                >
+                                                    <CardContainer key={pattern.id}>
+                                                        <ImgContainer>
+                                                            <CardImg src={pattern.photo} alt={pattern.alt} />
+                                                        </ImgContainer>
+
+                                                        <CardText>
+                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                                        </CardText>
+                                                    </CardContainer>
+                                                </CardsMapContainer>
+                                            ))}
+                                        </CardsContainer>
+                                    )}
+
+                                    {showAddOneMoreButton && selectedPattern.length > 0 && (
+                                        <AddOneMoreButton onClick={isOpeningOneMorePattern}>
+                                            Sélectionner un patron supplémentaire
+                                        </AddOneMoreButton>
+                                    )}
+                                </>
+                            )}
+                        </Section>
+
+                        {/* Project picture */}
+                        <Section>
+                            <TitleSectionContainer>
+                                <TitleSection>PHOTO DU PROJET</TitleSection>
+                                {showPictureSection ? (
+                                    <MinusIcon onClick={isOpeningPictureSection} />
+                                ) : (
+                                    <PlusIcon onClick={isOpeningPictureSection} />
+                                )}
+                            </TitleSectionContainer>
+                            {showPictureSection && (
+                                <>
+                                    <AddOneArticleContainer>
+                                        {/* CHOISIR UNE PHOTO DE PROFIL AU PROJET */}
+                                        <PreviewContainer>
+
+
+                                            <Text>Sélectionnez une photo pour votre projet</Text>
+                                            <PreviewButtonContainer
+                                            // className="firstShow"
+                                            >
+                                                {values.photo ?
+                                                <Preview src={preview}></Preview>
+                                                :
+                                                <Preview src={YtremaLogo}></Preview>
+                                                }
+                                                {/* <Preview src={values.photo.length == 0 ? YtremaLogo : preview}></Preview> */}
+
+                                            </PreviewButtonContainer>
+                                            <PictureInputContainer>
+                                                <label htmlFor="projectPicture"></label>
+                                                <PictureInput
+                                                    htmlFor="projectPicture"
+                                                    accept="image/*"
+                                                    placeholder="Photo du projet"
+                                                    type="file"
+                                                    name="photo"
+                                                    onChange={onChange}
+                                                >
+                                                </PictureInput>
+                                            </PictureInputContainer>
+                                        </PreviewContainer>
+                                    </AddOneArticleContainer>
+                                </>
+                            )}
+
+                        </Section>
+                        <ButtonForm
+                            type='submit'
+                            onClick={handleSubmit}
+                        >
+                            Enregister ce projet
+                        </ButtonForm>
                     </Form>
                 </FormContainer>
             </AddProjectContainer>

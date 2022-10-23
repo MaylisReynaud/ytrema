@@ -7,6 +7,8 @@ CREATE OR REPLACE VIEW view_of_fabrics_used AS
     SELECT f.id,
     f.name,
     f.fabric,
+    f.designer,
+    f.color,
     f.photo,
     phf.used_size,
     pro.id as project_id
@@ -35,6 +37,9 @@ CREATE OR REPLACE VIEW view_of_haberdasheries_used AS
 CREATE OR REPLACE VIEW view_of_patterns_used AS
     SELECT p.id,
     p.name,
+    p.brand,
+    p.clothing,
+    p.gender,
     p.photo,
     p.format,
     p.pdf_instructions,
