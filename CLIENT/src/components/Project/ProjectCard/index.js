@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,15 @@ import {
     updateProject,
     deleteProject
 } from "../../../store/state/projectSlice";
+import { projectCardLinks } from "../../../utils/projectCardLinks";
+import { Link, animateScroll as scroll } from 'react-scroll';
+import { ArrowContainer, 
+        Container, 
+        ReturnArrow, 
+        TitleContainer, 
+        HeaderContainer,
+        ProjectTitle,
+     } from "./style";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -20,6 +29,8 @@ export const ProjectCard = () => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
+    const isLogged = auth.isLogged;
+    const activeSession = sessionStorage.getItem("token");
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
@@ -27,74 +38,103 @@ export const ProjectCard = () => {
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
 
     return (
-        <>  
+        <>
+
             {/* cs site sezane */}
-            <div className="container">
-                <div className="title container">
-                    <div className="returnArrow">
-                        <img></img>
+        <Container className="container">
+                {isLogged === true && activeSession && (
+                    <>
+                        <HeaderContainer className="title container">
+                            <ArrowContainer className="returnArrow">
+                                <ReturnArrow/>
+                            </ArrowContainer>
+                            <HeaderContainer>
+                            <ProjectTitle className="ProjectName">
+                                {projectCard.name}
+                            </ProjectTitle>
+                            </HeaderContainer>
+                            
+                        </HeaderContainer>
+                        <div className="ProjectNavbarContainer">
+                            <nav className="ItemList">
+                                <ul className="Menubar">
+                                    {projectCardLinks.map((projectLink) => {
+                                        return (
+                                            <li
+                                                key={projectLink.id}
+                                            >
+                                                <Link
+                                                    to={projectLink.section}
+                                                    spy={true}
+                                                    smooth={true}
+                                                    duration={500}
+                                                    activeClass="active"
+                                                >
+                                                    {projectLink.name}
+                                                </Link>
+                                            </li>
+                                        )
+
+                                    })}
+                                </ul>
+                            </nav>
+                        </div>
+                        <div className="CardContainer">
+                            <div className="Card">
+                                <div className="ModifyDeleteContainer">
+                                    <div className="ModifyContainer">
+                                        <img></img>
+                                    </div>
+                                    <div className="DeleteContainer">
+                                        <img></img>
+                                    </div>
+                                </div>
+
+                                <section
+                                    id="tissus"
+                                >
+                                    {console.log(projectCard.fabric_array.length, "<--projectCard.fabric_array")}
+                                    {projectCard.fabric_array.length > 2 ? (
+                                        <>
+                                            {projectCard.fabric_array.map((fabricCard) => {
+                                                <>
+                                                    {console.log(fabricCard.photo, "<--fabricCard length sup à 2")}
+                                                    <div className="ImgContainer">
+                                                        <img
+                                                            className="ItemPicture"
+                                                            src={fabricCard.photo}
+                                                            alt={fabricCard.name}
+                                                        />
+                                                    </div>
+                                                    <div className="ItemTextInfo">
+                                                        <h3>{fabricCard.name} - {fabricCard.fabric} - {fabricCard.used_size}</h3>
+                                                    </div>
+                                                </>
+                                            })
+                                            }
+                                        </>
+                                    ) :
+                                        (
+                                            <>
+                                                {console.log(projectCard.fabric_array[0].photo, "<--projectCard.fabric_array[0].photo")}
+                                                <div className="ImgContainer">
+                                                    <img
+                                                        className="ItemPicture"
+                                                        src={projectCard.fabric_array[0].photo}
+                                                        alt={projectCard.fabric_array[0].name}
+                                                    />
+                                                </div>
+                                                <div className="ItemTextInfo">
+                                                    <h3>{projectCard.fabric_array[0].name} - {projectCard.fabric_array[0].fabric} - {projectCard.fabric_array[0].used_size}</h3>
+                                                </div>
+                                            </>
+                                        )}
+                            </section>
+                        </div>
                     </div>
-                    <h1 className="ProjectName">
-                       {projectCard.name}
-                    </h1>
-                </div>
-                <div className="ProjectNavbarContainer">
-                    <nav className="ItemList">
-                        <ul className="Menubar">
-                            <li className="MenuItem">
-                                <a>
-                                  Tissus  
-                                </a>
-                            </li>
-                            <li className="MenuItem">
-                                <a>
-                                  Mercerie  
-                                </a>
-                            </li>
-                            <li className="MenuItem">
-                                <a>
-                                  Patrons  
-                                </a>
-                            </li>
-                            <li className="MenuItem">
-                                <a>
-                                  Notes   
-                                </a>
-                            </li>
-                            <li className="MenuItem">
-                                <a>
-                                  Coût                 
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div className="CardContainer">
-                    <div className="Card">
-                        <div className="ModifyDeleteContainer">
-                            <div className="ModifyContainer">
-                                <img></img>
-                            </div>
-                            <div className="DeleteContainer">
-                                <img></img>
-                            </div>
-                        </div>
-                        <div className="ImgContainer">
-                            <img 
-                                className="ItemPicture" 
-                                src={projectCard.photos_array[0].photo}
-                                alt={projectCard.name}
-                             />
-                        </div>
-                        <div className="ItemTextInfo">
-                            <h3>Nom du tissu - Type de Tissu - Quantité</h3>
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
+                    </>
+                )}
+        </Container>
         </>
     )
 } 

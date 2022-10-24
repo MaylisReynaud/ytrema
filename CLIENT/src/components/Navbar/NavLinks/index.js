@@ -20,7 +20,7 @@ export function NavLinks(props) {
   return (
     <NavLinksContainer>
       {isLogged === true && activeSession && (
-      <LinksWrapper>
+      <LinksWrapper> 
       {navLinks.map((navLink, index) => {
         const Icon = iconsNavLinks[index];
 
