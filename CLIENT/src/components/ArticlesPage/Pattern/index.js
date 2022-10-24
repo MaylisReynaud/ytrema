@@ -37,7 +37,8 @@ import {
   NoResultsContainer,
   DesktopArrowCurve,
   ErrorContainer,
-  LoginIcon
+  LoginIcon,
+  FilterSectionContainer
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -180,6 +181,7 @@ console.log(categoryObject, 'categoryObject');
         )}
         {isMobile && showMobileFilters && (
           <>
+          <FilterSectionContainer>
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -197,6 +199,7 @@ console.log(categoryObject, 'categoryObject');
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+            </FilterSectionContainer>
           </>
         )}
       </>

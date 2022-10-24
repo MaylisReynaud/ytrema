@@ -41,7 +41,8 @@ import {
   DesktopArrowCurve,
   ErrorContainer,
   LoginIcon,
-} from "../ArticlesPage/style";
+  FilterSectionContainer
+} from "./style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import YtremaLogo from "../../assets/images/logo.png";
 import { AddProject } from "./AddProject";
@@ -189,6 +190,7 @@ export const Project = (props, index) => {
         )}
         {isMobile && showMobileFilters && (
           <>
+     
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -206,6 +208,8 @@ export const Project = (props, index) => {
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+                        
+
           </>
         )}
       </>

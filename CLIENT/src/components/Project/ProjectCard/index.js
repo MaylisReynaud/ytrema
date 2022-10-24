@@ -12,15 +12,22 @@ import {
     deleteProject
 } from "../../../store/state/projectSlice";
 import { projectCardLinks } from "../../../utils/projectCardLinks";
-import { Link, animateScroll as scroll } from 'react-scroll';
-import { ArrowContainer, 
-        Container, 
-        ReturnArrow, 
-        TitleContainer, 
-        HeaderContainer,
-        ProjectTitle,
-     } from "./style";
-
+import {
+    ArrowContainer,
+    Container,
+    ReturnArrow,
+    TitleContainer,
+    HeaderContainer,
+    ProjectTitle,
+    ProjectLinksContainer,
+    LinksWrapper,
+    LinkItem,
+    LinkStyle,
+    NavProject,
+    ActiveLinkStyle,
+    ProjectMenuLinks,
+    ArrowTitleContainer
+} from "./style";
 export const ProjectCard = () => {
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -36,49 +43,48 @@ export const ProjectCard = () => {
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
-
     return (
         <>
-
             {/* cs site sezane */}
-        <Container className="container">
+            <Container className="container">
                 {isLogged === true && activeSession && (
                     <>
-                        <HeaderContainer className="title container">
-                            <ArrowContainer className="returnArrow">
-                                <ReturnArrow/>
-                            </ArrowContainer>
-                            <HeaderContainer>
-                            <ProjectTitle className="ProjectName">
-                                {projectCard.name}
-                            </ProjectTitle>
-                            </HeaderContainer>
-                            
-                        </HeaderContainer>
-                        <div className="ProjectNavbarContainer">
-                            <nav className="ItemList">
-                                <ul className="Menubar">
-                                    {projectCardLinks.map((projectLink) => {
-                                        return (
-                                            <li
-                                                key={projectLink.id}
-                                            >
-                                                <Link
-                                                    to={projectLink.section}
-                                                    spy={true}
-                                                    smooth={true}
-                                                    duration={500}
-                                                    activeClass="active"
+                        <HeaderContainer>
+                            <ArrowTitleContainer className="title container">
+                                <ArrowContainer className="returnArrow">
+                                    <ReturnArrow />
+                                </ArrowContainer>
+                                <HeaderContainer>
+                                    <ProjectTitle
+                                        className="ProjectName">
+                                        {projectCard.name}
+                                    </ProjectTitle>
+                                </HeaderContainer>
+                            </ArrowTitleContainer>
+                            <NavProject>
+                                <ProjectLinksContainer className="ItemList">
+                                    <LinksWrapper className="Menubar">
+                                        {projectCardLinks.map((projectLink) => {
+                                            return (
+                                                <LinkItem
+                                                    key={projectLink.id}
                                                 >
-                                                    {projectLink.name}
-                                                </Link>
-                                            </li>
-                                        )
-
-                                    })}
-                                </ul>
-                            </nav>
-                        </div>
+                                                    <ProjectMenuLinks
+                                                        to={projectLink.id}
+                                                        spy={true}
+                                                        smooth={true}
+                                                        duration={500}
+                                                        exact="true"
+                                                    >
+                                                        {projectLink.name}
+                                                    </ProjectMenuLinks>
+                                                </LinkItem>
+                                            )
+                                        })}
+                                    </LinksWrapper>
+                                </ProjectLinksContainer>
+                            </NavProject>
+                        </HeaderContainer>
                         <div className="CardContainer">
                             <div className="Card">
                                 <div className="ModifyDeleteContainer">
@@ -89,9 +95,8 @@ export const ProjectCard = () => {
                                         <img></img>
                                     </div>
                                 </div>
-
-                                <section
-                                    id="tissus"
+                                <div
+                                    id='tissus'
                                 >
                                     {console.log(projectCard.fabric_array.length, "<--projectCard.fabric_array")}
                                     {projectCard.fabric_array.length > 2 ? (
@@ -129,12 +134,54 @@ export const ProjectCard = () => {
                                                 </div>
                                             </>
                                         )}
-                            </section>
+                                </div>
+                                <div
+                                    id='mercerie'
+                                >
+                                    {projectCard.haberdashery_array.length > 2 ? (
+                                        <>
+                                            {projectCard.haberdashery_array.map((haberdasheryCard) => {
+                                                <>
+                                                    {console.log(haberdasheryCard.photo, "<--fabricCard length sup à 2")}
+                                                    <div className="ImgContainer">
+                                                        <img
+                                                            className="ItemPicture"
+                                                            src={haberdasheryCard.photo}
+                                                            alt={haberdasheryCard.name}
+                                                        />
+                                                    </div>
+                                                    <div className="ItemTextInfo">
+                                                        <h3>{haberdasheryCard.name} - {haberdasheryCard.haberdashery} - {haberdasheryCard.used_size}</h3>
+                                                    </div>
+                                                </>
+                                            })
+                                            }
+                                        </>
+                                    ) :
+                                        (
+                                            projectCard.haberdashery_array.length == 1 ?
+                                                (
+                                                    <>
+                                                        <div className="ImgContainer">
+                                                            <img
+                                                                className="ItemPicture"
+                                                                src={projectCard.fabric_array[0].photo}
+                                                                alt={projectCard.fabric_array[0].name}
+                                                            />
+                                                        </div>
+                                                        <div className="ItemTextInfo">
+                                                            <h3>{projectCard.haberdashery_array[0].name} - {projectCard.haberdashery_array[0].haberdashery} - {projectCard.haberdashery_array[0].used_size}</h3>
+                                                        </div>
+                                                    </>
+                                                ) :
+                                                null
+                                        )}
+                                </div>
+                            </div>
                         </div>
-                    </div>
                     </>
                 )}
-        </Container>
+            </Container>
         </>
     )
 } 

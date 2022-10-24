@@ -37,7 +37,8 @@ import {
   NoResultsContainer,
   DesktopArrowCurve,
   ErrorContainer,
-  LoginIcon
+  LoginIcon,
+  FilterSectionContainer
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -181,6 +182,9 @@ export function Fabric(props, index) {
         )}
         {isMobile && showMobileFilters && (
           <>
+          <FilterSectionContainer>
+
+
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -198,6 +202,7 @@ export function Fabric(props, index) {
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+            </FilterSectionContainer>
           </>
         )}
       </>

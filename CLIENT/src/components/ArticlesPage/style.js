@@ -39,10 +39,10 @@ export const DesktopContainer = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    /* height: 70vh; */
+    height: 70vh;
     /* height: 74vh; */
     width:100%;
-    /* overflow-y:hidden; */
+    overflow-y:hidden;
    
     @media screen and (min-width:601px) { 
         flex-direction: row;
@@ -339,7 +339,18 @@ export const CardText = styled.h3`
     text-align: center;
   }
 `;
-
+export const FilterSectionContainer = styled.div`
+  width: 100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink:1;
+  @media screen and (min-width:601px) { 
+    height:100%;
+    margin-bottom: 1rem;
+    
+  }
+`;
 export const FilterContainer = styled.div`
   width: 100%;
   display: flex;
