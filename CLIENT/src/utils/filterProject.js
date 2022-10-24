@@ -26,10 +26,10 @@ export const filterProject = (filteredCategory) => {
       ? fabricColorsTab.push(el.name)
       : el.category === "Marques"
       ? patternBrandsTab.push(el.name)
-      : el.category === "Catégories"
-      ? patternClothingsTab.push(el.name)
       : el.category === "Genre"
       ? patternGendersTab.push(el.name)
+      : el.category === "Catégories"
+      ? patternClothingsTab.push(el.name)
       : el.category === "Statuts"
       ? statusTab.push(el.name)
       : null;
