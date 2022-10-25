@@ -40,18 +40,15 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     /* height: 70vh; */
-    height: 100vh;
+    height: 120vh;
     width:100%;
-    overflow-y:hidden;
-    background-color: blue;
-   
+    overflow-y:scroll;   
     @media screen and (min-width:601px) { 
         flex-direction: row;
         margin-bottom:3.5em;
         height:100%;        
   }
 `;
-
 
 export const TopContainer = styled.div`
     display: flex;

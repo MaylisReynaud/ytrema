@@ -26,8 +26,22 @@ import {
     NavProject,
     ActiveLinkStyle,
     ProjectMenuLinks,
-    ArrowTitleContainer
+    ArrowTitleContainer,
+    CardsContainer,
+    CardContainer,
+    ModifyDeleteContainer,
+    TrashContainer,
+    TrashButton,
+    ModifyContainer,
+    ModifyButton,
+    Section,
+    ImgContainer,
+    CardText,
+    CardImg,
+    TextContainer,
+
 } from "./style";
+import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
 export const ProjectCard = () => {
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -43,6 +57,8 @@ export const ProjectCard = () => {
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
+
+
     return (
         <>
             {/* cs site sezane */}
@@ -54,12 +70,12 @@ export const ProjectCard = () => {
                                 <ArrowContainer className="returnArrow">
                                     <ReturnArrow />
                                 </ArrowContainer>
-                                <HeaderContainer>
+                                <TitleContainer>
                                     <ProjectTitle
                                         className="ProjectName">
                                         {projectCard.name}
                                     </ProjectTitle>
-                                </HeaderContainer>
+                                </TitleContainer>
                             </ArrowTitleContainer>
                             <NavProject>
                                 <ProjectLinksContainer className="ItemList">
@@ -85,103 +101,69 @@ export const ProjectCard = () => {
                                 </ProjectLinksContainer>
                             </NavProject>
                         </HeaderContainer>
-                        <div className="CardContainer">
-                            <div className="Card">
-                                <div className="ModifyDeleteContainer">
-                                    <div className="ModifyContainer">
-                                        <img></img>
-                                    </div>
-                                    <div className="DeleteContainer">
-                                        <img></img>
-                                    </div>
-                                </div>
-                                <div
-                                    id='tissus'
-                                >
-                                    {console.log(projectCard.fabric_array.length, "<--projectCard.fabric_array")}
-                                    {projectCard.fabric_array.length > 2 ? (
-                                        <>
-                                            {projectCard.fabric_array.map((fabricCard) => {
-                                                <>
-                                                    {console.log(fabricCard.photo, "<--fabricCard length sup à 2")}
-                                                    <div className="ImgContainer">
-                                                        <img
-                                                            className="ItemPicture"
-                                                            src={fabricCard.photo}
-                                                            alt={fabricCard.name}
-                                                        />
-                                                    </div>
-                                                    <div className="ItemTextInfo">
-                                                        <h3>{fabricCard.name} - {fabricCard.fabric} - {fabricCard.used_size}</h3>
-                                                    </div>
-                                                </>
-                                            })
-                                            }
-                                        </>
-                                    ) :
-                                        (
-                                            <>
-                                                {console.log(projectCard.fabric_array[0].photo, "<--projectCard.fabric_array[0].photo")}
-                                                <div className="ImgContainer">
-                                                    <img
-                                                        className="ItemPicture"
-                                                        src={projectCard.fabric_array[0].photo}
-                                                        alt={projectCard.fabric_array[0].name}
-                                                    />
-                                                </div>
-                                                <div className="ItemTextInfo">
-                                                    <h3>{projectCard.fabric_array[0].name} - {projectCard.fabric_array[0].fabric} - {projectCard.fabric_array[0].used_size}</h3>
-                                                </div>
-                                            </>
-                                        )}
-                                </div>
-                                <div
-                                    id='mercerie'
-                                >
-                                    {projectCard.haberdashery_array.length > 2 ? (
-                                        <>
-                                            {projectCard.haberdashery_array.map((haberdasheryCard) => {
-                                                <>
-                                                    {console.log(haberdasheryCard.photo, "<--fabricCard length sup à 2")}
-                                                    <div className="ImgContainer">
-                                                        <img
-                                                            className="ItemPicture"
-                                                            src={haberdasheryCard.photo}
-                                                            alt={haberdasheryCard.name}
-                                                        />
-                                                    </div>
-                                                    <div className="ItemTextInfo">
-                                                        <h3>{haberdasheryCard.name} - {haberdasheryCard.haberdashery} - {haberdasheryCard.used_size}</h3>
-                                                    </div>
-                                                </>
-                                            })
-                                            }
-                                        </>
-                                    ) :
-                                        (
-                                            projectCard.haberdashery_array.length == 1 ?
-                                                (
-                                                    <>
-                                                        <div className="ImgContainer">
-                                                            <img
-                                                                className="ItemPicture"
-                                                                src={projectCard.fabric_array[0].photo}
-                                                                alt={projectCard.fabric_array[0].name}
-                                                            />
-                                                        </div>
-                                                        <div className="ItemTextInfo">
-                                                            <h3>{projectCard.haberdashery_array[0].name} - {projectCard.haberdashery_array[0].haberdashery} - {projectCard.haberdashery_array[0].used_size}</h3>
-                                                        </div>
-                                                    </>
-                                                ) :
-                                                null
-                                        )}
-                                </div>
-                            </div>
-                        </div>
+                        <Section
+                            id='tissus'
+                        >
+                            {projectCard.fabric_array.map((fabric) => (
+                                <CardsContainer key={fabric.id}>
+                                <CardContainer className="Card">
+                                    <ModifyDeleteContainer className="ModifyDeleteContainer">
+                                        <ModifyContainer>
+                                            <ModifyButton />
+                                        </ModifyContainer>
+                                        <TrashContainer>
+                                            <TrashButton />
+                                        </TrashContainer>
+                                    </ModifyDeleteContainer>
+
+                                    <ImgContainer className="ImgContainer">
+                                        <CardImg
+                                            className="ItemPicture"
+                                            src={fabric.photo}
+                                            alt={fabric.name}
+                                        />
+                                    </ImgContainer>
+                               
+                                        <CardText>{fabric.name} - {fabric.fabric} - {fabric.used_size} cm</CardText>
+                                
+
+                                </CardContainer>
+                            </CardsContainer>
+                           ) )}
+                        </Section>
+                        <Section
+                            id='mercerie'
+                        >
+                            {projectCard.haberdashery_array.map((haberdashery) => (
+                                <CardsContainer key={haberdashery.id}>
+                                <CardContainer>
+                                    <ModifyDeleteContainer>
+                                        <ModifyContainer>
+                                            <ModifyButton />
+                                        </ModifyContainer>
+                                        <TrashContainer>
+                                            <TrashButton />
+                                        </TrashContainer>
+                                    </ModifyDeleteContainer>
+
+                                    <ImgContainer>
+                                        <CardImg
+                                            src={haberdashery.photo}
+                                            alt={haberdashery.name}
+                                        />
+                                    </ImgContainer>
+                               
+                                        <CardText>{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
+                                
+
+                                </CardContainer>
+                            </CardsContainer>
+                           ) )}
+                        </Section>
                     </>
-                )}
-            </Container>
+                )
+                }
+            </Container >
         </>
     )
 } 
