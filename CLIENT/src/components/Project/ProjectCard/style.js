@@ -8,6 +8,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     height: 90%;
+    align-content: flex-start;
     /* height: 74vh; */
     width:100%;
     overflow-y:scroll;  
@@ -20,10 +21,15 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
    display: flex;
+   position: sticky;
+   top:0;
+   background-color:${(props) => props.theme.color4};
    flex-direction: column;
+  
     align-items: center;
-    height: 7vh;
+    /* height: 7vh; */
     width:100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     /* margin: 1rem 0; */
     @media screen and (min-width:601px) { 
       justify-content: unset;
@@ -96,7 +102,8 @@ export const NavProject = styled.div`
   position: relative;
   background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
   align-items: center;
-  margin: .8rem 0;
+  /* margin: .8rem 0; */
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 `;
 export const ProjectLinksContainer = styled.div`
     justify-content: center;
@@ -108,7 +115,6 @@ export const LinksWrapper = styled.ul`
  /* position: relative; */
   box-shadow: 2px #222;
   margin: 0 auto;
-  padding: 0.5em 0;
   height: 100%;
   list-style: none;
   display:flex;
@@ -158,7 +164,8 @@ export const CardsContainer = styled.div`
 export const CardContainer = styled.div`
 display: flex;
 flex-direction: column;
-height:25vh;
+height:30vh;
+background-color: ${(props) => props.theme.color4};
 @media screen and (min-width:601px) { 
   width:100%;
 }
@@ -207,19 +214,19 @@ export const Section = styled.section`
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
- 
-    align-content: flex-start;
+    align-self: flex-start;
     justify-content: space-evenly;
-    /* -ms-overflow-style: none;
-    scrollbar-width: none;
-    ::-webkit-scrollbar {
-    display: none;}
-    overflow-y: scroll; */
-
     width:100%;
     margin:1em 0 0 0;
-    &[class~="tissus"] {
-    margin-top: 4rem;
+    /* &[class~="tissus"] {
+    margin-top: 1rem;
+  } */
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground.png?alt=media&token=9d1ba8b8-95cb-4df3-a8c0-455da440d7df');
+  &[class~="mercerie"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FpatternsBackground.png?alt=media&token=050d4fb1-9a09-4f3a-adc0-f2237f3d62bc');
+  }
+  &[class~="patron"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
   }
   &[class~="patron"] {
     margin-bottom: 3rem;
@@ -239,10 +246,7 @@ font : 1.2rem/1.5 '${props => props.theme.textFont}';
   padding: .7rem;
   
 
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground.png?alt=media&token=9d1ba8b8-95cb-4df3-a8c0-455da440d7df');
-  &[class~="mercerie"] {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FpatternsBackground.png?alt=media&token=050d4fb1-9a09-4f3a-adc0-f2237f3d62bc');
-  }
+  
 `;
 export const ImgContainer = styled.div`
   height:60%;

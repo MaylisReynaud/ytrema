@@ -140,6 +140,7 @@ export const ProjectCard = () => {
                         </Section>
                         <Section
                             id='mercerie'
+                            className="mercerie"
                         >
                             <SectionTitle
                             className="mercerie">
