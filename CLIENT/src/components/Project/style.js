@@ -40,7 +40,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     /* height: 70vh; */
-    height: 120vh;
+    height: 80vh;
     width:100%;
     overflow-y:scroll;   
     @media screen and (min-width:601px) { 

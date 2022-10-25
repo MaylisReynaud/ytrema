@@ -7,10 +7,10 @@ import { Link as LinkS } from 'react-scroll';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    height: 70vh;
+    height: 90%;
     /* height: 74vh; */
     width:100%;
-    /* overflow-y:hidden; */  
+    overflow-y:scroll;  
     @media screen and (min-width:601px) { 
         flex-direction: row;
         margin-bottom:3.5em;
@@ -82,8 +82,8 @@ export const TitleContainer = styled.div`
 `;
 
 export const ProjectTitle = styled.h1`
-  font: 1.1rem "${(props) => props.theme.textFont}";
-  font-weight: bold;
+  font: 1.5rem "${(props) => props.theme.textFont}";
+  font-weight: 800;
   /* text-align: center; */
   color: ${(props) => props.theme.color2};
   @media screen and (min-width: 601px) {
@@ -121,14 +121,15 @@ export const LinkItem = styled.li`
   margin: 1rem 0;
 `;
 export const ProjectMenuLinks = styled(LinkS)`
+  font-family: ${props => props.theme.textFont};
   color: ${props => props.theme.color4};
+  font-weight: 600;
   display: flex;
   align-items: center;
-  font-size: .9rem;
+  font-size: 1.1rem;
   transition: all 220ms ease-in-out;
-  font-family: ${props => props.theme.textFont};
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   height:100%;
   cursor:pointer;
 
@@ -147,7 +148,7 @@ export const CardsContainer = styled.div`
   flex-direction: column;
   width:45%;
   margin: .5rem;
-
+  /* height:100%; */
   /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   @media screen and (min-width:601px) { 
@@ -157,7 +158,7 @@ export const CardsContainer = styled.div`
 export const CardContainer = styled.div`
 display: flex;
 flex-direction: column;
-height:12rem;
+height:25vh;
 @media screen and (min-width:601px) { 
   width:100%;
 }
@@ -201,26 +202,48 @@ export const ModifyButton = styled(PencilFill)`
 `;
 
 
-export const Section = styled.div`
+export const Section = styled.section`
+   height: 90vh;
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+ 
     align-content: flex-start;
     justify-content: space-evenly;
-    -ms-overflow-style: none;
+    /* -ms-overflow-style: none;
     scrollbar-width: none;
     ::-webkit-scrollbar {
     display: none;}
-    overflow-y: scroll;
-    height:100vh;
+    overflow-y: scroll; */
+
     width:100%;
-    margin:3em 0 0 0;
+    margin:1em 0 0 0;
+    &[class~="tissus"] {
+    margin-top: 4rem;
+  }
+  &[class~="patron"] {
+    margin-bottom: 3rem;
+  }
     @media screen and (min-width:601px) { 
       height:100%;
 
     }
   `;
+export const SectionTitle = styled.h2`
+font : 1.2rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color4};
+   text-align: center; 
+  width:100%;
+  font-weight:600;
+  /* margin-top: 1rem; */
+  padding: .7rem;
+  
 
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground.png?alt=media&token=9d1ba8b8-95cb-4df3-a8c0-455da440d7df');
+  &[class~="mercerie"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FpatternsBackground.png?alt=media&token=050d4fb1-9a09-4f3a-adc0-f2237f3d62bc');
+  }
+`;
 export const ImgContainer = styled.div`
   height:60%;
 `;
@@ -233,7 +256,7 @@ export const CardImg = styled.img`
 `;
 
 export const CardText = styled.h3`
-   text-align: center;
+  text-align: center;
   display: flex;
   align-items: center;
   background-color: ${props => props.theme.color4};
@@ -241,9 +264,12 @@ export const CardText = styled.h3`
   width:100%;
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
-  color: ${props => props.theme.color4};
+  color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
-background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
+/* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
+&[class~="mercerie"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FpatternsBackground.png?alt=media&token=050d4fb1-9a09-4f3a-adc0-f2237f3d62bc');
+  } */
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;

@@ -39,6 +39,7 @@ import {
     CardText,
     CardImg,
     TextContainer,
+    SectionTitle,
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
@@ -62,24 +63,27 @@ export const ProjectCard = () => {
     return (
         <>
             {/* cs site sezane */}
-            <Container className="container">
+            <Container >
                 {isLogged === true && activeSession && (
                     <>
                         <HeaderContainer>
-                            <ArrowTitleContainer className="title container">
-                                <ArrowContainer className="returnArrow">
+                            <ArrowTitleContainer>
+                                <ArrowContainer 
+                                     onClick={() => {
+                                        navigate("/Projets");
+                                      }}
+                                >
                                     <ReturnArrow />
                                 </ArrowContainer>
                                 <TitleContainer>
-                                    <ProjectTitle
-                                        className="ProjectName">
+                                    <ProjectTitle>
                                         {projectCard.name}
                                     </ProjectTitle>
                                 </TitleContainer>
                             </ArrowTitleContainer>
                             <NavProject>
-                                <ProjectLinksContainer className="ItemList">
-                                    <LinksWrapper className="Menubar">
+                                <ProjectLinksContainer>
+                                    <LinksWrapper>
                                         {projectCardLinks.map((projectLink) => {
                                             return (
                                                 <LinkItem
@@ -103,11 +107,15 @@ export const ProjectCard = () => {
                         </HeaderContainer>
                         <Section
                             id='tissus'
+                            className="tissus"
                         >
+                            <SectionTitle>
+                                TISSUS
+                            </SectionTitle>
                             {projectCard.fabric_array.map((fabric) => (
                                 <CardsContainer key={fabric.id}>
-                                <CardContainer className="Card">
-                                    <ModifyDeleteContainer className="ModifyDeleteContainer">
+                                <CardContainer>
+                                    <ModifyDeleteContainer>
                                         <ModifyContainer>
                                             <ModifyButton />
                                         </ModifyContainer>
@@ -116,9 +124,8 @@ export const ProjectCard = () => {
                                         </TrashContainer>
                                     </ModifyDeleteContainer>
 
-                                    <ImgContainer className="ImgContainer">
+                                    <ImgContainer >
                                         <CardImg
-                                            className="ItemPicture"
                                             src={fabric.photo}
                                             alt={fabric.name}
                                         />
@@ -134,6 +141,10 @@ export const ProjectCard = () => {
                         <Section
                             id='mercerie'
                         >
+                            <SectionTitle
+                            className="mercerie">
+                                MERCERIE
+                            </SectionTitle>
                             {projectCard.haberdashery_array.map((haberdashery) => (
                                 <CardsContainer key={haberdashery.id}>
                                 <CardContainer>
@@ -153,7 +164,45 @@ export const ProjectCard = () => {
                                         />
                                     </ImgContainer>
                                
-                                        <CardText>{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
+                                        <CardText
+                                            className="mercerie"
+                                        >{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
+                                
+
+                                </CardContainer>
+                            </CardsContainer>
+                           ) )}
+                        </Section>
+                        <Section
+                            id='patron'
+                            className="patron"
+                        >
+                            <SectionTitle
+                            className="patron">
+                                PATRON
+                            </SectionTitle>
+                            {projectCard.pattern_array.map((pattern) => (
+                                <CardsContainer key={pattern.id}>
+                                <CardContainer>
+                                    <ModifyDeleteContainer>
+                                        <ModifyContainer>
+                                            <ModifyButton />
+                                        </ModifyContainer>
+                                        <TrashContainer>
+                                            <TrashButton />
+                                        </TrashContainer>
+                                    </ModifyDeleteContainer>
+
+                                    <ImgContainer>
+                                        <CardImg
+                                            src={pattern.photo}
+                                            alt={pattern.name}
+                                        />
+                                    </ImgContainer>
+                               
+                                        <CardText
+                                            className="patron"
+                                        >{pattern.clothing} -{pattern.name} - {pattern.brand} </CardText>
                                 
 
                                 </CardContainer>
