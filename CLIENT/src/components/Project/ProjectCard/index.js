@@ -12,6 +12,7 @@ import {
     deleteProject
 } from "../../../store/state/projectSlice";
 import { projectCardLinks } from "../../../utils/projectCardLinks";
+import YtremaLogo from "../../../assets/images/logo.png";
 import {
     ArrowContainer,
     Container,
@@ -40,6 +41,12 @@ import {
     CardImg,
     TextContainer,
     SectionTitle,
+    CardParagraph,
+    CostTab,
+    CostTabCell,
+    CostTabRow,
+    CostTabHeadCell,
+    CostPicture
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
@@ -68,10 +75,10 @@ export const ProjectCard = () => {
                     <>
                         <HeaderContainer>
                             <ArrowTitleContainer>
-                                <ArrowContainer 
-                                     onClick={() => {
+                                <ArrowContainer
+                                    onClick={() => {
                                         navigate("/Projets");
-                                      }}
+                                    }}
                                 >
                                     <ReturnArrow />
                                 </ArrowContainer>
@@ -94,6 +101,7 @@ export const ProjectCard = () => {
                                                         spy={true}
                                                         smooth={true}
                                                         duration={500}
+                                                        offset={100}
                                                         exact="true"
                                                     >
                                                         {projectLink.name}
@@ -114,101 +122,185 @@ export const ProjectCard = () => {
                             </SectionTitle>
                             {projectCard.fabric_array.map((fabric) => (
                                 <CardsContainer key={fabric.id}>
-                                <CardContainer>
-                                    <ModifyDeleteContainer>
-                                        <ModifyContainer>
-                                            <ModifyButton />
-                                        </ModifyContainer>
-                                        <TrashContainer>
-                                            <TrashButton />
-                                        </TrashContainer>
-                                    </ModifyDeleteContainer>
+                                    <CardContainer>
+                                        <ModifyDeleteContainer>
+                                            <ModifyContainer>
+                                                <ModifyButton />
+                                            </ModifyContainer>
+                                            <TrashContainer>
+                                                <TrashButton />
+                                            </TrashContainer>
+                                        </ModifyDeleteContainer>
 
-                                    <ImgContainer >
-                                        <CardImg
-                                            src={fabric.photo}
-                                            alt={fabric.name}
-                                        />
-                                    </ImgContainer>
-                               
+                                        <ImgContainer >
+                                            <CardImg
+                                                src={fabric.photo}
+                                                alt={fabric.name}
+                                            />
+                                        </ImgContainer>
+
                                         <CardText>{fabric.name} - {fabric.fabric} - {fabric.used_size} cm</CardText>
-                                
 
-                                </CardContainer>
-                            </CardsContainer>
-                           ) )}
+
+                                    </CardContainer>
+                                </CardsContainer>
+                            ))}
                         </Section>
                         <Section
                             id='mercerie'
                             className="mercerie"
                         >
                             <SectionTitle
-                            className="mercerie">
+                                className="mercerie">
                                 MERCERIE
                             </SectionTitle>
                             {projectCard.haberdashery_array.map((haberdashery) => (
                                 <CardsContainer key={haberdashery.id}>
-                                <CardContainer>
-                                    <ModifyDeleteContainer>
-                                        <ModifyContainer>
-                                            <ModifyButton />
-                                        </ModifyContainer>
-                                        <TrashContainer>
-                                            <TrashButton />
-                                        </TrashContainer>
-                                    </ModifyDeleteContainer>
+                                    <CardContainer>
+                                        <ModifyDeleteContainer>
+                                            <ModifyContainer>
+                                                <ModifyButton />
+                                            </ModifyContainer>
+                                            <TrashContainer>
+                                                <TrashButton />
+                                            </TrashContainer>
+                                        </ModifyDeleteContainer>
 
-                                    <ImgContainer>
-                                        <CardImg
-                                            src={haberdashery.photo}
-                                            alt={haberdashery.name}
-                                        />
-                                    </ImgContainer>
-                               
+                                        <ImgContainer>
+                                            <CardImg
+                                                src={haberdashery.photo}
+                                                alt={haberdashery.name}
+                                            />
+                                        </ImgContainer>
+
                                         <CardText
                                             className="mercerie"
                                         >{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
-                                
 
-                                </CardContainer>
-                            </CardsContainer>
-                           ) )}
+
+                                    </CardContainer>
+                                </CardsContainer>
+                            ))}
                         </Section>
                         <Section
                             id='patron'
                             className="patron"
                         >
                             <SectionTitle
-                            className="patron">
+                                className="patron">
                                 PATRON
                             </SectionTitle>
                             {projectCard.pattern_array.map((pattern) => (
                                 <CardsContainer key={pattern.id}>
-                                <CardContainer>
-                                    <ModifyDeleteContainer>
-                                        <ModifyContainer>
-                                            <ModifyButton />
-                                        </ModifyContainer>
-                                        <TrashContainer>
-                                            <TrashButton />
-                                        </TrashContainer>
-                                    </ModifyDeleteContainer>
+                                    <CardContainer>
+                                        <ModifyDeleteContainer>
+                                            <ModifyContainer>
+                                                <ModifyButton />
+                                            </ModifyContainer>
+                                            <TrashContainer>
+                                                <TrashButton />
+                                            </TrashContainer>
+                                        </ModifyDeleteContainer>
 
-                                    <ImgContainer>
-                                        <CardImg
-                                            src={pattern.photo}
-                                            alt={pattern.name}
-                                        />
-                                    </ImgContainer>
-                               
+                                        <ImgContainer
+                                            className="patron"
+                                        >
+                                            <CardImg
+                                                src={pattern.photo}
+                                                alt={pattern.name}
+                                            />
+                                        </ImgContainer>
+
                                         <CardText
                                             className="patron"
-                                        >{pattern.clothing} -{pattern.name} - {pattern.brand} </CardText>
-                                
+                                        >{pattern.clothing} - {pattern.name} - {pattern.brand} - {pattern.format} </CardText>
+
+
+                                    </CardContainer>
+                                </CardsContainer>
+                            ))}
+                        </Section>
+                        <Section
+                            id='notes'
+                            className="notes"
+                        >
+                            <SectionTitle
+                                className="notes">
+                                NOTES
+                            </SectionTitle>
+                            {projectCard.photos_array.map((notes) => (
+                                <CardsContainer key={notes.id}>
+                                    <CardContainer>
+                                        <ModifyDeleteContainer>
+                                            <ModifyContainer>
+                                                <ModifyButton />
+                                            </ModifyContainer>
+                                            <TrashContainer>
+                                                <TrashButton />
+                                            </TrashContainer>
+                                        </ModifyDeleteContainer>
+
+                                        <ImgContainer
+                                            className="notes"
+                                        >
+                                            <CardImg
+                                                src={notes.photo != undefined ? notes.photo : YtremaLogo}
+                                                alt={notes.name}
+                                            />
+                                        </ImgContainer>
+
+                                        <CardParagraph
+                                            className="patron"
+                                        >
+                                            {notes.personal_notes}
+                                        </CardParagraph>
+
+
+                                    </CardContainer>
+                                </CardsContainer>
+                            ))}
+                        </Section>
+                        <Section
+                            id='cout'
+                            className="cout"
+                        >
+                            <SectionTitle
+                                className="cout">
+                                COÛT DU PROJET
+                            </SectionTitle>
+
+
+                            <CardsContainer
+                                className="cout"
+                            >
+                                <CardContainer
+                                    className="cout"
+                                >
+
+                                    <CostTab>
+                                        <thead>
+                                            <CostTabRow>
+                                                <CostTabHeadCell className="photo"> Photo </CostTabHeadCell>
+                                                <CostTabHeadCell className="name">Nom </CostTabHeadCell>
+                                                <CostTabHeadCell className="quantity"> Quantité </CostTabHeadCell>
+                                                <CostTabHeadCell className="price"> Coût </CostTabHeadCell>
+                                            </CostTabRow>
+                                        </thead>
+                                        <tbody>
+                                            <CostTabRow
+                                                className="info"
+                                            >
+                                                <CostTabCell className="photo"><CostPicture src={projectCard.fabric_array[1].photo} ></CostPicture>  </CostTabCell>
+                                                <CostTabCell className="name">{projectCard.fabric_array[1].name} </CostTabCell>
+                                                <CostTabCell className="quantity"> {projectCard.fabric_array[1].used_size} </CostTabCell>
+                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                            </CostTabRow>
+                                        </tbody>
+                                    </CostTab>
 
                                 </CardContainer>
                             </CardsContainer>
-                           ) )}
+
                         </Section>
                     </>
                 )
