@@ -350,6 +350,7 @@ display: flex;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   width:20%;
+  
   &[class~="name"] {
     width: auto;
     flex-grow: 1;

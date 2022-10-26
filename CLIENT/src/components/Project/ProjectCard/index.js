@@ -295,6 +295,16 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="quantity"> {projectCard.fabric_array[1].used_size} </CostTabCell>
                                                 <CostTabCell className="price"> Coût </CostTabCell>
                                             </CostTabRow>
+                                            <CostTabRow
+                                                className="info"
+                                            >
+                                                <CostTabCell className="photo"><CostPicture src={projectCard.haberdashery_array[0].photo} ></CostPicture>  </CostTabCell>
+                                                <CostTabCell
+                                                    rowspan="3"
+                                                    className="name">{projectCard.haberdashery_array[0].name} </CostTabCell>
+                                                <CostTabCell className="quantity"> {projectCard.haberdashery_array[0].used_size} </CostTabCell>
+                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                            </CostTabRow>
                                         </tbody>
                                     </CostTab>
 
