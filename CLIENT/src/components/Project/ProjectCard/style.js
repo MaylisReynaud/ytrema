@@ -170,7 +170,11 @@ export const CardContainer = styled.div`
 display: flex;
 flex-direction: column;
 height:30vh;
+overflow-y: scroll;
 background-color: ${(props) => props.theme.color4};
+&[class~="cout"] {
+    height: 100%;
+  }
 @media screen and (min-width:601px) { 
   width:100%;
 }
@@ -235,6 +239,9 @@ export const Section = styled.section`
   }
   &[class~="cout"] {
     margin-bottom: 3rem;
+    height: 100rem;
+    background-image: none;
+
   }
     @media screen and (min-width:601px) { 
       height:100%;
@@ -249,6 +256,10 @@ font : 1.2rem/1.5 '${props => props.theme.textFont}';
   font-weight:600;
   /* margin-top: 1rem; */
   padding: .7rem;
+  &[class~="cout"] {
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
+
+  }
   
 
   
@@ -308,6 +319,7 @@ export const CardParagraph = styled.p`
 export const CostTab = styled.table`
   display: flex;
   flex-direction: column;
+  /* overflow-y: scroll; */
 `;
 export const CostTabRow = styled.tr`
 display: flex;
@@ -319,12 +331,17 @@ display: flex;
   padding: 0.3rem 0;
   align-items: center;
   }
+  &[class~="totalCost"] {
+  justify-content: flex-end;
+  align-items: center;
+  }
 `;
 
 export const CostTabHeadCell = styled.th`
 display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width:20%;
   
   background-color: ${props => props.theme.color3};
@@ -336,35 +353,30 @@ display: flex;
     width: auto;
     flex-grow: 1;
   }
-  /* &[class~="quantity"] {
-    width: auto;
-    flex-grow: 1;
-  } */
+ 
 `; 
 
 export const CostTabCell = styled.td`
 display: flex;
   flex-direction: row;
-  
+  align-items: center;
   justify-content: center;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   width:20%;
+
   
   &[class~="name"] {
     width: auto;
     flex-grow: 1;
+    margin-left: .3rem;
 
   }
-  /* &[class~="quantity"] {
-    width: auto;
-    flex-grow: 1;
-  } */
+
 `;
 
 export const CostPicture = styled.img`
   object-fit: cover;
   width:100%;
-  height:100%;
   margin-left: .3rem;
 `;
