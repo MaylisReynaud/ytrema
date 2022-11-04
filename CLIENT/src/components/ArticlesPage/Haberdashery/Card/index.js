@@ -251,7 +251,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteAction={deleteCard}
-                      word={' CET ARTICLE'}
+                      word={'SUPPRIMER CET ARTICLE'}
                     />
 
 
@@ -485,7 +485,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteAction={deleteCard}
-                    word={' CET ARTICLE'}
+                    word={' SUPPRIMER CET ARTICLE'}
                   />
 
 

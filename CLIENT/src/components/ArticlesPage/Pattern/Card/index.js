@@ -270,7 +270,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteAction={deleteCard}
-                      word={' CE PATRON'}
+                      word={'SUPPRIMER CE PATRON'}
                     />
                   </>
                 ) : (
@@ -491,7 +491,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteAction={deleteCard}
-                    word={' CE PATRON'}
+                    word={'SUPPRIMER CE PATRON'}
                   />
 
 
