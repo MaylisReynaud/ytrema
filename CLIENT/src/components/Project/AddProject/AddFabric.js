@@ -1,11 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-import { storage } from "../../../Firebase";
-import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";import { DeviceSize } from "../../Navbar/Responsive";
-import { addOneProject } from "../../../store/state/projectSlice";
-
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
     AddButton,
     CardsMapContainer,
@@ -13,15 +7,6 @@ import {
     ImgContainer,
     CardImg,
     CardText,
-    AddProjectContainer,
-    TitleContainer,
-    Title,
-    FormContainer,
-    Form,
-    LabelInputContainer,
-    InformationLabel,
-    InformationInput,
-    InformationSelect,
     Section,
     TitleSection,
     TitleSectionContainer,
@@ -40,11 +25,7 @@ import {
     PlusIcon,
     ReturnButton,
     AddReturnButtonContainer,
-    CardsContainer,
     PreviewButtonContainer,
-    ButtonForm,
-    PictureInputContainer,
-    PictureInput
 } from "./style";
 
 import YtremaLogo from "../../../assets/images/logo.png";
