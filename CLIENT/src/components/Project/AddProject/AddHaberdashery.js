@@ -27,9 +27,6 @@ import {
     AddReturnButtonContainer,
     CardsContainer,
     PreviewButtonContainer,
-    ButtonForm,
-    PictureInputContainer,
-    PictureInput
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
