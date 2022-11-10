@@ -27,8 +27,7 @@ CREATE TABLE "haberdashery"(
     "name" TEXT NOT NULL,
     "website" TEXT,
     "haberdashery" TEXT NOT NULL,
-    "unit_qty" POSITIVE_INTEGER CHECK (NOT ("is_cut" AND "unit_qty" IS NULL)),
-    "purchase_qty" POSITIVE_INTEGER NOT NULL,
+    "article_qty" POSITIVE_INTEGER NOT NULL,
     "stock_qty" POSITIVE_INTEGER_INCLUDING_0 NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "size" POSITIVE_INTEGER NOT NULL,
@@ -57,7 +56,7 @@ CREATE TABLE "fabric"(
     "fabric" TEXT NOT NULL,
     "composition" TEXT,
     "weight" POSITIVE_INTEGER,
-    "purchase_qty" POSITIVE_INTEGER NOT NULL,
+    "article_qty" POSITIVE_INTEGER NOT NULL,
     "stock_qty" POSITIVE_INTEGER_INCLUDING_0 NOT NULL,
     "width" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
@@ -100,20 +99,23 @@ CREATE TABLE "project_has_haberdashery"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
     "haberdashery_id" INT NOT NULL REFERENCES "haberdashery"("id") ON DELETE CASCADE,
-    "used_size" POSITIVE_INTEGER NOT NULL
+    "used_size" POSITIVE_INTEGER NOT NULL,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 CREATE TABLE "project_has_fabric"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
     "fabric_id" INT NOT NULL REFERENCES "fabric"("id") ON DELETE CASCADE,
-    "used_size" POSITIVE_INTEGER NOT NULL
+    "used_size" POSITIVE_INTEGER NOT NULL,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 CREATE TABLE "project_has_pattern"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
-    "pattern_id" INT NOT NULL REFERENCES "pattern"("id") ON DELETE CASCADE
+    "pattern_id" INT NOT NULL REFERENCES "pattern"("id") ON DELETE CASCADE,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 COMMIT;

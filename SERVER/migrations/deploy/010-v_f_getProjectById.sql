@@ -9,6 +9,7 @@ CREATE OR REPLACE VIEW view_of_fabrics_used AS
     f.fabric,
     f.photo,
     phf.used_size,
+    phf.article_cost,
     pro.id as project_id
     FROM "fabric" f
     JOIN "project_has_fabric" phf
@@ -23,6 +24,7 @@ CREATE OR REPLACE VIEW view_of_haberdasheries_used AS
     h.name,
     h.photo,
     phh.used_size,
+    phh.article_cost,
     pro.id as project_id
     FROM "haberdashery" h
     JOIN "project_has_haberdashery" phh
@@ -38,6 +40,7 @@ CREATE OR REPLACE VIEW view_of_patterns_used AS
     p.photo,
     p.format,
     p.pdf_instructions,
+    php.article_cost,
     pro.id as project_id
     FROM "pattern" p
     JOIN "project_has_pattern" php
