@@ -101,7 +101,7 @@ export const fabricInputs = [
     },
     {
       id: 10,
-      name:'quantity',
+      name:'stock_qty',
       type:"number",
       placeholder:'ex: 130',
       label:'Quantité en cm',
@@ -111,7 +111,7 @@ export const fabricInputs = [
       pattern: '^10[0]?$|^[2-9]{1}[0]{1,3}$|^[1-9]{2}[0]{1}$|^(1000)$',
       errorMessage:'entrez un nombre entre 10 et 1000 avec des étapes de 10',
       required: true,
-      info: 'quantity',
+      info: 'stock_qty',
 
     },
     {
@@ -140,6 +140,19 @@ export const fabricInputs = [
       errorMessage:'entrez un nombre entre 1 et 200',
       required: true,
       info: 'price',
+    },
+    {
+      id: 13,
+      name:'article_qty',
+      type:"number",
+      placeholder:'ex: 1',
+      label:'Nombre de coupon',
+      min: 1,
+      max: 200,
+      pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',
+      errorMessage:'entrez un nombre entre 1 et 200',
+      required: true,
+      info: 'article_qty',
     },
   ];
 

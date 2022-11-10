@@ -67,9 +67,10 @@ export function FabricForm({ setShowModal, showModal }) {
     fabric: '',
     composition: '',
     weight: '',
-    quantity: '',
+    stock_qty: '',
     width: '',
     price: '',
+    article_qty:'',
   });
 
   const [selectedFile, setSelectedFile] = useState();
@@ -137,9 +138,10 @@ export function FabricForm({ setShowModal, showModal }) {
       valuesToSend.color != "" &&
       valuesToSend.fabric != "" &&
       valuesToSend.weight != "" &&
-      valuesToSend.quantity != "" &&
+      valuesToSend.stock_qty != "" &&
       valuesToSend.width != "" &&
-      valuesToSend.price != "") {
+      valuesToSend.price != "" &&
+      valuesToSend.article_qty != "") {
       await addOneFabric({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
