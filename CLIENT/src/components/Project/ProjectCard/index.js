@@ -46,10 +46,15 @@ import {
     CostTabCell,
     CostTabRow,
     CostTabHeadCell,
-    CostPicture
+    CostPicture,
+    AddReturnButtonContainer,
+    AddButton,
+    ReturnButton
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
+import { NoteModal } from "./NoteModal";
+
 export const ProjectCard = () => {
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -66,6 +71,11 @@ export const ProjectCard = () => {
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
 
+    //Show adding note modal
+    const [showNoteModal, setShowNoteModal] = useState(false);
+    const isOpeningNoteModal = () => {
+        setShowNoteModal((prev) => !prev);
+    }
 
     return (
         <>
@@ -88,7 +98,7 @@ export const ProjectCard = () => {
                                     </ProjectTitle>
                                 </TitleContainer>
                             </ArrowTitleContainer>
-                            <NavProject>
+                            {/* <NavProject>
                                 <ProjectLinksContainer>
                                     <LinksWrapper>
                                         {projectCardLinks.map((projectLink) => {
@@ -97,12 +107,8 @@ export const ProjectCard = () => {
                                                     key={projectLink.id}
                                                 >
                                                     <ProjectMenuLinks
-                                                        to={projectLink.id}
-                                                        spy={true}
-                                                        smooth={true}
-                                                        duration={500}
-                                                        offset={100}
-                                                        exact="true"
+                                                    href={projectLink.id}
+                                                       
                                                     >
                                                         {projectLink.name}
                                                     </ProjectMenuLinks>
@@ -111,10 +117,10 @@ export const ProjectCard = () => {
                                         })}
                                     </LinksWrapper>
                                 </ProjectLinksContainer>
-                            </NavProject>
+                            </NavProject> */}
                         </HeaderContainer>
                         <Section
-                            id='tissus'
+                            id='"tissus'
                             className="tissus"
                         >
                             <SectionTitle>
@@ -224,10 +230,22 @@ export const ProjectCard = () => {
                             id='notes'
                             className="notes"
                         >
+                           
+                            <AddReturnButtonContainer>
+
                             <SectionTitle
                                 className="notes">
                                 NOTES
                             </SectionTitle>
+                                <AddButton
+                                    onClick={isOpeningNoteModal}
+                                    className="AddOneMoreNote"
+                                />
+                                <NoteModal
+                                    showNoteModal={showNoteModal}
+                                    setShowNoteModal={setShowNoteModal}
+                                />
+                            </AddReturnButtonContainer>
                             {projectCard.photos_array.map((notes) => (
                                 <CardsContainer key={notes.id}>
                                     <CardContainer>
@@ -271,67 +289,67 @@ export const ProjectCard = () => {
 
 
 
-                                <CardContainer
-                                    className="cout"
-                                >
+                            <CardContainer
+                                className="cout"
+                            >
 
-                                    <CostTab>
-                                        <thead>
-                                            <CostTabRow>
-                                                <CostTabHeadCell className="photo"> Photo </CostTabHeadCell>
-                                                <CostTabHeadCell className="name">Nom </CostTabHeadCell>
-                                                <CostTabHeadCell className="quantity"> Quantité </CostTabHeadCell>
-                                                <CostTabHeadCell className="price"> Coût </CostTabHeadCell>
+                                <CostTab>
+                                    <thead>
+                                        <CostTabRow>
+                                            <CostTabHeadCell className="photo"> Photo </CostTabHeadCell>
+                                            <CostTabHeadCell className="name">Nom </CostTabHeadCell>
+                                            <CostTabHeadCell className="quantity"> Quantité </CostTabHeadCell>
+                                            <CostTabHeadCell className="price"> Coût </CostTabHeadCell>
+                                        </CostTabRow>
+                                    </thead>
+                                    <tbody>
+                                        {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
+                                            <CostTabRow
+                                                className="info"
+                                                key={fabric.id}
+                                            >
+                                                <CostTabCell className="photo"><CostPicture src={fabric.photo != undefined ? fabric.photo : null} ></CostPicture>  </CostTabCell>
+                                                <CostTabCell className="name">{fabric.name} </CostTabCell>
+                                                <CostTabCell className="quantity"> {fabric.used_size} </CostTabCell>
+                                                <CostTabCell className="price"> Coût </CostTabCell>
                                             </CostTabRow>
-                                        </thead>
-                                        <tbody>
-                                            {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
-                                                <CostTabRow
-                                                    className="info"
-                                                    key={fabric.id}
-                                                >
-                                                    <CostTabCell className="photo"><CostPicture src={fabric.photo != undefined ? fabric.photo : null} ></CostPicture>  </CostTabCell>
-                                                    <CostTabCell className="name">{fabric.name} </CostTabCell>
-                                                    <CostTabCell className="quantity"> {fabric.used_size} </CostTabCell>
-                                                    <CostTabCell className="price"> Coût </CostTabCell>
-                                                </CostTabRow>
-                                            ))
-                                                : null}
+                                        ))
+                                            : null}
 
-                                            {projectCard.haberdashery_array ? projectCard.haberdashery_array.map((haberdashery) => (
-                                                <CostTabRow
-                                                    className="info"
-                                                    key={haberdashery.id}
-                                                >
-                                                    <CostTabCell className="photo"><CostPicture src={haberdashery.photo != undefined ? haberdashery.photo : null} ></CostPicture>  </CostTabCell>
-                                                    <CostTabCell className="name">{haberdashery.name} </CostTabCell>
-                                                    <CostTabCell className="quantity"> {haberdashery.used_size} </CostTabCell>
-                                                    <CostTabCell className="price"> Coût </CostTabCell>
-                                                </CostTabRow>
-                                            ))
-                                                : null}
+                                        {projectCard.haberdashery_array ? projectCard.haberdashery_array.map((haberdashery) => (
+                                            <CostTabRow
+                                                className="info"
+                                                key={haberdashery.id}
+                                            >
+                                                <CostTabCell className="photo"><CostPicture src={haberdashery.photo != undefined ? haberdashery.photo : null} ></CostPicture>  </CostTabCell>
+                                                <CostTabCell className="name">{haberdashery.name} </CostTabCell>
+                                                <CostTabCell className="quantity"> {haberdashery.used_size} </CostTabCell>
+                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                            </CostTabRow>
+                                        ))
+                                            : null}
 
-                                            {projectCard.pattern_array ? projectCard.pattern_array.map((pattern) => (
-                                                <CostTabRow
-                                                    className="info"
-                                                    key={pattern.id}
-                                                >
-                                                    <CostTabCell className="photo"><CostPicture src={pattern.photo != undefined ? pattern.photo : null} ></CostPicture>  </CostTabCell>
-                                                    <CostTabCell className="name">{pattern.name} </CostTabCell>
-                                                    <CostTabCell className="quantity"> 1 </CostTabCell>
-                                                    <CostTabCell className="price"> Coût </CostTabCell>
-                                                </CostTabRow>
-                                            ))
-                                                : null}
-                                                <CostTabRow className="totalCost">
-                                                    <CostTabCell className="totalCostName"> COUT TOTAL</CostTabCell>
-                                                    <CostTabCell className="totalCost€"> COUT TOTAL €</CostTabCell>
-                                                </CostTabRow>
-                                        </tbody>
-                                    </CostTab>
+                                        {projectCard.pattern_array ? projectCard.pattern_array.map((pattern) => (
+                                            <CostTabRow
+                                                className="info"
+                                                key={pattern.id}
+                                            >
+                                                <CostTabCell className="photo"><CostPicture src={pattern.photo != undefined ? pattern.photo : null} ></CostPicture>  </CostTabCell>
+                                                <CostTabCell className="name">{pattern.name} </CostTabCell>
+                                                <CostTabCell className="quantity"> 1 </CostTabCell>
+                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                            </CostTabRow>
+                                        ))
+                                            : null}
+                                        <CostTabRow className="totalCost">
+                                            <CostTabCell className="totalCostName"> COUT TOTAL</CostTabCell>
+                                            <CostTabCell className="totalCost€"> COUT TOTAL €</CostTabCell>
+                                        </CostTabRow>
+                                    </tbody>
+                                </CostTab>
 
-                                </CardContainer>
-                           
+                            </CardContainer>
+
 
                         </Section>
                     </>

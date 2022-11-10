@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
-import { Link as LinkS } from 'react-scroll';
+import { PatchPlusFill } from "@styled-icons/bootstrap";
+import { PatchMinusFill } from '@styled-icons/bootstrap';
+import { ArrowLeftCircleFill } from '@styled-icons/bootstrap';
+
 
 export const Container = styled.div`
     display: flex;
@@ -126,7 +129,7 @@ export const LinkItem = styled.li`
   height: 100%;
   margin: 1rem 0;
 `;
-export const ProjectMenuLinks = styled(LinkS)`
+export const ProjectMenuLinks = styled.a`
   font-family: ${props => props.theme.textFont};
   color: ${props => props.theme.color4};
   font-weight: 600;
@@ -146,6 +149,46 @@ export const ProjectMenuLinks = styled(LinkS)`
   }
   &.active {
     border-bottom: 2px solid ${props => props.theme.color1};
+  }
+`;
+
+export const AddReturnButtonContainer = styled.div`
+  /* display: block; */
+  /* position: relative; */
+  display: flex;
+
+  /* background-color: red; */
+`;
+
+export const AddButton = styled(PatchPlusFill)`
+  display: flex;
+  /* position:absolute; */
+  /* bottom: 0%;
+  right: -10%; */
+  cursor: pointer;
+  width:10%;
+  color: ${(props) => props.theme.color1};
+  &[class~="Alone"] {
+    bottom: 8%;
+    right: -10%;
+  }
+  &[class~="AddOneMoreSection"] {
+    bottom: 8%;
+    right: -10%;
+  }
+`;
+
+export const ReturnButton = styled(ArrowLeftCircleFill)`
+  display: flex;
+  /* position:absolute;
+  bottom: -12%;
+  right: -9%; */
+  cursor: pointer;
+  color: ${(props) => props.theme.color1};
+  /* width:15%; */
+  &[class~="AddOneMoreSection"] {
+    bottom: 9%;
+    left: -8%;
   }
 `;
 
@@ -227,6 +270,7 @@ export const Section = styled.section`
     justify-content: space-evenly;
     width:98%;
     margin:0.2rem;
+    scroll-margin-top:2rem;
     /* &[class~="tissus"] {
     margin-top: 1rem;
   } */

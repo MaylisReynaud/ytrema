@@ -29,23 +29,23 @@
 
 export const projectCardLinks = [
   {
-    id:'tissus',
+    id:'#tissus',
     name: 'Tissus',  
   },
   {
-    id:'mercerie',
+    id:'#mercerie',
     name: 'Mercerie',
   },
   {
-    id:'patrons',
+    id:'#patrons',
     name: 'Patrons',
   },
   {
-    id:'notes',
+    id:'#notes',
     name: 'Notes',
   },
   {
-    id:'cout',
+    id:'#cout',
     name: 'Coût',
   },
 ];
