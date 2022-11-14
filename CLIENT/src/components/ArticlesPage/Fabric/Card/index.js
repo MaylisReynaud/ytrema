@@ -108,7 +108,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
     fabric: fabricCard.fabric,
     composition: fabricCard.composition,
     weight: fabricCard.weight,
-    quantity: fabricCard.quantity,
+    stock_qty: fabricCard.stock_qty,
     width: fabricCard.width,
     price: fabricCard.price,
   });
@@ -295,13 +295,14 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               {updateFabricInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
                           {input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
+                        
                           <>
                             {(input.id == 9 || input.id == 10 || input.id == 11 || input.id == 12) ? (
                               <InformationInput
@@ -364,8 +365,9 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
+                 
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 &&  index !== 12) ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
@@ -379,6 +381,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
+                   
                           <InformationTextarea
                             value={fabricCard[input.info]}
                             disabled="disabled"
@@ -389,7 +392,8 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
 
                       </InformationContent>
                     ) : null
-                  )}
+                  )
+                  }
                 </InformationForm>
               )}
 
@@ -493,7 +497,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               {updateFabricInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                     (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
@@ -560,7 +564,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               ) : (
                 <InformationForm>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
                         <InformationLabel>{input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (

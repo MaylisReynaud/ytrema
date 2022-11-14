@@ -71,19 +71,6 @@ export const haberdasheryInputs = [
       required: true,
       info: 'is_a_set',
     },
-    // {
-    //   id: 7,
-    //   name:'purchase_qty',
-    //   type:"number",
-    //   placeholder:'ex: 20000',
-    //   label:"Longueur totale",
-    //   min: 1,
-    //   max: 200000000,
-    //   pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',
-    //   errorMessage:'entrez un nombre entre 1 et 200',
-    //   required: true,
-    //   info: 'purchase_qty',
-    // },
     {
       id: 7,
       name:'size',
@@ -111,10 +98,23 @@ export const haberdasheryInputs = [
     },
     {
       id: 9,
+      name:'article_qty',
+      type:"number",
+      placeholder:'ex: 1',
+      label:'Nombre de lots',
+      min: 1,
+      max: 200,
+      pattern:'^[1-9]{1,2}[\,\.]?[0-9]{0,2}$|^[1-9][0]{1}[\,\.]?[0-9]{1,2}$|^1[0-9]{2}[\,\.]?[0-9]{1,2}$|^(200)$',
+      errorMessage:'entrez un nombre entre 1 et 200',
+      required: true,
+      info: 'article_qty',
+    },
+    {
+      id: 10,
       name:'stock_qty',
       type:"number",
       placeholder:'ex: 4',
-      label:"Quantité",
+      label:"Quantité / nombre d'articles par lot",
       min: 0,
       max: 1000,
       pattern: '^(1000|[1-9][0-9]?)$',
@@ -123,7 +123,7 @@ export const haberdasheryInputs = [
       info: 'stock_qty',
     },
     {
-      id: 10,
+      id: 11,
       name:'color',
       type:'select',
       placeholder:'couleur',
@@ -135,7 +135,7 @@ export const haberdasheryInputs = [
       info: 'color'
     },
     {
-      id: 11,
+      id: 12,
       name:'precise_color',
       type:'text',
       placeholder:'ex: rose poudré ou ex:#FCDEDC',
@@ -143,7 +143,7 @@ export const haberdasheryInputs = [
       info: 'precise_color',
     },    
     {
-      id: 12,
+      id: 13,
       name:'price',
       type:"number",
       placeholder:'ex: 12.50',
@@ -155,6 +155,7 @@ export const haberdasheryInputs = [
       required: true,
       info: 'price',
     },
+
   ];
 
   //old before adding is_a_set...

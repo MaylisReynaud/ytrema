@@ -67,7 +67,6 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     haberdashery: '',
     is_cut: '',
     is_a_set:'',
-    purchase_qty:'',
     stock_qty: '',
     unity: '',
     article_qty:'',
@@ -157,11 +156,12 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
       (typeof(valuesToSend.is_cut) == 'boolean') && 
       (typeof(valuesToSend.is_a_set) == 'boolean') && 
       valuesToSend.price != "") {
-        // valuesToSend.purchase_qty == valuesToSend.stock_qty;
+      
         console.log(valuesToSend, '<-valuesto send avant addOneH')
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
+      console.log('coucou dans le else')
       haberdasheryInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           isVerif = true;
