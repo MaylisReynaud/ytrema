@@ -39,7 +39,7 @@ const fabricDataMapper = {
             ]
         };
 
-        // If article_qty is greater than 1, each quantity has to be saved in a disticnt ron in the DB
+        // If article_qty is greater than 1, each quantity has to be saved in a disticnt row in the DB
         if (article_qty > 1) {
             // Update the article_qty to 1 in the query
             query.values[8] = 1;
