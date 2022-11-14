@@ -66,8 +66,11 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     precise_color: '',
     haberdashery: '',
     is_cut: '',
-    quantity: '',
+    is_a_set:'',
+    purchase_qty:'',
+    stock_qty: '',
     unity: '',
+    article_qty:'',
     price: '',
   });
 
@@ -138,6 +141,8 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     const valuesToSend = values;
     const boolValueIsCut = (valuesToSend.is_cut == 'true') ? true : false;
     valuesToSend.is_cut = boolValueIsCut;
+    const boolValueIsASet = (valuesToSend.is_a_set == 'true') ? true : false;
+    valuesToSend.is_a_set = boolValueIsASet;
 
     valuesToSend.photo = photoURL;
     if (valuesToSend.name != "" &&
@@ -146,11 +151,14 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
       valuesToSend.size != "" &&
       valuesToSend.color != "" &&
       valuesToSend.haberdashery != "" &&
-      valuesToSend.quantity != "" &&
+      valuesToSend.stock_qty != "" &&
       valuesToSend.unity != "" &&
-      // valuesToSend.is_cut != "" &&
+      valuesToSend.article_qty != "" &&
       (typeof(valuesToSend.is_cut) == 'boolean') && 
+      (typeof(valuesToSend.is_a_set) == 'boolean') && 
       valuesToSend.price != "") {
+        // valuesToSend.purchase_qty == valuesToSend.stock_qty;
+        console.log(valuesToSend, '<-valuesto send avant addOneH')
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
