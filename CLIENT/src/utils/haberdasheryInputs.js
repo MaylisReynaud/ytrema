@@ -86,6 +86,19 @@ export const haberdasheryInputs = [
     },
     {
       id: 8,
+      name:'stock_qty',
+      type:"number",
+      placeholder:'ex: 4',
+      label:"Quantité",
+      min: 0,
+      max: 1000,
+      pattern: '^(1000|[1-9][0-9]?)$',
+      errorMessage:'entrez un nombre entre 1 et 1000',
+      required: true,
+      info: 'stock_qty',
+    },
+    {
+      id: 9,
       name:'size',
       type:'number',
       placeholder:'ex: 20',
@@ -98,7 +111,7 @@ export const haberdasheryInputs = [
       info: 'size',
     },
     {
-      id: 9,
+      id: 10,
       name:'unity',
       type:'select',
       placeholder:'unité de mesure',
@@ -110,19 +123,7 @@ export const haberdasheryInputs = [
       info: 'unity',
     },
     
-    {
-      id: 10,
-      name:'stock_qty',
-      type:"number",
-      placeholder:'ex: 4',
-      label:"Quantité / nombre d'articles par lot",
-      min: 0,
-      max: 1000,
-      pattern: '^(1000|[1-9][0-9]?)$',
-      errorMessage:'entrez un nombre entre 1 et 1000',
-      required: true,
-      info: 'stock_qty',
-    },
+    
     {
       id: 11,
       name:'color',

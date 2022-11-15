@@ -66,10 +66,10 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     precise_color: '',
     haberdashery: '',
     is_cut: '',
-    is_a_set:'',
+    is_a_set: '',
     stock_qty: '',
     unity: '',
-    article_qty:'',
+    article_qty: '',
     price: '',
   });
 
@@ -77,7 +77,7 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   // const [isVerif, setIsVerif] = useState(false);
-  let isVerif = false ;
+  let isVerif = false;
   const [isVerifInput, setIsVerifInput] = useState(false);
 
 
@@ -153,11 +153,11 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
       valuesToSend.stock_qty != "" &&
       valuesToSend.unity != "" &&
       valuesToSend.article_qty != "" &&
-      (typeof(valuesToSend.is_cut) == 'boolean') && 
-      (typeof(valuesToSend.is_a_set) == 'boolean') && 
+      (typeof (valuesToSend.is_cut) == 'boolean') &&
+      (typeof (valuesToSend.is_a_set) == 'boolean') &&
       valuesToSend.price != "") {
-      
-        console.log(valuesToSend, '<-valuesto send avant addOneH')
+
+      console.log(valuesToSend, '<-valuesto send avant addOneH')
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
@@ -184,25 +184,99 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
           }
           {haberdasheryInputs.map((input) => (
             input.type === "select" ? (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChange}
-                value={values[input.name]}
-                options={input.optionsList}
-                isVerif={((input.required && values[input.name] == "") ? true : false)}
-                isVerifInput={isVerifInput}
-              />
+              input.id !== 6 ? (
+                <FormInput
+                  key={input.id}
+                  {...input}
+                  onChange={onChange}
+                  value={values[input.name]}
+                  options={input.optionsList}
+                  isVerif={((input.required && values[input.name] == "") ? true : false)}
+                  isVerifInput={isVerifInput}
+                />
+              ) :
+                (
+                  values.is_cut == "false" && input.id == 6 ? (
+                    <FormInput
+                      key={input.id}
+                      {...input}
+                      onChange={onChange}
+                      value={values[input.name]}
+                      options={input.optionsList}
+                      isVerif={((input.required && values[input.name] == "") ? true : false)}
+                      isVerifInput={isVerifInput}
 
-            ) :
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChange}
-                options={input.optionsList}
-                isVerif={((input.required && values[input.name] == "") ? true : false)}
-                isVerifInput={isVerifInput}
-              />
+                    />
+                  ) : null
+                )
+
+
+            ) : (
+              input.type !== "select" ? (
+                input.id !== 7 && input.id !== 8 ? (
+                  <FormInput
+                    key={input.id}
+                    {...input}
+                    onChange={onChange}
+                    options={input.optionsList}
+                    isVerif={((input.required && values[input.name] == "") ? true : false)}
+                    isVerifInput={isVerifInput}
+                  />
+                ) :
+                  (
+                    values.is_cut == "true" && input.id == 7 ? (
+                      <FormInput
+                        key={input.id}
+                        {...input}
+                        onChange={onChange}
+                        options={input.optionsList}
+                        isVerif={((input.required && values[input.name] == "") ? true : false)}
+                        isVerifInput={isVerifInput}
+                        labelSpe={"Nombre d'article"}
+                      />
+                    ) : (
+                      values.is_a_set == "true" && input.id == 7 ?
+                        (
+                          <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                          />
+                        ) :
+                        (values.is_cut == "false" && values.is_a_set == "false" && input.id == 8 ? (
+                          <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                          />
+                        )
+                          : (values.is_cut == "false" && values.is_a_set == "true" && input.id == 8 ? 
+                          (
+                            <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                            labelSpe={"Nombre de lots achetés"}
+                          />
+                          ) : 
+                          (null))
+                        )
+                    )
+                  )
+              ) :
+                (
+                  null
+                )
+            )
 
           ))}
         </InputContainer>

@@ -21,6 +21,7 @@ function FormInput(props) {
     required,
     isVerif,
     isVerifInput,
+    labelSpe,
     ...inputProps
   } = props;
 
@@ -46,7 +47,7 @@ function FormInput(props) {
   return (
     <>
       <InputContainer>
-        {required ? <LabelForm htmlFor={htmlFor}>{label}*</LabelForm> : <LabelForm htmlFor={htmlFor}>{label}</LabelForm>}
+        {required ? <LabelForm htmlFor={htmlFor}>{labelSpe ? labelSpe : label}*</LabelForm> : <LabelForm htmlFor={htmlFor}>{label}</LabelForm>}
         {type === "select" ? (
           <SelectForm
             {...inputProps}
