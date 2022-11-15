@@ -52,7 +52,7 @@ export const haberdasheryInputs = [
       name:'is_cut',
       type:'select',
       placeholder:'article au mètre',
-      label:'Article au mètre ?',
+      label:'Article à la coupe ou bobine ?',
       htmlFor: 'isCutType',
       optionsList: [ 'true', 'false'],
       errorMessage:"Sélectionnez si l'article est à la coupe au mètre ou pas ",

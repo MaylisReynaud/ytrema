@@ -136,7 +136,21 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     }
   };
   const handleSubmit = async (event) => {
+    console.log(values, '<--values');
     event.preventDefault();
+    //CAS 1 : bouton piece (is_cut FALSE & is_a_set FALSE)
+    if ( values.is_cut == "false" && values.is_a_set == "false") {
+      values.article_qty= "1"
+    }
+  // CAS 2 : Bouton vendue en lot id 5 (is_cut FALSE & is_a_set TRUE)
+  if ( values.is_cut == "false" && values.is_a_set == "true") {
+    values.stock_qty=  values.stock_qty*values.article_qty
+  }
+  // CAS 3 : Bobine de fil id 10 (is_cut TRUE & is_a_set FALSE)
+  if ( values.is_cut == "true") {
+    values.stock_qty=values.size
+  }
+
     const valuesToSend = values;
     const boolValueIsCut = (valuesToSend.is_cut == 'true') ? true : false;
     valuesToSend.is_cut = boolValueIsCut;
@@ -144,6 +158,7 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     valuesToSend.is_a_set = boolValueIsASet;
 
     valuesToSend.photo = photoURL;
+    
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
@@ -293,4 +308,4 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   )
 };
 
-// export default HaberdasheryForm;
+

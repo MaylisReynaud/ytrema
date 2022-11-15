@@ -57,7 +57,8 @@ function FormInput(props) {
             onBlur={handleBlur}
             required={required}
           >
-            <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>
+             
+            <option value="" defaultValue disabled hidden>--Choisissez votre {id == 5 || id == 8 ? " réponse" : label.toLowerCase()}--</option>
             {options.sort().map((option, index) => (
               <option key={index} value={option}>
 
