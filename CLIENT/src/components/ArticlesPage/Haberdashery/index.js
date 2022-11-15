@@ -103,7 +103,7 @@ export const Haberdashery = (props, index) => {
                       <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                     </ImgContainer>
                     <CardText>
-                    {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                    {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -326,7 +326,7 @@ export const Haberdashery = (props, index) => {
                             <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                           </ImgContainer>
                           <CardText>
-                          {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                          {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -453,7 +453,7 @@ export const Haberdashery = (props, index) => {
                             </ImgContainer>
 
                             <CardText>
-                              {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                              {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                             </CardText>
                           </CardContainer>
                         </Link>
