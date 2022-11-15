@@ -1,105 +1,10 @@
 const client = require("./client");
 
 const haberdasheryDataMapper = {
-    async createHaberdashery(haberdasheryInfo, id) {
-        const {
-            name,
-            website,
-            haberdashery,
-            // quantity,
-            unit_qty,
-            purchase_qty,
-            stock_qty,
-            price,
-            size,
-            unity,
-            color,
-            precise_color,
-            photo,
-            is_cut,
-            is_a_set
-        } = haberdasheryInfo;
-
-        let query;
-
-        // Check if the haberdashery has already exist, if is_cut is false
-        if (!is_cut) {
-            const existingHaberdashery = await this.doesHaberdasheryExist(
-                name,
-                haberdashery,
-                price,
-                size,
-                unity,
-                color,
-                precise_color,
-                id
-            );
-
-            // If yes, update its quantity
-            if (existingHaberdashery) {
-                const newQuantity =
-                    quantity + Number(existingHaberdashery.quantity);
-
-                // Query to update the haberdashery quantity
-                query = {
-                    text: `UPDATE "haberdashery" SET "quantity" = $1 WHERE "id" = $2 RETURNING *`,
-                    values: [newQuantity, existingHaberdashery.id],
-                };
-
-                // Send query to DB
-                const updatedHaberdasheryResult = await client.query(query);
-
-                // Get request result
-                const { rows: updatedHaberdashery } = updatedHaberdasheryResult;
-
-                // Return result
-                return updatedHaberdashery[0];
-            }
-        }
-
-        // If the haberdashery has not already exist or "is_cut" property is true, create it in the DB
-        // Query to create haberdashery in DB
-        query = {
-            text: `INSERT INTO "haberdashery"("name", "website", "haberdashery", "quantity", "price", "size", "unity", "color", "precise_color", "photo", "is_cut", "member_id") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
-            values: [
-                name,
-                website,
-                haberdashery,
-                quantity,
-                price,
-                size,
-                unity,
-                color,
-                precise_color,
-                photo,
-                is_cut,
-                id,
-            ],
-        };
-
-        // If is_cut property is true, each quantity has to be saved in a distinct row in the DB
-        if (is_cut && quantity > 1) {
-            // Update the quantity to 1 in the query
-            query.values[3] = 1;
-
-            // Create each row in the DB except for the last one, It will be created outside of this condition
-            for (let i = quantity; i > 1; i--) {
-                await client.query(query);
-            }
-        }
-
-        // Send query to DB
-        const createdHaberdasheryResult = await client.query(query);
-
-        // Get request result
-        const { rows: createdHaberdashery } = createdHaberdasheryResult;
-        // Return result
-        return createdHaberdashery[0];
-    },
-
     async doesHaberdasheryExist(
         name,
         haberdashery,
+        article_qty,
         price,
         size,
         unity,
@@ -109,10 +14,11 @@ const haberdasheryDataMapper = {
     ) {
         // Query to search the haberdashery in DB
         const query = {
-            text: `SELECT id, quantity FROM "haberdashery" WHERE "name" = $1 AND "haberdashery" = $2 AND "price" = $3 AND "size" = $4 AND "unity" = $5 AND "color" = $6 AND "precise_color" = $7 AND "member_id" = $8`,
+            text: `SELECT id, stock_qty FROM "haberdashery" WHERE "name" = $1 AND "haberdashery" = $2 AND "article_qty" = $3 AND "price" = $4 AND "size" = $5 AND "unity" = $6 AND "color" = $7 AND "precise_color" = $8 AND "member_id" = $9`,
             values: [
                 name,
                 haberdashery,
+                article_qty,
                 price,
                 size,
                 unity,
@@ -136,6 +42,103 @@ const haberdasheryDataMapper = {
             // Return result
             return existingHaberdashery[0];
         }
+    },
+
+    async createHaberdashery(haberdasheryInfo, id) {
+        const {
+            name,
+            website,
+            haberdashery,
+            article_qty,
+            stock_qty,
+            price,
+            size,
+            unity,
+            color,
+            precise_color,
+            photo,
+            is_cut,
+            is_a_set
+        } = haberdasheryInfo;
+
+        let query;
+
+        // Check if the haberdashery has already exist, if is_cut is false
+        if (!is_cut) {
+            const existingHaberdashery = await this.doesHaberdasheryExist(
+                name,
+                haberdashery,
+                article_qty,
+                price,
+                size,
+                unity,
+                color,
+                precise_color,
+                id
+            );
+
+            // If yes, update its quantity
+            if (existingHaberdashery) {
+                const newStockQuantity =
+                stock_qty + Number(existingHaberdashery.stock_qty);
+
+                // Query to update the haberdashery quantity
+                query = {
+                    text: `UPDATE "haberdashery" SET "stock_qty" = $1 WHERE "id" = $2 RETURNING *`,
+                    values: [newStockQuantity, existingHaberdashery.id],
+                };
+
+                // Send query to DB
+                const updatedHaberdasheryResult = await client.query(query);
+
+                // Get request result
+                const { rows: updatedHaberdashery } = updatedHaberdasheryResult;
+
+                // Return result
+                return updatedHaberdashery[0];
+            }
+        }
+
+        // If the haberdashery has not already exist or "is_cut" property is true, create it in the DB
+        // Query to create haberdashery in DB
+        query = {
+            text: `INSERT INTO "haberdashery"("name", "website", "haberdashery", "article_qty", "stock_qty", "price", "size", "unity", "color", "precise_color", "photo", "is_cut", "is_a_set", "member_id") VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
+            values: [
+                name,
+                website,
+                haberdashery,
+                article_qty,
+                stock_qty,
+                price,
+                size,
+                unity,
+                color,
+                precise_color,
+                photo,
+                is_cut,
+                is_a_set,
+                id,
+            ],
+        };
+
+        // If is_cut property is true, each quantity has to be saved in a distinct row in the DB
+        if (is_cut && article_qty > 1) {
+            // Update the quantity to 1 in the query
+            query.values[3] = 1;
+
+            // Create each row in the DB except for the last one, It will be created outside of this condition
+            for (let i = article_qty; i > 1; i--) {
+                await client.query(query);
+            }
+        }
+
+        // Send query to DB
+        const createdHaberdasheryResult = await client.query(query);
+
+        // Get request result
+        const { rows: createdHaberdashery } = createdHaberdasheryResult;
+        // Return result
+        return createdHaberdashery[0];
     },
 
     async getAllHaberdasheries(id) {
@@ -218,7 +221,8 @@ const haberdasheryDataMapper = {
             name,
             website,
             haberdashery,
-            quantity,
+            article_qty,
+            stock_qty,
             price,
             size,
             unity,
@@ -226,36 +230,31 @@ const haberdasheryDataMapper = {
             precise_color,
             photo,
             is_cut,
+            is_a_set,
         } = haberdasheryInfoToUpdate;
 
         // Query to update haberdashery in DB
         const query = {
-            text: `UPDATE "haberdashery" SET "name" = $1, "website" = $2, "haberdashery" = $3, "quantity" = $4, "price" = $5, "size" = $6, "unity" = $7, "color" = $8, "precise_color" = $9, "photo" = $10, "is_cut" = $11 WHERE "member_id" = $12 AND "id" = $13 RETURNING *`,
+            text: `UPDATE "haberdashery" SET "name" = $1, "website" = $2, "haberdashery" = $3, "article_qty" = $4, "stock_qty" = $5, "price" = $6, "size" = $7, "unity" = $8, "color" = $9, "precise_color" = $10, "photo" = $11 WHERE "member_id" = $12 AND "id" = $13 RETURNING *`,
             values: [
                 name,
                 website,
                 haberdashery,
-                quantity,
+                article_qty,
+                stock_qty,
                 price,
                 size,
                 unity,
                 color,
                 precise_color,
                 photo,
-                is_cut,
                 id,
-                haberdasheryId,
+                haberdasheryId
             ],
         };
 
-        // If is_cut property is true and quantity property greater than 1, only the existing row in the DB can be updated, it is necessary to create the other rows.
-        if (is_cut && quantity > 1) {
-            // Update the quantity to subtract the row that will be updated in the DB
-            haberdasheryInfoToUpdate.quantity = quantity - 1;
-
-            // Create the other rows
-            await this.createHaberdashery(haberdasheryInfoToUpdate, id);
-
+        // If the is_cut property is true OR the is_cut and is_a_set properties are false, then the article_qty property cannot be updated. Its value must be equal to 1.
+        if (is_cut || (!is_cut && !is_a_set)) {
             // Update the quantity to 1 in the updating query
             query.values[3] = 1;
         }
