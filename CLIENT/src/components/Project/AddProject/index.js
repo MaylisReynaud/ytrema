@@ -96,7 +96,6 @@ export const AddProject = (props) => {
             let fabricObject = values;
             fabricObject.fabrics.push({
                 fabric_id: fabricCard.id,
-                fabric_purchase_qty: fabricCard.quantity,
                 fabric_qty_stock:fabricCard.qty_stock,
                 fabric_price: fabricCard.price,
                 fabric_used_size: event.target.value,
@@ -121,7 +120,8 @@ export const AddProject = (props) => {
                 haberdashery_id: haberdasheryCard.id,
                 haberdashery_is_cut : haberdasheryCard.is_cut,
                 haberdashery_is_a_set : haberdasheryCard.is_a_set,
-                haberdashery_purchase_qty : haberdasheryCard.purchase_qty,
+                haberdashery_article_qty : haberdasheryCard.article_qty,
+                haberdashery_size : haberdasheryCard.size,
                 haberdashery_qty_stock: haberdasheryCard.qty_stock,
                 haberdashery_price: haberdasheryCard.price,
                 haberdashery_used_size: event.target.value,
@@ -491,7 +491,8 @@ export const AddProject = (props) => {
                                                         showAddOneMorePattern && isOpeningOneMorePattern();
                                                         let patternObject = values;
                                                         patternObject.patterns.push({
-                                                            pattern_id: pattern.id
+                                                            pattern_id: pattern.id,
+                                                            pattern_price: pattern.price
                                                         });
 
                                                         // keep last pattern object with same the id

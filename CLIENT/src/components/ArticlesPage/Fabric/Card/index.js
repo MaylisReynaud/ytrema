@@ -299,7 +299,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
+                        {input.id == 10 ? " Quantité stockée (en cm)" : input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
                         
@@ -369,7 +369,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   {fabricInputs.map((input, index) =>
                     (index !== 0 &&  index !== 12) ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
+                        <InformationLabel> {input.id == 10 ? " Quantité stockée (en cm)" : input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
@@ -501,7 +501,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
+                        {input.id == 10 ? " Quantité stockée (en cm)" : input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
@@ -566,7 +566,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   {fabricInputs.map((input, index) =>
                     (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
+                        <InformationLabel> {input.id == 10 ? " Quantité stockée (en cm)" : input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
