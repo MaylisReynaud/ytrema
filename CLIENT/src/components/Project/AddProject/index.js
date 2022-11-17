@@ -495,7 +495,7 @@ export const AddProject = (props) => {
                                                             pattern_price: pattern.price
                                                         });
 
-                                                        // keep last pattern object with same the id
+                                                        // keep last pattern object with same id
                                                         let patternsResult = [
                                                             ...patternObject.patterns
                                                                 .reduce((acc, cur) => {

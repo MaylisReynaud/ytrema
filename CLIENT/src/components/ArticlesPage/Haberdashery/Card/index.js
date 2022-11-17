@@ -105,9 +105,11 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     color: haberdasheryCard.color,
     precise_color: haberdasheryCard.precise_color,
     haberdashery: haberdasheryCard.haberdashery,
-    quantity: haberdasheryCard.quantity,
+    stock_qty: haberdasheryCard.stock_qty,
     unity: haberdasheryCard.unity,
     is_cut: haberdasheryCard.is_cut,
+    is_a_set: haberdasheryCard.is_a_set,
+    article_qty: haberdasheryCard.article_qty,
     price: haberdasheryCard.price,
   });
 
@@ -166,12 +168,20 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     if (photoURL !== undefined) {
       values.photo = photoURL;
 
-    }
+    };
+
     if (values.is_cut == 'oui') {
       values.is_cut = true;
     } else if (values.is_cut == 'non') {
       values.is_cut = false;
-    }
+    };
+
+    if (values.is_a_set == 'oui') {
+      values.is_a_set = true;
+    } else if (values.is_a_set == 'non') {
+      values.is_a_set = false;
+    };
+
     const valuesToSend = values;
     console.log(valuesToSend, 'valuestosend')
     const urlParams = {
@@ -302,17 +312,16 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
               {updateHaberdasheryInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {haberdasheryInputs.map((input, index) =>
-                    index !== 0 ? (
+                    // CASE 1 : BUTTON : is_cut = false && is_a_set = false => no show article_qty
+                    index !== 0 && index !== 6 ? (
                       <InformationContent key={input.id}>
 
-                        <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
-                        </InformationLabel>
-                        {input.type !== "select" ? (
-                          <>
-                         {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
-                            // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
-                         
+                      <InformationLabel htmlFor={input.htmlFor}>
+                        {input.id == 8 && values.is_cut == true ? "Quantité en stock" : input.label}
+                      </InformationLabel>
+                      {input.type !== "select" ? (
+                        <>
+                          {(input.id == 9 && input.id == 8 && values.is_cut == false || input.id == 13) ? (
                             <InformationInput
                               placeholder={values[input.info]}
                               onChange={onChange}
@@ -320,9 +329,9 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               name={input.name}
                               pattern={input.pattern}
                               data-error={input.errorMessage}
-                            ></InformationInput> 
+                            ></InformationInput>
                           ) :
-                              (input.id == 8 && values.is_cut == true) ? (
+                              (input.id == 9 && values.is_cut == true) ? (
                               <InformationInput
                                 placeholder={values[input.info]}
                                 type={input.type}
@@ -331,78 +340,109 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                                 className="disabled"
                               ></InformationInput>
                          ) :
-                         ( <InformationTextarea
-                          placeholder={values[input.info]}
-                          rows={values[input.info].length <= 31 ? '1' : '2'}
-                          onChange={onChange}
-                          type={input.type}
-                          name={input.name}
-                          pattern={input.pattern}
-                          data-error={input.errorMessage}
-                        ></InformationTextarea> )}
+                              (<InformationTextarea
+                                placeholder={values[input.info]}
+                                rows={values[input.info].length <= 31 ? '1' : '2'}
+                                onChange={onChange}
+                                type={input.type}
+                                name={input.name}
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
+                              ></InformationTextarea>)}
 
-                            {input.id == 10 || input.id == 8 ? (
-                              null
-                            ) :
-                              <MessageHover
-                                errorMessage={input.errorMessage}
-                              />}
+                          {input.id == 12 ? (
+                            null
+                          ) :
+                            <MessageHover
+                              errorMessage={input.errorMessage}
+                            />}
 
-                          </>
-                        ) : (
-                          input.id !== 5 ? (
+                        </>
+                      ) : (
+                        input.id !== 5 && input.id !== 6 ? (
+                          input.id == 10 ? (
                             <InformationSelect
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              name={input.name}
-                              type={input.type}
-                              id={input.htmlFor}
-                              defaultValue={values[input.info] }
-                            >
+                            disabled
+                            className="disabled"
+                            placeholder={values[input.info]}
+                            onChange={onChange}
+                            name={input.name}
+                            type={input.type}
+                            id={input.htmlFor}
+                            defaultValue={values[input.info]}
+                          >
 
-                              {input.optionsList.sort().map((option, index) =>
+                            {input.optionsList.sort().map((option, index) =>
 
-                                option == values[input.info] ? (
-                                  <option key={index} value={option}>
-                                    {option}
-                                  </option>
-                                ) : (
-                                  <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+                              option == values[input.info] ? (
+                                <option key={index} value={option}>
+                                  {option}
+                                </option>
+                              ) : (
+                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
 
-                                    {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                  </option>
-                                )
-                              )}
-                            </InformationSelect>
-                          ) : (
-                            <InformationSelect
-                              // placeholder={values[input.info]}
-                              disabled
-                              className="disabled"
-                              name={input.name}
-                              type={input.type}
-                              id={input.htmlFor}
-                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
-                            >
-
-                              {input.optionsList.sort().map((option, index) =>
-
-                                option == values[input.info] ? (
-                                  <option key={index} value={option}>
-                                    {option}
-                                  </option>
-                                ) : (
-                                  <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
-
-                                    {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                  </option>
-                                )
-                              )}
-                            </InformationSelect>
+                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                </option>
+                              )
+                            )}
+                          </InformationSelect>
                           )
+                          : (
+                            <InformationSelect
+                            placeholder={values[input.info]}
+                            onChange={onChange}
+                            name={input.name}
+                            type={input.type}
+                            id={input.htmlFor}
+                            defaultValue={values[input.info]}
+                          >
 
-                        )}
-                      </InformationContent>
+                            {input.optionsList.sort().map((option, index) =>
+
+                              option == values[input.info] ? (
+                                <option key={index} value={option}>
+                                  {option}
+                                </option>
+                              ) : (
+                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                </option>
+                              )
+                            )}
+                          </InformationSelect>
+                          )
+                         
+                        ) : (
+                          <InformationSelect
+                            // placeholder={values[input.info]}
+                            disabled
+                            className="disabled"
+                            name={input.name}
+                            type={input.type}
+                            id={input.htmlFor}
+                            defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                          >
+
+                            {input.optionsList.sort().map((option, index) =>
+
+                              option == values[input.info] ? (
+                                <option key={index} value={option}>
+                                  {option}
+                                </option>
+                              ) : (
+                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                </option>
+                              )
+                            )}
+                          </InformationSelect>
+                        )
+
+                      )}
+                    </InformationContent>
+
                     ) : null
                   )}
                   <ButtonForm>Enregistrer</ButtonForm>
@@ -544,36 +584,36 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                         {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
-                            // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
-                         
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput> 
-                          ) :
-                              (input.id == 8 && values.is_cut == true) ? (
+                            {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
+                              // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
+
                               <InformationInput
                                 placeholder={values[input.info]}
+                                onChange={onChange}
                                 type={input.type}
                                 name={input.name}
-                                disabled
-                                className="disabled"
+                                pattern={input.pattern}
+                                data-error={input.errorMessage}
                               ></InformationInput>
-                         ) :
-                         ( <InformationTextarea
-                          placeholder={values[input.info]}
-                          rows={values[input.info].length <= 31 ? '1' : '2'}
-                          onChange={onChange}
-                          type={input.type}
-                          name={input.name}
-                          pattern={input.pattern}
-                          data-error={input.errorMessage}
-                        ></InformationTextarea> )}
+                            ) :
+                              (input.id == 8 && values.is_cut == true) ? (
+                                <InformationInput
+                                  placeholder={values[input.info]}
+                                  type={input.type}
+                                  name={input.name}
+                                  disabled
+                                  className="disabled"
+                                ></InformationInput>
+                              ) :
+                                (<InformationTextarea
+                                  placeholder={values[input.info]}
+                                  rows={values[input.info].length <= 31 ? '1' : '2'}
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationTextarea>)}
 
                             {input.id == 10 || input.id == 8 ? (
                               null
@@ -616,7 +656,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               name={input.name}
                               type={input.type}
                               id={input.htmlFor}
-                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info]) }
+                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
                             >
 
                               {input.optionsList.sort().map((option, index) =>
