@@ -174,6 +174,7 @@ export const CardTitle = styled.h1`
   flex-direction: column;
   width: 100%;
   text-align: center;
+  margin-top: .7rem;
   justify-content: center;
   align-items: center;
   font: 1.4rem "${(props) => props.theme.textFont}";
