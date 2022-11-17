@@ -105,9 +105,11 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     color: haberdasheryCard.color,
     precise_color: haberdasheryCard.precise_color,
     haberdashery: haberdasheryCard.haberdashery,
-    quantity: haberdasheryCard.quantity,
+    stock_qty: haberdasheryCard.stock_qty,
     unity: haberdasheryCard.unity,
     is_cut: haberdasheryCard.is_cut,
+    is_a_set: haberdasheryCard.is_a_set,
+    article_qty: haberdasheryCard.article_qty,
     price: haberdasheryCard.price,
   });
 
@@ -172,6 +174,13 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
     } else if (values.is_cut == 'non') {
       values.is_cut = false;
     }
+
+    if (values.is_a_set == 'oui') {
+      values.is_a_set = true;
+    } else if (values.is_a_set == 'non') {
+      values.is_a_set = false;
+    }
+
     const valuesToSend = values;
     console.log(valuesToSend, 'valuestosend')
     const urlParams = {
@@ -277,11 +286,14 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
               <CardTitle>{haberdasheryCard.name}</CardTitle>
               <SizeTitle>{haberdasheryCard.size}{haberdasheryCard.unity}</SizeTitle>
             </TitleContainer>
+            {/* DISPLAY PHOTO */}
             {!updateHaberdasheryInfo ? (
               <ImageContainer>
                 <ImageCard src={haberdasheryCard.photo} />
               </ImageContainer>
-            ) : (
+            ) : 
+            // UPDATE PHOTO
+            (
               <UpdateCardContainer>
                 <UpdatePhotoInput>
                   <ImageCard src={preview} alt="haberdashery picture" />
@@ -299,6 +311,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
               </UpdateCardContainer>
             )}
             <InformationContainer>
+              {/* UPDATE */}
               {updateHaberdasheryInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {haberdasheryInputs.map((input, index) =>
@@ -310,7 +323,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
-                         {(input.id == 6 || input.id == 8 && values.is_cut == false || input.id == 11) ? (
+                         {(input.id == 9 || input.id == 8 && values.is_cut == false || input.id == 13) ? (
                             // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
                          
                             <InformationInput
@@ -341,7 +354,7 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                           data-error={input.errorMessage}
                         ></InformationTextarea> )}
 
-                            {input.id == 10 || input.id == 8 ? (
+                            {input.id == 12 || input.id == 8 ? (
                               null
                             ) :
                               <MessageHover
@@ -407,13 +420,17 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                   )}
                   <ButtonForm>Enregistrer</ButtonForm>
                 </InformationForm>
-              ) : (
+              ) : 
+              // DISPLAY
+              (
                 <InformationForm>
                   {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
+                        {/* GESTION DES URLS */}
                         {index === 2 && (haberdasheryCard[input.info].includes("http") | haberdasheryCard[input.info].includes("www") | haberdasheryCard[input.info].includes(".fr") | haberdasheryCard[input.info].includes(".com") | haberdasheryCard[input.info].includes(".net")) ? (
+                          <>
+                          <InformationLabel>{input.label}</InformationLabel>
                           <InformationLinkContainer
                           >
                             <InformationLink
@@ -423,13 +440,19 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                               {haberdasheryCard[input.info]}
                             </InformationLink>
                           </InformationLinkContainer>
-                        ) : (
+                          </>
+                        ) : 
+                        
+                        (
+                          <>
+                          <InformationLabel>{input.label}</InformationLabel>
                           <InformationTextarea
                             value={haberdasheryCard[input.info] === false ? 'non' : (haberdasheryCard[input.info] === true ? 'oui' : haberdasheryCard[input.info])}
                             rows={values[input.info].length <= 31 ? '1' : '2'}
                             disabled="disabled"
                             type={input.type}
                           ></InformationTextarea>
+                          </>
                         )}
 
                       </InformationContent>
