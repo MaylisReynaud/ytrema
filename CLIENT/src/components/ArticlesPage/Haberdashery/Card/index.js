@@ -447,8 +447,10 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                       index !== 0 && values.is_a_set == true ? (
                         <InformationContent key={input.id}>
 
-                          <InformationLabel htmlFor={input.htmlFor}>
-                            {input.id == 8 ? ("Quantité en stock") : input.id == 13 ? "Prix d'un lot" : (input.label)}
+                          <InformationLabel
+                            htmlFor={input.htmlFor}
+                          >
+                            {input.id == 8 && values.is_cut == false ? ("Quantité en stock") : (input.id == 13 ? "Prix d'un lot" : (input.label))}
                           </InformationLabel>
                           {input.type !== "select" ? (
                             <>
