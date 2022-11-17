@@ -175,6 +175,7 @@ export const CardTitle = styled.h1`
   width: 100%;
   text-align: center;
   justify-content: center;
+  margin-top: .7rem;
   align-items: center;
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
