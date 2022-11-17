@@ -316,134 +316,235 @@ export const HaberdasheryCard = (haberdashery, isOpenModal, setShowModal, showMo
                     index !== 0 && index !== 6 ? (
                       <InformationContent key={input.id}>
 
-                      <InformationLabel htmlFor={input.htmlFor}>
-                        {input.id == 8 && values.is_cut == true ? "Quantité en stock" : input.label}
-                      </InformationLabel>
-                      {input.type !== "select" ? (
-                        <>
-                          {(input.id == 9 && input.id == 8 && values.is_cut == false || input.id == 13) ? (
-                            <InformationInput
-                              placeholder={values[input.info]}
-                              onChange={onChange}
-                              type={input.type}
-                              name={input.name}
-                              pattern={input.pattern}
-                              data-error={input.errorMessage}
-                            ></InformationInput>
-                          ) :
-                              (input.id == 9 && values.is_cut == true) ? (
+                        <InformationLabel htmlFor={input.htmlFor}>
+                          {input.id == 8 && values.is_cut == true ? "Quantité en stock" : input.label}
+                        </InformationLabel>
+                        {input.type !== "select" ? (
+                          <>
+                            {(input.id == 9 && input.id == 8 && values.is_cut == false || input.id == 13) ? (
                               <InformationInput
                                 placeholder={values[input.info]}
-                                type={input.type}
-                                name={input.name}
-                                disabled
-                                className="disabled"
-                              ></InformationInput>
-                         ) :
-                              (<InformationTextarea
-                                placeholder={values[input.info]}
-                                rows={values[input.info].length <= 31 ? '1' : '2'}
                                 onChange={onChange}
                                 type={input.type}
                                 name={input.name}
                                 pattern={input.pattern}
                                 data-error={input.errorMessage}
-                              ></InformationTextarea>)}
+                              ></InformationInput>
+                            ) :
+                              (input.id == 9 && values.is_cut == true) ? (
+                                <InformationInput
+                                  placeholder={values[input.info]}
+                                  type={input.type}
+                                  name={input.name}
+                                  disabled
+                                  className="disabled"
+                                ></InformationInput>
+                              ) :
+                                (<InformationTextarea
+                                  placeholder={values[input.info]}
+                                  rows={values[input.info].length <= 31 ? '1' : '2'}
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationTextarea>)}
 
-                          {input.id == 12 ? (
-                            null
-                          ) :
-                            <MessageHover
-                              errorMessage={input.errorMessage}
-                            />}
+                            {input.id == 12 ? (
+                              null
+                            ) :
+                              <MessageHover
+                                errorMessage={input.errorMessage}
+                              />}
 
-                        </>
-                      ) : (
-                        input.id !== 5 && input.id !== 6 ? (
-                          input.id == 10 ? (
-                            <InformationSelect
-                            disabled
-                            className="disabled"
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-
-                            {input.optionsList.sort().map((option, index) =>
-
-                              option == values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
-
-                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                          )
-                          : (
-                            <InformationSelect
-                            placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-
-                            {input.optionsList.sort().map((option, index) =>
-
-                              option == values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
-
-                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                          )
-                         
+                          </>
                         ) : (
-                          <InformationSelect
-                            // placeholder={values[input.info]}
-                            disabled
-                            className="disabled"
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
-                          >
+                          input.id !== 5 && input.id !== 6 ? (
+                            input.id == 10 && values.is_cut == true ? (
+                              <InformationSelect
+                                disabled
+                                className="disabled"
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                name={input.name}
+                                type={input.type}
+                                id={input.htmlFor}
+                                defaultValue={values[input.info]}
+                              >
 
-                            {input.optionsList.sort().map((option, index) =>
+                                {input.optionsList.sort().map((option, index) =>
 
-                              option == values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+                                  option == values[input.info] ? (
+                                    <option key={index} value={option}>
+                                      {option}
+                                    </option>
+                                  ) : (
+                                    <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
 
-                                  {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
-                                </option>
+                                      {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                    </option>
+                                  )
+                                )}
+                              </InformationSelect>
+                            )
+                              : (
+                                <InformationSelect
+                                  placeholder={values[input.info]}
+                                  onChange={onChange}
+                                  name={input.name}
+                                  type={input.type}
+                                  id={input.htmlFor}
+                                  defaultValue={values[input.info]}
+                                >
+
+                                  {input.optionsList.sort().map((option, index) =>
+
+                                    option == values[input.info] ? (
+                                      <option key={index} value={option}>
+                                        {option}
+                                      </option>
+                                    ) : (
+                                      <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                        {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                      </option>
+                                    )
+                                  )}
+                                </InformationSelect>
                               )
-                            )}
-                          </InformationSelect>
-                        )
 
-                      )}
-                    </InformationContent>
+                          ) : (
+                            <InformationSelect
+                              // placeholder={values[input.info]}
+                              disabled
+                              className="disabled"
+                              name={input.name}
+                              type={input.type}
+                              id={input.htmlFor}
+                              defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                            >
 
-                    ) : null
+                              {input.optionsList.sort().map((option, index) =>
+
+                                option == values[input.info] ? (
+                                  <option key={index} value={option}>
+                                    {option}
+                                  </option>
+                                ) : (
+                                  <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                    {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                  </option>
+                                )
+                              )}
+                            </InformationSelect>
+                          )
+
+                        )}
+                      </InformationContent>
+
+                    ) : (
+                      index !== 0 && values.is_a_set == true ? (
+                        <InformationContent key={input.id}>
+
+                          <InformationLabel htmlFor={input.htmlFor}>
+                            {input.id == 8 ? ("Quantité en stock") : input.id == 13 ? "Prix d'un lot" : (input.label)}
+                          </InformationLabel>
+                          {input.type !== "select" ? (
+                            <>
+                              {(input.id == 9 && input.id == 8 && values.is_cut == false || input.id == 13) ? (
+                                <InformationInput
+                                  placeholder={values[input.info]}
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationInput>
+                              ) :
+                                (input.id == 7 && values.is_a_set == true) ? (
+                                  <InformationInput
+                                    placeholder={values[input.info]}
+                                    type={input.type}
+                                    name={input.name}
+                                    disabled
+                                    className="disabled"
+                                  ></InformationInput>
+                                ) :
+                                  (<InformationTextarea
+                                    placeholder={values[input.info]}
+                                    rows={values[input.info].length <= 31 ? '1' : '2'}
+                                    onChange={onChange}
+                                    type={input.type}
+                                    name={input.name}
+                                    pattern={input.pattern}
+                                    data-error={input.errorMessage}
+                                  ></InformationTextarea>)}
+
+                              {input.id == 12 ? (
+                                null
+                              ) :
+                                <MessageHover
+                                  errorMessage={input.errorMessage}
+                                />}
+
+                            </>
+                          ) : (
+                            input.id !== 5 && input.id !== 6 ? (
+                              <InformationSelect
+                                placeholder={values[input.info]}
+                                onChange={onChange}
+                                name={input.name}
+                                type={input.type}
+                                id={input.htmlFor}
+                                defaultValue={values[input.info]}
+                              >
+
+                                {input.optionsList.sort().map((option, index) =>
+
+                                  option == values[input.info] ? (
+                                    <option key={index} value={option}>
+                                      {option}
+                                    </option>
+                                  ) : (
+                                    <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                      {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                    </option>
+                                  )
+                                )}
+                              </InformationSelect>
+                            ) : (
+                              <InformationSelect
+                                disabled
+                                className="disabled"
+                                name={input.name}
+                                type={input.type}
+                                id={input.htmlFor}
+                                defaultValue={values[input.info] == false ? 'non' : (values[input.info] == true ? 'oui' : values[input.info])}
+                              >
+
+                                {input.optionsList.sort().map((option, index) =>
+
+                                  option == values[input.info] ? (
+                                    <option key={index} value={option}>
+                                      {option}
+                                    </option>
+                                  ) : (
+                                    <option key={index} value={option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}>
+
+                                      {option == 'false' ? 'non' : (option == 'true' ? 'oui' : option)}
+                                    </option>
+                                  )
+                                )}
+                              </InformationSelect>
+                            )
+
+                          )}
+                        </InformationContent>
+                      ) :
+                        (null)
+                    )
                   )}
                   <ButtonForm>Enregistrer</ButtonForm>
                 </InformationForm>
