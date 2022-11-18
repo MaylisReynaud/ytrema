@@ -848,176 +848,437 @@ export const HaberdasheryCard = (
                   {haberdasheryCard.unity}
                 </CardTitle>
               </TitleContainer>
+              {/* UPDATE */}
               {updateHaberdasheryInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {haberdasheryInputs.map((input, index) =>
                     index !== 0 ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
-                        </InformationLabel>
-                        {input.type !== "select" ? (
+                        {input.type == "select" ? (
                           <>
-                            {input.id == 6 ||
-                              (input.id == 8 && values.is_cut == false) ||
-                              input.id == 11 ? (
-                              // {input.id !== 8 || (input.id === 8 && values.is_cut == false) ?
-
-                              <InformationInput
+                            <InformationLabel htmlFor={input.htmlFor}>
+                              {input.label}
+                            </InformationLabel>
+                            {/* SOIT SELECT NORMAL ID 4 10 11 */}
+                            {input.id == 4 || input.id == 10 || input.id == 11 ? (
+                              <InformationSelect
                                 placeholder={values[input.info]}
                                 onChange={onChange}
-                                type={input.type}
                                 name={input.name}
-                                pattern={input.pattern}
-                                data-error={input.errorMessage}
-                              ></InformationInput>
-                            ) : input.id == 8 && values.is_cut == true ? (
-                              <InformationInput
-                                placeholder={values[input.info]}
                                 type={input.type}
-                                name={input.name}
-                                disabled
-                                className="disabled"
-                              ></InformationInput>
-                            ) : (
-                              <InformationTextarea
-                                placeholder={values[input.info]}
-                                rows={
-                                  values[input.info].length <= 31 ? "1" : "2"
-                                }
-                                onChange={onChange}
-                                type={input.type}
-                                name={input.name}
-                                pattern={input.pattern}
-                                data-error={input.errorMessage}
-                              ></InformationTextarea>
-                            )}
-
-                            {input.id == 10 || input.id == 8 ? null : (
-                              <MessageHover errorMessage={input.errorMessage} />
-                            )}
+                                id={input.htmlFor}
+                                defaultValue={values[input.info]}
+                              >
+                                {input.optionsList.sort().map((option, index) =>
+                                  option == values[input.info] ? (
+                                    <option key={index} value={option}>
+                                      {option}
+                                    </option>
+                                  ) : (
+                                    <option
+                                      key={index}
+                                      value={
+                                        option == "false"
+                                          ? "non"
+                                          : option == "true"
+                                            ? "oui"
+                                            : option
+                                      }
+                                    >
+                                      {option == "false"
+                                        ? "non"
+                                        : option == "true"
+                                          ? "oui"
+                                          : option}
+                                    </option>
+                                  )
+                                )}
+                              </InformationSelect>
+                            ) :
+                              // SOIT SELECT DISABLED ID 5 ET 6
+                              (
+                                <InformationSelect
+                                  disabled
+                                  className="disabled"
+                                  name={input.name}
+                                  type={input.type}
+                                  id={input.htmlFor}
+                                  defaultValue={
+                                    values[input.info] == false
+                                      ? "non"
+                                      : values[input.info] == true
+                                        ? "oui"
+                                        : values[input.info]
+                                  }
+                                >
+                                  {input.optionsList.sort().map((option, index) =>
+                                    option == values[input.info] ? (
+                                      <option key={index} value={option}>
+                                        {option}
+                                      </option>
+                                    ) : (
+                                      <option
+                                        key={index}
+                                        value={
+                                          option == "false"
+                                            ? "non"
+                                            : option == "true"
+                                              ? "oui"
+                                              : option
+                                        }
+                                      >
+                                        {option == "false"
+                                          ? "non"
+                                          : option == "true"
+                                            ? "oui"
+                                            : option}
+                                      </option>
+                                    )
+                                  )}
+                                </InformationSelect>
+                              )}
                           </>
-                        ) : input.id !== 5 ? (
-                          <InformationSelect
-                            // placeholder={values[input.info]}
-                            onChange={onChange}
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={values[input.info]}
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option == values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option
-                                  key={index}
-                                  value={
-                                    option == "false"
-                                      ? "non"
-                                      : option == "true"
-                                        ? "oui"
-                                        : option
+                        ) :
+                          // SINON CE N'EST PAS UN SELECT
+                          (
+                            //CAS GENERAL TEXTAREA
+                            input.id !== 7 && input.id !== 8 && input.id !== 9 && input.id !== 13 ? (
+                              <>
+                                <InformationLabel htmlFor={input.htmlFor}>
+                                  {input.label}
+                                </InformationLabel>
+                                <InformationTextarea
+                                  placeholder={values[input.info]}
+                                  rows={
+                                    values[input.info].length <= 31 ? "1" : "2"
                                   }
-                                >
-                                  {option == "false"
-                                    ? "non"
-                                    : option == "true"
-                                      ? "oui"
-                                      : option}
-                                </option>
+                                  onChange={onChange}
+                                  type={input.type}
+                                  name={input.name}
+                                  pattern={input.pattern}
+                                  data-error={input.errorMessage}
+                                ></InformationTextarea>
+                              </>
+                            ) :
+                              // CAS SPECIFIQUES INPUT
+                              (
+                                // SOIT IS_A_SET == TRUE (CAS 2)
+                                values.is_a_set == true ? (
+                                  //SOIT LABEL NORMAL
+                                  input.id == 7 || input.id == 9 ? (
+                                    <>
+                                      <InformationLabel htmlFor={input.htmlFor}>
+                                        {input.label}
+                                      </InformationLabel>
+                                      <InformationInput
+                                        placeholder={values[input.info]}
+                                        onChange={onChange}
+                                        type={input.type}
+                                        name={input.name}
+                                        pattern={input.pattern}
+                                        data-error={input.errorMessage}
+                                      ></InformationInput>
+                                    </>
+                                  ) :
+                                    // SOIT INPUT.ID == 13 : LABEL SPE "Prix du lot" SINON INPUT.ID == 8 : LABEL SPE "Quantité stockée"
+                                    (
+                                      <>
+                                        <InformationLabel htmlFor={input.htmlFor}>
+                                          {input.id == 13 ? input.labelSpe2 : input.labelSpe}
+                                        </InformationLabel>
+                                        <InformationInput
+                                          placeholder={values[input.info]}
+                                          onChange={onChange}
+                                          type={input.type}
+                                          name={input.name}
+                                          pattern={input.pattern}
+                                          data-error={input.errorMessage}
+                                        ></InformationInput>
+                                      </>
+                                    )
+                                ) :
+                                  // SINON IS_A_SET == FALSE
+                                  (
+                                    values.is_a_set == false ? (
+                                      //SOIT ID == 8 || ID == 9 || ID == 13 CAS 1 OU 3
+                                      input.id == 8 || input.id == 9 || input.id == 13 ? (
+                                        // SOIT ID == 8 || ID == 13 / LABEL DEVIENT "Quantité stockée" ET "prix à l'unité"
+                                        input.id == 8 || input.id == 13 ? (
+                                          <>
+                                            <InformationLabel htmlFor={input.htmlFor}>
+                                              {input.labelSpe}
+                                            </InformationLabel>
+                                            <InformationInput
+                                              placeholder={values[input.info]}
+                                              onChange={onChange}
+                                              type={input.type}
+                                              name={input.name}
+                                              pattern={input.pattern}
+                                              data-error={input.errorMessage}
+                                            ></InformationInput>
+                                          </>
+                                        ) :
+                                          (
+                                            //ID == 9
+                                            //SOIT IS_CUT == true
+                                            values.is_cut == true ? (
+                                              <>
+                                                <InformationLabel htmlFor={input.htmlFor}>
+                                                  {input.labelSpe}
+                                                </InformationLabel>
+                                                <InformationInput
+                                                  placeholder={values[input.info]}
+                                                  onChange={onChange}
+                                                  type={input.type}
+                                                  name={input.name}
+                                                  pattern={input.pattern}
+                                                  data-error={input.errorMessage}
+                                                ></InformationInput>
+                                              </>
+                                            ) : (
+                                              // DISPLAY CHAMPS NORMAL CAS 1
+                                              <>
+                                                <InformationLabel htmlFor={input.htmlFor}>
+                                                  {input.label}
+                                                </InformationLabel>
+                                                <InformationInput
+                                                  placeholder={values[input.info]}
+                                                  onChange={onChange}
+                                                  type={input.type}
+                                                  name={input.name}
+                                                  pattern={input.pattern}
+                                                  data-error={input.errorMessage}
+                                                ></InformationInput>
+                                              </>
+                                            )
+                                          )
+
+                                      ) : (
+
+                                        null)
+
+                                    ) :
+                                      (null)
+                                  )
+
                               )
-                            )}
-                          </InformationSelect>
-                        ) : (
-                          <InformationSelect
-                            // placeholder={values[input.info]}
-                            disabled
-                            className="disabled"
-                            name={input.name}
-                            type={input.type}
-                            id={input.htmlFor}
-                            defaultValue={
-                              values[input.info] == false
-                                ? "non"
-                                : values[input.info] == true
-                                  ? "oui"
-                                  : values[input.info]
-                            }
-                          >
-                            {input.optionsList.sort().map((option, index) =>
-                              option == values[input.info] ? (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ) : (
-                                <option
-                                  key={index}
-                                  value={
-                                    option == "false"
-                                      ? "non"
-                                      : option == "true"
-                                        ? "oui"
-                                        : option
-                                  }
-                                >
-                                  {option == "false"
-                                    ? "non"
-                                    : option == "true"
-                                      ? "oui"
-                                      : option}
-                                </option>
-                              )
-                            )}
-                          </InformationSelect>
-                        )}
+                          )}
                       </InformationContent>
                     ) : null
                   )}
                   <ButtonForm>Enregistrer</ButtonForm>
                 </InformationForm>
               ) : (
+                // DISPLAY
                 <InformationForm>
                   {haberdasheryInputs.map((input, index) =>
+                    // SOIT LE CHAMP EST DIFFERENT DU CHAMP PHOTO
                     index !== 0 ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
-                        {index === 2 &&
+                        {/* SOIT LE CHAMP EST WEBSITE */}
+                        {/* SOIT WEBSITE EST UNE URL DONC LINK */}
+                        {index == 2 ? (
                           haberdasheryCard[input.info].includes("http") |
-                          haberdasheryCard[input.info].includes("www") |
-                          haberdasheryCard[input.info].includes(".fr") |
-                          haberdasheryCard[input.info].includes(".com") |
-                          haberdasheryCard[input.info].includes(".net") ? (
-                          <InformationLinkContainer>
-                            <InformationLink
-                              href={
-                                haberdasheryCard[input.info].includes("http")
-                                  ? haberdasheryCard[input.info]
-                                  : `https://${haberdasheryCard[input.info]}`
-                              }
-                              target="_blank"
-                            >
-                              {haberdasheryCard[input.info]}
-                            </InformationLink>
-                          </InformationLinkContainer>
-                        ) : (
-                          <InformationTextarea
-                            value={
-                              haberdasheryCard[input.info] === false
-                                ? "non"
-                                : haberdasheryCard[input.info] === true
-                                  ? "oui"
-                                  : haberdasheryCard[input.info]
-                            }
-                            rows={values[input.info].length <= 40 ? "1" : "2"}
-                            disabled="disabled"
-                            type={input.type}
-                          ></InformationTextarea>
-                        )}
+                            haberdasheryCard[input.info].includes("www") |
+                            haberdasheryCard[input.info].includes(".fr") |
+                            haberdasheryCard[input.info].includes(".com") |
+                            haberdasheryCard[input.info].includes(".net") ? (
+                            <>
+                              <InformationLabel>{input.label}</InformationLabel>
+                              <InformationLinkContainer>
+                                <InformationLink
+                                  href={
+                                    haberdasheryCard[input.info].includes(
+                                      "http"
+                                    )
+                                      ? haberdasheryCard[input.info]
+                                      : `https://${haberdasheryCard[input.info]
+                                      }`
+                                  }
+                                  target="_blank"
+                                >
+                                  {haberdasheryCard[input.info]}
+                                </InformationLink>
+                              </InformationLinkContainer>
+                            </>
+                          ) : (
+                            // SINON WEBSITE N'EST PAS UNE URL
+                            <>
+                              <InformationLabel>{input.label}</InformationLabel>
+                              <InformationTextarea
+                                value={
+                                  haberdasheryCard[input.info] === false
+                                    ? "non"
+                                    : haberdasheryCard[input.info] === true
+                                      ? "oui"
+                                      : haberdasheryCard[input.info]
+                                }
+                                rows={
+                                  values[input.info].length <= 31 ? "1" : "2"
+                                }
+                                disabled="disabled"
+                                type={input.type}
+                              ></InformationTextarea>
+                            </>
+                          )
+                        ) : // SINON LE CHAMP EST DIFFERENT DE WEBSITE
+                          // SOIT CAS GENERAL (ID 2, 4, 5, 6, 10, 11 & 12)
+                          input.id !== 7 &&
+                            input.id !== 8 &&
+                            input.id !== 9 &&
+                            input.id !== 13 ? (
+                            // ON AFFICHE PEU IMPORTE LE CAS
+                            <>
+                              <InformationLabel>{input.label}</InformationLabel>
+                              <InformationTextarea
+                                value={
+                                  haberdasheryCard[input.info] === false
+                                    ? "non"
+                                    : haberdasheryCard[input.info] === true
+                                      ? "oui"
+                                      : haberdasheryCard[input.info]
+                                }
+                                rows={values[input.info].length <= 31 ? "1" : "2"}
+                                disabled="disabled"
+                                type={input.type}
+                              ></InformationTextarea>
+                            </>
+                          ) : // SINON CAS SPECIFIQUE (ID 7, 8, 9, 13) ON DETAILLE CAS PAR CAS
+                            // SOIT LE CHAMP EST STOCK_QTY ID 8
+                            input.id == 8 ? (
+                              // QUELQUE SOIT LE CAS ON MODIFIE LE LABEL
+                              <>
+                                <InformationLabel>
+                                  {input.labelSpe}
+                                </InformationLabel>
+                                <InformationTextarea
+                                  value={
+                                    haberdasheryCard[input.info] === false
+                                      ? "non"
+                                      : haberdasheryCard[input.info] === true
+                                        ? "oui"
+                                        : haberdasheryCard[input.info]
+                                  }
+                                  rows={values[input.info].length <= 31 ? "1" : "2"}
+                                  disabled="disabled"
+                                  type={input.type}
+                                ></InformationTextarea>
+                              </>
+                            ) : // SINON C'EST ID 7, 9 OU 13 ON REGARDE SI C'EST LE CAS 2 OU PAS
+                              values.is_a_set == true ? (
+                                // SOIT IS A SET EST TRUE CAS 2
+                                // SOIT CAS 2 ET ID 7 OU 9 AFFICHAGE NORMAL
+                                input.id !== 13 ? (
+                                  <>
+                                    <InformationLabel>{input.label}</InformationLabel>
+                                    <InformationTextarea
+                                      value={
+                                        haberdasheryCard[input.info] === false
+                                          ? "non"
+                                          : haberdasheryCard[input.info] === true
+                                            ? "oui"
+                                            : haberdasheryCard[input.info]
+                                      }
+                                      rows={
+                                        values[input.info].length <= 31 ? "1" : "2"
+                                      }
+                                      disabled="disabled"
+                                      type={input.type}
+                                    ></InformationTextarea>
+                                  </>
+                                ) : (
+                                  // SINON CAS 2 ET ID 13 ON MODIFIE LE LABEL
+                                  <>
+                                    <InformationLabel>
+                                      {input.labelSpe2}
+                                    </InformationLabel>
+                                    <InformationTextarea
+                                      value={
+                                        haberdasheryCard[input.info] === false
+                                          ? "non"
+                                          : haberdasheryCard[input.info] === true
+                                            ? "oui"
+                                            : haberdasheryCard[input.info]
+                                      }
+                                      rows={
+                                        values[input.info].length <= 31 ? "1" : "2"
+                                      }
+                                      disabled="disabled"
+                                      type={input.type}
+                                    ></InformationTextarea>
+                                  </>
+                                )
+                              ) : // SINON IS A SET EST FALSE CAS 1 ET 3 ON REGARDE SI L'ID EST DIFFERENT DU 7 OU PAS
+                                input.id !== 7 ? (
+                                  // SOIT C'EST ID 13 OU 9 ON TRAITE LES IDS SEPAREMENT
+                                  input.id == 13 ? (
+                                    // SOIT ID EST 13 PEU IMPORTE CAS 1 OU 3 ON MODIFIE LE LABEL
+                                    <>
+                                      <InformationLabel>
+                                        {input.labelSpe}
+                                      </InformationLabel>
+                                      <InformationTextarea
+                                        value={
+                                          haberdasheryCard[input.info] === false
+                                            ? "non"
+                                            : haberdasheryCard[input.info] === true
+                                              ? "oui"
+                                              : haberdasheryCard[input.info]
+                                        }
+                                        rows={
+                                          values[input.info].length <= 31 ? "1" : "2"
+                                        }
+                                        disabled="disabled"
+                                        type={input.type}
+                                      ></InformationTextarea>
+                                    </>
+                                  ) : // SINON C'EST ID 9 ET ON ISOLE LE CAS 3
+                                    values.is_cut == true ? (
+                                      // SOIT IS CUT EST TRUE CAS 3
+                                      <>
+                                        <InformationLabel>
+                                          {input.labelSpe}
+                                        </InformationLabel>
+                                        <InformationTextarea
+                                          value={
+                                            haberdasheryCard[input.info] === false
+                                              ? "non"
+                                              : haberdasheryCard[input.info] === true
+                                                ? "oui"
+                                                : haberdasheryCard[input.info]
+                                          }
+                                          rows={
+                                            values[input.info].length <= 31 ? "1" : "2"
+                                          }
+                                          disabled="disabled"
+                                          type={input.type}
+                                        ></InformationTextarea>
+                                      </>
+                                    ) : (
+                                      // SINON IS CUT EST FALSE CAS 1 AFFICHAGE NORMAL
+                                      <>
+                                        <InformationLabel>{input.label}</InformationLabel>
+                                        <InformationTextarea
+                                          value={
+                                            haberdasheryCard[input.info] === false
+                                              ? "non"
+                                              : haberdasheryCard[input.info] === true
+                                                ? "oui"
+                                                : haberdasheryCard[input.info]
+                                          }
+                                          rows={
+                                            values[input.info].length <= 31 ? "1" : "2"
+                                          }
+                                          disabled="disabled"
+                                          type={input.type}
+                                        ></InformationTextarea>
+                                      </>
+                                    )
+                                ) : // SINON C'EST ID 7 ON NE L'AFFICHE PAS
+                                  null}
                       </InformationContent>
-                    ) : null
+                    ) : // SINON IL S'AGIT DU CHAMP PHOTO
+                      null
                   )}
                 </InformationForm>
               )}
