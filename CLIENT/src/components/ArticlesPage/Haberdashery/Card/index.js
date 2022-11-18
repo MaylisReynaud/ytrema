@@ -40,6 +40,8 @@ import {
   UpdateInformationContainer,
   UpdateInformationText,
   UpdateFileInputContainer,
+  AddContainer,
+  AddButton,
 } from "./style";
 import { haberdasheryInputs } from "../../../../utils/haberdasheryInputs";
 import { useParams, useNavigate } from "react-router-dom";
@@ -108,6 +110,7 @@ export const HaberdasheryCard = (
       role: "alert",
     });
   };
+
 
   const [values, setValues] = useState({
     photo: haberdasheryCard.photo,
@@ -254,6 +257,11 @@ export const HaberdasheryCard = (
               <ModifyDeleteContainer>
                 {!updateHaberdasheryInfo ? (
                   <>
+                    <AddContainer>
+                      <AddButton
+                        aria-label="Faire un réassort de cet article de mercerie"
+                      />
+                    </AddContainer>
                     <ModifyContainer>
                       <ModifyButton
                         aria-label="Modifier cet article de mercerie"
@@ -786,6 +794,11 @@ export const HaberdasheryCard = (
             <ModifyDeleteContainer>
               {!updateHaberdasheryInfo ? (
                 <>
+                  <AddContainer>
+                    <AddButton
+                      aria-label="Faire un réassort de cet article de mercerie"
+                    />
+                  </AddContainer>
                   <ModifyContainer>
                     <ModifyButton
                       aria-label="Modifier cet article de mercerie"

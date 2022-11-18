@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
+import { PatchPlusFill } from "@styled-icons/bootstrap"
 
 export const Container = styled.div`
   display: flex;
@@ -145,7 +146,19 @@ export const TrashButton = styled(Trash)`
   color: red;
   object-fit: fill;
 `;
-
+export const AddContainer = styled.div`
+  width: 21px;
+  height: 21px;
+  margin-right: 0.9em;
+  @media screen and (min-width: 601px) {
+    right: 4rem;
+  }
+`;
+export const AddButton = styled(PatchPlusFill)`
+  cursor: pointer;
+  color: ${(props) => props.theme.color1};
+  width:100%;
+`;
 export const ModifyContainer = styled.div`
   width: 19px;
   height: 19px;

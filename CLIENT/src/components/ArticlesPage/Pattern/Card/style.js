@@ -86,6 +86,7 @@ export const ButtonsContainer = styled.div`
   padding: 0.6em 0 1em 0;
   @media screen and (min-width: 601px) {
     flex-direction: row;
+    margin-top: 3rem;
     position: sticky;
     height: auto;
   }
@@ -281,7 +282,7 @@ export const InformationContainer = styled.div`
   @media screen and (min-width: 601px) {
     height: 100%;
     width: 60%;
-    margin-left: 5.5rem;
+    margin-left: 2.5rem;
   }
 `;
 
@@ -330,7 +331,7 @@ export const InformationLabel = styled.label`
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
-    width: 20%;
+    width: 25%;
     font-weight:600;
   }
 `;
