@@ -266,7 +266,7 @@ export const InformationLabel = styled.label`
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G6.png?alt=media&token=0d5c7933-2e7d-4190-8272-97ae4af87d17');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G11.png?alt=media&token=9ec1f31b-d909-4f56-9265-b8946269bc1a');
   @media screen and (min-width: 601px) {
     /* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86'); */
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
