@@ -270,7 +270,8 @@ return(
                                                         showAddOneMorePattern && isOpeningOneMorePattern();
                                                         let patternObject = values;
                                                         patternObject.patterns.push({
-                                                            pattern_id: pattern.id
+                                                            pattern_id: pattern.id,
+                                                            pattern_price: pattern.price
                                                         });
 
                                                         // keep last pattern object with same the id

@@ -63,7 +63,7 @@ const projectDataMapper = {
             const { pattern_price: price } = el;
 
             // Article's cost
-            el.article_cost = price;
+            el.article_cost = Number(price);
 
             // Add to production cost
             projectCost += el.article_cost;

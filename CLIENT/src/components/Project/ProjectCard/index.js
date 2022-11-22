@@ -181,7 +181,7 @@ export const ProjectCard = () => {
 
                                         <CardText
                                             className="mercerie"
-                                        >{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
+                                        >{haberdashery.name} - {haberdashery.used_size} utilisé(es)</CardText>
 
 
                                     </CardContainer>
@@ -311,7 +311,7 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={fabric.photo != undefined ? fabric.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{fabric.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> {fabric.used_size} </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {fabric.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
@@ -324,7 +324,7 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={haberdashery.photo != undefined ? haberdashery.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{haberdashery.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> {haberdashery.used_size} </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {haberdashery.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
@@ -337,13 +337,13 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={pattern.photo != undefined ? pattern.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{pattern.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> 1 </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {pattern.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
                                         <CostTabRow className="totalCost">
                                             <CostTabCell className="totalCostName"> COUT TOTAL</CostTabCell>
-                                            <CostTabCell className="totalCost€"> COUT TOTAL €</CostTabCell>
+                                            <CostTabCell className="totalCost€"> {projectCard.cost_price} €</CostTabCell>
                                         </CostTabRow>
                                     </tbody>
                                 </CostTab>
