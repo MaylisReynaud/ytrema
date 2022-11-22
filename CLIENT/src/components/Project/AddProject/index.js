@@ -44,7 +44,9 @@ import {
     PreviewButtonContainer,
     ButtonForm,
     PictureInputContainer,
-    PictureInput
+    PictureInput,
+    CloseButton,
+    CloseButtonContainer
 } from "./style";
 import YtremaLogo from "../../../assets/images/logo.png";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
@@ -68,51 +70,55 @@ export const AddProject = (props) => {
     const patterns = persistedReducer.patterns;
     // const { data, error, isLoading, isSuccess, isError } = useGetAllPatternsQuery(auth.id);
     const [addOneProject, { data, error, isLoading, isSuccess, isError }] = useAddOneProjectMutation(auth.id);
-  
 
- const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
 
-//  useEffect(() => {
-//     if (isSuccess && data) {
-//         dispatch(addAllPatterns(data.patterns));
-//     }
-// }, [data, patterns]);
+    const [showAddOneMoreButton, setShowAddOneMoreButton] = useState(false);
 
-   useEffect(() => {
-    if (isSuccess) {
-      // dispatch(addProject(data.savedProject));
-      navigate('/projets');
-      toast.success('Projet ajouté avec succès 🎉', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        role: "alert"
-      });
+    //  useEffect(() => {
+    //     if (isSuccess && data) {
+    //         dispatch(addAllPatterns(data.patterns));
+    //     }
+    // }, [data, patterns]);
 
-    };
-    if (error) {
-      toast.error("Oups, le projet ne s'est pas ajouté", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        role: "alert"
-      });
-    }
-   }, [data, error, isError]);
+    useEffect(() => {
+        if (isSuccess) {
+            // dispatch(addProject(data.savedProject));
+            navigate('/projets');
+            toast.success('Projet ajouté avec succès 🎉', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                role: "alert"
+            });
+
+        };
+        if (error) {
+            toast.error("Oups, le projet ne s'est pas ajouté", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                role: "alert"
+            });
+        }
+    }, [data, error, isError]);
+    let newDate = new Date();
+    // let newDate = new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-');
+    console.log(newDate, "<-- new date")
 
     const [values, setValues] = useState({
         name: "",
         status: "",
+        date:  newDate,
         personal_notes: "Photo du projet",
         photo: "",
         fabrics: [],
@@ -128,7 +134,7 @@ export const AddProject = (props) => {
             let fabricObject = values;
             fabricObject.fabrics.push({
                 fabric_id: fabricCard.id,
-                fabric_qty_stock:fabricCard.stock_qty,
+                fabric_qty_stock: fabricCard.stock_qty,
                 fabric_price: fabricCard.price,
                 fabric_used_size: event.target.value,
             });
@@ -150,10 +156,10 @@ export const AddProject = (props) => {
             let haberdasheryObject = values;
             haberdasheryObject.haberdasheries.push({
                 haberdashery_id: haberdasheryCard.id,
-                haberdashery_is_cut : haberdasheryCard.is_cut,
-                haberdashery_is_a_set : haberdasheryCard.is_a_set,
-                haberdashery_article_qty : haberdasheryCard.article_qty,
-                haberdashery_size : haberdasheryCard.size,
+                haberdashery_is_cut: haberdasheryCard.is_cut,
+                haberdashery_is_a_set: haberdasheryCard.is_a_set,
+                haberdashery_article_qty: haberdasheryCard.article_qty,
+                haberdashery_size: haberdasheryCard.size,
                 haberdashery_qty_stock: haberdasheryCard.stock_qty,
                 haberdashery_price: haberdasheryCard.price,
                 haberdashery_used_size: event.target.value,
@@ -173,7 +179,7 @@ export const AddProject = (props) => {
             setShowAddOneMoreButton(true);
         }
         if (event.target.name === 'photo') {
-            
+
             onSelectPicture(event);
             if (!event.target.files || event.target.files.length > 0) {
                 handleUpload(event.target.files[0]);
@@ -253,8 +259,17 @@ export const AddProject = (props) => {
     return (
         <>
             <AddProjectContainer>
+            <CloseButtonContainer>
+                    <CloseButton
+                        aria-label='Close modal'
+                        onClick={() => navigate("/projets")}
+                    />
+                </CloseButtonContainer>
+                
                 <TitleContainer>
+               
                     <Title> CREER VOTRE PROJET</Title>
+                   
                 </TitleContainer>
 
                 <FormContainer>
@@ -303,17 +318,17 @@ export const AddProject = (props) => {
                             showAddOneMoreButton={showAddOneMoreButton}
                             setShowAddOneMoreButton={setShowAddOneMoreButton}
                         />
-                       
+
 
                         {/* Pattern Section */}
-                       <AddPattern 
+                        <AddPattern
                             onChange={onChange}
                             values={values}
                             setValues={setValues}
                             showAddOneMoreButton={showAddOneMoreButton}
                             setShowAddOneMoreButton={setShowAddOneMoreButton}
-                       />
-                       
+                        />
+
 
                         {/* Project picture */}
                         <Section>
@@ -337,9 +352,9 @@ export const AddProject = (props) => {
                                             // className="firstShow"
                                             >
                                                 {values.photo ?
-                                                <Preview src={preview}></Preview>
-                                                :
-                                                <Preview src={YtremaLogo}></Preview>
+                                                    <Preview src={preview}></Preview>
+                                                    :
+                                                    <Preview src={YtremaLogo}></Preview>
                                                 }
                                                 {/* <Preview src={values.photo.length == 0 ? YtremaLogo : preview}></Preview> */}
 
