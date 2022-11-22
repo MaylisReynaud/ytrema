@@ -54,6 +54,7 @@ import {
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
 import { NoteModal } from "./NoteModal";
+import { newDate } from "../../../utils/newDate";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -98,26 +99,9 @@ export const ProjectCard = () => {
                                     </ProjectTitle>
                                 </TitleContainer>
                             </ArrowTitleContainer>
-                            {/* <NavProject>
-                                <ProjectLinksContainer>
-                                    <LinksWrapper>
-                                        {projectCardLinks.map((projectLink) => {
-                                            return (
-                                                <LinkItem
-                                                    key={projectLink.id}
-                                                >
-                                                    <ProjectMenuLinks
-                                                    href={projectLink.id}
-                                                       
-                                                    >
-                                                        {projectLink.name}
-                                                    </ProjectMenuLinks>
-                                                </LinkItem>
-                                            )
-                                        })}
-                                    </LinksWrapper>
-                                </ProjectLinksContainer>
-                            </NavProject> */}
+                            {/* Remettre en forme la date */}
+                            <p>{newDate(projectCard.date)}</p>
+
                         </HeaderContainer>
                         <Section
                             id='"tissus'
@@ -230,13 +214,13 @@ export const ProjectCard = () => {
                             id='notes'
                             className="notes"
                         >
-                           
+
                             <AddReturnButtonContainer>
 
-                            <SectionTitle
-                                className="notes">
-                                NOTES
-                            </SectionTitle>
+                                <SectionTitle
+                                    className="notes">
+                                    NOTES
+                                </SectionTitle>
                                 <AddButton
                                     onClick={isOpeningNoteModal}
                                     className="AddOneMoreNote"

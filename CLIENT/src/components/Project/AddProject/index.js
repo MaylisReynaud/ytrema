@@ -68,7 +68,7 @@ export const AddProject = (props) => {
     const fabrics = persistedReducer.fabrics;
     const haberdasheries = persistedReducer.haberdasheries;
     const patterns = persistedReducer.patterns;
-    // const { data, error, isLoading, isSuccess, isError } = useGetAllPatternsQuery(auth.id);
+
     const [addOneProject, { data, error, isLoading, isSuccess, isError }] = useAddOneProjectMutation(auth.id);
 
 
@@ -298,16 +298,7 @@ export const AddProject = (props) => {
                                 <option value="Terminé">Terminé</option>
                             </InformationSelect>
                         </LabelInputContainer>
-                        <LabelInputContainer>
-                            <InformationLabel htmlFor="date">Date</InformationLabel>
-                            <InformationInput
-                                id="date"
-                                type="date"
-                                name="date"
-                                onChange={onChange}
-                            // onChange={onChange}
-                            ></InformationInput>
-                        </LabelInputContainer>
+                       
                         {/* Fabric Section */}
                         <AddFabric
                             onChange={onChange}

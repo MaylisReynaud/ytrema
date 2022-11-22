@@ -49,6 +49,7 @@ import { AddProject } from "./AddProject";
 import { FilterChoices } from "./FilterChoices";
 import { ProjectFiltersCards } from "../../utils/projectFlexFilter";
 import { filterProject } from "../../utils/filterProject";
+import { newDate } from "../../utils/newDate";
 
 export const Project = (props, index) => {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -118,7 +119,7 @@ export const Project = (props, index) => {
                       />
                     </ImgContainer>
                     <CardText>
-                      {project.name} - {project.status} - {project.date}
+                      {project.name} - {project.status} - {newDate(project.date)}
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -376,7 +377,9 @@ export const Project = (props, index) => {
                             />
                           </ImgContainer>
                           <CardText>
-                            {project.name} - {project.status} - {project.date}
+                          {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -551,7 +554,9 @@ export const Project = (props, index) => {
                             </ImgContainer>
 
                             <CardText>
-                              {project.name} - {project.status} - {project.date}
+                              {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                             </CardText>
                           </CardContainer>
                         </Link>
