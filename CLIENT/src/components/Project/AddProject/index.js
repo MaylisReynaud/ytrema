@@ -111,14 +111,11 @@ export const AddProject = (props) => {
             });
         }
     }, [data, error, isError]);
-    let newDate = new Date();
-    // let newDate = new Date().toISOString().replace(/T.*/,'').split('-').reverse().join('-');
-    console.log(newDate, "<-- new date")
+
 
     const [values, setValues] = useState({
         name: "",
         status: "",
-        date:  newDate,
         personal_notes: "Photo du projet",
         photo: "",
         fabrics: [],
