@@ -138,7 +138,6 @@ export const AddPattern = (props) => {
                                 )}
                             </PreviewContainer>
                         </AddOneArticleContainer>
-                        {console.log(selectedPattern, '<--selectedPattern')}
                         {selectedPattern.length > 0 ? (
                             <>
                                 {selectedPattern.map((selectedPat, index) => (
@@ -210,8 +209,6 @@ export const AddPattern = (props) => {
                         ) : null}
 
                         {/* AJOUT PATRON SUPP */}
-                        {console.log(showAddOneMorePattern, "<--showAddOneMorePattern")}
-
                         {showAddOneMorePattern && (
                             <>
                                 <AddOneArticleContainer>
@@ -259,8 +256,6 @@ export const AddPattern = (props) => {
 
                         {/* AFFICHAGE DES PATRONS A SELECTIONNER AU DEMARRAGE */}
                         {patterns && showAllPatterns && selectedPattern.length == 0 && (
-                        console.log(selectedPattern, "<-- selected pattern avant affichage des patrons à selectionner au demarrage"),
-                            // {patterns && showAllPatterns && (
                             <CardsContainer>
                                 {patterns.value.map((pattern) => (
                                     <CardsMapContainer
@@ -286,7 +281,6 @@ export const AddPattern = (props) => {
                                                     }, new Map())
                                                     .values(),
                                             ];
-                                            console.log(patternObject.patterns, "<-- patternsObject.pattern")
                                             patternObject.patterns = patternsResult;
                                             setValues(patternObject);
                                             setShowAddOneMoreButton(true);
@@ -310,10 +304,8 @@ export const AddPattern = (props) => {
 
                         {/* AFFICHAGE FILTRE DES PATRONS RESTANTS A SELECTIONNER */}
                         {showAllPatterns && selectedPattern.length > 0 && (
-                            console.log(selectedPattern, "<--selected pattern dans affichage des filtres"),
                             <CardsContainer>
                                 {patternsFiltered.map((pattern) => (
-                                    console.log(patternsFiltered, "<-- patternsfiltered dans affichages des patrons restants"),
                                     <CardsMapContainer
                                         key={pattern.id}
                                         // onClick={() => {
@@ -347,7 +339,6 @@ export const AddPattern = (props) => {
                                                     }, new Map())
                                                     .values(),
                                             ];
-                                            console.log(patternObject.patterns, "<-- patternsObject.pattern")
                                             patternObject.patterns = patternsResult;
                                             setValues(patternObject);
                                             setShowAddOneMoreButton(true);
