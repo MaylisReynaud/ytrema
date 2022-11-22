@@ -346,7 +346,7 @@ return(
                                     </ImgContainer>
 
                                     <CardText>
-                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                                     </CardText>
                                 </CardContainer>
                             </CardsMapContainer>

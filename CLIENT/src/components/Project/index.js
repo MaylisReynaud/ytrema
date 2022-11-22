@@ -119,7 +119,9 @@ export const Project = (props, index) => {
                       />
                     </ImgContainer>
                     <CardText>
-                      {project.name} - {project.status} - {newDate(project.date)}
+                    {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                     </CardText>
                   </CardContainer>
                 </Link>
