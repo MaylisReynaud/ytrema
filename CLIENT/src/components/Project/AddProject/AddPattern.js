@@ -36,8 +36,8 @@ import { useGetAllPatternsQuery } from "../../../store/api/ytremaApi";
 export const AddPattern = (props) => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
-    const patterns = persistedReducer.patterns;
     const auth = persistedReducer.auth;
+    const patterns = persistedReducer.patterns;
     const { data, error, isLoading, isSuccess, isError } = useGetAllPatternsQuery(auth.id);
 
 
@@ -47,15 +47,16 @@ export const AddPattern = (props) => {
         onChange,
         showAddOneMoreButton,
         setShowAddOneMoreButton
-      } = props;
+    } = props;
 
-      console.log(values, 'values')
+    console.log(values, 'values')
 
     useEffect(() => {
         if (isSuccess && data) {
             dispatch(addAllPatterns(data.patterns));
         }
-    }, [data, patterns]);
+    }, [data]);
+
     //show pattern section
     const [showPatternSection, setShowPatternSection] = useState(false);
     const isOpeningPatternSection = () => {
@@ -82,7 +83,8 @@ export const AddPattern = (props) => {
     };
 
     const isOpeningOneMorePattern = (event) => {
-        setShowAddOneMoreButton(true);
+        // setShowAddOneMoreButton(true);
+        setShowAddOneMoreButton(false);
         !showAddOneMorePattern && event.preventDefault();
         setShowAddOneMorePattern((prev) => !prev);
     };
@@ -102,79 +104,79 @@ export const AddPattern = (props) => {
     const [showAddOneMorePattern, setShowAddOneMorePattern] = useState(false);
 
 
-return(
-    <>
-                        <Section>
-                            <TitleSectionContainer>
-                                <TitleSection>PATRONS</TitleSection>
-                                {showPatternSection ? (
-                                    <MinusIcon onClick={isOpeningPatternSection} />
-                                ) : (
-                                    <PlusIcon onClick={isOpeningPatternSection} />
+    return (
+        <>
+            <Section>
+                <TitleSectionContainer>
+                    <TitleSection>PATRONS</TitleSection>
+                    {showPatternSection ? (
+                        <MinusIcon onClick={isOpeningPatternSection} />
+                    ) : (
+                        <PlusIcon onClick={isOpeningPatternSection} />
+                    )}
+                </TitleSectionContainer>
+                {showPatternSection && (
+                    <>
+                        <AddOneArticleContainer>
+                            {/* AFFICHAGE DES PATRONS DEJA SELECTIONNES */}
+                            <PreviewContainer
+                                className="pattern"
+                            >
+                                {selectedPattern.length == 0 && (
+                                    <>
+                                        <Text>Sélectionnez votre premier patron</Text>
+                                        <PreviewButtonContainer
+                                            className="firstShow"
+                                        >
+                                            <Preview src={YtremaLogo}></Preview>
+                                            <AddButton
+                                                onClick={isOpeningPatternsCards}
+                                                className="Alone" />
+                                        </PreviewButtonContainer>
+
+                                    </>
                                 )}
-                            </TitleSectionContainer>
-                            {showPatternSection && (
-                                <>
-                                    <AddOneArticleContainer>
-                                        {/* AFFICHAGE DES PATRONS DEJA SELECTIONNES */}
+                            </PreviewContainer>
+                        </AddOneArticleContainer>
+                        {console.log(selectedPattern, '<--selectedPattern')}
+                        {selectedPattern.length > 0 ? (
+                            <>
+                                {selectedPattern.map((selectedPat, index) => (
+                                    <AddOneArticleContainer key={selectedPat.id}>
                                         <PreviewContainer
                                             className="pattern"
                                         >
-                                            {selectedPattern.length == 0 && (
-                                                <>
-                                                    <Text>Sélectionnez votre premier patron</Text>
-                                                    <PreviewButtonContainer
-                                                        className="firstShow"
-                                                    >
-                                                        <Preview src={YtremaLogo}></Preview>
-                                                        <AddButton
-                                                            onClick={isOpeningPatternsCards}
-                                                            className="Alone" />
-                                                    </PreviewButtonContainer>
+                                            <Text>Patron sélectionné n°{index + 1}</Text>
+                                            <PreviewButtonContainer>
+                                                <Preview
+                                                    src={selectedPat.photo}
+                                                    data-selectedpatternid={selectedPat.id}
+                                                ></Preview>
+                                                <RemoveButton
+                                                    onClick={() => {
+                                                        setSelectedPattern((current) =>
+                                                            current.filter((pattern) => {
+                                                                return pattern.id !== selectedPat.id;
+                                                            })
+                                                        );
+                                                        let updatedPatterns = values.patterns.filter(
+                                                            (pattern) => {
+                                                                return pattern.pattern_id != selectedPat.id;
+                                                            }
+                                                        );
+                                                        let valuesUpdated = values;
+                                                        valuesUpdated.patterns = updatedPatterns;
+                                                        setValues(valuesUpdated);
+                                                    }}
+                                                />
+                                            </PreviewButtonContainer>
 
-                                                </>
-                                            )}
-                                        </PreviewContainer>
-                                    </AddOneArticleContainer>
-{console.log(selectedPattern, '<--selectedPattern')}
-                                    {selectedPattern.length > 0 ? (
-                                        <>
-                                            {selectedPattern.map((selectedPat, index) => (
-                                                <AddOneArticleContainer key={selectedPat.id}>
-                                                    <PreviewContainer
-                                                        className="pattern"
-                                                    >
-                                                        <Text>Patron sélectionné n°{index + 1}</Text>
-                                                        <PreviewButtonContainer>
-                                                            <Preview
-                                                                src={selectedPat.photo}
-                                                                data-selectedpatternid={selectedPat.id}
-                                                            ></Preview>
-                                                            <RemoveButton
-                                                                onClick={() => {
-                                                                    setSelectedPattern((current) =>
-                                                                        current.filter((pattern) => {
-                                                                            return pattern.id !== selectedPat.id;
-                                                                        })
-                                                                    );
-                                                                    let updatedPatterns = values.patterns.filter(
-                                                                        (pattern) => {
-                                                                            return pattern.pattern_id != selectedPat.id;
-                                                                        }
-                                                                    );
-                                                                    let valuesUpdated = values;
-                                                                    valuesUpdated.patterns = updatedPatterns;
-                                                                    setValues(valuesUpdated);
-                                                                }}
-                                                            />
-                                                        </PreviewButtonContainer>
-
-                                                        <SelectedArticleInfo
-                                                            className="pattern"
-                                                        >
-                                                            {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand}
-                                                        </SelectedArticleInfo>
-                                                        {/* <QuantityContainer>
+                                            <SelectedArticleInfo
+                                                className="pattern"
+                                            >
+                                                {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand}
+                                            </SelectedArticleInfo>
+                                            {/* <QuantityContainer>
                                                             <QuantityLabel>
                                                                 Quantité
                                                             </QuantityLabel>
@@ -201,146 +203,178 @@ return(
                                                                 onChange={onChange}
                                                             ></QuantityInput>
                                                         </QuantityContainer> */}
-                                                    </PreviewContainer>
-                                                </AddOneArticleContainer>
-                                            ))}
-                                        </>
-                                    ) : null}
+                                        </PreviewContainer>
+                                    </AddOneArticleContainer>
+                                ))}
+                            </>
+                        ) : null}
 
-                                    {/* AJOUT PATRON SUPP */}
-                                    {console.log(showAddOneMorePattern, "<--showAddOneMorePattern")}
+                        {/* AJOUT PATRON SUPP */}
+                        {console.log(showAddOneMorePattern, "<--showAddOneMorePattern")}
 
-                                    {showAddOneMorePattern && (
-                                        <>
-                                            <AddOneArticleContainer>
-                                                <PreviewContainer
-                                                    className="pattern"
-                                                >
-                                                    <Text>Sélectionnez votre patron</Text>
-                                                    <PreviewButtonContainer
-                                                        className="firstShow"
-                                                    >
-                                                        <Preview
-                                                            src={
-                                                                addPatternPreview !== undefined
-                                                                    ? addPatternPreview
-                                                                    : YtremaLogo
-                                                            }
-                                                        ></Preview>
-                                                        <AddReturnButtonContainer>
-                                                            <ReturnButton
-                                                                onClick={isClosingAddOneMorePattern}
-                                                                className="AddOneMoreSection"
-                                                            />
-                                                            <AddButton
-                                                                onClick={isOpeningPatternsCards}
-                                                                className="AddOneMoreSection"
-                                                            />
-                                                        </AddReturnButtonContainer>
+                        {showAddOneMorePattern && (
+                            <>
+                                <AddOneArticleContainer>
+                                    <PreviewContainer
+                                        className="pattern"
+                                    >
+                                        <Text>Sélectionnez votre patron</Text>
+                                        <PreviewButtonContainer
+                                            className="firstShow"
+                                        >
+                                            <Preview
+                                                src={
+                                                    addPatternPreview !== undefined
+                                                        ? addPatternPreview
+                                                        : YtremaLogo
+                                                }
+                                            ></Preview>
+                                            <AddReturnButtonContainer>
+                                                <ReturnButton
+                                                    onClick={isClosingAddOneMorePattern}
+                                                    className="AddOneMoreSection"
+                                                />
+                                                <AddButton
+                                                    onClick={isOpeningPatternsCards}
+                                                    className="AddOneMoreSection"
+                                                />
+                                            </AddReturnButtonContainer>
 
-                                                    </PreviewButtonContainer>
-                                                </PreviewContainer>
-                                            </AddOneArticleContainer>
+                                        </PreviewButtonContainer>
+                                    </PreviewContainer>
+                                </AddOneArticleContainer>
 
-                                            {selectedPattern >= 1 && (
-                                                <SelectedArticleInfo
-                                                    className="pattern"
-                                                    data-selectedpatternid={
-                                                        selectedPattern[selectedPattern.length - 1].id
-                                                    }
-                                                >
-                                                    {selectedPattern[selectedPattern.length - 1].name} -{" "}
-                                                </SelectedArticleInfo>
-                                            )}
-                                        </>
-                                    )}
+                                {selectedPattern >= 1 && (
+                                    <SelectedArticleInfo
+                                        className="pattern"
+                                        data-selectedpatternid={
+                                            selectedPattern[selectedPattern.length - 1].id
+                                        }
+                                    >
+                                        {selectedPattern[selectedPattern.length - 1].name} -{" "}
+                                    </SelectedArticleInfo>
+                                )}
+                            </>
+                        )}
 
-                                    {/* AFFICHAGE DES PATRONS A SELECTIONNER AU DEMARRAGE */}
-                                    {patterns && showAllPatterns && selectedPattern.length == 0 && (
-                                        <CardsContainer>
-                                            {patterns.value.map((pattern) => (
-                                                <CardsMapContainer
-                                                    key={pattern.id}
-                                                    onClick={() => {
-                                                        isOpeningPatternsCards();
-                                                        let patObject = selectedPattern;
-                                                        patObject.push(pattern);
-                                                        setSelectedPattern(patObject);
-                                                        setPatternPreview(pattern.photo);
-                                                        showAddOneMorePattern && isOpeningOneMorePattern();
-                                                        let patternObject = values;
-                                                        patternObject.patterns.push({
-                                                            pattern_id: pattern.id,
-                                                            pattern_price: pattern.price
-                                                        });
+                        {/* AFFICHAGE DES PATRONS A SELECTIONNER AU DEMARRAGE */}
+                        {patterns && showAllPatterns && selectedPattern.length == 0 && (
+                        console.log(selectedPattern, "<-- selected pattern avant affichage des patrons à selectionner au demarrage"),
+                            // {patterns && showAllPatterns && (
+                            <CardsContainer>
+                                {patterns.value.map((pattern) => (
+                                    <CardsMapContainer
+                                        key={pattern.id}
+                                        onClick={() => {
+                                            isOpeningPatternsCards();
+                                            let patObject = selectedPattern;
+                                            patObject.push(pattern);
+                                            setSelectedPattern(patObject);
+                                            setPatternPreview(pattern.photo);
+                                            showAddOneMorePattern && isOpeningOneMorePattern();
+                                            let patternObject = values;
+                                            patternObject.patterns.push({
+                                                pattern_id: pattern.id,
+                                                pattern_price: pattern.price
+                                            });
 
-                                                        // keep last pattern object with same the id
-                                                        let patternsResult = [
-                                                            ...patternObject.patterns
-                                                                .reduce((acc, cur) => {
-                                                                    return acc.set(cur.pattern_id, cur);
-                                                                }, new Map())
-                                                                .values(),
-                                                        ];
+                                            // keep last pattern object with the same id
+                                            let patternsResult = [
+                                                ...patternObject.patterns
+                                                    .reduce((acc, cur) => {
+                                                        return acc.set(cur.pattern_id, cur);
+                                                    }, new Map())
+                                                    .values(),
+                                            ];
+                                            console.log(patternObject.patterns, "<-- patternsObject.pattern")
+                                            patternObject.patterns = patternsResult;
+                                            setValues(patternObject);
+                                            setShowAddOneMoreButton(true);
+                                        }}
 
-                                                        patternObject.patterns = patternsResult;
-                                                        setValues(patternObject);
-                                                        setShowAddOneMoreButton(true);
-                                                    }}
+                                    >
+                                        <CardContainer
+                                            key={pattern.id}
+                                        >
+                                            <ImgContainer>
+                                                <CardImg src={pattern.photo} alt={pattern.alt} />
+                                            </ImgContainer>
+                                            <CardText>
+                                                {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                            </CardText>
+                                        </CardContainer>
+                                    </CardsMapContainer>
+                                ))}
+                            </CardsContainer>
+                        )}
 
-                                                >
-                                                    <CardContainer
-                                                        key={pattern.id}
-                                                    >
-                                                        <ImgContainer>
-                                                            <CardImg src={pattern.photo} alt={pattern.alt} />
-                                                        </ImgContainer>
-                                                        <CardText>
-                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
-                                                        </CardText>
-                                                    </CardContainer>
-                                                </CardsMapContainer>
-                                            ))}
-                                        </CardsContainer>
-                                    )}
+                        {/* AFFICHAGE FILTRE DES PATRONS RESTANTS A SELECTIONNER */}
+                        {showAllPatterns && selectedPattern.length > 0 && (
+                            console.log(selectedPattern, "<--selected pattern dans affichage des filtres"),
+                            <CardsContainer>
+                                {patternsFiltered.map((pattern) => (
+                                    console.log(patternsFiltered, "<-- patternsfiltered dans affichages des patrons restants"),
+                                    <CardsMapContainer
+                                        key={pattern.id}
+                                        // onClick={() => {
+                                        //     isOpeningPatternsCards();
+                                           
+                                        //     let patObject = selectedPattern;
+                                        //     console.log(patObject, "<-- patObject");
+                                        //     patObject.push(pattern);
+                                        //     setSelectedPattern(patObject);
+                                        //     setPatternPreview(pattern.photo);
+                                        //     showAddOneMorePattern && isOpeningOneMorePattern
+                                        // }}
+                                        onClick={() => {
+                                            isOpeningPatternsCards();
+                                            let patObject = selectedPattern;
+                                            patObject.push(pattern);
+                                            setSelectedPattern(patObject);
+                                            setPatternPreview(pattern.photo);
+                                            showAddOneMorePattern && isOpeningOneMorePattern();
+                                            let patternObject = values;
+                                            patternObject.patterns.push({
+                                                pattern_id: pattern.id,
+                                                pattern_price: pattern.price
+                                            });
 
-                                    {/* AFFICHAGE FILTRE DES PATRONS RESTANTS A SELECTIONNER */}
-                                    {showAllPatterns && selectedPattern.length > 0 && (
-                                        <CardsContainer>
-                                            {patternsFiltered.map((pattern) => (
-                                                <CardsMapContainer
-                                                    key={pattern.id}
-                                                    onClick={() => {
-                                                        isOpeningPatternsCards();
-                                                        let patObject = selectedPattern;
-                                                        patObject.push(pattern);
-                                                        setSelectedPattern(patObject);
-                                                        setPatternPreview(pattern.photo);
-                                                        showAddOneMorePattern && isOpeningOneMorePattern
-                                                    }}
-                                                >
-                                                    <CardContainer key={pattern.id}>
-                                                        <ImgContainer>
-                                                            <CardImg src={pattern.photo} alt={pattern.alt} />
-                                                        </ImgContainer>
+                                            // keep last pattern object with the same id
+                                            let patternsResult = [
+                                                ...patternObject.patterns
+                                                    .reduce((acc, cur) => {
+                                                        return acc.set(cur.pattern_id, cur);
+                                                    }, new Map())
+                                                    .values(),
+                                            ];
+                                            console.log(patternObject.patterns, "<-- patternsObject.pattern")
+                                            patternObject.patterns = patternsResult;
+                                            setValues(patternObject);
+                                            setShowAddOneMoreButton(true);
+                                        }}
+                                    >
+                                        <CardContainer key={pattern.id}>
+                                            <ImgContainer>
+                                                <CardImg src={pattern.photo} alt={pattern.alt} />
+                                            </ImgContainer>
 
-                                                        <CardText>
-                                                            {pattern.clothing} - {pattern.name} - {pattern.brand}
-                                                        </CardText>
-                                                    </CardContainer>
-                                                </CardsMapContainer>
-                                            ))}
-                                        </CardsContainer>
-                                    )}
-{console.log(showAddOneMoreButton, '<--show add one more button')}
-                                    {showAddOneMoreButton && selectedPattern.length > 0 && (
-                                        <AddOneMoreButton onClick={isOpeningOneMorePattern}>
-                                            Sélectionner un patron supplémentaire
-                                        </AddOneMoreButton>
-                                    )}
-                                </>
-                            )}
-                        </Section>
-    </>
-)
+                                            <CardText>
+                                                {pattern.clothing} - {pattern.name} - {pattern.brand}
+                                            </CardText>
+                                        </CardContainer>
+                                    </CardsMapContainer>
+                                ))}
+                            </CardsContainer>
+                        )}
+                       
+                        {showAddOneMoreButton && selectedPattern.length > 0 && (
+                            <AddOneMoreButton onClick={isOpeningOneMorePattern}>
+                                Sélectionner un patron supplémentaire
+                            </AddOneMoreButton>
+                        )}
+                    </>
+                )}
+            </Section>
+        </>
+    )
 }

@@ -181,56 +181,6 @@ export const AddProject = (props) => {
         }
     };
 
-
-   
-
-    //PATTERNS
-
-    //show pattern section
-    const [showPatternSection, setShowPatternSection] = useState(false);
-    const isOpeningPatternSection = () => {
-        setShowPatternSection((prev) => !prev);
-    };
-    //Show all patterns
-    const [showAllPatterns, setShowAllPatterns] = useState(false);
-    const [patternsFiltered, setPatternsFiltered] = useState([]);
-
-    const isOpeningPatternsCards = () => {
-        setShowAllPatterns((prev) => !prev);
-
-        // Create array with all patterns remaining 
-        if (selectedPattern.length > 0) {
-            let patternsFilteredArray = [];
-            let selectedPatternIdsArray = selectedPattern.map(elem => elem.id);
-
-            patterns.value.map(pattern => {
-                !selectedPatternIdsArray.includes(pattern.id) && patternsFilteredArray.push(pattern);
-            })
-
-            setPatternsFiltered(patternsFilteredArray);
-        }
-    };
-
-    const isOpeningOneMorePattern = (event) => {
-        setShowAddOneMoreButton(true);
-        !showAddOneMorePattern && event.preventDefault();
-        setShowAddOneMorePattern((prev) => !prev);
-    };
-
-    //Close the section to add one more pattern but show the button to add one pattern
-    const isClosingAddOneMorePattern = (event) => {
-        !showAddOneMorePattern && event.preventDefault();
-        setShowAddOneMorePattern(false);
-        setShowAllPatterns(false);
-        setShowAddOneMoreButton(true);
-    };
-
-    //Pattern Preview
-    const [selectedPattern, setSelectedPattern] = useState([]);
-    const [patternPreview, setPatternPreview] = useState();
-    const [addPatternPreview, setAddPatternPreview] = useState();
-    const [showAddOneMorePattern, setShowAddOneMorePattern] = useState(false);
-
     //PICTURE
     //show picture section
     const [showPictureSection, setShowPictureSection] = useState(false);
