@@ -4,6 +4,7 @@ const projectDataMapper = {
     async createProject(projectInfo, id) {
         const {
             name,
+            date,
             status,
             personal_notes,
             photo,
@@ -75,8 +76,8 @@ const projectDataMapper = {
         // 2/ SAVE THE PROJECT AND GET ITS ID
         // Query to create project in DB
         let query = {
-            text: `INSERT INTO "project"("name", "cost_price", "status", "member_id") VALUES($1, $2, $3, $4) RETURNING id`,
-            values: [name, projectInfo.cost_price, status, id],
+            text: `INSERT INTO "project"("name", "date", "cost_price", "status", "member_id") VALUES($1, $2, $3, $4, $5) RETURNING id`,
+            values: [name, date, projectInfo.cost_price, status, id],
         };
 
         // Send query to DB

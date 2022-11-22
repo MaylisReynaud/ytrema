@@ -298,6 +298,16 @@ export const AddProject = (props) => {
                                 <option value="Terminé">Terminé</option>
                             </InformationSelect>
                         </LabelInputContainer>
+                        <LabelInputContainer>
+                            <InformationLabel htmlFor="date">Date</InformationLabel>
+                            <InformationInput
+                                id="date"
+                                type="date"
+                                name="date"
+                                onChange={onChange}
+                            // onChange={onChange}
+                            ></InformationInput>
+                        </LabelInputContainer>
                         {/* Fabric Section */}
                         <AddFabric
                             onChange={onChange}

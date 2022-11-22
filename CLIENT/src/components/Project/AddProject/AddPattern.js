@@ -175,33 +175,6 @@ export const AddPattern = (props) => {
                                             >
                                                 {selectedPat.clothing} {" "} {selectedPat.name} {" - "} {selectedPat.brand}
                                             </SelectedArticleInfo>
-                                            {/* <QuantityContainer>
-                                                            <QuantityLabel>
-                                                                Quantité
-                                                            </QuantityLabel>
-                                                            <QuantityInput
-                                                                type="number"
-                                                                id="pattern"
-                                                                disabled
-                                                                data-selectedpatternid={selectedPat.id}
-                                                                data-selectedhaberdasheryquantity={
-                                                                    selectedPat.quantity
-                                                                }
-                                                        
-                                                                name="pattern"
-                                                                placeholder={
-                                                                    1
-                                                                    // values.patterns.find(
-                                                                    //     (elem) => elem.pattern_id == selectedPat.id
-                                                                    // )
-                                                                    //     ? values.patterns[values.patterns.indexOf(values.patterns.find(
-                                                                    //         (elem) => elem.pattern_id == selectedPat.id
-                                                                    //     ))].pattern_id
-                                                                    //     : null
-                                                                }
-                                                                onChange={onChange}
-                                                            ></QuantityInput>
-                                                        </QuantityContainer> */}
                                         </PreviewContainer>
                                     </AddOneArticleContainer>
                                 ))}
@@ -308,16 +281,6 @@ export const AddPattern = (props) => {
                                 {patternsFiltered.map((pattern) => (
                                     <CardsMapContainer
                                         key={pattern.id}
-                                        // onClick={() => {
-                                        //     isOpeningPatternsCards();
-                                           
-                                        //     let patObject = selectedPattern;
-                                        //     console.log(patObject, "<-- patObject");
-                                        //     patObject.push(pattern);
-                                        //     setSelectedPattern(patObject);
-                                        //     setPatternPreview(pattern.photo);
-                                        //     showAddOneMorePattern && isOpeningOneMorePattern
-                                        // }}
                                         onClick={() => {
                                             isOpeningPatternsCards();
                                             let patObject = selectedPattern;
