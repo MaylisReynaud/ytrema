@@ -36,8 +36,8 @@ import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 export const AddHaberdashery = (props) => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
-    const haberdasheries = persistedReducer.haberdasheries;
     const auth = persistedReducer.auth;
+    const haberdasheries = persistedReducer.haberdasheries;
     const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
 
 
@@ -52,11 +52,9 @@ export const AddHaberdashery = (props) => {
 
     useEffect(() => {
         if (isSuccess && data) {
-          // console.log("Coucou useEffectt");
-          // console.log(data, "DATA");
             dispatch(addAllHaberdasheries(data.haberdasheries));
         }
-    }, [data, haberdasheries]);
+    }, [data]);
 
     //show haberdashery section
     const [showHaberdasherySection, setShowHaberdasherySection] = useState(false);

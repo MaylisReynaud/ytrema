@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState , useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
     AddButton,
     CardsMapContainer,
@@ -29,8 +29,15 @@ import {
 } from "./style";
 
 import YtremaLogo from "../../../assets/images/logo.png";
+import { addAllFabrics } from "../../../store/state/fabricSlice";
+import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
 
 export const AddFabric = (props) => {
+    const dispatch = useDispatch();
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const fabrics = persistedReducer.fabrics;
+    const { data, error, isLoading, isSuccess, isError } = useGetAllFabricsQuery(auth.id);
 
     const {
         values,
@@ -40,9 +47,12 @@ export const AddFabric = (props) => {
         setShowAddOneMoreButton
 
       } = props;
-    const { persistedReducer } = useSelector((state) => state);
-
-    const fabrics = persistedReducer.fabrics;
+    
+      useEffect(() => {
+        if (isSuccess && data) {
+            dispatch(addAllFabrics(data.fabrics));
+        }
+    }, [data]);
     
      //show fabric section
      const [showFabricSection, setShowFabricSection] = useState(true);
