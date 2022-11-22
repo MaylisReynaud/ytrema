@@ -2,9 +2,10 @@
 
 BEGIN; 
 
-DROP DOMAIN IF EXISTS POSITIVE_INTEGER, POSITIVE_NUMERIC;
+DROP DOMAIN IF EXISTS POSITIVE_INTEGER, POSITIVE_INTEGER_INCLUDING_0, POSITIVE_NUMERIC;
 
 CREATE DOMAIN POSITIVE_INTEGER AS TEXT CHECK(VALUE ~ '^[1-9]\d*$');
+CREATE DOMAIN POSITIVE_INTEGER_INCLUDING_0 AS TEXT CHECK(VALUE ~ '^[0-9]\d*$');
 CREATE DOMAIN POSITIVE_NUMERIC AS NUMERIC(5,2) CHECK(VALUE >= 0);
 
 DROP TABLE IF EXISTS "member", "haberdashery", "review", "fabric", "project", "pattern", "photo", "project_has_haberdashery", "project_has_fabric", "project_has_pattern";
@@ -26,7 +27,8 @@ CREATE TABLE "haberdashery"(
     "name" TEXT NOT NULL,
     "website" TEXT,
     "haberdashery" TEXT NOT NULL,
-    "quantity" POSITIVE_INTEGER NOT NULL,
+    "article_qty" POSITIVE_INTEGER NOT NULL,
+    "stock_qty" POSITIVE_INTEGER_INCLUDING_0 NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "size" POSITIVE_INTEGER NOT NULL,
     "unity" TEXT NOT NULL DEFAULT 'cm',
@@ -34,6 +36,7 @@ CREATE TABLE "haberdashery"(
     "precise_color" TEXT,
     "photo" TEXT,
     "is_cut" BOOLEAN NOT NULL,
+    "is_a_set" BOOLEAN NOT NULL,
     "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
 
@@ -53,7 +56,8 @@ CREATE TABLE "fabric"(
     "fabric" TEXT NOT NULL,
     "composition" TEXT,
     "weight" POSITIVE_INTEGER,
-    "quantity" POSITIVE_INTEGER NOT NULL,
+    "article_qty" POSITIVE_INTEGER NOT NULL,
+    "stock_qty" POSITIVE_INTEGER_INCLUDING_0 NOT NULL,
     "width" POSITIVE_INTEGER NOT NULL,
     "price" POSITIVE_NUMERIC NOT NULL,
     "photo" TEXT,    
@@ -86,7 +90,7 @@ CREATE TABLE "pattern"(
 
 CREATE TABLE "photo"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "photo" TEXT DEFAULT 'link basic photo',
+    "photo" TEXT DEFAULT 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Fpexels-pavel-danilyuk-6461472.jpg?alt=media&token=e8e6b647-545f-47c6-bdc9-0676bcd9eb31',
     "personal_notes" TEXT,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE
 );
@@ -95,20 +99,23 @@ CREATE TABLE "project_has_haberdashery"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
     "haberdashery_id" INT NOT NULL REFERENCES "haberdashery"("id") ON DELETE CASCADE,
-    "used_size" POSITIVE_INTEGER NOT NULL
+    "used_size" POSITIVE_INTEGER NOT NULL,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 CREATE TABLE "project_has_fabric"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
     "fabric_id" INT NOT NULL REFERENCES "fabric"("id") ON DELETE CASCADE,
-    "used_size" POSITIVE_INTEGER NOT NULL
+    "used_size" POSITIVE_INTEGER NOT NULL,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 CREATE TABLE "project_has_pattern"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE,
-    "pattern_id" INT NOT NULL REFERENCES "pattern"("id") ON DELETE CASCADE
+    "pattern_id" INT NOT NULL REFERENCES "pattern"("id") ON DELETE CASCADE,
+    "article_cost" POSITIVE_NUMERIC NOT NULL
 );
 
 COMMIT;

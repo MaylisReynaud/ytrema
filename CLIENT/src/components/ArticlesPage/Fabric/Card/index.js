@@ -108,7 +108,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
     fabric: fabricCard.fabric,
     composition: fabricCard.composition,
     weight: fabricCard.weight,
-    quantity: fabricCard.quantity,
+    stock_qty: fabricCard.stock_qty,
     width: fabricCard.width,
     price: fabricCard.price,
   });
@@ -244,7 +244,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                       setShowDeleteModal={setShowDeleteModal}
                       showDeleteModal={showDeleteModal}
                       deleteAction={deleteCard}
-                      word={' CE TISSU'}
+                      word={'SUPPRIMER CE TISSU'}
                     />
 
 
@@ -295,13 +295,14 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               {updateFabricInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
+                          {input.id == 10 ? " Quantité stockée (en cm)" : input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
+
                           <>
                             {(input.id == 9 || input.id == 10 || input.id == 11 || input.id == 12) ? (
                               <InformationInput
@@ -364,10 +365,11 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
+
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
+                        <InformationLabel> {input.id == 10 ? " Quantité stockée (en cm)" : input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >
@@ -379,6 +381,7 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                             </InformationLink>
                           </InformationLinkContainer>
                         ) : (
+
                           <InformationTextarea
                             value={fabricCard[input.info]}
                             disabled="disabled"
@@ -389,18 +392,40 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
 
                       </InformationContent>
                     ) : null
-                  )}
+                  )
+                  }
                 </InformationForm>
               )}
+              {fabricCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec ce tissu</ProjectTitle>
+                  <ProjectImageContainer>
 
-              <ProjectContainer>
-                <ProjectTitle>Projets avec ce tissu</ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+                    {fabricCard.project_profile_photo_array.map((photo, index) => {
+                     if(index < 3) {
+                      return  <ProjectImage 
+                      src={photo.photo}
+                      key= {photo.photo_id}
+                     />
+                     } else {
+                      null
+                     }
+                     
+                    })}
+                   
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer>
+                  <ProjectTitle>Pas de projet réalisé avec ce tissu</ProjectTitle>
+                  <ProjectImageContainer>
+                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
+
             </InformationContainer>
           </CardContainer>
 
@@ -440,8 +465,8 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                     setShowDeleteModal={setShowDeleteModal}
                     showDeleteModal={showDeleteModal}
                     deleteAction={deleteCard}
-                    word={' CE TISSU'}
-                    
+                    word={'SUPPRIMER CE TISSU'}
+
                   />
 
 
@@ -493,11 +518,11 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               {updateFabricInfo ? (
                 <InformationForm onSubmit={handleSubmit}>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
 
                         <InformationLabel htmlFor={input.htmlFor}>
-                          {input.label}
+                          {input.id == 10 ? " Quantité stockée (en cm)" : input.label}
                         </InformationLabel>
                         {input.type !== "select" ? (
                           <>
@@ -560,9 +585,9 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
               ) : (
                 <InformationForm>
                   {fabricInputs.map((input, index) =>
-                    index !== 0 ? (
+                    (index !== 0 && index !== 12) ? (
                       <InformationContent key={input.id}>
-                        <InformationLabel>{input.label}</InformationLabel>
+                        <InformationLabel> {input.id == 10 ? " Quantité stockée (en cm)" : input.label}</InformationLabel>
                         {index === 2 && (fabricCard[input.info].includes("http") | fabricCard[input.info].includes("www") | fabricCard[input.info].includes(".fr") | fabricCard[input.info].includes(".com") | fabricCard[input.info].includes(".net")) ? (
                           <InformationLinkContainer
                           >

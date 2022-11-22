@@ -21,6 +21,7 @@ function FormInput(props) {
     required,
     isVerif,
     isVerifInput,
+    labelSpeCreation,
     ...inputProps
   } = props;
 
@@ -46,7 +47,7 @@ function FormInput(props) {
   return (
     <>
       <InputContainer>
-        {required ? <LabelForm htmlFor={htmlFor}>{label}*</LabelForm> : <LabelForm htmlFor={htmlFor}>{label}</LabelForm>}
+        {required ? <LabelForm htmlFor={htmlFor}>{labelSpeCreation ? labelSpeCreation : label}*</LabelForm> : <LabelForm htmlFor={htmlFor}>{label}</LabelForm>}
         {type === "select" ? (
           <SelectForm
             {...inputProps}
@@ -56,7 +57,8 @@ function FormInput(props) {
             onBlur={handleBlur}
             required={required}
           >
-            <option value="" defaultValue disabled hidden>--Choisissez votre {label.toLowerCase()}--</option>
+             
+            <option value="" defaultValue disabled hidden>--Choisissez votre {id == 5 || id == 8 ? " réponse" : label.toLowerCase()}--</option>
             {options.sort().map((option, index) => (
               <option key={index} value={option}>
 

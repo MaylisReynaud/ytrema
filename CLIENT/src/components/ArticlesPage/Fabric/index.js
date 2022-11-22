@@ -37,7 +37,8 @@ import {
   NoResultsContainer,
   DesktopArrowCurve,
   ErrorContainer,
-  LoginIcon
+  LoginIcon,
+  FilterSectionContainer
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -101,7 +102,7 @@ export function Fabric(props, index) {
                       <CardImg src={fabric.photo} alt={fabric.alt} />
                     </ImgContainer>
                     <CardText>
-                      {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+                      {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.stock_qty} cm
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -181,6 +182,9 @@ export function Fabric(props, index) {
         )}
         {isMobile && showMobileFilters && (
           <>
+          <FilterSectionContainer>
+
+
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -198,6 +202,7 @@ export function Fabric(props, index) {
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+            </FilterSectionContainer>
           </>
         )}
       </>
@@ -318,7 +323,7 @@ export function Fabric(props, index) {
                             <CardImg src={fabric.photo} alt={fabric.alt} />
                           </ImgContainer>
                           <CardText>
-                            {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+                            {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.stock_qty} cm
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -442,7 +447,7 @@ export function Fabric(props, index) {
                             </ImgContainer>
 
                             <CardText>
-                              {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.quantity} cm
+                              {fabric.fabric} - {fabric.name} - {fabric.designer} - {fabric.stock_qty} cm
                             </CardText>
                           </CardContainer>
                         </Link>

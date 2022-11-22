@@ -41,13 +41,15 @@ import {
   DesktopArrowCurve,
   ErrorContainer,
   LoginIcon,
-} from "../ArticlesPage/style";
+  FilterSectionContainer
+} from "./style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import YtremaLogo from "../../assets/images/logo.png";
 import { AddProject } from "./AddProject";
 import { FilterChoices } from "./FilterChoices";
 import { ProjectFiltersCards } from "../../utils/projectFlexFilter";
 import { filterProject } from "../../utils/filterProject";
+import { newDate } from "../../utils/newDate";
 
 export const Project = (props, index) => {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -117,7 +119,9 @@ export const Project = (props, index) => {
                       />
                     </ImgContainer>
                     <CardText>
-                      {project.name} - {project.status} - {project.date}
+                    {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -189,6 +193,7 @@ export const Project = (props, index) => {
         )}
         {isMobile && showMobileFilters && (
           <>
+     
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -206,6 +211,8 @@ export const Project = (props, index) => {
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+                        
+
           </>
         )}
       </>
@@ -372,7 +379,9 @@ export const Project = (props, index) => {
                             />
                           </ImgContainer>
                           <CardText>
-                            {project.name} - {project.status} - {project.date}
+                          {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -547,7 +556,9 @@ export const Project = (props, index) => {
                             </ImgContainer>
 
                             <CardText>
-                              {project.name} - {project.status} - {project.date}
+                              {project.name} <br />
+                              {project.status} <br />
+                              {newDate(project.date)}
                             </CardText>
                           </CardContainer>
                         </Link>

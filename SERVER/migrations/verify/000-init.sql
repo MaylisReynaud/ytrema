@@ -6,17 +6,17 @@ INSERT INTO "member"("id", "pseudo", "email", "password", "chest_measurement", "
     OVERRIDING SYSTEM VALUE
     VALUES(1, 'Mays', 'mays@gmail.com', 'Passw12ord/', 90, 60, 90, 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Blank&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Happy&eyebrowType=Default&mouthType=Default&skinColor=Brown');
 
-INSERT INTO "haberdashery"("id", "name", "website", "haberdashery", "quantity", "price", "size", "color", "precise_color", "unity", "is_cut", "member_id")
+INSERT INTO "haberdashery"("id", "name", "website", "haberdashery", "article_qty", "stock_qty", "price", "size", "color", "precise_color", "unity", "is_cut", "is_a_set","member_id")
     OVERRIDING SYSTEM VALUE
-    VALUES(1, 'Bouton Canopy Cactus', 'https://atelierbrunette.com/', 'Bouton', 2, 1.20, 10, 'Vert', 'vert cactus', 'mm', false, 1);
+    VALUES(1, 'Bouton Canopy Cactus', 'https://atelierbrunette.com/', 'Bouton', 1, 4, 1.20, 10, 'Vert', 'vert cactus', 'mm', false, false, 1);
 
 INSERT INTO "review"("id", "content", "member_id")
     OVERRIDING SYSTEM VALUE
     VALUES(1, 'Je suis ravie de ce site', 1);
 
-INSERT INTO "fabric"("id", "name", "website", "designer", "color", "precise_color", "fabric", "composition", "weight", "quantity", "width", "price", "photo", "member_id")
+INSERT INTO "fabric"("id", "name", "website", "designer", "color", "precise_color", "fabric", "composition", "weight", "article_qty", "stock_qty","width", "price", "photo", "member_id")
     OVERRIDING SYSTEM VALUE
-    VALUES(1, 'Crepe Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert', 'Vert cactus', 'Viscose', '100 % viscose', 118, 150, 140, 14.40, 'https://m1.atelierbrunette.com/9564-large_default/tissu-crepe-cactus.jpg', 1);
+    VALUES(1, 'Crepe Cactus', 'https://atelierbrunette.com/', 'Atelier Brunette', 'Vert', 'Vert cactus', 'Viscose', '100 % viscose', 118, 1, 150, 140, 14.40, 'https://m1.atelierbrunette.com/9564-large_default/tissu-crepe-cactus.jpg', 1);
 
 INSERT INTO "project"("id", "name", "cost_price", "status", "member_id")
     OVERRIDING SYSTEM VALUE

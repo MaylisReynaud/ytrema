@@ -66,8 +66,10 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     precise_color: '',
     haberdashery: '',
     is_cut: '',
-    quantity: '',
+    is_a_set: '',
+    stock_qty: '',
     unity: '',
+    article_qty: '',
     price: '',
   });
 
@@ -75,7 +77,7 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   const [preview, setPreview] = useState();
   const [photoURL, setPhotoURL] = useState();
   // const [isVerif, setIsVerif] = useState(false);
-  let isVerif = false ;
+  let isVerif = false;
   const [isVerifInput, setIsVerifInput] = useState(false);
 
 
@@ -134,26 +136,47 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
     }
   };
   const handleSubmit = async (event) => {
+    console.log(values, '<--values');
     event.preventDefault();
+    //CAS 1 : bouton piece (is_cut FALSE & is_a_set FALSE)
+    if ( values.is_cut == "false" && values.is_a_set == "false") {
+      values.article_qty= "1"
+    }
+  // CAS 2 : Bouton vendue en lot id 5 (is_cut FALSE & is_a_set TRUE)
+  if ( values.is_cut == "false" && values.is_a_set == "true") {
+    values.stock_qty=  values.stock_qty*values.article_qty
+  }
+  // CAS 3 : Bobine de fil id 10 (is_cut TRUE & is_a_set FALSE)
+  if ( values.is_cut == "true") {
+    values.stock_qty=values.size
+  }
+
     const valuesToSend = values;
     const boolValueIsCut = (valuesToSend.is_cut == 'true') ? true : false;
     valuesToSend.is_cut = boolValueIsCut;
+    const boolValueIsASet = (valuesToSend.is_a_set == 'true') ? true : false;
+    valuesToSend.is_a_set = boolValueIsASet;
 
     valuesToSend.photo = photoURL;
+    
     if (valuesToSend.name != "" &&
       valuesToSend.photo != undefined &&
       valuesToSend.website != "" &&
       valuesToSend.size != "" &&
       valuesToSend.color != "" &&
       valuesToSend.haberdashery != "" &&
-      valuesToSend.quantity != "" &&
+      valuesToSend.stock_qty != "" &&
       valuesToSend.unity != "" &&
-      // valuesToSend.is_cut != "" &&
-      (typeof(valuesToSend.is_cut) == 'boolean') && 
+      valuesToSend.article_qty != "" &&
+      (typeof (valuesToSend.is_cut) == 'boolean') &&
+      (typeof (valuesToSend.is_a_set) == 'boolean') &&
       valuesToSend.price != "") {
+
+      console.log(valuesToSend, '<-valuesto send avant addOneH')
       await addOneHaberdashery({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
+      console.log('coucou dans le else')
       haberdasheryInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           isVerif = true;
@@ -176,25 +199,99 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
           }
           {haberdasheryInputs.map((input) => (
             input.type === "select" ? (
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChange}
-                value={values[input.name]}
-                options={input.optionsList}
-                isVerif={((input.required && values[input.name] == "") ? true : false)}
-                isVerifInput={isVerifInput}
-              />
+              input.id !== 6 ? (
+                <FormInput
+                  key={input.id}
+                  {...input}
+                  onChange={onChange}
+                  value={values[input.name]}
+                  options={input.optionsList}
+                  isVerif={((input.required && values[input.name] == "") ? true : false)}
+                  isVerifInput={isVerifInput}
+                />
+              ) :
+                (
+                  values.is_cut == "false" && input.id == 6 ? (
+                    <FormInput
+                      key={input.id}
+                      {...input}
+                      onChange={onChange}
+                      value={values[input.name]}
+                      options={input.optionsList}
+                      isVerif={((input.required && values[input.name] == "") ? true : false)}
+                      isVerifInput={isVerifInput}
 
-            ) :
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChange}
-                options={input.optionsList}
-                isVerif={((input.required && values[input.name] == "") ? true : false)}
-                isVerifInput={isVerifInput}
-              />
+                    />
+                  ) : null
+                )
+
+
+            ) : (
+              input.type !== "select" ? (
+                input.id !== 7 && input.id !== 8 ? (
+                  <FormInput
+                    key={input.id}
+                    {...input}
+                    onChange={onChange}
+                    options={input.optionsList}
+                    isVerif={((input.required && values[input.name] == "") ? true : false)}
+                    isVerifInput={isVerifInput}
+                  />
+                ) :
+                  (
+                    values.is_cut == "true" && input.id == 7 ? (
+                      <FormInput
+                        key={input.id}
+                        {...input}
+                        onChange={onChange}
+                        options={input.optionsList}
+                        isVerif={((input.required && values[input.name] == "") ? true : false)}
+                        isVerifInput={isVerifInput}
+                        labelSpeCreation={"Nombre d'article"}
+                      />
+                    ) : (
+                      values.is_a_set == "true" && input.id == 7 ?
+                        (
+                          <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                          />
+                        ) :
+                        (values.is_cut == "false" && values.is_a_set == "false" && input.id == 8 ? (
+                          <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                          />
+                        )
+                          : (values.is_cut == "false" && values.is_a_set == "true" && input.id == 8 ? 
+                          (
+                            <FormInput
+                            key={input.id}
+                            {...input}
+                            onChange={onChange}
+                            options={input.optionsList}
+                            isVerif={((input.required && values[input.name] == "") ? true : false)}
+                            isVerifInput={isVerifInput}
+                            labelSpeCreation={"Nombre de lots achetés"}
+                          />
+                          ) : 
+                          (null))
+                        )
+                    )
+                  )
+              ) :
+                (
+                  null
+                )
+            )
 
           ))}
         </InputContainer>
@@ -211,4 +308,4 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
   )
 };
 
-// export default HaberdasheryForm;
+

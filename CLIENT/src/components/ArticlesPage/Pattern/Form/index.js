@@ -140,11 +140,11 @@ export function PatternForm({ setShowModal, showModal }) {
       valuesToSend.format != "" &&
       // valuesToSend.pdf_instructions != "" &&
       valuesToSend.price != "") {
-        console.log('coucou avant addOne pattern');
+      console.log('coucou avant addOne pattern');
       await addOnePattern({ memberId: auth.id, body: valuesToSend });
       setShowModal(prev => !prev)
     } else {
-      console.log(valuesToSend,'values to send coucoudans le else handlesubmit');
+      console.log(valuesToSend, 'values to send coucoudans le else handlesubmit');
       patternInputs.map((input) => {
         if (input.required && (valuesToSend[input.name] == "" || valuesToSend[input.name] == undefined || valuesToSend[input.name] == null)) {
           setIsVerif(true);
@@ -191,15 +191,25 @@ export function PatternForm({ setShowModal, showModal }) {
                 options={input.optionsList}
                 isVerif={isVerif}
               />
-
             ) :
-              <FormInput
-                key={input.id}
-                {...input}
-                onChange={onChange}
-                options={input.optionsList}
-                isVerif={isVerif}
-              />
+              (input.id !== 8 ? (
+                <FormInput
+                  key={input.id}
+                  {...input}
+                  onChange={onChange}
+                  options={input.optionsList}
+                  isVerif={isVerif}
+                />
+              ) : (values.format == "PDF" && input.id == 8 ? (
+                <FormInput
+                  key={input.id}
+                  {...input}
+                  onChange={onChange}
+                  options={input.optionsList}
+                  isVerif={isVerif}
+                />
+              ) :
+              null))
 
           ))}
         </InputContainer>
