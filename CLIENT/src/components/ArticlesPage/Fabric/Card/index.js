@@ -40,6 +40,7 @@ import {
   UpdateInformationContainer,
   UpdateInformationText,
   UpdateFileInputContainer,
+  NoProjectImage,
 
 } from "./style";
 import { fabricData } from "../../../../utils/fabricData";
@@ -416,12 +417,12 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   </ProjectImageContainer>
                 </ProjectContainer>
               ) : (
-                <ProjectContainer>
-                  <ProjectTitle>Pas de projet réalisé avec ce tissu</ProjectTitle>
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, ce tissu attend ton talent !</ProjectTitle>
                   <ProjectImageContainer>
-                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                    <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
+                    <img src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f" />
                   </ProjectImageContainer>
                 </ProjectContainer>
               )}
@@ -612,14 +613,39 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   )}
                 </InformationForm>
               )}
-              <ProjectContainer>
-                <ProjectTitle>Projets avec ce tissu</ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+              {fabricCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec ce tissu</ProjectTitle>
+                  <ProjectImageContainer>
+
+                    {fabricCard.project_profile_photo_array.map((photo, index) => {
+                      if (index < 3) {
+                        return <ProjectImage
+                          src={photo.photo}
+                          key={photo.photo_id}
+                        />
+                      } else {
+                        null
+                      }
+
+                    })}
+
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, ce tissu attend ton talent !</ProjectTitle>
+                  <ProjectImageContainer
+                    className="noProjectDesktop"
+                  >
+                    <NoProjectImage
+                      src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f"
+                    />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
             </InformationContainer>
           </CardContainer>
         </Container>

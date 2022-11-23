@@ -54,7 +54,6 @@ export const UpdatePhotoInput = styled.div`
 export const UpdateCardContainer = styled.div`
   display: contents;
   @media screen and (min-width: 601px) {
-    /* margin-left: 1.3em; */
     display:flex;
     flex-direction:column;
     height:84%;
@@ -84,7 +83,6 @@ export const ButtonsContainer = styled.div`
 `;
 export const UpdateInformationContainer = styled(motion.div)`
   transition: all, 240ms ease-in-out;
-  background: rgb(241, 196, 15);
   background: linear-gradient(
     58deg,
     rgba(241, 196, 15, 1) 20%,
@@ -99,7 +97,6 @@ export const UpdateInformationText = styled.h3`
   font-weight: bold;
   padding: .5em;
   color: ${(props) => props.theme.color4};
-  background-color: ${(props) => props.theme.color1};
   @media screen and (min-width: 601px) {
   }
 `;
@@ -218,7 +215,7 @@ export const InformationContainer = styled.div`
   align-items: center;
   margin-top: 1rem;
   @media screen and (min-width: 601px) {
-    height: 100%;
+    /* height: 92%; */
     width: 60%;
     margin-left: 2.5rem;
   }
@@ -236,7 +233,7 @@ export const InformationForm = styled.form`
     flex-wrap: nowrap;
     width: 96%;
     margin: 1rem 0rem;
-    height: 100%;
+    height: 58%;
   }
 
   @media screen and (min-height: 800px) {
@@ -345,7 +342,6 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   :hover {
     color: ${(props) => props.theme.color3};
@@ -371,9 +367,10 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
+    height: auto;
     width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    /* margin-top: 2rem; */
+    padding: .5rem;
   }
 `;
 
@@ -384,7 +381,7 @@ export const ProjectContainer = styled.div`
   height: 10rem;
   margin-bottom:1em;
   @media screen and (min-width: 601px) {
-   margin-bottom:4.6em;
+   margin-bottom:4.6rem;
   }
 
 
@@ -406,9 +403,20 @@ export const ProjectImageContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 7rem;
+  &[class~="noProject"] {
+    height: auto;
+    margin-bottom:1rem;
+  }
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;
   width: 6rem;
   height: 6rem;
+  &[class~="noProject"] {
+    width:18.75rem;
+    height: auto;
+  }
+`;
+
+export const NoProjectImage = styled.img`
 `;

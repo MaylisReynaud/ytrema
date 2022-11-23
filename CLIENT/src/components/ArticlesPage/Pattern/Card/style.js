@@ -108,7 +108,6 @@ export const UpdateInformationText = styled.h3`
   font-weight: bold;
   padding: .5em;
   color: ${(props) => props.theme.color4};
-  background-color: ${(props) => props.theme.color1};
   @media screen and (min-width: 601px) {
   }
 `;

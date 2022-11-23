@@ -87,7 +87,7 @@ export const ButtonsContainer = styled.div`
 `;
 export const UpdateInformationContainer = styled(motion.div)`
   transition: all, 240ms ease-in-out;
-  background: rgb(241, 196, 15);
+  /* background: rgb(241, 196, 15); */
   background: linear-gradient(
     58deg,
     rgba(241, 196, 15, 1) 20%,
@@ -99,11 +99,13 @@ export const UpdateInformationContainer = styled(motion.div)`
 
 export const UpdateInformationText = styled.h3`
   font: 1.1rem "${(props) => props.theme.textFont}";
+  margin-top: 1rem;
   font-weight: bold;
   padding: .5em;
   color: ${(props) => props.theme.color4};
   background-color: ${(props) => props.theme.color1};
   @media screen and (min-width: 601px) {
+    margin-top:0;
   }
 `;
 
@@ -190,7 +192,7 @@ export const CardTitle = styled.h1`
   width: 100%;
   text-align: center;
   justify-content: center;
-  margin-top: .7rem;
+  margin-top: 1rem;
   align-items: center;
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
@@ -250,7 +252,7 @@ export const InformationForm = styled.form`
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 1rem 0rem;
-    height: 100%;
+    height: 58%;
     width: 96%;
   }
   @media screen and (min-height: 800px) {
@@ -389,9 +391,11 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
+    text-align: center;
+    height:auto;
     width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    /* margin-top: 2rem; */
+    padding: .5rem;
   }
 `;
 
@@ -424,9 +428,20 @@ export const ProjectImageContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 7rem;
+  &[class~="noProject"] {
+    height: auto;
+    margin-bottom:1rem;
+  }
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;
   width: 6rem;
   height: 6rem;
+  &[class~="noProject"] {
+    width:18.75rem;
+    height: auto;
+  }
+`;
+
+export const NoProjectImage = styled.img`
 `;

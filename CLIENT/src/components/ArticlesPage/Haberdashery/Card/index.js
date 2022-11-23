@@ -42,6 +42,7 @@ import {
   UpdateFileInputContainer,
   AddContainer,
   AddButton,
+  NoProjectImage,
 } from "./style";
 import { haberdasheryInputs } from "../../../../utils/haberdasheryInputs";
 import { useParams, useNavigate } from "react-router-dom";
@@ -763,17 +764,36 @@ export const HaberdasheryCard = (
                   )}
                 </InformationForm>
               )}
+              {haberdasheryCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec cet mercerie</ProjectTitle>
+                  <ProjectImageContainer>
 
-              <ProjectContainer>
-                <ProjectTitle>
-                  Projets avec cet article de mercerie
-                </ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+                    {haberdasheryCard.project_profile_photo_array.map((photo, index) => {
+                      if (index < 3) {
+                        return <ProjectImage
+                          src={photo.photo}
+                          key={photo.photo_id}
+                        />
+                      } else {
+                        null
+                      }
+
+                    })}
+
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, cet article attend ton talent !</ProjectTitle>
+                  <ProjectImageContainer>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f" />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
+
             </InformationContainer>
           </CardContainer>
         </Container>
@@ -1295,16 +1315,37 @@ export const HaberdasheryCard = (
                   )}
                 </InformationForm>
               )}
-              <ProjectContainer>
-                <ProjectTitle>
-                  Projets avec cet article de mercerie
-                </ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+              {haberdasheryCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec cet mercerie</ProjectTitle>
+                  <ProjectImageContainer>
+
+                    {haberdasheryCard.project_profile_photo_array.map((photo, index) => {
+                      if (index < 3) {
+                        return <ProjectImage
+                          src={photo.photo}
+                          key={photo.photo_id}
+                        />
+                      } else {
+                        null
+                      }
+
+                    })}
+
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, cet article attend ton talent !</ProjectTitle>
+                  <ProjectImageContainer
+                    className="noProjectDesktop"
+                  >
+                    <NoProjectImage src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f" />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
             </InformationContainer>
           </CardContainer>
         </Container>
