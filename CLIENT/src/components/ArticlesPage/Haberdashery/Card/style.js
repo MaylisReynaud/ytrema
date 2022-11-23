@@ -391,7 +391,6 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
-    text-align: center;
     height:auto;
     width: 94%;
     /* margin-top: 2rem; */

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { PatternModal } from "./Modal";
+import { Loader } from "../../Loader";
 import {
   Container,
   Title,
@@ -296,7 +297,7 @@ console.log(categoryObject, 'categoryObject');
               </>
 
             ) : isLoading ? (
-              <>Loading...</>
+              <Loader />
             ) : !data ? (
               <>
                 <IconsContainer>
@@ -416,7 +417,7 @@ console.log(categoryObject, 'categoryObject');
                   </ErrorButton>
                 </ErrorContainer>
               ) : isLoading ? (
-                <>Loading...</>
+                <Loader />
               ) : !data ? (
                 <NoResultsContainer>
                   <IconsContainer>
