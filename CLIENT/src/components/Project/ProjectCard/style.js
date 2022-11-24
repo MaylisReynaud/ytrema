@@ -16,8 +16,8 @@ export const Container = styled.div`
     width:100%;
     overflow-y:scroll;  
     @media screen and (min-width:601px) { 
-        flex-direction: row;
-        margin-bottom:3.5em;
+       
+        /* margin-bottom:3.5em; */
         height:100%;        
   }
 `;
@@ -35,7 +35,9 @@ export const HeaderContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     /* margin: 1rem 0; */
     @media screen and (min-width:601px) { 
-      justify-content: unset;
+      flex-direction:row;
+      height:7vh;
+      /* justify-content: unset; */
   }
 `;
 
@@ -81,23 +83,30 @@ export const TitleContainer = styled.div`
   width: 100%;
   padding:.5rem 0;
   @media screen and (min-width: 601px) {
-    height: 100vh;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    ::-webkit-scrollbar {
-      display: none;
-    }
   }
 `;
 
 export const ProjectTitle = styled.h1`
   font: 1.5rem "${(props) => props.theme.textFont}";
   font-weight: 800;
-  /* text-align: center; */
+
   color: ${(props) => props.theme.color2};
   @media screen and (min-width: 601px) {
   }
 `;
+
+export const InfoContainer = styled.div`
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3em;
+`;
+
+export const ProjectInfo = styled.p`
+  font: 1.2rem "${(props) => props.theme.textFont}";
+  color: ${(props) => props.theme.color3};
+`;
+
 export const NavProject = styled.div`
   display: flex;
   width:100%;

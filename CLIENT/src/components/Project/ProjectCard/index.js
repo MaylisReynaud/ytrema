@@ -49,7 +49,9 @@ import {
     CostPicture,
     AddReturnButtonContainer,
     AddButton,
-    ReturnButton
+    ReturnButton,
+    InfoContainer,
+    ProjectInfo,
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
@@ -99,8 +101,10 @@ export const ProjectCard = () => {
                                     </ProjectTitle>
                                 </TitleContainer>
                             </ArrowTitleContainer>
-                            {/* Remettre en forme la date */}
-                            <p>{newDate(projectCard.date)}</p>
+                         <InfoContainer>
+                            <ProjectInfo>{newDate(projectCard.date)}</ProjectInfo>
+                         </InfoContainer>
+                           
 
                         </HeaderContainer>
                         <Section
