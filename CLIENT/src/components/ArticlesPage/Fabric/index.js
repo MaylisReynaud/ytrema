@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { FabricModal } from "./Modal";
+import { Loader } from "../../Loader";
 import {
   Container,
   Title,
@@ -299,7 +300,7 @@ export function Fabric(props, index) {
               </>
 
             ) : isLoading ? (
-              <>Loading...</>
+              <Loader />
             ) : !data ? (
               <>
                 <IconsContainer>
@@ -417,7 +418,7 @@ export function Fabric(props, index) {
                   </ErrorButton>
                 </ErrorContainer>
               ) : isLoading ? (
-                <>Loading...</>
+                <Loader/>
               ) : !data ? (
                 <NoResultsContainer>
                   <IconsContainer>

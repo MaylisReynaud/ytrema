@@ -50,6 +50,7 @@ import { FilterChoices } from "./FilterChoices";
 import { ProjectFiltersCards } from "../../utils/projectFlexFilter";
 import { filterProject } from "../../utils/filterProject";
 import { newDate } from "../../utils/newDate";
+import { Loader } from "../Loader";
 
 export const Project = (props, index) => {
   const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -350,7 +351,7 @@ export const Project = (props, index) => {
                 </ErrorButton>
               </>
             ) : isLoading ? (
-              <>Loading...</>
+              <Loader />
             ) : !data ? (
               <>
                 <IconsContainer>
@@ -523,7 +524,7 @@ export const Project = (props, index) => {
                   </ErrorButton>
                 </ErrorContainer>
               ) : isLoading ? (
-                <>Loading...</>
+                <Loader />
               ) : !data ? (
                 <NoResultsContainer>
                   <IconsContainer>
