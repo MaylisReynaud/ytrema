@@ -42,7 +42,7 @@ export const HeaderContainer = styled.div`
 export const ArrowTitleContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
   @media screen and (min-width: 601px) {
     }
@@ -226,7 +226,7 @@ background-color: ${(props) => props.theme.color4};
 export const ModifyDeleteContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin: .5rem;
+  margin: .5rem 1rem .5rem .5rem;
   @media screen and (min-width: 601px) {
     margin-top: 1em;
   }
@@ -260,6 +260,17 @@ export const ModifyButton = styled(PencilFill)`
   width:100%;
 `;
 
+export const StatusContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 15%;
+`;
+
+export const Status = styled.p`
+  font : 1.1rem/1.5 '${props => props.theme.textFont}';
+  color: ${(props) => props.theme.color3};
+`;
 
 export const Section = styled.section`
    height: 90vh;
