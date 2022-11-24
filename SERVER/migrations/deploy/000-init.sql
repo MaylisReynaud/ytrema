@@ -90,7 +90,7 @@ CREATE TABLE "pattern"(
 
 CREATE TABLE "photo"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "photo" TEXT DEFAULT 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Fpexels-pavel-danilyuk-6461472.jpg?alt=media&token=e8e6b647-545f-47c6-bdc9-0676bcd9eb31',
+    "photo" TEXT DEFAULT 'https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4',
     "personal_notes" TEXT,
     "project_id" INT NOT NULL REFERENCES "project"("id") ON DELETE CASCADE
 );

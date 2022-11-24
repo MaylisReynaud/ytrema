@@ -49,7 +49,9 @@ import {
     CostPicture,
     AddReturnButtonContainer,
     AddButton,
-    ReturnButton
+    ReturnButton,
+    StatusContainer,
+    Status
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
@@ -93,15 +95,25 @@ export const ProjectCard = () => {
                                 >
                                     <ReturnArrow />
                                 </ArrowContainer>
-                                <TitleContainer>
-                                    <ProjectTitle>
-                                        {projectCard.name}
-                                    </ProjectTitle>
-                                </TitleContainer>
-                            </ArrowTitleContainer>
-                            {/* Remettre en forme la date */}
-                            <p>{newDate(projectCard.date)}</p>
+                                <ModifyDeleteContainer>
+                                    <ModifyContainer>
+                                        <ModifyButton />
+                                    </ModifyContainer>
+                                    <TrashContainer>
+                                        <TrashButton />
+                                    </TrashContainer>
+                                </ModifyDeleteContainer>
 
+                            </ArrowTitleContainer>
+                            <TitleContainer>
+                                <ProjectTitle>
+                                    {projectCard.name}
+                                </ProjectTitle>
+                            </TitleContainer>
+                            <StatusContainer>
+                            
+                                <Status>Statut : {projectCard.status} </Status>
+                            </StatusContainer>
                         </HeaderContainer>
                         <Section
                             id='"tissus'
