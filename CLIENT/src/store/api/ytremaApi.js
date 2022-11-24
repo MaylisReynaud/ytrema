@@ -7,9 +7,9 @@ let token = sessionStorage.getItem("token");
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
-  // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
-  tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth'],
+  // baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+  tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth', 'Project'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({
       query: (body) => {
@@ -254,6 +254,72 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Auth'],
   }),
+  getAllProjects: builder.query({
+    query: (memberId) => {
+      token = sessionStorage.getItem("token");
+      return {
+        url: `/project/all/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Project'],
+  }),
+  addOneProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, body} = arg;
+      return {
+        url: `/project/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project', 'Fabric', 'Haberdashery'],
+  }),
+  deleteOneProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId} = arg;
+    return {
+      url: `/project/${projectId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  deleteAllProjects: builder.mutation({
+    query: (memberId) => {
+    return {
+      url: `/project/all/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  updateOneProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, body} = arg;
+    return {
+      url: `/project/${projectId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
   })
 });
 
@@ -276,6 +342,11 @@ export const {
               useDeleteAllPatternsMutation, 
               useUpdateOnePatternMutation,
               useUpdateOneUserMutation,
-              useDeleteOneUserMutation
+              useDeleteOneUserMutation,
+              useGetAllProjectsQuery,
+              useAddOneProjectMutation,
+              useDeleteOneProjectMutation, 
+              useDeleteAllProjectsMutation, 
+              useUpdateOneProjectMutation,
              } = ytremaApi;
 

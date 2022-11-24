@@ -321,7 +321,7 @@ export const CardImg = styled.img`
   object-fit: cover;
   width:100%;
   height:100%;
-`
+`;
 
 export const CardText = styled.h3`
   text-align: center;
@@ -339,7 +339,18 @@ export const CardText = styled.h3`
     text-align: center;
   }
 `;
-
+export const FilterSectionContainer = styled.div`
+  width: 100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink:1;
+  @media screen and (min-width:601px) { 
+    height:100%;
+    margin-bottom: 1rem;
+    
+  }
+`;
 export const FilterContainer = styled.div`
   width: 100%;
   display: flex;

@@ -1,3 +1,5 @@
 node_modules
 .env
 SERVER/test-requete.sql
+SERVER/test.js
+CLIENT/test-front.js

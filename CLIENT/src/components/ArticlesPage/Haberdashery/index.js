@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { HaberdasheryModal } from "./Modal";
+import { Loader } from "../../Loader";
 import {
   Container,
   Title,
@@ -37,7 +38,8 @@ import {
   NoResultsContainer,
   DesktopArrowCurve,
   ErrorContainer,
-  LoginIcon
+  LoginIcon,
+  FilterSectionContainer
 } from "../style";
 import { FilterAlt } from "@styled-icons/boxicons-solid";
 import { FilterChoices } from "./FilterChoices";
@@ -102,7 +104,7 @@ export const Haberdashery = (props, index) => {
                       <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                     </ImgContainer>
                     <CardText>
-                    {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                    {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                     </CardText>
                   </CardContainer>
                 </Link>
@@ -185,6 +187,7 @@ export const Haberdashery = (props, index) => {
         )}
         {isMobile && showMobileFilters && (
           <>
+          <FilterSectionContainer>
             <FilterContainer>
               <FilterTitle>
                 {categoryObject[0].title}
@@ -202,6 +205,7 @@ export const Haberdashery = (props, index) => {
                 setChosenFilter={setChosenFilter}
               />
             </FilterContainer>
+            </FilterSectionContainer>
           </>
         )}
       </>
@@ -299,7 +303,7 @@ export const Haberdashery = (props, index) => {
               </>
 
             ) : isLoading ? (
-              <>Loading...</>
+              <Loader/>
             ) : !data ? (
               <>
                 <IconsContainer>
@@ -323,7 +327,7 @@ export const Haberdashery = (props, index) => {
                             <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                           </ImgContainer>
                           <CardText>
-                          {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                          {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                           </CardText>
                         </CardContainer>
                       </Link>
@@ -420,7 +424,7 @@ export const Haberdashery = (props, index) => {
                   </ErrorButton>
                 </ErrorContainer>
               ) : isLoading ? (
-                <>Loading...</>
+                <Loader />
               ) : !data ? (
                 <NoResultsContainer>
                   <IconsContainer>
@@ -450,7 +454,7 @@ export const Haberdashery = (props, index) => {
                             </ImgContainer>
 
                             <CardText>
-                              {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                              {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                             </CardText>
                           </CardContainer>
                         </Link>

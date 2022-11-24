@@ -2,9 +2,27 @@
 const projectDataMapper = require('../datamapper/projectDataMapper');
 
 const projectController = {
-    // async create (request, response, next) {
+    async create (request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id } = request.params;
 
-    // },
+            // New project's data
+            const projectInfo = request.body;
+
+            // Create the project in DB
+            const savedProject = await projectDataMapper.createProject(
+                projectInfo,
+                id
+            );
+
+            response.status(200).json({ savedProject });
+            // response.status(200).json({ projectInfo, id });
+
+        } catch (error) {
+            next(error);
+        }
+    },
 
     async findAll (request, response, next) {
         try {
