@@ -218,6 +218,7 @@ export const InformationContainer = styled.div`
     /* height: 92%; */
     width: 60%;
     margin-left: 2.5rem;
+ 
   }
 `;
 
@@ -234,6 +235,7 @@ export const InformationForm = styled.form`
     width: 96%;
     margin: 1rem 0rem;
     height: 58%;
+    overflow-x: hidden;
   }
 
   @media screen and (min-height: 800px) {
@@ -266,7 +268,7 @@ export const InformationLabel = styled.label`
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=fe02984f-e05b-4dc3-8184-3276784c56d0');
   @media screen and (min-width: 601px) {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G102png.png?alt=media&token=d6d4a8c5-8b67-4b4b-9ff0-fd7db286ade2');
     width: 25%;
     font-weight:600;
   }
@@ -296,6 +298,9 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationTextarea = styled.textarea`
@@ -321,6 +326,9 @@ export const InformationTextarea = styled.textarea`
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
+  }
+  @media screen and (min-width: 601px) {
+    width: 60%;
   }
 `;
 
@@ -351,6 +359,9 @@ export const InformationSelect = styled.select`
   }
   ::placeholder {
     color: grey;
+  }
+  @media screen and (min-width: 601px) {
+    width: 60%;
   }
 `;
 

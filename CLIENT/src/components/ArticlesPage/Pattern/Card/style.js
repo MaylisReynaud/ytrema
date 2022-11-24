@@ -55,7 +55,7 @@ export const UpdateImageCard = styled.img`
   object-fit: cover;
   width: 100%;
   @media screen and (min-width:601px) { 
-    height: 40%;
+    height: 67%;
   }
 `;
 
@@ -71,9 +71,13 @@ export const UpdateCardContainer = styled.div`
 `;
 export const UpdateFileInputContainer = styled.div`
   display: flex;
+  align-items: center;
   margin-bottom: .6em;
   margin-top: 2em;
   justify-content: center;
+  @media screen and (min-width: 601px) {
+margin-top:1em;
+  }
 `;
 
 export const ButtonsContainer = styled.div`
@@ -207,7 +211,7 @@ export const ImageContainer = styled.div`
   width: 90%;
   height: 11em;
   @media screen and (min-width: 601px) {
-    height: 92%;
+    height: 85%;
     margin-left: 1.3em;
 
   }
@@ -223,7 +227,8 @@ export const PreviewContainer = styled.div`
     margin-top: 2em;
   
     @media screen and (min-width: 601px) {
-    height: 100%;
+      padding:0;
+    height: auto;
     width:100%;
     /* border-radius: 1em; */
 
@@ -245,10 +250,12 @@ export const PdfContainer = styled.div`
 export const PatternPreviewTitle = styled.p`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1.2rem;
-  margin-top:1.5em;
   text-align: center;
   font-weight: 800;
   color: ${(props) => props.theme.color4};
+  @media screen and (min-width: 601px) {
+    margin-top:.5em;
+  }
 `;
 
 export const PdfIframe = styled.iframe`
@@ -265,10 +272,10 @@ export const ImageCard = styled.img`
   width: 100%;
   height: 100%;
 
-  @media screen and (min-width:601px) { 
-    height: 50%;
+  /* @media screen and (min-width:601px) { 
+    height: 90%; */
         
-  }
+  /* } */
 `;
 
 export const InformationContainer = styled.div`
@@ -296,8 +303,9 @@ export const InformationForm = styled.form`
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 1rem 0rem;
-    height: 100%;
+    height: auto;
     width: 96%;
+    overflow-x: hidden;
   }
   @media screen and (min-height: 800px) {
     -ms-overflow-style: none;
@@ -327,9 +335,9 @@ export const InformationLabel = styled.label`
   width: 30%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G5.png?alt=media&token=78f60b3f-9f20-492f-b255-9a524613731b');
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=fe02984f-e05b-4dc3-8184-3276784c56d0');
   @media screen and (min-width: 601px) {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G102png.png?alt=media&token=d6d4a8c5-8b67-4b4b-9ff0-fd7db286ade2');
     width: 25%;
     font-weight:600;
   }
@@ -359,6 +367,9 @@ export const InformationTextarea = styled.textarea`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationInput = styled.input`
@@ -383,6 +394,9 @@ export const InformationInput = styled.input`
   &[class~="input-false"] {
     border: 1px solid red;
     background-color: #ffe0d3;
+  }
+  @media screen and (min-width: 601px) {
+    width: 60%;
   }
 `;
 
@@ -416,6 +430,9 @@ export const InformationSelect = styled.select`
     color: grey;
   }
 }
+@media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const ButtonForm = styled.button`
@@ -431,9 +448,10 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
+    height: auto;
     width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    /* margin-top: 2rem; */
+    padding: .5rem;
   }
 `;
 
@@ -471,4 +489,7 @@ export const ProjectImage = styled.img`
   object-fit: cover;
   width: 6rem;
   height: 6rem;
+`;
+
+export const NoProjectImage = styled.img`
 `;

@@ -44,7 +44,8 @@ import {
   PdfIframe,
   PatternPreviewTitle,
   PreviewContainer,
-  UpdateImageCard
+  UpdateImageCard,
+  NoProjectImage
 } from "./style";
 import { patternInputs } from "../../../../utils/patternInputs";
 import { useParams, useNavigate } from "react-router-dom";
@@ -297,10 +298,10 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 <ImageContainer>
                   <ImageCard src={patternCard.photo} />
                 </ImageContainer>
-                <PreviewContainer>
+                {/* <PreviewContainer>
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
-                </PreviewContainer>
+                </PreviewContainer> */}
               </>
             ) : (
               <UpdateCardContainer>
@@ -319,10 +320,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </div>
                 {/* PDF */}
                 <PreviewContainer>
-                  <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
-                  <UpdatePhotoInput>
-                    <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
-                  </UpdatePhotoInput>
+                  <PatternPreviewTitle>Sélectionner un patron</PatternPreviewTitle>
                   <UpdateFileInputContainer>
                     <input
                       name="pdf_instructions"
@@ -404,16 +402,19 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
               ) : (
                 <InformationForm>
                   <>
+                  {patternCard.format == "PDF" && (
                     <PdfContainer>
-                      <InformationLabel>Lien du patron</InformationLabel>
-                      <InformationLinkContainer>
-                        <InformationLink
-                          href={patternCard.pdf_instructions} target="_blank"
-                        >
-                          Cliquez ici pour visualiser le patron
-                        </InformationLink>
-                      </InformationLinkContainer>
-                    </PdfContainer>
+                    <InformationLabel>Lien du patron</InformationLabel>
+                    <InformationLinkContainer>
+                      <InformationLink
+                        href={patternCard.pdf_instructions} target="_blank"
+                      >
+                        Cliquez ici pour visualiser le patron
+                      </InformationLink>
+                    </InformationLinkContainer>
+                  </PdfContainer>
+                  )}
+                    
                     {patternInputs.map((input, index) =>
                       (index !== 0 && index !== 7) ? (
                         <InformationContent key={input.id}>
@@ -444,14 +445,39 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               )}
 
-              <ProjectContainer>
-                <ProjectTitle>Projets avec ce patron</ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+{patternCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec ce patron</ProjectTitle>
+                  <ProjectImageContainer>
+
+                    {patternCard.project_profile_photo_array.map((photo, index) => {
+                      if (index < 3) {
+                        return <ProjectImage
+                          src={photo.photo}
+                          key={photo.photo_id}
+                        />
+                      } else {
+                        null
+                      }
+
+                    })}
+
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, ce patron attend ton talent !</ProjectTitle>
+                  <ProjectImageContainer
+                    className="noProjectDesktop"
+                  >
+                    <NoProjectImage
+                      src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f"
+                    />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
             </InformationContainer>
           </CardContainer>
 
@@ -514,16 +540,16 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
             {!updatePatternInfo ? (
               <ImageContainer>
                 <ImageCard src={patternCard.photo} />
-                <PreviewContainer>
+                {/* <PreviewContainer>
                   <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
                   <PdfIframe src={patternCard.pdf_instructions}></PdfIframe>
-                </PreviewContainer>
+                </PreviewContainer> */}
               </ImageContainer>
             ) : (
               <UpdateCardContainer>
-                {/* <UpdatePhotoInput> */}
+              
                 <UpdateImageCard src={preview} alt="pattern picture" />
-                {/* </UpdatePhotoInput> */}
+                
                 <UpdateFileInputContainer>
                   <input
                     name="photo"
@@ -535,9 +561,9 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   ></input>
                 </UpdateFileInputContainer>
                 <PreviewContainer>
-                  <PatternPreviewTitle>Prévisualisation du patron</PatternPreviewTitle>
+                  <PatternPreviewTitle>Sélectionner un patron</PatternPreviewTitle>
                   {/* <UpdatePhotoInput> */}
-                  <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe>
+                  {/* <PdfIframe src={patternCard.pdf_instructions}  ></PdfIframe> */}
                   {/* </UpdatePhotoInput> */}
                   <UpdateFileInputContainer>
                     <input
@@ -621,6 +647,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                 </InformationForm>
               ) : (
                 <InformationForm>
+                  {patternCard.format == "PDF" && (
                   <PdfContainer>
                     <InformationLabel>Lien du patron</InformationLabel>
                     <InformationLinkContainer>
@@ -631,6 +658,7 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                       </InformationLink>
                     </InformationLinkContainer>
                   </PdfContainer>
+                  )}
                   {patternInputs.map((input, index) =>
                     (index !== 0 && index !== 7) ? (
                       <InformationContent key={input.id}>
@@ -659,14 +687,39 @@ export const PatternCard = (pattern, isOpenModal, setShowModal, showModal) => {
                   )}
                 </InformationForm>
               )}
-              <ProjectContainer>
-                <ProjectTitle>Projets avec ce patron</ProjectTitle>
-                <ProjectImageContainer>
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                  <ProjectImage src="http://react-responsive-carousel.js.org/assets/2.jpeg" />
-                </ProjectImageContainer>
-              </ProjectContainer>
+               {patternCard.project_profile_photo_array.length > 0 ? (
+                <ProjectContainer>
+                  <ProjectTitle>Projets avec ce patron</ProjectTitle>
+                  <ProjectImageContainer>
+
+                    {patternCard.project_profile_photo_array.map((photo, index) => {
+                      if (index < 3) {
+                        return <ProjectImage
+                          src={photo.photo}
+                          key={photo.photo_id}
+                        />
+                      } else {
+                        null
+                      }
+
+                    })}
+
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              ) : (
+                <ProjectContainer
+                  className="noProject"
+                >
+                  <ProjectTitle>Hey, ce patron attend ton talent !</ProjectTitle>
+                  <ProjectImageContainer
+                    className="noProjectDesktop"
+                  >
+                    <NoProjectImage
+                      src="https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Ftissu-sans-projet-couture-ytrema.jpg?alt=media&token=6d16e7a6-7f00-4fac-ad21-8050f8d1356f"
+                    />
+                  </ProjectImageContainer>
+                </ProjectContainer>
+              )}
             </InformationContainer>
           </CardContainer>
         </Container>

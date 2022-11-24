@@ -254,6 +254,7 @@ export const InformationForm = styled.form`
     margin: 1rem 0rem;
     height: 58%;
     width: 96%;
+    overflow-x: hidden;
   }
   @media screen and (min-height: 800px) {
     -ms-overflow-style: none;
@@ -316,6 +317,9 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
   
 `;
 
@@ -343,7 +347,9 @@ export const InformationTextarea = styled.textarea`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
-  
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationLinkContainer = styled.div`
@@ -376,6 +382,9 @@ export const InformationSelect = styled.select`
     color: grey;
   }
 }
+@media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const ButtonForm = styled.button`
