@@ -271,6 +271,51 @@ const projectDataMapper = {
         // Return result
         return oneProject[0];
     },
+
+    async deleteProjectById(id, projectId) {
+        //  Query to delete the project data
+        const query = {
+            text: `DELETE FROM "project" WHERE "member_id" = $1 AND "id" = $2`,
+            values: [id, projectId],
+        };
+
+        // Send the query to DB
+        const projectToDeleteResult = await client.query(query);
+
+        // Get request result
+        const { rowCount } = projectToDeleteResult;
+
+        // Any rows weren't deleted in DB --error404
+        if (rowCount == 0) {
+
+            return null;
+        }
+
+        // Here, the project data has been deleted
+        return true;
+    },
+
+    async deleteAll(id) {
+        //  Query to delete all projects in DB
+        const query = {
+            text: `DELETE FROM "project" WHERE "member_id" = $1`,
+            values: [id],
+        };
+
+        // Send the query to DB
+        const allProjectsToDeleteResult = client.query(query);
+
+        // Get request result
+        const { rowCount } = allProjectsToDeleteResult;
+
+        // Any rows weren't deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here, all projects data have been deleted
+        return true;
+    }
 };
 
 module.exports = projectDataMapper;
