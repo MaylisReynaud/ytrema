@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { Link} from "react-router-dom";
 import { storage } from "../../../../Firebase";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
@@ -403,17 +404,27 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
                   <ProjectImageContainer>
 
                     {fabricCard.project_profile_photo_array.map((photo, index) => {
-                     if(index < 3) {
-                      return  <ProjectImage 
-                      src={photo.photo}
-                      key= {photo.photo_id}
-                     />
-                     } else {
-                      null
-                     }
-                     
+                      if (index < 3) {
+                        return (
+                          <Link
+                            to={`/projets/${photo.project_id}`}
+                            key={photo.photo_id}
+                          >
+                            <ProjectImage
+                              src={photo.photo}
+                              key={photo.photo_id}
+                            />
+
+                          </Link>
+                        )
+
+
+                      } else {
+                        null
+                      }
+
                     })}
-                   
+
                   </ProjectImageContainer>
                 </ProjectContainer>
               ) : (
@@ -620,10 +631,18 @@ export const FabricCard = (fabric, isOpenModal, setShowModal, showModal) => {
 
                     {fabricCard.project_profile_photo_array.map((photo, index) => {
                       if (index < 3) {
-                        return <ProjectImage
-                          src={photo.photo}
-                          key={photo.photo_id}
-                        />
+                        return (
+                          <Link
+                            to={`/projets/${photo.project_id}`}
+                            key={photo.photo_id}
+                          >
+                            <ProjectImage
+                              src={photo.photo}
+                              key={photo.photo_id}
+                            />
+
+                          </Link>
+                        )
                       } else {
                         null
                       }
