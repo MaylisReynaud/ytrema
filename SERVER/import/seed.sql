@@ -123,8 +123,8 @@ INSERT INTO "pattern"("name", "website", "brand", "clothing", "gender", "price",
 -- ------------------------------------
 INSERT INTO "photo"("photo", "personal_notes", "project_id")
     VALUES
-    (Default, 'Demarrage projet', 1),
-    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Seed%2FProject%2F233992924_10224495457030548_1147322277117148738_n.jpg?alt=media&token=639c3a93-6b26-4983-b726-4e13062d80e7', 'Photo 2 - projet 1', 1),
+    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Seed%2FProject%2F233992924_10224495457030548_1147322277117148738_n.jpg?alt=media&token=639c3a93-6b26-4983-b726-4e13062d80e7', 'Demarrage projet', 1),
+    ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Seed%2FProject%2F234062984_10224495457910570_7708576563586200812_n.jpg?alt=media&token=c66914ec-5180-4c9b-a5f8-93d70e67be9c', 'Photo 2 - projet 1', 1),
     ('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Seed%2FProject%2F234144087_10224495450230378_297377873778714996_n.jpg?alt=media&token=9c8ddd4d-3983-48d9-b959-665189792043', 'Demarrage projet', 2),
     (Default, 'Photo 2 - projet 2', 2);
 
