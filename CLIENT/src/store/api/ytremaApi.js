@@ -279,7 +279,7 @@ export const ytremaApi = createApi({
         body
       }
     },
-    invalidatesTags: ['Project'],
+    invalidatesTags: ['Project', 'Fabric', 'Haberdashery'],
   }),
   deleteOneProject: builder.mutation({
     query: (arg) => {

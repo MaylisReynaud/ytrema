@@ -54,7 +54,6 @@ export const UpdatePhotoInput = styled.div`
 export const UpdateCardContainer = styled.div`
   display: contents;
   @media screen and (min-width: 601px) {
-    /* margin-left: 1.3em; */
     display:flex;
     flex-direction:column;
     height:84%;
@@ -77,13 +76,13 @@ export const ButtonsContainer = styled.div`
   padding: 0.6em 0 1em 0;
   @media screen and (min-width: 601px) {
     flex-direction: row;
+    margin-top:3rem;
     position: sticky;
     height: auto;
   }
 `;
 export const UpdateInformationContainer = styled(motion.div)`
   transition: all, 240ms ease-in-out;
-  background: rgb(241, 196, 15);
   background: linear-gradient(
     58deg,
     rgba(241, 196, 15, 1) 20%,
@@ -98,7 +97,6 @@ export const UpdateInformationText = styled.h3`
   font-weight: bold;
   padding: .5em;
   color: ${(props) => props.theme.color4};
-  background-color: ${(props) => props.theme.color1};
   @media screen and (min-width: 601px) {
   }
 `;
@@ -217,9 +215,10 @@ export const InformationContainer = styled.div`
   align-items: center;
   margin-top: 1rem;
   @media screen and (min-width: 601px) {
-    height: 100%;
+    /* height: 92%; */
     width: 60%;
-    margin-left: 5.5rem;
+    margin-left: 2.5rem;
+ 
   }
 `;
 
@@ -235,7 +234,8 @@ export const InformationForm = styled.form`
     flex-wrap: nowrap;
     width: 96%;
     margin: 1rem 0rem;
-    height: 100%;
+    height: 58%;
+    overflow-x: hidden;
   }
 
   @media screen and (min-height: 800px) {
@@ -268,8 +268,8 @@ export const InformationLabel = styled.label`
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=fe02984f-e05b-4dc3-8184-3276784c56d0');
   @media screen and (min-width: 601px) {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
-    width: 20%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G102png.png?alt=media&token=d6d4a8c5-8b67-4b4b-9ff0-fd7db286ade2');
+    width: 25%;
     font-weight:600;
   }
 `;
@@ -298,6 +298,9 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationTextarea = styled.textarea`
@@ -324,6 +327,9 @@ export const InformationTextarea = styled.textarea`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationLinkContainer = styled.div`
@@ -344,7 +350,6 @@ export const InformationSelect = styled.select`
   font-size: 1rem;
   border: none;
   background-color: #fff;
-  /* border-bottom: 1px solid ${(props) => props.theme.color1} ; */
   font-weight: bold;
   :hover {
     color: ${(props) => props.theme.color3};
@@ -354,6 +359,9 @@ export const InformationSelect = styled.select`
   }
   ::placeholder {
     color: grey;
+  }
+  @media screen and (min-width: 601px) {
+    width: 60%;
   }
 `;
 
@@ -370,9 +378,10 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
+    height: auto;
     width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    /* margin-top: 2rem; */
+    padding: .5rem;
   }
 `;
 
@@ -383,7 +392,7 @@ export const ProjectContainer = styled.div`
   height: 10rem;
   margin-bottom:1em;
   @media screen and (min-width: 601px) {
-   margin-bottom:4.6em;
+   margin-bottom:4.6rem;
   }
 
 
@@ -405,9 +414,20 @@ export const ProjectImageContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 7rem;
+  &[class~="noProject"] {
+    height: auto;
+    margin-bottom:1rem;
+  }
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;
   width: 6rem;
   height: 6rem;
+  &[class~="noProject"] {
+    width:18.75rem;
+    height: auto;
+  }
+`;
+
+export const NoProjectImage = styled.img`
 `;

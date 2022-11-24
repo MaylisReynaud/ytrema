@@ -36,8 +36,8 @@ import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 export const AddHaberdashery = (props) => {
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
-    const haberdasheries = persistedReducer.haberdasheries;
     const auth = persistedReducer.auth;
+    const haberdasheries = persistedReducer.haberdasheries;
     const { data, error, isLoading, isSuccess, isError } = useGetAllHaberdasheriesQuery(auth.id);
 
 
@@ -54,7 +54,7 @@ export const AddHaberdashery = (props) => {
         if (isSuccess && data) {
             dispatch(addAllHaberdasheries(data.haberdasheries));
         }
-    }, [data, haberdasheries]);
+    }, [data]);
 
     //show haberdashery section
     const [showHaberdasherySection, setShowHaberdasherySection] = useState(false);
@@ -166,7 +166,7 @@ return(
 
                                     <SelectedArticleInfo>
                                         {selectedHab.name} - {selectedHab.size} {" "}{selectedHab.unity} - qté:{" "}
-                                        {selectedHab.quantity}
+                                        {selectedHab.stock_qty}
                                     </SelectedArticleInfo>
                                     <QuantityContainer>
                                         <QuantityLabel>
@@ -182,7 +182,7 @@ return(
                                             // data-selectedhaberdasheryqtystock={selectedHab.qty_stock}
                                             // data-selectedhaberdasheryprice={selectedHab.price}
                                             name="haberdashery_used_size"
-                                            max={selectedHab.quantity}
+                                            max={selectedHab.stock_qty}
                                             step="1"
                                             placeholder={
                                                 values.haberdasheries.find(
@@ -252,7 +252,7 @@ return(
                                     qté:
                                     {
                                         selectedHaberdashery[selectedHaberdashery.length - 1]
-                                            .quantity
+                                            .stock_qty
                                     }{" "}
                                 </SelectedArticleInfo>
                                 <QuantityContainer>
@@ -285,7 +285,7 @@ return(
                                         name="haberdashery_used_size"
                                         max={
                                             selectedHaberdashery[selectedHaberdashery.length - 1]
-                                                .quantity
+                                                .stock_qty
                                         }
                                         step="1"
                                         placeholder="ex: 120"
@@ -317,7 +317,7 @@ return(
                                         <CardImg src={haberdashery.photo} alt={haberdashery.alt} />
                                     </ImgContainer>
                                     <CardText>
-                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                                     </CardText>
                                 </CardContainer>
                             </CardsMapContainer>
@@ -346,7 +346,7 @@ return(
                                     </ImgContainer>
 
                                     <CardText>
-                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.quantity}
+                                        {haberdashery.haberdashery} - {haberdashery.name} - {haberdashery.size} {haberdashery.unity} - qté : {haberdashery.stock_qty}
                                     </CardText>
                                 </CardContainer>
                             </CardsMapContainer>

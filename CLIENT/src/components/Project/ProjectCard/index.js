@@ -49,11 +49,14 @@ import {
     CostPicture,
     AddReturnButtonContainer,
     AddButton,
-    ReturnButton
+    ReturnButton,
+    StatusContainer,
+    Status
 
 } from "./style";
 import { ImageCard } from "../../ArticlesPage/Fabric/Card/style";
 import { NoteModal } from "./NoteModal";
+import { newDate } from "../../../utils/newDate";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -92,32 +95,25 @@ export const ProjectCard = () => {
                                 >
                                     <ReturnArrow />
                                 </ArrowContainer>
-                                <TitleContainer>
-                                    <ProjectTitle>
-                                        {projectCard.name}
-                                    </ProjectTitle>
-                                </TitleContainer>
+                                <ModifyDeleteContainer>
+                                    <ModifyContainer>
+                                        <ModifyButton />
+                                    </ModifyContainer>
+                                    <TrashContainer>
+                                        <TrashButton />
+                                    </TrashContainer>
+                                </ModifyDeleteContainer>
+
                             </ArrowTitleContainer>
-                            {/* <NavProject>
-                                <ProjectLinksContainer>
-                                    <LinksWrapper>
-                                        {projectCardLinks.map((projectLink) => {
-                                            return (
-                                                <LinkItem
-                                                    key={projectLink.id}
-                                                >
-                                                    <ProjectMenuLinks
-                                                    href={projectLink.id}
-                                                       
-                                                    >
-                                                        {projectLink.name}
-                                                    </ProjectMenuLinks>
-                                                </LinkItem>
-                                            )
-                                        })}
-                                    </LinksWrapper>
-                                </ProjectLinksContainer>
-                            </NavProject> */}
+                            <TitleContainer>
+                                <ProjectTitle>
+                                    {projectCard.name}
+                                </ProjectTitle>
+                            </TitleContainer>
+                            <StatusContainer>
+                            
+                                <Status>Statut : {projectCard.status} </Status>
+                            </StatusContainer>
                         </HeaderContainer>
                         <Section
                             id='"tissus'
@@ -181,7 +177,7 @@ export const ProjectCard = () => {
 
                                         <CardText
                                             className="mercerie"
-                                        >{haberdashery.name} - {haberdashery.used_size} utilisé</CardText>
+                                        >{haberdashery.name} - {haberdashery.used_size} utilisé(es)</CardText>
 
 
                                     </CardContainer>
@@ -230,13 +226,13 @@ export const ProjectCard = () => {
                             id='notes'
                             className="notes"
                         >
-                           
+
                             <AddReturnButtonContainer>
 
-                            <SectionTitle
-                                className="notes">
-                                NOTES
-                            </SectionTitle>
+                                <SectionTitle
+                                    className="notes">
+                                    NOTES
+                                </SectionTitle>
                                 <AddButton
                                     onClick={isOpeningNoteModal}
                                     className="AddOneMoreNote"
@@ -311,7 +307,7 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={fabric.photo != undefined ? fabric.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{fabric.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> {fabric.used_size} </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {fabric.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
@@ -324,7 +320,7 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={haberdashery.photo != undefined ? haberdashery.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{haberdashery.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> {haberdashery.used_size} </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {haberdashery.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
@@ -337,13 +333,13 @@ export const ProjectCard = () => {
                                                 <CostTabCell className="photo"><CostPicture src={pattern.photo != undefined ? pattern.photo : null} ></CostPicture>  </CostTabCell>
                                                 <CostTabCell className="name">{pattern.name} </CostTabCell>
                                                 <CostTabCell className="quantity"> 1 </CostTabCell>
-                                                <CostTabCell className="price"> Coût </CostTabCell>
+                                                <CostTabCell className="price"> {pattern.article_cost} € </CostTabCell>
                                             </CostTabRow>
                                         ))
                                             : null}
                                         <CostTabRow className="totalCost">
                                             <CostTabCell className="totalCostName"> COUT TOTAL</CostTabCell>
-                                            <CostTabCell className="totalCost€"> COUT TOTAL €</CostTabCell>
+                                            <CostTabCell className="totalCost€"> {projectCard.cost_price} €</CostTabCell>
                                         </CostTabRow>
                                     </tbody>
                                 </CostTab>

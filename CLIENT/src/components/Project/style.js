@@ -325,6 +325,7 @@ export const CardText = styled.h3`
   text-align: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: ${props => props.theme.color4};
   height: 8rem;
   width:100%;

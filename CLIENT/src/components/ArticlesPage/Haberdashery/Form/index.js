@@ -247,7 +247,7 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
                         options={input.optionsList}
                         isVerif={((input.required && values[input.name] == "") ? true : false)}
                         isVerifInput={isVerifInput}
-                        labelSpe={"Nombre d'article"}
+                        labelSpeCreation={"Nombre d'article"}
                       />
                     ) : (
                       values.is_a_set == "true" && input.id == 7 ?
@@ -280,7 +280,7 @@ export function HaberdasheryForm({ setShowModal, showModal }) {
                             options={input.optionsList}
                             isVerif={((input.required && values[input.name] == "") ? true : false)}
                             isVerifInput={isVerifInput}
-                            labelSpe={"Nombre de lots achetés"}
+                            labelSpeCreation={"Nombre de lots achetés"}
                           />
                           ) : 
                           (null))

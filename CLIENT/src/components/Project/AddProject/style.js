@@ -3,13 +3,13 @@ import { PatchPlusFill } from "@styled-icons/bootstrap"
 import { PatchMinusFill } from '@styled-icons/bootstrap'
 import { MinusSm } from '@styled-icons/heroicons-solid';
 import { PlusSm } from '@styled-icons/heroicons-solid';
-import { ArrowLeftCircleFill } from '@styled-icons/bootstrap'
+import { ArrowLeftCircleFill } from '@styled-icons/bootstrap';
+import { Close } from '@styled-icons/evaicons-solid';
 
 export const AddProjectContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: flex-start;
   -ms-overflow-style: none;
   scrollbar-width: none;
   ::-webkit-scrollbar {
@@ -19,6 +19,20 @@ export const AddProjectContainer = styled.div`
   width:100%;
   margin-bottom:3em;
    
+`;
+export const CloseButtonContainer = styled.div`
+display: flex;
+justify-content: flex-end;
+margin: .5rem 1.1rem 0 0;
+width:100%;
+`;
+
+export const CloseButton = styled(Close)`
+    cursor: pointer;
+    color: ${props => props.theme.color5};
+    width: 32px;
+    height: 32px;
+    
 `;
 export const FormContainer = styled.div`
     display: flex;
@@ -49,6 +63,7 @@ export const TitleContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-top: .7rem;
 `;
 
 export const Title = styled.h1`
@@ -284,7 +299,7 @@ export const CardsContainer = styled.div`
     ::-webkit-scrollbar {
     display: none;}
     overflow-y: scroll;
-    height:100vh;
+    height:auto;
     width:100%;
     margin-bottom:1.5em;
    

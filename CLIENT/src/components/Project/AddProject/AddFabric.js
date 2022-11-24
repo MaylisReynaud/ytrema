@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState , useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
     AddButton,
     CardsMapContainer,
@@ -29,8 +29,15 @@ import {
 } from "./style";
 
 import YtremaLogo from "../../../assets/images/logo.png";
+import { addAllFabrics } from "../../../store/state/fabricSlice";
+import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
 
 export const AddFabric = (props) => {
+    const dispatch = useDispatch();
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const fabrics = persistedReducer.fabrics;
+    const { data, error, isLoading, isSuccess, isError } = useGetAllFabricsQuery(auth.id);
 
     const {
         values,
@@ -40,9 +47,12 @@ export const AddFabric = (props) => {
         setShowAddOneMoreButton
 
       } = props;
-    const { persistedReducer } = useSelector((state) => state);
-
-    const fabrics = persistedReducer.fabrics;
+    
+      useEffect(() => {
+        if (isSuccess && data) {
+            dispatch(addAllFabrics(data.fabrics));
+        }
+    }, [data]);
     
      //show fabric section
      const [showFabricSection, setShowFabricSection] = useState(true);
@@ -154,7 +164,7 @@ export const AddFabric = (props) => {
 
                                                         <SelectedArticleInfo>
                                                             {selectedFab.name} - {selectedFab.designer} -{" "}
-                                                            {selectedFab.quantity} cm
+                                                            {selectedFab.stock_qty} cm
                                                         </SelectedArticleInfo>
                                                         <QuantityContainer>
                                                             <QuantityLabel htmlFor="fabric_used_size">
@@ -166,7 +176,7 @@ export const AddFabric = (props) => {
                                                                 id="fabric_used_size"
                                                                 data-selectedfabricid={selectedFab.id}
                                                                 name="fabric_used_size"
-                                                                max={selectedFab.quantity}
+                                                                max={selectedFab.stock_qty}
                                                                 step="1"
                                                                 placeholder={
                                                                     values.fabrics.find(
@@ -232,7 +242,7 @@ export const AddFabric = (props) => {
                                                         -{" "}
                                                         {
                                                             selectedFabric[selectedFabric.length - 1]
-                                                                .quantity
+                                                                .stock_qty
                                                         }{" "}
                                                         cm
                                                     </SelectedArticleInfo>
@@ -257,7 +267,7 @@ export const AddFabric = (props) => {
                                                             name="fabric_used_size"
                                                             max={
                                                                 selectedFabric[selectedFabric.length - 1]
-                                                                    .quantity
+                                                                    .stock_qty
                                                             }
                                                             step="1"
                                                             placeholder="ex: 120"
@@ -292,7 +302,7 @@ export const AddFabric = (props) => {
 
                                                         <CardText>
                                                             {fabric.fabric} - {fabric.name} -{" "}
-                                                            {fabric.designer} - {fabric.quantity} cm
+                                                            {fabric.designer} - {fabric.stock_qty} cm
                                                         </CardText>
                                                     </CardContainer>
                                                 </CardsMapContainer>
@@ -323,7 +333,7 @@ export const AddFabric = (props) => {
 
                                                         <CardText>
                                                             {fabric.fabric} - {fabric.name} -{" "}
-                                                            {fabric.designer} - {fabric.quantity} cm
+                                                            {fabric.designer} - {fabric.stock_qty} cm
                                                         </CardText>
                                                     </CardContainer>
                                                 </CardsMapContainer>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
+import { PatchPlusFill } from "@styled-icons/bootstrap"
 
 export const Container = styled.div`
   display: flex;
@@ -72,19 +73,21 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+
   height: 3rem;
   position: fixed;
   background-color: white;
   padding: 0.6em 0 1em 0;
   @media screen and (min-width: 601px) {
     flex-direction: row;
+    margin-top:3rem;
     position: sticky;
     height: auto;
   }
 `;
 export const UpdateInformationContainer = styled(motion.div)`
   transition: all, 240ms ease-in-out;
-  background: rgb(241, 196, 15);
+  /* background: rgb(241, 196, 15); */
   background: linear-gradient(
     58deg,
     rgba(241, 196, 15, 1) 20%,
@@ -96,11 +99,13 @@ export const UpdateInformationContainer = styled(motion.div)`
 
 export const UpdateInformationText = styled.h3`
   font: 1.1rem "${(props) => props.theme.textFont}";
+  margin-top: 1rem;
   font-weight: bold;
   padding: .5em;
   color: ${(props) => props.theme.color4};
   background-color: ${(props) => props.theme.color1};
   @media screen and (min-width: 601px) {
+    margin-top:0;
   }
 `;
 
@@ -143,7 +148,19 @@ export const TrashButton = styled(Trash)`
   color: red;
   object-fit: fill;
 `;
-
+export const AddContainer = styled.div`
+  width: 21px;
+  height: 21px;
+  margin-right: 0.9em;
+  @media screen and (min-width: 601px) {
+    right: 4rem;
+  }
+`;
+export const AddButton = styled(PatchPlusFill)`
+  cursor: pointer;
+  color: ${(props) => props.theme.color1};
+  width:100%;
+`;
 export const ModifyContainer = styled.div`
   width: 19px;
   height: 19px;
@@ -176,6 +193,7 @@ export const CardTitle = styled.h1`
   text-align: center;
   margin-top: .7rem;
   justify-content: center;
+  margin-top: 1rem;
   align-items: center;
   font: 1.4rem "${(props) => props.theme.textFont}";
   font-weight: bold;
@@ -220,7 +238,7 @@ export const InformationContainer = styled.div`
   @media screen and (min-width: 601px) {
     height: 100%;
     width: 60%;
-    margin-left: 5.5rem;
+    margin-left: 2.5rem;
   }
 `;
 
@@ -235,8 +253,9 @@ export const InformationForm = styled.form`
     flex-direction: column;
     flex-wrap: nowrap;
     margin: 1rem 0rem;
-    height: 100%;
+    height: 58%;
     width: 96%;
+    overflow-x: hidden;
   }
   @media screen and (min-height: 800px) {
     -ms-overflow-style: none;
@@ -269,8 +288,8 @@ export const InformationLabel = styled.label`
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G11.png?alt=media&token=9ec1f31b-d909-4f56-9265-b8946269bc1a');
   @media screen and (min-width: 601px) {
     /* background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G-PC.png?alt=media&token=6d1a8231-f41b-4d76-af99-819b26423a86'); */
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
-    width: 20%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G102png.png?alt=media&token=d6d4a8c5-8b67-4b4b-9ff0-fd7db286ade2');
+    width: 25%;
     font-weight:600;
   }
 `;
@@ -299,6 +318,9 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
   
 `;
 
@@ -326,7 +348,9 @@ export const InformationTextarea = styled.textarea`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
-  
+  @media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const InformationLinkContainer = styled.div`
@@ -359,6 +383,9 @@ export const InformationSelect = styled.select`
     color: grey;
   }
 }
+@media screen and (min-width: 601px) {
+    width: 60%;
+  }
 `;
 
 export const ButtonForm = styled.button`
@@ -374,9 +401,10 @@ export const ButtonForm = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   @media screen and (min-width: 601px) {
+    height:auto;
     width: 94%;
-    margin-top: 2rem;
-    padding: 1rem;
+    /* margin-top: 2rem; */
+    padding: .5rem;
   }
 `;
 
@@ -409,9 +437,20 @@ export const ProjectImageContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 7rem;
+  &[class~="noProject"] {
+    height: auto;
+    margin-bottom:1rem;
+  }
 `;
 export const ProjectImage = styled.img`
   object-fit: cover;
   width: 6rem;
   height: 6rem;
+  &[class~="noProject"] {
+    width:18.75rem;
+    height: auto;
+  }
+`;
+
+export const NoProjectImage = styled.img`
 `;
