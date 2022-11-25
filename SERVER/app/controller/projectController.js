@@ -64,6 +64,52 @@ const projectController = {
             next(error);
         }
     },
+
+    async delete(request, response, next) {
+        try {
+            // User ID and project ID targeted
+            const { userId: id, projectId } = request.params;
+
+            // Delete the project data in DB
+            const projectToDelete = await projectDataMapper.deleteProjectById(id, projectId);
+
+            // No data deleted because this project has not been found
+            if (!projectToDelete) {
+                response.locals.notFound =
+                    "Une erreur est survenue : ce projet n'est pas répertorié. Vos informations n'ont pas pu être supprimées.";
+                return next();
+            }
+
+            // Here, the project data is deleted in DB
+            return response.status(204).json();
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    async deleteAll(request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id } = request.params;
+
+            // Delete all project data in DB
+            const deleteAllProjects = await projectDataMapper.deleteAll(id);
+
+            // No data deleted because this account does'nt have any projects yet
+            if (!deleteAllProjects) {
+                response.locals.notFound =
+                    "Aucun projet n'a été réalisé, vous ne pouvez donc pas procéder à leur suppression";
+                return next();
+            }
+
+            // Here, all project data have been in DB
+            return response.status(204).json();
+
+        } catch (error) {
+            next(error)
+        }
+    }
 };
+
 
 module.exports = projectController;
