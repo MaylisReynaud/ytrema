@@ -98,73 +98,14 @@ export const ProjectTitle = styled.h1`
   @media screen and (min-width: 601px) {
   }
 `;
-export const NavProject = styled.div`
-  display: flex;
-  width:100%;
-  flex-direction: row;
-  position: relative;
-  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
-  align-items: center;
-  /* margin: .8rem 0; */
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-`;
-export const ProjectLinksContainer = styled.div`
-    justify-content: center;
-    width: 100%;
-    height: 3rem;;
-    
-`;
-export const LinksWrapper = styled.ul`
- /* position: relative; */
-  box-shadow: 2px #222;
-  margin: 0 auto;
-  height: 100%;
-  list-style: none;
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:space-around;
-`;
-export const LinkItem = styled.li`
-  height: 100%;
-  margin: 1rem 0;
-`;
-export const ProjectMenuLinks = styled.a`
-  font-family: ${props => props.theme.textFont};
-  color: ${props => props.theme.color4};
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  font-size: 1.1rem;
-  transition: all 220ms ease-in-out;
-  text-decoration: none;
-  padding: 0 0.5rem;
-  height:100%;
-  cursor:pointer;
 
-  &:hover {
-    transition: all, 240ms ease-in-out;
-    border-bottom: 3px solid ${props => props.theme.color1};
-    color: ${props => props.theme.color1};
-  }
-  &.active {
-    border-bottom: 2px solid ${props => props.theme.color1};
-  }
-`;
 
 export const AddReturnButtonContainer = styled.div`
-  /* display: block; */
-  /* position: relative; */
   display: flex;
-
-  /* background-color: red; */
 `;
 
 export const AddButton = styled(PatchPlusFill)`
   display: flex;
-  /* position:absolute; */
-  /* bottom: 0%;
-  right: -10%; */
   cursor: pointer;
   width:10%;
   color: ${(props) => props.theme.color1};
@@ -193,29 +134,25 @@ export const ReturnButton = styled(ArrowLeftCircleFill)`
 `;
 
 export const CardsContainer = styled.div`
- display: flex;
-  flex-direction: column;
-  width:45%;
-  margin: .5rem;
-  margin-bottom:1em;
-  /* height:100%; */
-  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  &[class~="cout"] {
-    width:98%;
-    margin-bottom: .5rem;
-  }
-  @media screen and (min-width:601px) { 
-    width:20%;
-  }
+  display: flex;
+  width: 100%;
+  height: 85%;
+  justify-content: space-evenly;
 `;
+
 export const CardContainer = styled.div`
+background-color: blue;
 display: flex;
 flex-direction: column;
-height:30vh;
-overflow-y: scroll;
+width:45%;
+margin: .5rem;
+/* margin-bottom:1em; */
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+height:80%;
 background-color: ${(props) => props.theme.color4};
 &[class~="cout"] {
+    width:98%;
+    margin-bottom: .5rem;
     height: 100%;
   }
 @media screen and (min-width:601px) { 
@@ -226,6 +163,7 @@ background-color: ${(props) => props.theme.color4};
 export const ModifyDeleteContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin: .5rem 1rem .5rem .5rem;
   @media screen and (min-width: 601px) {
     margin-top: 1em;
@@ -315,12 +253,18 @@ font : 1.2rem/1.5 '${props => props.theme.textFont}';
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
 
   }
-  
-
-  
+ 
 `;
+
+export const InfoCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  justify-content: center;
+`;
+
 export const ImgContainer = styled.div`
-  height:60%;
+  height:70%;
   &[class~="patron"] {
     height: 50%;
   }
@@ -337,16 +281,17 @@ export const CardImg = styled.img`
 `;
 
 export const CardText = styled.h3`
-  text-align: center;
   display: flex;
+  justify-content:center;
   align-items: center;
   background-color: ${props => props.theme.color4};
-  height: 8rem;
+  height: 45%;
   width:100%;
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
+  text-align:center;
 
   @media screen and (min-width:601px) { 
     justify-content:center;
@@ -355,16 +300,18 @@ export const CardText = styled.h3`
 `;
 
 export const CardParagraph = styled.p`
-  text-align: center;
   display: flex;
+  justify-content:center;
   align-items: center;
   background-color: ${props => props.theme.color4};
-  height: 8rem;
+  height: 45%;
   width:100%;
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
+  text-align:center;
+
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;
