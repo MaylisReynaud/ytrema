@@ -138,6 +138,9 @@ export const CardsContainer = styled.div`
   width: 100%;
   height: 85%;
   justify-content: space-evenly;
+  &[class~="Cost"] {
+    height:auto;
+  }
 `;
 
 export const CardContainer = styled.div`
@@ -148,7 +151,7 @@ width:45%;
 margin: .5rem;
 /* margin-bottom:1em; */
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-height:80%;
+height:86%;
 background-color: ${(props) => props.theme.color4};
 &[class~="cout"] {
     width:98%;
@@ -304,13 +307,16 @@ export const CardParagraph = styled.p`
   justify-content:center;
   align-items: center;
   background-color: ${props => props.theme.color4};
-  height: 45%;
+  height: 50%;
   width:100%;
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
   text-align:center;
+  &[class~="notes"] {
+  height: 100%;
+  }
 
   @media screen and (min-width:601px) { 
     justify-content:center;
@@ -318,67 +324,67 @@ export const CardParagraph = styled.p`
   }
 `;
 
-export const CostTab = styled.table`
-  display: flex;
-  flex-direction: column;
-  /* overflow-y: scroll; */
-`;
-export const CostTabRow = styled.tr`
-display: flex;
-  flex-direction: row;
-  border: 1px solid ${props => props.theme.color4};
- background-color: ${props => props.theme.color2};
 
- &[class~="info"] {
+// Cost Table
+export const CostTable = styled.div`
+  /* border: 1px solid ${props => props.theme.color3}; */
+  width:100%;
+  height: auto;
+  background-color : ${props => props.theme.color3};
+
+`;
+
+export const RowTable = styled.div`
+  display : flex;
+  width:100%;
+  justify-content: space-between;
+  font : 1rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color4};
+  
+  &[class~="title"] {
+    font : 1rem/1.5 '${props => props.theme.textFont}';
+  font-weight: 600;
   padding: 0.3rem 0;
-  align-items: center;
   }
   &[class~="totalCost"] {
-  justify-content: flex-end;
-  align-items: center;
-  }
-`;
-
-export const CostTabHeadCell = styled.th`
-display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width:20%;
-  
-  background-color: ${props => props.theme.color3};
-  font : 1rem/1.5 '${props => props.theme.textFont}';
+    font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   font-weight: 600;
   padding: 0.3rem 0;
-  &[class~="name"] {
-    width: auto;
-    flex-grow: 1;
   }
- 
-`; 
+`;
 
-export const CostTabCell = styled.td`
+export const ColTable = styled.div`
 display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font : 0.9rem/1.5 '${props => props.theme.textFont}';
-  color: ${props => props.theme.color4};
-  width:20%;
-
-  
-  &[class~="name"] {
-    width: auto;
-    flex-grow: 1;
-    margin-left: .3rem;
-
-  }
+  border-bottom: 2px solid ${props => props.theme.color4};
+  padding: .3em;
+  width:100%;
+  &[class~="number"] {
+    justify-content: flex-end;
+    padding-right: 1em;
+  };
+  &[class~="totalCost"] {
+    border-bottom: none;
+    justify-content: flex-end;
+    padding-right: 1em;
+  };
 
 `;
 
+export const CostPictureContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+
+
+`;
 export const CostPicture = styled.img`
-  object-fit: cover;
-  width:100%;
-  margin-left: .3rem;
+  object-fit: fill;
+  border-radius: 50%;
+  border: 1px solid ${props => props.theme.color4};
+  width: 4rem;
+  height: 4rem;
 `;
