@@ -88,7 +88,10 @@ export const NoteProject = () => {
             {showSection && (
                 <CardsContainer >
                     {projectCard.photos_array.map((notes, index) => (
-                        <CardContainer key={notes.id}>
+                        <CardContainer 
+                            key={notes.id}
+                            className="otherHeight"
+                        >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
                                     <ModifyButton />

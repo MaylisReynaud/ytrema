@@ -68,7 +68,10 @@ export const PatternProject = () => {
             {showSection && (
                 <CardsContainer>
                     {projectCard.pattern_array.map((pattern) => (
-                        <CardContainer key={pattern.id}>
+                        <CardContainer 
+                            key={pattern.id}
+                            className="otherHeight"
+                        >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
                                     <ModifyButton />
@@ -80,7 +83,7 @@ export const PatternProject = () => {
                             <Link to={`/pattern/${pattern.id}`}>
                                 <InfoCardContainer>
                                     <ImgContainer
-                                        className="patron"
+                                     
                                     >
                                         <CardImg
                                             src={pattern.photo}
@@ -88,7 +91,7 @@ export const PatternProject = () => {
                                         />
                                     </ImgContainer>
                                     <CardText
-                                        className="patron"
+                                       
                                     >{pattern.clothing} - {pattern.name} </CardText>
                                 </InfoCardContainer>
 

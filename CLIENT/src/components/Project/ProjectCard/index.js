@@ -11,8 +11,7 @@ import {
     updateProject,
     deleteProject
 } from "../../../store/state/projectSlice";
-import { projectCardLinks } from "../../../utils/projectCardLinks";
-import YtremaLogo from "../../../assets/images/logo.png";
+
 import {
     ArrowContainer,
     Container,
@@ -21,32 +20,14 @@ import {
     HeaderContainer,
     ProjectTitle,
     ArrowTitleContainer,
-    CardsContainer,
-    CardContainer,
     ModifyDeleteContainer,
     TrashContainer,
     TrashButton,
     ModifyContainer,
     ModifyButton,
-    Section,
-    ImgContainer,
-    CardText,
-    CardImg,
-    SectionTitle,
-    CardParagraph,
-    CostPicture,
-    AddReturnButtonContainer,
-    AddButton,
     StatusContainer,
     Status,
-    InfoCardContainer,
-    CostTable,
-    RowTable,
-    ColTable,
-    CostPictureContainer
-
 } from "./style";
-import { NoteModal } from "./NoteModal";
 import { DeleteModal } from "../../DeleteModal";
 import { FabricProject } from "./FabricProject";
 import { HaberdasheryProject } from "./HaberdasheryProject";

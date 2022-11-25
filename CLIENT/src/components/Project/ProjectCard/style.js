@@ -168,7 +168,7 @@ export const CardsContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-background-color: blue;
+
 display: flex;
 flex-direction: column;
 width:45%;
@@ -177,6 +177,9 @@ margin: .5rem;
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 height:86%;
 background-color: ${(props) => props.theme.color4};
+&[class~="otherHeight"] {
+    height: 82%;
+  }
 &[class~="cout"] {
     width:98%;
     margin-bottom: .5rem;
@@ -294,9 +297,9 @@ export const InfoCardContainer = styled.div`
 
 export const ImgContainer = styled.div`
   height:70%;
-  &[class~="patron"] {
+  /* &[class~="patron"] {
     height: 50%;
-  }
+  } */
   &[class~="notes"] {
     height: 50%;
   }
