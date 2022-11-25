@@ -94,7 +94,7 @@ const projectDataMapper = {
             values: [photo, personal_notes, projectId],
         };
 
-        // Query to send when any photo is sent
+        // Query to send when any photo isn't sent
         !photo && (query = {
             text: `INSERT INTO "photo"("personal_notes", "project_id") VALUES($1, $2)`,
             values: [personal_notes, projectId],
