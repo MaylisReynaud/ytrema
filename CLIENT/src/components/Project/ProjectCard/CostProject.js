@@ -20,7 +20,10 @@ import {
     CostTable,
     RowTable,
     ColTable,
-    CostPictureContainer
+    CostPictureContainer,
+    MinusIcon,
+    PlusIcon,
+    TitleContainer
 } from "./style";
 
 
@@ -34,94 +37,107 @@ export const CostProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
-
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    }
 
     return (
         <Section
             id='cout'
             className="cout"
         >
+            <TitleContainer
+                className="showSection"
+            >
             <SectionTitle
                 className="cout">
-                COÛT DU PROJET
+                COÛT DU PROJET 
             </SectionTitle>
+            {showSection ? (
+                <MinusIcon onClick={isOpeningSection} />
+            ) : (
+                <PlusIcon onClick={isOpeningSection} />
+            )}
+            </TitleContainer>
 
+            {showSection && (
+                <CardsContainer
+                    className="Cost"
+                >
 
-
-            <CardsContainer
-                className="Cost"
-            >
-
-                <CostTable>
-                    <RowTable className="title">
-                        <ColTable
-                            className="title"
-                            size={2}
-                        >
-                            Photo
-                        </ColTable>
-                        <ColTable
-                            className="number title"
-                            size={1}
-                        >
-                            Quantité
-                        </ColTable>
-                        <ColTable
-                            className="number title "
-                            size={1}
-                        >
-                            Coût
-                        </ColTable>
-                    </RowTable>
-
-                    {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
-                        <RowTable key={fabric.id}>
-                            <ColTable>
-                                <CostPicture src={fabric.photo !== undefined ? fabric.photo : null} />  </ColTable>
-                            <ColTable className="number"> {fabric.used_size} </ColTable>
-                            <ColTable className="number"> {fabric.article_cost} €</ColTable>
-                        </RowTable>
-                    ))
-                        : null}
-
-                    {projectCard.haberdashery_array ? projectCard.haberdashery_array.map((haberdashery) => (
-                        <RowTable key={haberdashery.id}>
-                            <ColTable>
-                                <CostPictureContainer>
-                                    <CostPicture src={haberdashery.photo !== undefined ? haberdashery.photo : null} />
-                                </CostPictureContainer>
+                    <CostTable>
+                        <RowTable className="title">
+                            <ColTable
+                                className="title"
+                                size={2}
+                            >
+                                Photo
                             </ColTable>
-                            <ColTable className="number"> {haberdashery.used_size} </ColTable>
-                            <ColTable className="number"> {haberdashery.article_cost} €</ColTable>
-                        </RowTable>
-                    ))
-                        : null}
-                    {projectCard.pattern_array ? projectCard.pattern_array.map((pattern) => (
-                        <RowTable key={pattern.id}>
-                            <ColTable>
-                                <CostPictureContainer>
-                                    <CostPicture src={pattern.photo !== undefined ? pattern.photo : null} />
-                                </CostPictureContainer>
+                            <ColTable
+                                className="number title"
+                                size={1}
+                            >
+                                Quantité
                             </ColTable>
-                            <ColTable className="number"> 1 </ColTable>
-                            <ColTable className="number"> {pattern.article_cost} €</ColTable>
+                            <ColTable
+                                className="number title "
+                                size={1}
+                            >
+                                Coût
+                            </ColTable>
                         </RowTable>
-                    ))
-                        : null}
-                    <RowTable className="totalCost">
-                        <ColTable className="totalCost " >
-                            COÛT TOTAL
-                        </ColTable>
-                        <ColTable className="totalCost " >
 
-                        </ColTable>
-                        <ColTable className="number totalCost">
-                            {projectCard.cost_price} €
-                        </ColTable>
-                    </RowTable>
-                </CostTable>
+                        {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
+                            <RowTable key={fabric.id}>
+                                <ColTable>
+                                    <CostPicture src={fabric.photo !== undefined ? fabric.photo : null} />  </ColTable>
+                                <ColTable className="number"> {fabric.used_size} </ColTable>
+                                <ColTable className="number"> {fabric.article_cost} €</ColTable>
+                            </RowTable>
+                        ))
+                            : null}
 
-            </CardsContainer>
+                        {projectCard.haberdashery_array ? projectCard.haberdashery_array.map((haberdashery) => (
+                            <RowTable key={haberdashery.id}>
+                                <ColTable>
+                                    <CostPictureContainer>
+                                        <CostPicture src={haberdashery.photo !== undefined ? haberdashery.photo : null} />
+                                    </CostPictureContainer>
+                                </ColTable>
+                                <ColTable className="number"> {haberdashery.used_size} </ColTable>
+                                <ColTable className="number"> {haberdashery.article_cost} €</ColTable>
+                            </RowTable>
+                        ))
+                            : null}
+                        {projectCard.pattern_array ? projectCard.pattern_array.map((pattern) => (
+                            <RowTable key={pattern.id}>
+                                <ColTable>
+                                    <CostPictureContainer>
+                                        <CostPicture src={pattern.photo !== undefined ? pattern.photo : null} />
+                                    </CostPictureContainer>
+                                </ColTable>
+                                <ColTable className="number"> 1 </ColTable>
+                                <ColTable className="number"> {pattern.article_cost} €</ColTable>
+                            </RowTable>
+                        ))
+                            : null}
+                        <RowTable className="totalCost">
+                            <ColTable className="totalCost " >
+                                COÛT TOTAL
+                            </ColTable>
+                            <ColTable className="totalCost " >
+
+                            </ColTable>
+                            <ColTable className="number totalCost">
+                                {projectCard.cost_price} €
+                            </ColTable>
+                        </RowTable>
+                    </CostTable>
+
+                </CardsContainer>
+            )}
+
 
 
         </Section>

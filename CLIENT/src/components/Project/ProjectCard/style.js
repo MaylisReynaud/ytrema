@@ -3,7 +3,8 @@ import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
 import { PatchPlusFill } from "@styled-icons/bootstrap";
-import { PatchMinusFill } from '@styled-icons/bootstrap';
+import { MinusSm } from '@styled-icons/heroicons-solid';
+import { PlusSm } from '@styled-icons/heroicons-solid';
 import { ArrowLeftCircleFill } from '@styled-icons/bootstrap';
 
 
@@ -77,9 +78,14 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height:3rem;
+  /* height:3rem; */
   width: 100%;
   padding:.5rem 0;
+  &[class~="showSection"] {
+    flex-direction : row;
+    justify-content: space-around;
+    background-color: ${(props) => props.theme.color3};
+  }
   @media screen and (min-width: 601px) {
     height: 100vh;
     -ms-overflow-style: none;
@@ -131,6 +137,24 @@ export const ReturnButton = styled(ArrowLeftCircleFill)`
     bottom: 9%;
     left: -8%;
   }
+`;
+
+export const MinusIcon = styled(MinusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
+export const PlusIcon = styled(PlusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
 `;
 
 export const CardsContainer = styled.div`
