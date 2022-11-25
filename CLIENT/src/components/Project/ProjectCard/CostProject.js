@@ -1,0 +1,129 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { DeviceSize } from "../../Navbar/Responsive";
+import { useSelector, useDispatch } from "react-redux";
+import {
+    useDeleteOneProjectMutation,
+    useUpdateOneProjectMutation
+} from "../../../store/api/ytremaApi";
+import {
+    updateProject,
+    deleteProject
+} from "../../../store/state/projectSlice";
+
+import {
+    CardsContainer,
+    Section,
+    SectionTitle,
+    CostPicture,
+    CostTable,
+    RowTable,
+    ColTable,
+    CostPictureContainer
+} from "./style";
+
+
+export const CostProject = () => {
+    const { id } = useParams();
+    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
+    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const projects = persistedReducer.projects;
+    const projectCard = projects.value.find((project) => project.id == id);
+
+
+    return (
+        <Section
+            id='cout'
+            className="cout"
+        >
+            <SectionTitle
+                className="cout">
+                COÛT DU PROJET
+            </SectionTitle>
+
+
+
+            <CardsContainer
+                className="Cost"
+            >
+
+                <CostTable>
+                    <RowTable className="title">
+                        <ColTable
+                            className="title"
+                            size={2}
+                        >
+                            Photo
+                        </ColTable>
+                        <ColTable
+                            className="number title"
+                            size={1}
+                        >
+                            Quantité
+                        </ColTable>
+                        <ColTable
+                            className="number title "
+                            size={1}
+                        >
+                            Coût
+                        </ColTable>
+                    </RowTable>
+
+                    {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
+                        <RowTable key={fabric.id}>
+                            <ColTable>
+                                <CostPicture src={fabric.photo !== undefined ? fabric.photo : null} />  </ColTable>
+                            <ColTable className="number"> {fabric.used_size} </ColTable>
+                            <ColTable className="number"> {fabric.article_cost} €</ColTable>
+                        </RowTable>
+                    ))
+                        : null}
+
+                    {projectCard.haberdashery_array ? projectCard.haberdashery_array.map((haberdashery) => (
+                        <RowTable key={haberdashery.id}>
+                            <ColTable>
+                                <CostPictureContainer>
+                                    <CostPicture src={haberdashery.photo !== undefined ? haberdashery.photo : null} />
+                                </CostPictureContainer>
+                            </ColTable>
+                            <ColTable className="number"> {haberdashery.used_size} </ColTable>
+                            <ColTable className="number"> {haberdashery.article_cost} €</ColTable>
+                        </RowTable>
+                    ))
+                        : null}
+                    {projectCard.pattern_array ? projectCard.pattern_array.map((pattern) => (
+                        <RowTable key={pattern.id}>
+                            <ColTable>
+                                <CostPictureContainer>
+                                    <CostPicture src={pattern.photo !== undefined ? pattern.photo : null} />
+                                </CostPictureContainer>
+                            </ColTable>
+                            <ColTable className="number"> 1 </ColTable>
+                            <ColTable className="number"> {pattern.article_cost} €</ColTable>
+                        </RowTable>
+                    ))
+                        : null}
+                    <RowTable className="totalCost">
+                        <ColTable className="totalCost " >
+                            COÛT TOTAL
+                        </ColTable>
+                        <ColTable className="totalCost " >
+
+                        </ColTable>
+                        <ColTable className="number totalCost">
+                            {projectCard.cost_price} €
+                        </ColTable>
+                    </RowTable>
+                </CostTable>
+
+            </CardsContainer>
+
+
+        </Section>
+    )
+} 
