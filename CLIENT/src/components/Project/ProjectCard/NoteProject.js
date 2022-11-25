@@ -28,7 +28,10 @@ import {
     InfoCardContainer,
     AddReturnButtonContainer,
     AddButton,
-    CardParagraph
+    CardParagraph,
+    MinusIcon,
+    PlusIcon,
+    TitleContainer
 } from "./style";
 import { NoteModal } from "./NoteModal";
 
@@ -42,74 +45,90 @@ export const NoteProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
-//Show adding note modal
-const [showNoteModal, setShowNoteModal] = useState(false);
-const isOpeningNoteModal = () => {
-    setShowNoteModal((prev) => !prev);
-}
+    //Show adding note modal
+    const [showNoteModal, setShowNoteModal] = useState(false);
+    const isOpeningNoteModal = () => {
+        setShowNoteModal((prev) => !prev);
+    }
+
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    }
 
     return (
         <Section
-        id='notes'
-        className="notes"
-    >
+            id='notes'
+            className="notes"
+        >
 
-        <AddReturnButtonContainer>
+            <AddReturnButtonContainer>
+                <TitleContainer
+                    className="showSection"
+                >
+                    <SectionTitle
+                        className="notes">
+                        NOTES
+                    </SectionTitle>
+                    <AddButton
+                        onClick={isOpeningNoteModal}
+                        className="AddOneMoreNote"
+                    />
+                    <NoteModal
+                        showNoteModal={showNoteModal}
+                        setShowNoteModal={setShowNoteModal}
+                    />
+                    {showSection ? (
+                        <MinusIcon onClick={isOpeningSection} />
+                    ) : (
+                        <PlusIcon onClick={isOpeningSection} />
+                    )}
+                </TitleContainer>
+            </AddReturnButtonContainer>
+            {showSection && (
+                <CardsContainer >
+                    {projectCard.photos_array.map((notes, index) => (
+                        <CardContainer key={notes.id}>
+                            <ModifyDeleteContainer>
+                                <ModifyContainer>
+                                    <ModifyButton />
+                                </ModifyContainer>
 
-            <SectionTitle
-                className="notes">
-                NOTES
-            </SectionTitle>
-            <AddButton
-                onClick={isOpeningNoteModal}
-                className="AddOneMoreNote"
-            />
-            <NoteModal
-                showNoteModal={showNoteModal}
-                setShowNoteModal={setShowNoteModal}
-            />
-        </AddReturnButtonContainer>
-        <CardsContainer >
-            {projectCard.photos_array.map((notes, index) => (
-                <CardContainer key={notes.id}>
-                    <ModifyDeleteContainer>
-                        <ModifyContainer>
-                            <ModifyButton />
-                        </ModifyContainer>
-
-                        {index !== 0 && (
-                            <TrashContainer>
-                                <TrashButton />
-                            </TrashContainer>
-                        )}
-                    </ModifyDeleteContainer>
-                    {notes.photo !== "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4" ? (<InfoCardContainer>
-                        <ImgContainer
-                            className="notes"
-                        >
-                            <CardImg
-                                src={notes.photo}
-                                alt={notes.name}
-                            />
-                        </ImgContainer>
-
-                        <CardParagraph>
-                            {notes.personal_notes}
-                        </CardParagraph>
-                    </InfoCardContainer>)
-                        : (
-                            <InfoCardContainer>
-                                <CardParagraph
+                                {index !== 0 && (
+                                    <TrashContainer>
+                                        <TrashButton />
+                                    </TrashContainer>
+                                )}
+                            </ModifyDeleteContainer>
+                            {notes.photo !== "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4" ? (<InfoCardContainer>
+                                <ImgContainer
                                     className="notes"
                                 >
+                                    <CardImg
+                                        src={notes.photo}
+                                        alt={notes.name}
+                                    />
+                                </ImgContainer>
+
+                                <CardParagraph>
                                     {notes.personal_notes}
                                 </CardParagraph>
-                            </InfoCardContainer>
-                        )}
+                            </InfoCardContainer>)
+                                : (
+                                    <InfoCardContainer>
+                                        <CardParagraph
+                                            className="notes"
+                                        >
+                                            {notes.personal_notes}
+                                        </CardParagraph>
+                                    </InfoCardContainer>
+                                )}
 
-                </CardContainer>
-            ))}
-        </CardsContainer>
-    </Section>
+                        </CardContainer>
+                    ))}
+                </CardsContainer>
+            )}
+
+        </Section>
     )
 } 

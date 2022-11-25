@@ -335,13 +335,13 @@ export const CardParagraph = styled.p`
   background-color: ${props => props.theme.color4};
   height: 50%;
   width:100%;
-  padding: 0 .3rem;
+  /* padding: 0 .3rem; */
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
   text-align:center;
   &[class~="notes"] {
-  height: 100%;
+  height: 80%;
   }
 
   @media screen and (min-width:601px) { 

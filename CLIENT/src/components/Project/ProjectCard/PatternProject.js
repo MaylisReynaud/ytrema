@@ -26,6 +26,9 @@ import {
     CardImg,
     SectionTitle,
     InfoCardContainer,
+    MinusIcon,
+    PlusIcon,
+    TitleContainer
 } from "./style";
 import { DeleteModal } from "../../DeleteModal";
 
@@ -39,47 +42,61 @@ export const PatternProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
-
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    }
 
     return (
         <Section
             id='patron'
             className="patron"
         >
-            <SectionTitle
-                className="patron">
-                PATRON
-            </SectionTitle>
-            <CardsContainer>
-                {projectCard.pattern_array.map((pattern) => (
-                    <CardContainer key={pattern.id}>
-                        <ModifyDeleteContainer>
-                            <ModifyContainer>
-                                <ModifyButton />
-                            </ModifyContainer>
-                            <TrashContainer>
-                                <TrashButton />
-                            </TrashContainer>
-                        </ModifyDeleteContainer>
-                        <Link to={`/pattern/${pattern.id}`}>
-                            <InfoCardContainer>
-                                <ImgContainer
-                                    className="patron"
-                                >
-                                    <CardImg
-                                        src={pattern.photo}
-                                        alt={pattern.name}
-                                    />
-                                </ImgContainer>
-                                <CardText
-                                    className="patron"
-                                >{pattern.clothing} - {pattern.name} </CardText>
-                            </InfoCardContainer>
+            <TitleContainer
+                className="showSection"
+            >
+                <SectionTitle
+                    className="patron">
+                    PATRON
+                </SectionTitle>
+                {showSection ? (
+                    <MinusIcon onClick={isOpeningSection} />
+                ) : (
+                    <PlusIcon onClick={isOpeningSection} />
+                )}
+            </TitleContainer>
+            {showSection && (
+                <CardsContainer>
+                    {projectCard.pattern_array.map((pattern) => (
+                        <CardContainer key={pattern.id}>
+                            <ModifyDeleteContainer>
+                                <ModifyContainer>
+                                    <ModifyButton />
+                                </ModifyContainer>
+                                <TrashContainer>
+                                    <TrashButton />
+                                </TrashContainer>
+                            </ModifyDeleteContainer>
+                            <Link to={`/pattern/${pattern.id}`}>
+                                <InfoCardContainer>
+                                    <ImgContainer
+                                        className="patron"
+                                    >
+                                        <CardImg
+                                            src={pattern.photo}
+                                            alt={pattern.name}
+                                        />
+                                    </ImgContainer>
+                                    <CardText
+                                        className="patron"
+                                    >{pattern.clothing} - {pattern.name} </CardText>
+                                </InfoCardContainer>
 
-                        </Link>
-                    </CardContainer>
-                ))}
-            </CardsContainer>
+                            </Link>
+                        </CardContainer>
+                    ))}
+                </CardsContainer>
+            )}
         </Section>
     )
 } 
