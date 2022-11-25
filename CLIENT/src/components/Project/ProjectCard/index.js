@@ -356,7 +356,7 @@ export const ProjectCard = () => {
                                             <ColTable className="totalCost " >
                                            
                                             </ColTable>
-                                            <ColTable className="number, totalCost">
+                                            <ColTable className="number totalCost">
                                             {projectCard.cost_price} €
                                             </ColTable>
                                         </RowTable>

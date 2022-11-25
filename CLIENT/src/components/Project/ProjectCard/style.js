@@ -168,6 +168,8 @@ export const ModifyDeleteContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin: .5rem 1rem .5rem .5rem;
+  height: 19px;
+
   @media screen and (min-width: 601px) {
     margin-top: 1em;
   }
