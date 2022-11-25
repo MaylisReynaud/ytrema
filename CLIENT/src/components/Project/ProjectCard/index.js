@@ -47,7 +47,7 @@ import {
 
 } from "./style";
 import { NoteModal } from "./NoteModal";
-
+import { DeleteModal } from "../../DeleteModal";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -64,12 +64,38 @@ export const ProjectCard = () => {
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const isOpenDeleteModal = () => {
+        setShowDeleteModal(!showDeleteModal);
+    }
 
     //Show adding note modal
     const [showNoteModal, setShowNoteModal] = useState(false);
     const isOpeningNoteModal = () => {
         setShowNoteModal((prev) => !prev);
     }
+
+    const deleteCard = () => {
+        const urlParams = {
+            memberId: auth.id,
+            projectId: projectCard.id,
+        };
+        deleteOneProject(urlParams);
+        dispatch(deleteProject(projectCard.id));
+        setShowDeleteModal(!showDeleteModal);
+        navigate("/projets");
+        toast.success('Projet supprimé avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    };
 
     return (
         <>
@@ -91,8 +117,17 @@ export const ProjectCard = () => {
                                         <ModifyButton />
                                     </ModifyContainer>
                                     <TrashContainer>
-                                        <TrashButton />
+                                        <TrashButton
+                                            aria-label="Supprimer ce projet"
+                                            onClick={isOpenDeleteModal}
+                                        />
                                     </TrashContainer>
+                                    <DeleteModal
+                                        setShowDeleteModal={setShowDeleteModal}
+                                        showDeleteModal={showDeleteModal}
+                                        deleteAction={deleteCard}
+                                        word={'SUPPRIMER CE PROJET'}
+                                    />
                                 </ModifyDeleteContainer>
 
                             </ArrowTitleContainer>
@@ -336,17 +371,17 @@ export const ProjectCard = () => {
                                         </RowTable>
                                     ))
                                         : null}
-                                        <RowTable className="totalCost">
-                                            <ColTable className="totalCost " >
+                                    <RowTable className="totalCost">
+                                        <ColTable className="totalCost " >
                                             COÛT TOTAL
-                                            </ColTable>
-                                            <ColTable className="totalCost " >
-                                           
-                                            </ColTable>
-                                            <ColTable className="number totalCost">
+                                        </ColTable>
+                                        <ColTable className="totalCost " >
+
+                                        </ColTable>
+                                        <ColTable className="number totalCost">
                                             {projectCard.cost_price} €
-                                            </ColTable>
-                                        </RowTable>
+                                        </ColTable>
+                                    </RowTable>
                                 </CostTable>
 
                             </CardsContainer>
