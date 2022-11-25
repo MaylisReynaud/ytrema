@@ -175,7 +175,7 @@ width:45%;
 margin: .5rem;
 /* margin-bottom:1em; */
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-height:86%;
+height:82%;
 background-color: ${(props) => props.theme.color4};
 &[class~="otherHeight"] {
     height: 82%;

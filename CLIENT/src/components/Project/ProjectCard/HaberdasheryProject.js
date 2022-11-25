@@ -26,6 +26,9 @@ import {
     CardImg,
     SectionTitle,
     InfoCardContainer,
+    MinusIcon,
+    PlusIcon,
+    TitleContainer
 } from "./style";
 import { DeleteModal } from "../../DeleteModal";
 
@@ -39,17 +42,30 @@ export const HaberdasheryProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
-
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    }
 
     return (
         <Section
             id='mercerie'
             className="mercerie"
         >
+             <TitleContainer
+                className="showSection"
+            >
             <SectionTitle
                 className="mercerie">
                 MERCERIE
             </SectionTitle>
+            {showSection ? (
+                <MinusIcon onClick={isOpeningSection} />
+            ) : (
+                <PlusIcon onClick={isOpeningSection} />
+            )}
+            </TitleContainer>
+            {showSection && (
             <CardsContainer>
                 {projectCard.haberdashery_array.map((haberdashery) => (
                     <CardContainer key={haberdashery.id}>
@@ -77,6 +93,7 @@ export const HaberdasheryProject = () => {
                     </CardContainer>
                 ))}
             </CardsContainer>
+            )}
         </Section>
     )
 } 

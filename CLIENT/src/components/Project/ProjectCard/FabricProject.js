@@ -26,6 +26,9 @@ import {
     CardImg,
     SectionTitle,
     InfoCardContainer,
+    MinusIcon,
+    PlusIcon,
+    TitleContainer
 } from "./style";
 import { DeleteModal } from "../../DeleteModal";
 
@@ -39,16 +42,29 @@ export const FabricProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
-
+    const [showSection, setShowSection] = useState(true);
+    const isOpeningSection = () => {
+        setShowSection((prev) => !prev);
+    }
 
     return (
         <Section
             id='"tissus'
             className="tissus"
         >
+             <TitleContainer
+                className="showSection"
+            >
             <SectionTitle>
                 TISSUS
             </SectionTitle>
+            {showSection ? (
+                <MinusIcon onClick={isOpeningSection} />
+            ) : (
+                <PlusIcon onClick={isOpeningSection} />
+            )}
+            </TitleContainer>
+            {showSection && (
             <CardsContainer>
                 {projectCard.fabric_array.map((fabric) => (
                     <CardContainer key={fabric.id}>
@@ -78,6 +94,7 @@ export const FabricProject = () => {
                     </CardContainer>
                 ))}
             </CardsContainer>
+            )}
         </Section>
     )
 } 
