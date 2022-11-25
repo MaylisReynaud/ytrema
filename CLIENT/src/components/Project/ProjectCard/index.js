@@ -253,7 +253,7 @@ export const ProjectCard = () => {
                                             <ModifyContainer>
                                                 <ModifyButton />
                                             </ModifyContainer>
-                                            {console.log(notes[0], "<--notes[0]")}
+
                                             {!index == 0 && (
                                                 <TrashContainer>
                                                     <TrashButton />
