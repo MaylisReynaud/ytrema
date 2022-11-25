@@ -332,7 +332,7 @@ export const CostTable = styled.div`
   /* border: 1px solid ${props => props.theme.color3}; */
   width:100%;
   height: auto;
-  background-color : ${props => props.theme.color3};
+  
 
 `;
 
@@ -342,11 +342,13 @@ export const RowTable = styled.div`
   justify-content: space-between;
   font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
+  background-color : ${props => props.theme.color2};
   
   &[class~="title"] {
     font : 1rem/1.5 '${props => props.theme.textFont}';
   font-weight: 600;
   padding: 0.3rem 0;
+  background-color : ${props => props.theme.color3};
   }
   &[class~="totalCost"] {
     font : 1rem/1.5 '${props => props.theme.textFont}';
@@ -363,6 +365,9 @@ display: flex;
   border-bottom: 2px solid ${props => props.theme.color4};
   padding: .3em;
   width:100%;
+  &[class~="title"] {
+    border-bottom: none;
+  };
   &[class~="number"] {
     justify-content: flex-end;
     padding-right: 1em;

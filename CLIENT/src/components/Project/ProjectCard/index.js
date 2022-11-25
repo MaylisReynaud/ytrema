@@ -97,24 +97,72 @@ export const ProjectCard = () => {
         });
     };
 
+    const updateCard = () => {
+        setUpdateProjectInfo(true);
+    };
+
+    const [values, setValues] = useState({
+        name: projectCard.name,
+        date: projectCard.date,
+        status: projectCard.status,
+        cost_price: projectCard.cost_price,
+    });
+
+    const onChange = (event) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const valuesToSend = values;
+
+        const urlParams = {
+            memberId: auth.id,
+            projectId: projectCard.id,
+            body: valuesToSend,
+        };
+
+        const { updatedProjectData } = await updateOneProject(urlParams).unwrap();
+
+        //  Mettre à jour le store
+        dispatch(updateProject(updatedProjectData));
+        setUpdateProjectInfo(false);
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    };
+
     return (
         <>
-            {/* cs site sezane */}
+
             <Container >
                 {isLogged === true && activeSession && (
                     <>
                         <HeaderContainer>
                             <ArrowTitleContainer>
-                                <ArrowContainer
-                                    onClick={() => {
-                                        navigate("/Projets");
-                                    }}
-                                >
-                                    <ReturnArrow />
+                                <ArrowContainer>
+                                    <ReturnArrow
+                                        aria-label="Retourner à la liste des projets"
+                                        onClick={() => {
+                                            navigate("/Projets");
+                                        }}
+                                    />
                                 </ArrowContainer>
                                 <ModifyDeleteContainer>
                                     <ModifyContainer>
-                                        <ModifyButton />
+                                        <ModifyButton
+                                            aria-label="Modifier ce projet"
+                                            onClick={updateCard}
+                                        />
                                     </ModifyContainer>
                                     <TrashContainer>
                                         <TrashButton
@@ -332,9 +380,24 @@ export const ProjectCard = () => {
 
                                 <CostTable>
                                     <RowTable className="title">
-                                        <ColTable size={2}> Photo </ColTable>
-                                        <ColTable className="number" size={1}> Quantité </ColTable>
-                                        <ColTable className="number" size={1}> Coût </ColTable>
+                                        <ColTable
+                                            className="title"
+                                            size={2}
+                                        >
+                                            Photo
+                                        </ColTable>
+                                        <ColTable
+                                            className="number title"
+                                            size={1}
+                                        >
+                                            Quantité
+                                        </ColTable>
+                                        <ColTable
+                                            className="number title "
+                                            size={1}
+                                        >
+                                            Coût
+                                        </ColTable>
                                     </RowTable>
 
                                     {projectCard.fabric_array ? projectCard.fabric_array.map((fabric) => (
