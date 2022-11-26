@@ -73,9 +73,6 @@ export const PatternProject = () => {
                             className="otherHeight"
                         >
                             <ModifyDeleteContainer>
-                                <ModifyContainer>
-                                    <ModifyButton />
-                                </ModifyContainer>
                                 <TrashContainer>
                                     <TrashButton />
                                 </TrashContainer>
