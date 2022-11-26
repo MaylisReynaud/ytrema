@@ -88,7 +88,7 @@ export const NoteProject = () => {
             {showSection && (
                 <CardsContainer >
                     {projectCard.photos_array.map((notes, index) => (
-                        <CardContainer 
+                        <CardContainer
                             key={notes.id}
                             className="otherHeight"
                         >
@@ -103,21 +103,24 @@ export const NoteProject = () => {
                                     </TrashContainer>
                                 )}
                             </ModifyDeleteContainer>
-                            {notes.photo !== "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4" ? (<InfoCardContainer>
-                                <ImgContainer
-                                    className="notes"
-                                >
-                                    <CardImg
-                                        src={notes.photo}
-                                        alt={notes.name}
-                                    />
-                                </ImgContainer>
+                            {index !== 0 ? (
+                                notes.photo !== "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4" ? (
+                                    <InfoCardContainer>
+                                        <ImgContainer
+                                            className="notes"
+                                        >
+                                            <CardImg
+                                                src={notes.photo}
+                                                alt={notes.name}
+                                            />
+                                        </ImgContainer>
 
-                                <CardParagraph>
-                                    {notes.personal_notes}
-                                </CardParagraph>
-                            </InfoCardContainer>)
-                                : (
+                                        <CardParagraph>
+                                            {notes.personal_notes}
+                                        </CardParagraph>
+                                    </InfoCardContainer>
+
+                                ) : (
                                     <InfoCardContainer>
                                         <CardParagraph
                                             className="notes"
@@ -125,13 +128,32 @@ export const NoteProject = () => {
                                             {notes.personal_notes}
                                         </CardParagraph>
                                     </InfoCardContainer>
+                                )
+                            ) :
+                                (
+                                    <InfoCardContainer>
+                                        <ImgContainer
+                                            className="notes"
+                                        >
+                                            <CardImg
+                                                src={notes.photo}
+                                                alt={notes.name}
+                                            />
+                                        </ImgContainer>
+
+                                        <CardParagraph>
+                                            {notes.personal_notes}
+                                        </CardParagraph>
+                                    </InfoCardContainer>
                                 )}
+                           
 
                         </CardContainer>
-                    ))}
-                </CardsContainer>
+                    ))
+                    }
+                </CardsContainer >
             )}
 
-        </Section>
+        </Section >
     )
 } 

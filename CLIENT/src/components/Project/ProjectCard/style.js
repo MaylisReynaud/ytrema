@@ -344,7 +344,7 @@ export const CardParagraph = styled.p`
   border-bottom: 2px solid ${props => props.theme.color2} ;
   text-align:center;
   &[class~="notes"] {
-  height: 80%;
+  height: 100%;
   }
 
   @media screen and (min-width:601px) { 
