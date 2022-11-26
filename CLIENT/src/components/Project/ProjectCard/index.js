@@ -29,6 +29,7 @@ import {
     Status,
 } from "./style";
 import { DeleteModal } from "../../DeleteModal";
+import { UpdateModal } from "./UpdateModal";
 import { FabricProject } from "./FabricProject";
 import { HaberdasheryProject } from "./HaberdasheryProject";
 import { PatternProject } from "./PatternProject";
@@ -50,8 +51,12 @@ export const ProjectCard = () => {
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const isOpeningUpdateModal = () => {
+        setShowUpdateModal(!showUpdateModal);
+    }
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const isOpenDeleteModal = () => {
+    const isOpeningDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     }
 
@@ -98,6 +103,7 @@ export const ProjectCard = () => {
         event.preventDefault();
 
         const valuesToSend = values;
+        console.log(valuesToSend, "valuesToSend")
 
         const urlParams = {
             memberId: auth.id,
@@ -143,13 +149,24 @@ export const ProjectCard = () => {
                                     <ModifyContainer>
                                         <ModifyButton
                                             aria-label="Modifier ce projet"
-                                            onClick={updateCard}
+                                            onClick={isOpeningUpdateModal}
                                         />
                                     </ModifyContainer>
+                                    <UpdateModal
+                                        setShowUpdateModal={setShowUpdateModal}
+                                        showUpdateModal={showUpdateModal}
+                                        updateAction={updateCard}
+                                        word={'MODIFIER CE PROJET'}
+                                        onChange={onChange}
+                                        values={values}
+                                        setValues={setValues}
+                                        handleSubmit={handleSubmit}
+                                        projectCard={projectCard}
+                                    />
                                     <TrashContainer>
                                         <TrashButton
                                             aria-label="Supprimer ce projet"
-                                            onClick={isOpenDeleteModal}
+                                            onClick={isOpeningDeleteModal}
                                         />
                                     </TrashContainer>
                                     <DeleteModal
