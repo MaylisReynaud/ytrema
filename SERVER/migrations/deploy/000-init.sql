@@ -68,7 +68,7 @@ CREATE TABLE "project"(
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
     "cost_price" POSITIVE_NUMERIC NOT NULL,
-    "date" TIMESTAMPTZ NOT NULL DEFAULT NOW() CHECK ("date" >= NOW()),
+    "date" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "status" TEXT NOT NULL,
     "member_id" INT NOT NULL REFERENCES "member"("id") ON DELETE CASCADE
 );
