@@ -3,7 +3,8 @@ import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
 import { PatchPlusFill } from "@styled-icons/bootstrap";
-import { PatchMinusFill } from '@styled-icons/bootstrap';
+import { MinusSm } from '@styled-icons/heroicons-solid';
+import { PlusSm } from '@styled-icons/heroicons-solid';
 import { ArrowLeftCircleFill } from '@styled-icons/bootstrap';
 
 
@@ -77,9 +78,14 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height:3rem;
+  /* height:3rem; */
   width: 100%;
   padding:.5rem 0;
+  &[class~="showSection"] {
+    flex-direction : row;
+    justify-content: space-around;
+    background-color: ${(props) => props.theme.color3};
+  }
   @media screen and (min-width: 601px) {
     height: 100vh;
     -ms-overflow-style: none;
@@ -133,6 +139,24 @@ export const ReturnButton = styled(ArrowLeftCircleFill)`
   }
 `;
 
+export const MinusIcon = styled(MinusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
+export const PlusIcon = styled(PlusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
 export const CardsContainer = styled.div`
   display: flex;
   width: 100%;
@@ -144,15 +168,18 @@ export const CardsContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-background-color: blue;
+
 display: flex;
 flex-direction: column;
 width:45%;
 margin: .5rem;
 /* margin-bottom:1em; */
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-height:86%;
+height:82%;
 background-color: ${(props) => props.theme.color4};
+&[class~="otherHeight"] {
+    height: 82%;
+  }
 &[class~="cout"] {
     width:98%;
     margin-bottom: .5rem;
@@ -270,9 +297,9 @@ export const InfoCardContainer = styled.div`
 
 export const ImgContainer = styled.div`
   height:70%;
-  &[class~="patron"] {
+  /* &[class~="patron"] {
     height: 50%;
-  }
+  } */
   &[class~="notes"] {
     height: 50%;
   }
@@ -311,7 +338,7 @@ export const CardParagraph = styled.p`
   background-color: ${props => props.theme.color4};
   height: 50%;
   width:100%;
-  padding: 0 .3rem;
+  /* padding: 0 .3rem; */
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   border-bottom: 2px solid ${props => props.theme.color2} ;
@@ -332,7 +359,7 @@ export const CostTable = styled.div`
   /* border: 1px solid ${props => props.theme.color3}; */
   width:100%;
   height: auto;
-  background-color : ${props => props.theme.color3};
+  
 
 `;
 
@@ -342,11 +369,13 @@ export const RowTable = styled.div`
   justify-content: space-between;
   font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
+  background-color : ${props => props.theme.color2};
   
   &[class~="title"] {
     font : 1rem/1.5 '${props => props.theme.textFont}';
   font-weight: 600;
   padding: 0.3rem 0;
+  background-color : ${props => props.theme.color3};
   }
   &[class~="totalCost"] {
     font : 1rem/1.5 '${props => props.theme.textFont}';
@@ -363,6 +392,9 @@ display: flex;
   border-bottom: 2px solid ${props => props.theme.color4};
   padding: .3em;
   width:100%;
+  &[class~="title"] {
+    border-bottom: none;
+  };
   &[class~="number"] {
     justify-content: flex-end;
     padding-right: 1em;
