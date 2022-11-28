@@ -83,7 +83,7 @@ export const FabricProject = (props) => {
         };
 
         const { updatedFabricDataUsed } = await updateOneFabricProject(urlParams).unwrap();
-        console.log(updatedFabricDataUsed, "updated fabric data used")
+       
         //  Mettre à jour le store
         if(updatedFabricDataUsed) {
             toast.success('Projet modifié avec succès👌', {
