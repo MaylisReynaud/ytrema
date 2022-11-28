@@ -36,6 +36,9 @@ export const ModalWrapper = styled.div`
     color: #000;
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
+    &[class~="updateArticle"] {
+    height: 60%;
+  }
     @media screen and (min-width:601px) { 
         height:27%;
         width: 35%;       
@@ -54,6 +57,9 @@ export const ModalContent = styled.div`
     color: ${props => props.theme.color5};
     overflow: hidden;
     height:86%;
+    &[class~="articleUpdate"] {
+    height: 97%;
+  }
 `;
 export const TextContainer = styled.div`
     display: flex;

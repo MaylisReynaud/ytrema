@@ -188,7 +188,12 @@ export const ProjectCard = () => {
                                 <Status>Statut : {projectCard.status} </Status>
                             </StatusContainer>
                         </HeaderContainer>
-                        <FabricProject />
+                        <FabricProject 
+                            onChange={onChange}
+                            handleSubmit={handleSubmit}
+                            values={values}
+                            setValues={setValues}
+                        />
                         <HaberdasheryProject />
                         <PatternProject />
                        <NoteProject/>

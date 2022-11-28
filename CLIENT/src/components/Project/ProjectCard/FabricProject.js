@@ -31,8 +31,16 @@ import {
     TitleContainer
 } from "./style";
 import { DeleteModal } from "../../DeleteModal";
+import { UpdateArticle } from "./UpdateModal/UpdateArticle";
 
-export const FabricProject = () => {
+export const FabricProject = (props) => {
+    const {
+        onChange,
+        handleSubmit,
+        values,
+        setValues
+    } = props;
+
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -46,54 +54,71 @@ export const FabricProject = () => {
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
     }
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const isOpeningUpdateModal = () => {
+        setShowUpdateModal(!showUpdateModal);
+    }
 
     return (
         <Section
             id='"tissus'
             className="tissus"
         >
-             <TitleContainer
+            <TitleContainer
                 className="showSection"
             >
-            <SectionTitle>
-                TISSUS
-            </SectionTitle>
-            {showSection ? (
-                <MinusIcon onClick={isOpeningSection} />
-            ) : (
-                <PlusIcon onClick={isOpeningSection} />
-            )}
+                <SectionTitle>
+                    TISSUS
+                </SectionTitle>
+                {showSection ? (
+                    <MinusIcon onClick={isOpeningSection} />
+                ) : (
+                    <PlusIcon onClick={isOpeningSection} />
+                )}
             </TitleContainer>
             {showSection && (
-            <CardsContainer>
-                {projectCard.fabric_array.map((fabric) => (
-                    <CardContainer key={fabric.id}>
-                        <ModifyDeleteContainer>
-                            <ModifyContainer>
-                                <ModifyButton />
-                            </ModifyContainer>
-                            <TrashContainer>
-                                <TrashButton />
-                            </TrashContainer>
-                        </ModifyDeleteContainer>
-                        <Link to={`/tissus/${fabric.id}`} >
-                            <InfoCardContainer>
-
-                                <ImgContainer >
-                                    <CardImg
-                                        src={fabric.photo}
-                                        alt={fabric.name}
+                <CardsContainer>
+                    {projectCard.fabric_array.map((fabric) => (
+                        <CardContainer key={fabric.id}>
+                            <ModifyDeleteContainer>
+                                <ModifyContainer>
+                                    <ModifyButton
+                                        aria-label="Modifier ce projet"
+                                        onClick={isOpeningUpdateModal}
                                     />
-                                </ImgContainer>
-                                <CardText>
-                                    {fabric.fabric} - {fabric.used_size} cm
-                                </CardText>
-                            </InfoCardContainer>
-                        </Link>
+                                </ModifyContainer>
+                                <UpdateArticle
+                                        setShowUpdateModal={setShowUpdateModal}
+                                        showUpdateModal={showUpdateModal}
+                                        word={'MODIFIER CE TISSU'}
+                                        onChange={onChange}
+                                        values={values}
+                                        setValues={setValues}
+                                        handleSubmit={handleSubmit}
+                                        fabric={fabric}
+                                    />
+                                <TrashContainer>
+                                    <TrashButton />
+                                </TrashContainer>
+                            </ModifyDeleteContainer>
+                            <Link to={`/tissus/${fabric.id}`} >
+                                <InfoCardContainer>
 
-                    </CardContainer>
-                ))}
-            </CardsContainer>
+                                    <ImgContainer >
+                                        <CardImg
+                                            src={fabric.photo}
+                                            alt={fabric.name}
+                                        />
+                                    </ImgContainer>
+                                    <CardText>
+                                        {fabric.fabric} - {fabric.used_size} cm
+                                    </CardText>
+                                </InfoCardContainer>
+                            </Link>
+
+                        </CardContainer>
+                    ))}
+                </CardsContainer>
             )}
         </Section>
     )
