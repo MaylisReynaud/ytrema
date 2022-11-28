@@ -93,6 +93,10 @@ export const InformationLabel = styled.label`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=fe02984f-e05b-4dc3-8184-3276784c56d0');
+  &[class~="update"] {
+    width: 25%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
+  }
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
     width: 20%;
@@ -126,6 +130,13 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  &[class~="update"] {
+    
+    width: 57%;
+    ::placeholder {
+      color:  ${(props) => props.theme.color4};
+  }
+  }
 `;
 
 export const InformationSelect = styled.select`
@@ -148,6 +159,9 @@ export const InformationSelect = styled.select`
   }
   ::placeholder {
     color: grey;
+  }
+  &[class~="update"] {
+    width: 57%;
   }
 `;
 

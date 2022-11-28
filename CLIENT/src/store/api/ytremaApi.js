@@ -292,7 +292,7 @@ export const ytremaApi = createApi({
         },
       }
     },
-    invalidatesTags: ['Project'],
+    invalidatesTags: ['Project','Fabric', 'Haberdashery'],
   }),
   deleteAllProjects: builder.mutation({
     query: (memberId) => {
