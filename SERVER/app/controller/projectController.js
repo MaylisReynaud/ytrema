@@ -101,6 +101,7 @@ const projectController = {
 
             // Fabric info to update
             const projectFabricInfo = request.body;
+            // console.log(projectFabricInfo, "<--projectFabInfo");
 
             // Update the fabric data for this project in DB
             const updatedFabricDataUsed = await projectDataMapper.updateFabricInProject(
@@ -109,7 +110,7 @@ const projectController = {
                 fabricId,
                 projectFabricInfo
             );
-
+console.log(updatedFabricDataUsed, "updatedFabricDataUsed");
             // No data updated because this fabric has not been found for this project
             if (!updatedFabricDataUsed) {
                 response.locals.notFound =

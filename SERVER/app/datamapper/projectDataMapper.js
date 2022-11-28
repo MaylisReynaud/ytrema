@@ -323,7 +323,7 @@ const projectDataMapper = {
             projectId,
             id
         );
-
+        
         if (!existingProject) {
             return null;
         }
@@ -347,7 +347,7 @@ const projectDataMapper = {
 
         // Calculate the delta between the old an the new quantity used
         const delta = (used_sized - oldSize);
-
+        console.log(oldPrice, oldSize, used_sized, "<--oldPrice, oldSize, used_sized");
         // Query to update in DB the fields used_size and article_cost in the table project_has_fabric 
         query = {
             text: `UPDATE "project_has_fabric" SET "used_size" = $1, "article_cost" = $2 WHERE "project_id" = $3 AND "fabric_id" = $4`,
