@@ -65,6 +65,95 @@ const projectController = {
         }
     },
 
+    async update(request, response, next) {
+        try {
+            // User ID and project ID targeted
+            const { userId: id, projectId } = request.params;
+
+            // Project info to update
+            const projectInfo = request.body;
+
+            // Update the Project data in DB
+            const updatedProjectData = await projectDataMapper.updateProjectById(
+                id,
+                projectId,
+                projectInfo
+            );
+
+            // No data updated because this project has not been found
+            if (!updatedProjectData) {
+                response.locals.notFound =
+                    "Une erreur est survenue : ce projet n'est pas répertorié. Vos informations n'ont pas pu être mises à jour.";
+                return next();
+            }
+
+            // Here, the project data is updated in DB
+            return response.status(200).json({ updatedProjectData });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    async updateFabricUsed(request, response, next) {
+        try {
+            // User ID and project ID targeted
+            const { userId: id, projectId, fabricId } = request.params;
+
+            // Fabric info to update
+            const projectFabricInfo = request.body;
+
+            // Update the fabric data for this project in DB
+            const updatedFabricDataUsed = await projectDataMapper.updateFabricInProject(
+                id,
+                projectId,
+                fabricId,
+                projectFabricInfo
+            );
+
+            // No data updated because this fabric has not been found for this project
+            if (!updatedFabricDataUsed) {
+                response.locals.notFound =
+                    "Une erreur est survenue : ce tissu n'est pas répertorié dans votre projet. Vos informations n'ont pas pu être mises à jour.";
+                return next();
+            }
+
+            // Here, the fabric data for this project is updated in DB
+            return response.status(200).json({ updatedFabricDataUsed });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    async updateHaberdasheryUsed(request, response, next) {
+        try {
+            // User ID and project ID targeted
+            const { userId: id, projectId, haberdasheryId } = request.params;
+
+            // Haberdashery info to update
+            const projectHaberdasheryInfo = request.body;
+
+            // Update the haberdashery data for this project in DB
+            const updatedHaberdasheryDataUsed = await projectDataMapper.updateHaberdasheryInProject(
+                id,
+                projectId,
+                haberdasheryId,
+                projectHaberdasheryInfo
+            );
+
+            // No data updated because this haberdashery has not been found for this project
+            if (!updatedHaberdasheryDataUsed) {
+                response.locals.notFound =
+                    "Une erreur est survenue : cet article de mercerie n'est pas répertorié dans votre projet. Vos informations n'ont pas pu être mises à jour.";
+                return next();
+            }
+
+            // Here, the haberdashery data for this project is updated in DB
+            return response.status(200).json({ updatedHaberdasheryDataUsed });
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async delete(request, response, next) {
         try {
             // User ID and project ID targeted
