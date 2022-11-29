@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import {
     useDeleteOneProjectMutation,
     useUpdateOneProjectMutation
