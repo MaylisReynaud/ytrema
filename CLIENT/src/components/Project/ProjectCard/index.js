@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import {
     useDeleteOneProjectMutation,
     useUpdateOneProjectMutation
@@ -11,7 +12,8 @@ import {
     updateProject,
     deleteProject
 } from "../../../store/state/projectSlice";
-
+import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
+import { addAllFabrics } from "../../../store/state/fabricSlice";
 import {
     ArrowContainer,
     Container,
@@ -36,10 +38,11 @@ import { PatternProject } from "./PatternProject";
 import { NoteProject } from "./NoteProject";
 import { CostProject } from "./CostProject";
 
+import { useUpdateOneFabricProjectMutation } from "../../../store/api/ytremaApi";
+import { updateFabricProject } from "../../../store/state/projectSlice";
+
 export const ProjectCard = () => {
     const { id } = useParams();
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
     let navigate = useNavigate();
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
@@ -47,7 +50,10 @@ export const ProjectCard = () => {
     const isLogged = auth.isLogged;
     const activeSession = sessionStorage.getItem("token");
     const projects = persistedReducer.projects;
+
+    // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
+
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
@@ -59,8 +65,6 @@ export const ProjectCard = () => {
     const isOpeningDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     }
-
-    
 
     const deleteCard = () => {
         const urlParams = {
@@ -87,7 +91,9 @@ export const ProjectCard = () => {
     const updateCard = () => {
         setUpdateProjectInfo(true);
     };
+// PROJECT
 
+const { data, isSuccess } = useGetAllFabricsQuery(auth.id);
     const [values, setValues] = useState({
         name: projectCard.name,
         date: projectCard.date,
@@ -103,7 +109,6 @@ export const ProjectCard = () => {
         event.preventDefault();
 
         const valuesToSend = values;
-        console.log(valuesToSend, "valuesToSend")
 
         const urlParams = {
             memberId: auth.id,
@@ -129,6 +134,61 @@ export const ProjectCard = () => {
         });
     };
 
+// FABRIC CARD
+useEffect(() => {
+    if (isSuccess && data) {
+      dispatch(addAllFabrics(data.fabrics));
+    }
+  }, [data]);
+
+const [fabricValues, setFabricValues] = useState({
+    used_size: "",
+    old_used_size: "",
+    old_article_cost: "",
+    fabricId: "",
+});
+
+const [updateOneFabricProject] = useUpdateOneFabricProjectMutation(projectCard.id, auth.id, fabricValues.fabricId);
+
+const fabricOnChange = (event) => {
+    setFabricValues({ ...fabricValues, [event.target.name]: event.target.value });
+};
+
+const handleFabricSubmit = async (event) => {
+    event.preventDefault();
+
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        fabricId: fabricValues.fabricId,
+        body: fabricValues,
+    };
+
+    const { updatedFabricDataUsed } = await updateOneFabricProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    if(updatedFabricDataUsed) {
+      
+        const projectUsed = updatedFabricDataUsed.find((project) => project.id == projectCard.id)
+
+        dispatch(updateFabricProject(projectUsed));
+
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
+    
+};
+
+const fabricArray = projectCard.fabric_array;
     return (
         <>
 
@@ -188,7 +248,13 @@ export const ProjectCard = () => {
                                 <Status>Statut : {projectCard.status} </Status>
                             </StatusContainer>
                         </HeaderContainer>
-                        <FabricProject />
+                        <FabricProject 
+                            handleFabricSubmit={handleFabricSubmit}
+                            fabricOnChange={fabricOnChange}
+                            fabricValues={fabricValues}
+                            setFabricValues={setFabricValues}
+                            fabricArray={fabricArray}
+                        />
                         <HaberdasheryProject />
                         <PatternProject />
                        <NoteProject/>

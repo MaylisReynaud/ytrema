@@ -17,74 +17,7 @@ const projectController = {
             );
 
             response.status(200).json({ savedProject });
-
-        } catch (error) {
-            next(error);
-        }
-    },
-
-    async addFabric (request, response, next) {
-        try {
-            // User ID targeted
-            const { userId: id, projectId } = request.params;
-
-            // New fabric's data
-            const fabricInfo = request.body;
-
-            // Create the project in DB
-            const addFabric = await projectDataMapper.addNewFabric(
-                fabricInfo,
-                projectId,
-                id
-            );
-
-            // The fabric has not been added
-            if (!addFabric) {
-                response.locals.notFound =
-                    "Une erreur est survenue : ce tissu n'a pas pu être ajouté au projet.";
-                return next();
-            };
-
-            // In this case, the fabric is already used in this project, so the client must use "updateFabricUsed" not "addFabric"
-            if (addFabric === "Update fabric") {
-                response.locals.type = 409;
-                response.locals.conflict =
-                    "Désolé, ce tissu est déjà présent dans votre projet, nous ne pouvons pas l'ajouter une nouvelle fois. En cas de modification de la quantité utilisée merci de bien vouloir modifier la fiche directement.";
-                return next();
-            }
-
-            // Here, the fabric has been added to the project
-            response.status(200).json({ addFabric });
-
-        } catch (error) {
-            next(error);
-        }
-    },
-
-    async addHaberdashery (request, response, next) {
-        try {
-            // User ID targeted
-            const { userId: id, projectId } = request.params;
-
-            // New haberdashery's data
-            const haberdasheryInfo = request.body;
-
-            // Create the project in DB
-            const addHaberdashery = await projectDataMapper.addNewHaberdashery(
-                haberdasheryInfo,
-                projectId,
-                id
-            );
-
-            // The haberdashery has not been added
-            if (!addHaberdashery) {
-                response.locals.notFound =
-                    "Une erreur est survenue : cet article de mercerie n'a pas pu être ajouté au projet.";
-                return next();
-            }
-
-            // Here, the haberdashery has been added to the project
-            response.status(200).json({ addHaberdashery });
+            // response.status(200).json({ projectInfo, id });
 
         } catch (error) {
             next(error);
@@ -168,6 +101,7 @@ const projectController = {
 
             // Fabric info to update
             const projectFabricInfo = request.body;
+            // console.log(projectFabricInfo, "<--projectFabInfo");
 
             // Update the fabric data for this project in DB
             const updatedFabricDataUsed = await projectDataMapper.updateFabricInProject(

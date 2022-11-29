@@ -25,7 +25,6 @@ import {
 
 
 export const UpdateModal = ({ showUpdateModal, setShowUpdateModal, updateAction, word, onChange, values, setValues, handleSubmit, projectCard }) => {
-    console.log(values, "<--values");
 
     const closeUpdateModal = () => {
         setShowUpdateModal(false);

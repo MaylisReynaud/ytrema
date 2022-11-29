@@ -48,7 +48,7 @@ import { FiltersCards } from "../../../../src/utils/flexFilter";
 import { useSelector, useDispatch } from "react-redux";
 import { addAllFabrics } from "../../../store/state/fabricSlice";
 import { useGetAllFabricsQuery } from "../../../../src/store/api/ytremaApi";
-import { render } from "react-dom";
+
 
 export function Fabric(props, index) {
   let navigate = useNavigate();

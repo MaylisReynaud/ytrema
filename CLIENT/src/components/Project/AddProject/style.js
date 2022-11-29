@@ -227,6 +227,9 @@ export const PreviewContainer = styled.div`
   &[class~="haberdashery"] {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
   }
+  &[class~="articleUpdate"] {
+    width: 89%;
+  }
 `;
 
 export const PreviewButtonContainer = styled.div`
@@ -235,6 +238,7 @@ export const PreviewButtonContainer = styled.div`
   &[class~="firstShow"] {
     padding-bottom: 3rem;
   }
+
 `;
 
 export const Preview = styled.img`
