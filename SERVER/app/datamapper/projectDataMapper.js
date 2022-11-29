@@ -226,13 +226,16 @@ const projectDataMapper = {
         };
                 
         // Send query to DB
-        const updatedProjectResult = await client.query(query);
+        // const updatedProjectResult = await client.query(query);
+        await client.query(query);
 
+        const allProject = await this.getAllProjects(id);
         // Get request result
-        const { rows: updatedProject } = updatedProjectResult;
+        // const { rows: updatedProject } = updatedProjectResult;
 
         // Return result
-        return updatedProject[0];        
+        // return updatedProject[0];     
+        return allProject;   
     },
 
     async getAllProjects(id) {
