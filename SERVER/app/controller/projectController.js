@@ -101,6 +101,7 @@ const projectController = {
 
             // Fabric info to update
             const projectFabricInfo = request.body;
+            // console.log(projectFabricInfo, "<--projectFabInfo");
 
             // Update the fabric data for this project in DB
             const updatedFabricDataUsed = await projectDataMapper.updateFabricInProject(
