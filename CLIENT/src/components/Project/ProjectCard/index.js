@@ -168,7 +168,10 @@ const handleFabricSubmit = async (event) => {
 
     //  Mettre à jour le store
     if(updatedFabricDataUsed) {
-        dispatch(updateFabricProject(updatedFabricDataUsed));
+      
+        const projectUsed = updatedFabricDataUsed.find((project) => project.id == projectCard.id)
+
+        dispatch(updateFabricProject(projectUsed));
 
         toast.success('Projet modifié avec succès👌', {
             position: "top-right",
