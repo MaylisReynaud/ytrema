@@ -119,7 +119,9 @@ export const AddArticleModal = (props) => {
                                 >
                                     <Form>
                                         {fabrics && selectedFabric.id == "" && (
-                                            <AllFabricsContainer>
+                                            <AllFabricsContainer
+                                                className='addArticle'
+                                            >
                                                 {fabrics.value.map((fabric) => (
                                                     <CardsMapContainer
                                                         className="AddArticle"

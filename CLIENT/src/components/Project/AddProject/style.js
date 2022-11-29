@@ -307,7 +307,9 @@ export const AllFabricsContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-
+  &[class~="addArticle"] {
+    width:98%;
+  }
 `;
 
 export const CardsContainer = styled.div`
