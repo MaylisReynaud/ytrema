@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
     Background,
     Container,
@@ -26,27 +26,25 @@ import {
     QuantityLabel
 } from '../../AddProject/style';
 
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const UpdateArticle = (props) => {
     const { 
         showUpdateModal, 
         setShowUpdateModal, 
-        updateAction, 
         word, 
-        onChange, 
-        values, 
-        setValues, 
-        handleSubmit, 
-        fabric,
+        fabricOnChange, 
+        fabricValues, 
+        setFabricValues, 
+        handleFabricSubmit, 
     } = props
-    console.log(values, "<--fabric");
-    // const { id } = useParams();
+
     const { persistedReducer } = useSelector((state) => state);
 ;
     const fabrics = persistedReducer.fabrics;
-    const fabricCard = fabrics.value.find((fabric) => fabric.id == values.fabricId);
+    const fabricCard = fabrics.value.find((fabric) => fabric.id == fabricValues.fabricId);
+
+
     const closeUpdateModal = () => {
         setShowUpdateModal(false);
     };
@@ -71,7 +69,6 @@ export const UpdateArticle = (props) => {
 
                 >
                     <Background
-                    // onClick={closeUpdateModal}
                     >
                         <ModalWrapper
                             className='updateArticle'
@@ -110,9 +107,9 @@ export const UpdateArticle = (props) => {
                                                         max={fabricCard.stock_qty}
                                                         step="1"
                                                         placeholder={
-                                                            values.old_used_size
+                                                            fabricValues.old_used_size
                                                         }
-                                                        onChange={onChange}
+                                                        onChange={fabricOnChange}
                                                     ></QuantityInput>
                                                 </QuantityContainer>
                                             </PreviewContainer>
@@ -130,7 +127,7 @@ export const UpdateArticle = (props) => {
                                     <UpdateContainer>
                                         <UpdateButton
                                             onClick={(event) => {
-                                                handleSubmit(event);
+                                                handleFabricSubmit(event);
                                                 closeUpdateModal();
                                             }}
 

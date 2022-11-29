@@ -110,7 +110,7 @@ const projectController = {
                 fabricId,
                 projectFabricInfo
             );
-console.log(updatedFabricDataUsed, "updatedFabricDataUsed");
+
             // No data updated because this fabric has not been found for this project
             if (!updatedFabricDataUsed) {
                 response.locals.notFound =

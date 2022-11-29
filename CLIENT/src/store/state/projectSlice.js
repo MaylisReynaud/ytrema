@@ -30,8 +30,7 @@ export const projectSlice = createSlice({
     },
     updateFabricProject: (state, action) => {
       state.value = state.value.map((project) => {
-        console.log(project, "<--project dans updateFabricProject")
-        if (project.fabric_array.id === action.payload.id) {
+        if (project.id === action.payload.id) {
           return {
             ...project,
             ...action.payload,
@@ -39,9 +38,11 @@ export const projectSlice = createSlice({
         } else {
           return {
             ...project
-          };
+          }
         }
-      });
+      }
+
+      );
     },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
