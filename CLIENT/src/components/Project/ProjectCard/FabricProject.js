@@ -21,10 +21,13 @@ import {
     InfoCardContainer,
     MinusIcon,
     PlusIcon,
-    TitleContainer
+    TitleContainer,
+    AddButton,
+    AddReturnButtonContainer,
 } from "./style";
 
 import { UpdateArticle } from "./UpdateModal/UpdateArticle";
+import { AddArticleModal } from "./AddArticleModal";
 
 export const FabricProject = (props) => {
     const {
@@ -32,13 +35,20 @@ export const FabricProject = (props) => {
         fabricOnChange,
         fabricValues,
         setFabricValues,
+        handleAddFabricSubmit,
+        addFabricOnChange,
+        addFabricValues,
+        setAddFabricValues,
         fabricArray
     } = props;
 
+    // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
-    }
+    };
+
+    //UPDATE FABRIC
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = (id, used_size, article_cost) => {
         setFabricValues({
@@ -49,25 +59,55 @@ export const FabricProject = (props) => {
             used_size: ""
         });
         setShowUpdateModal(!showUpdateModal);
-    }
+    };
+
+    //ADD FABRIC
+    const [showAddArticleModal, setShowAddArticleModal] = useState(false);
+    const isOpeningAddFabricModal = (id, used_size, article_cost) => {
+        // setAddFabricValues({
+        //     ...addFabricValues,
+        //     article_cost: article_cost,
+        //     fabricId: id,
+        //     used_size: ""
+        // });
+        setShowAddArticleModal(!showAddArticleModal);
+    };
 
     return (
         <Section
             id='"tissus'
             className="tissus"
         >
+            <AddReturnButtonContainer>
             <TitleContainer
                 className="showSection"
             >
-                <SectionTitle>
+                <SectionTitle
+                    className="addArticle"
+                >
                     TISSUS
                 </SectionTitle>
+                <AddButton
+                        onClick={isOpeningAddFabricModal}
+                        className="AddOneMoreNote"
+                    />
+                    <AddArticleModal
+                        setShowAddArticleModal={setShowAddArticleModal}
+                        showAddArticleModal={showAddArticleModal}
+                        word={'AJOUTER UN TISSU'}
+                        addFabricOnChange={addFabricOnChange}
+                        addFabricValues={addFabricValues}
+                        setAddFabricValues={setAddFabricValues}
+                        handleAddFabricSubmit={handleAddFabricSubmit}
+                    />
                 {showSection ? (
                     <MinusIcon onClick={isOpeningSection} />
                 ) : (
                     <PlusIcon onClick={isOpeningSection} />
                 )}
             </TitleContainer>
+            </AddReturnButtonContainer>
+ 
             {showSection && (
                 <CardsContainer>
                     {fabricArray.map((fabric) => (

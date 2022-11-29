@@ -41,6 +41,9 @@ import { CostProject } from "./CostProject";
 import { useUpdateOneFabricProjectMutation } from "../../../store/api/ytremaApi";
 import { updateFabricProject } from "../../../store/state/projectSlice";
 
+import { useAddOneFabricProjectMutation } from "../../../store/api/ytremaApi";
+import { addFabricProject } from "../../../store/state/projectSlice";
+
 export const ProjectCard = () => {
     const { id } = useParams();
     let navigate = useNavigate();
@@ -134,7 +137,7 @@ const { data, isSuccess } = useGetAllFabricsQuery(auth.id);
         });
     };
 
-// FABRIC CARD
+// UPDATE FABRIC CARD
 useEffect(() => {
     if (isSuccess && data) {
       dispatch(addAllFabrics(data.fabrics));
@@ -189,6 +192,62 @@ const handleFabricSubmit = async (event) => {
 };
 
 const fabricArray = projectCard.fabric_array;
+
+// ADD A NEW FABRIC TO PROJECT
+useEffect(() => {
+    if (isSuccess && data) {
+      dispatch(addAllFabrics(data.fabrics));
+    }
+  }, [data]);
+
+const [addFabricValues, setAddFabricValues] = useState({
+    used_size: "",
+    article_cost: "",
+    fabricId: "",
+});
+
+const [addFabricProject] = useAddOneFabricProjectMutation(projectCard.id, auth.id, addFabricValues.fabricId);
+
+const addFabricOnChange = (event) => {
+    setAddFabricValues({ ...addFabricValues, [event.target.name]: event.target.value });
+};
+console.log(addFabricValues, "<--addfabric values")
+const handleAddFabricSubmit = async (event) => {
+    event.preventDefault();
+
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        fabricId: addFabricValues.fabricId,
+        body: addFabricValues,
+    };
+
+  //  const { updatedFabricDataUsed } = await updateOneFabricProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    // if(updatedFabricDataUsed) {
+      
+    //     const projectUsed = updatedFabricDataUsed.find((project) => project.id == projectCard.id)
+
+    //     dispatch(addFabricProject(projectUsed));
+
+    //     toast.success('Projet modifié avec succès👌', {
+    //         position: "top-right",
+    //         autoClose: 3000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //         theme: "colored",
+    //         role: "alert"
+    //     });
+    // }
+    
+};
+
+// const fabricArray = projectCard.fabric_array;
+
     return (
         <>
 
@@ -254,6 +313,10 @@ const fabricArray = projectCard.fabric_array;
                             fabricValues={fabricValues}
                             setFabricValues={setFabricValues}
                             fabricArray={fabricArray}
+                            handleAddFabricSubmit={handleAddFabricSubmit}
+                            addFabricOnChange={addFabricOnChange}
+                            addFabricValues={addFabricValues}
+                            setAddFabricValues={setAddFabricValues}
                         />
                         <HaberdasheryProject />
                         <PatternProject />
