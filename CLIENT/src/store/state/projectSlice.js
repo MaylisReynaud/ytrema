@@ -45,6 +45,7 @@ export const projectSlice = createSlice({
       );
     },
     addFabricProject: (state, action) => {
+      console.log("coucou dans addFabric Projectslice")
       state.value.push(action.payload);
     },
     deleteProject: (state, action) => {

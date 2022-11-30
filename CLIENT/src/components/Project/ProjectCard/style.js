@@ -159,27 +159,31 @@ export const PlusIcon = styled(PlusSm)`
 
 export const CardsContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: 85%;
   justify-content: space-evenly;
+  margin-bottom:1rem;
   &[class~="Cost"] {
     height:auto;
   }
 `;
 
 export const CardContainer = styled.div`
-
 display: flex;
 flex-direction: column;
 width:45%;
-margin: .5rem;
+margin: 1rem .5rem;
 /* margin-bottom:1em; */
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-height:82%;
+height:46%;
 background-color: ${(props) => props.theme.color4};
 &[class~="otherHeight"] {
-    height: 82%;
+    height: 78%;
   }
+&[class~="fabric"] {
+  height: 11rem;
+}
 &[class~="cout"] {
     width:98%;
     margin-bottom: .5rem;
@@ -243,7 +247,7 @@ export const Status = styled.p`
 `;
 
 export const Section = styled.section`
-   height: 90vh;
+   /* height: 90vh; */
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -251,6 +255,7 @@ export const Section = styled.section`
     justify-content: space-evenly;
     width:98%;
     margin:0.2rem;
+    padding-bottom:0.5rem;
     scroll-margin-top:2rem;
     /* &[class~="tissus"] {
     margin-top: 1rem;
@@ -263,7 +268,7 @@ export const Section = styled.section`
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
   }
   &[class~="cout"] {
-    margin-bottom: 3rem;
+    /* margin-bottom: 3rem; */
     height: 100rem;
     background-image: none;
 
@@ -322,7 +327,7 @@ export const CardText = styled.h3`
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
-  border-bottom: 2px solid ${props => props.theme.color2} ;
+  //border-bottom: 2px solid ${props => props.theme.color2} ;
   text-align:center;
 
   @media screen and (min-width:601px) { 
@@ -341,7 +346,7 @@ export const CardParagraph = styled.p`
   /* padding: 0 .3rem; */
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
-  border-bottom: 2px solid ${props => props.theme.color2} ;
+  /* border-bottom: 2px solid ${props => props.theme.color2} ; */
   text-align:center;
   &[class~="notes"] {
   height: 100%;

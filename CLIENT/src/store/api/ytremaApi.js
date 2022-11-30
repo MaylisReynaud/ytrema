@@ -337,6 +337,7 @@ export const ytremaApi = createApi({
   addOneFabricProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
+      console.log(arg, "<--arg dans addOneFabricProject")
       return {
         url: `/project/${projectId}/add/fabric/member/${memberId}`,
         method: "POST",

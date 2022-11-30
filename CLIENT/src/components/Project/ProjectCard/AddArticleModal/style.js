@@ -142,7 +142,7 @@ export const CancelButton = styled.p`
 export const UpdateContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    width: 60%;
+    width: 75%;
 
 
 `;

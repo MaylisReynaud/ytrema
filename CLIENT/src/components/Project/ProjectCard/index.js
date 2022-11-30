@@ -201,52 +201,52 @@ useEffect(() => {
   }, [data]);
 
 const [addFabricValues, setAddFabricValues] = useState({
-    used_size: "",
-    article_cost: "",
-    fabricId: "",
+    fabric_used_size: "",
+    fabric_price: "",
+    fabric_id: "",
 });
 
-const [addFabricProject] = useAddOneFabricProjectMutation(projectCard.id, auth.id, addFabricValues.fabricId);
+const [addFabricProject] = useAddOneFabricProjectMutation(projectCard.id, auth.id, addFabricValues.fabric_id);
 
 const addFabricOnChange = (event) => {
     setAddFabricValues({ ...addFabricValues, [event.target.name]: event.target.value });
 };
-console.log(addFabricValues, "<--addfabric values")
+
 const handleAddFabricSubmit = async (event) => {
     event.preventDefault();
 
     const urlParams = {
         memberId: auth.id,
         projectId: projectCard.id,
-        fabricId: addFabricValues.fabricId,
+        // fabricId: addFabricValues.fabric_id,
         body: addFabricValues,
     };
 
-  //  const { updatedFabricDataUsed } = await updateOneFabricProject(urlParams).unwrap();
+   const { addFabric } = await addFabricProject(urlParams).unwrap();
 
     //  Mettre à jour le store
-    // if(updatedFabricDataUsed) {
+    if(addFabric) {
       
-    //     const projectUsed = updatedFabricDataUsed.find((project) => project.id == projectCard.id)
+        const projectUsed = addFabric.find((project) => project.id == projectCard.id)
+        console.log(projectUsed, "projectUsed dans ProjectCard")
+        dispatch(updateFabricProject(projectUsed));
 
-    //     dispatch(addFabricProject(projectUsed));
-
-    //     toast.success('Projet modifié avec succès👌', {
-    //         position: "top-right",
-    //         autoClose: 3000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "colored",
-    //         role: "alert"
-    //     });
-    // }
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
     
 };
 
-// const fabricArray = projectCard.fabric_array;
+
 
     return (
         <>

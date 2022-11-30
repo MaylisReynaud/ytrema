@@ -20,8 +20,6 @@ import {
     PreviewContainer,
     PreviewButtonContainer,
     Preview,
-    Text,
-    AddButton,
     SelectedArticleInfo,
     QuantityContainer,
     QuantityInput,
@@ -34,8 +32,6 @@ import {
     CardText,
 } from '../../AddProject/style';
 
-import { addAllFabrics } from '../../../../store/state/fabricSlice';
-import { useGetAllFabricsQuery } from '../../../../store/api/ytremaApi';
 
 export const AddArticleModal = (props) => {
     const {
@@ -45,23 +41,11 @@ export const AddArticleModal = (props) => {
         addFabricValues,
         setAddFabricValues,
         handleAddFabricSubmit,
-        word
+        word,
+        fabricsFiltered
     } = props
 
     const { persistedReducer } = useSelector((state) => state);
-    const dispatch = useDispatch();
-    const auth = persistedReducer.auth;
-    const fabrics = persistedReducer.fabrics;
-    const { data, error, isLoading, isSuccess, isError } = useGetAllFabricsQuery(auth.id);
-    // const fabricCard = fabrics.value.find((fabric) => fabric.id == addFabricValues.fabricId);
-
-    useEffect(() => {
-        if (isSuccess && data) {
-            dispatch(addAllFabrics(data.fabrics));
-        }
-    }, [data]);
-
-
 
     const closeAddArticleModal = () => {
         setShowAddArticleModal(false);
@@ -94,7 +78,7 @@ export const AddArticleModal = (props) => {
         stock_qty: "",
         price: ""
     })
-    console.log(selectedFabric, "<--selectedfabric");
+
     return (
         <>
             {showAddArticleModal ? (
@@ -118,43 +102,46 @@ export const AddArticleModal = (props) => {
                                     className='addArticle'
                                 >
                                     <Form>
-                                        {fabrics && selectedFabric.id == "" && (
+                                        {fabricsFiltered && selectedFabric.id == "" && (
                                             <AllFabricsContainer
                                                 className='addArticle'
                                             >
-                                                {fabrics.value.map((fabric) => (
-                                                    <CardsMapContainer
-                                                        className="AddArticle"
-                                                        key={fabric.id}
-                                                        onClick={() => {
-                                                            setSelectedFabric({
-                                                                ...selectedFabric,
-                                                                id: fabric.id,
-                                                                name: fabric.name,
-                                                                fabric: fabric.fabric,
-                                                                photo: fabric.photo,
-                                                                stock_qty: fabric.stock_qty,
-                                                                price: fabric.price
+                                                {fabricsFiltered.map((fabric) => (
+                                                    fabric.stock_qty !== "0" && (
+                                                        <CardsMapContainer
+                                                            className="AddArticle"
+                                                            key={fabric.id}
+                                                            onClick={() => {
+                                                                setSelectedFabric({
+                                                                    ...selectedFabric,
+                                                                    id: fabric.id,
+                                                                    name: fabric.name,
+                                                                    fabric: fabric.fabric,
+                                                                    photo: fabric.photo,
+                                                                    stock_qty: fabric.stock_qty,
+                                                                    price: fabric.price
 
-                                                            }),
-                                                                setAddFabricValues({
-                                                                    ...addFabricValues,
-                                                                    fabricId: fabric.id,
-                                                                    article_cost: fabric.price
-                                                                })
+                                                                }),
+                                                                    setAddFabricValues({
+                                                                        ...addFabricValues,
+                                                                        fabric_id: fabric.id,
+                                                                        fabric_price: fabric.price
+                                                                    })
 
-                                                        }}
-                                                    >
-                                                        <CardContainer key={fabric.id}>
-                                                            <ImgContainer>
-                                                                <CardImg src={fabric.photo} alt={fabric.alt} />
-                                                            </ImgContainer>
+                                                            }}
+                                                        >
+                                                            <CardContainer key={fabric.id}>
+                                                                <ImgContainer>
+                                                                    <CardImg src={fabric.photo} alt={fabric.alt} />
+                                                                </ImgContainer>
 
-                                                            <CardText>
-                                                                {fabric.name} - {fabric.fabric} - {fabric.stock_qty} cm
-                                                            </CardText>
-                                                        </CardContainer>
-                                                    </CardsMapContainer>
+                                                                <CardText>
+                                                                    {fabric.name} - {fabric.fabric} - {fabric.stock_qty} cm
+                                                                </CardText>
+                                                            </CardContainer>
+                                                        </CardsMapContainer>
+                                                    )
+
                                                 ))}
                                             </AllFabricsContainer>
                                         )}
@@ -182,7 +169,7 @@ export const AddArticleModal = (props) => {
                                                             type="number"
                                                             mobile
                                                             id="fabric_used_size"
-                                                            name="used_size"
+                                                            name="fabric_used_size"
                                                             max={selectedFabric.stock_qty}
                                                             step="1"
                                                             // placeholder={
@@ -209,13 +196,13 @@ export const AddArticleModal = (props) => {
                                     </CancelContainer>
                                     <UpdateContainer>
                                         <UpdateButton
-                                        // onClick={(event) => {
-                                        //     handleFabricSubmit(event);
-                                        //     closeUpdateModal();
-                                        // }}
+                                            onClick={(event) => {
+                                                handleAddFabricSubmit(event);
+                                                closeAddArticleModal();
+                                            }}
 
                                         >
-                                            Ajouter
+                                            Ajouter ce tissu
                                         </UpdateButton>
 
 

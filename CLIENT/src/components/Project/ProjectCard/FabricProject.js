@@ -62,16 +62,32 @@ export const FabricProject = (props) => {
     };
 
     //ADD FABRIC
+    const { persistedReducer } = useSelector((state) => state);
+    const fabrics = persistedReducer.fabrics;
     const [showAddArticleModal, setShowAddArticleModal] = useState(false);
-    const isOpeningAddFabricModal = (id, used_size, article_cost) => {
-        // setAddFabricValues({
-        //     ...addFabricValues,
-        //     article_cost: article_cost,
-        //     fabricId: id,
-        //     used_size: ""
-        // });
+    const isOpeningAddFabricModal = () => {
         setShowAddArticleModal(!showAddArticleModal);
     };
+    const fabricsStock = fabrics.value.map(fabric => fabric.id);
+
+
+    const [fabricsFiltered, setFabricsFiltered] = useState([]);
+
+
+    const removeFabricsUsed = () => {
+        // Create array with all fabrics remaining 
+        if (fabricsStock.length > 0) {
+            let fabricsFilteredArray = [];
+            let selectedFabricIdsArray = fabricArray.map(elem => elem.id);
+
+            fabrics.value.map(fabric => {
+                !selectedFabricIdsArray.includes(fabric.id) && fabricsFilteredArray.push(fabric);
+            })
+
+            setFabricsFiltered(fabricsFilteredArray);
+        }
+    }
+
 
     return (
         <Section
@@ -88,7 +104,10 @@ export const FabricProject = (props) => {
                     TISSUS
                 </SectionTitle>
                 <AddButton
-                        onClick={isOpeningAddFabricModal}
+                        onClick={() => {
+                            isOpeningAddFabricModal();
+                            removeFabricsUsed();
+                        }}
                         className="AddOneMoreNote"
                     />
                     <AddArticleModal
@@ -99,6 +118,7 @@ export const FabricProject = (props) => {
                         addFabricValues={addFabricValues}
                         setAddFabricValues={setAddFabricValues}
                         handleAddFabricSubmit={handleAddFabricSubmit}
+                        fabricsFiltered={fabricsFiltered}
                     />
                 {showSection ? (
                     <MinusIcon onClick={isOpeningSection} />
@@ -109,9 +129,14 @@ export const FabricProject = (props) => {
             </AddReturnButtonContainer>
  
             {showSection && (
-                <CardsContainer>
+                <CardsContainer
+                    className="fabric"
+                >
                     {fabricArray.map((fabric) => (
-                        <CardContainer key={fabric.id}>
+                        <CardContainer 
+                            key={fabric.id}
+                            className="fabric"
+                        >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
                                     <ModifyButton
