@@ -99,6 +99,44 @@ const projectController = {
         }
     },
 
+    async addPattern (request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id, projectId } = request.params;
+
+            // New pattern's data
+            const patternInfo = request.body;
+
+            // Create the project in DB
+            const addPattern = await projectDataMapper.addNewPattern(
+                patternInfo,
+                projectId,
+                id
+            );
+
+            // The pattern has not been added
+            if (!addPattern) {
+                response.locals.notFound =
+                    "Une erreur est survenue : ce patron n'a pas pu être ajouté au projet.";
+                return next();
+            }
+
+            // In this case, the pattern is already used in this project"
+            if (addPattern === "pattern already used") {
+                response.locals.type = 409;
+                response.locals.conflict =
+                    "Désolé, ce patron est déjà présent dans votre projet, nous ne pouvons pas l'ajouter une nouvelle fois.";
+                return next();
+            }
+
+            // Here, the pattern has been added to the project
+            response.status(200).json({ addPattern });
+
+        } catch (error) {
+            next(error);
+        }
+    },
+
     async findAll (request, response, next) {
         try {
             // User ID targeted
