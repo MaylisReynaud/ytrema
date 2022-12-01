@@ -191,6 +191,7 @@ export const CardTitle = styled.h1`
   flex-direction: column;
   width: 100%;
   text-align: center;
+  margin-top: .7rem;
   justify-content: center;
   margin-top: 1rem;
   align-items: center;

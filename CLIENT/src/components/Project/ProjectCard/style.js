@@ -3,7 +3,8 @@ import { ArrowSmLeft } from "@styled-icons/heroicons-outline";
 import { PencilFill } from "@styled-icons/bootstrap";
 import { Trash } from "@styled-icons/boxicons-solid";
 import { PatchPlusFill } from "@styled-icons/bootstrap";
-import { PatchMinusFill } from '@styled-icons/bootstrap';
+import { MinusSm } from '@styled-icons/heroicons-solid';
+import { PlusSm } from '@styled-icons/heroicons-solid';
 import { ArrowLeftCircleFill } from '@styled-icons/bootstrap';
 
 
@@ -77,9 +78,14 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height:3rem;
+  /* height:3rem; */
   width: 100%;
   padding:.5rem 0;
+  &[class~="showSection"] {
+    flex-direction : row;
+    justify-content: space-around;
+    background-color: ${(props) => props.theme.color3};
+  }
   @media screen and (min-width: 601px) {
     height: 100vh;
     -ms-overflow-style: none;
@@ -98,73 +104,14 @@ export const ProjectTitle = styled.h1`
   @media screen and (min-width: 601px) {
   }
 `;
-export const NavProject = styled.div`
-  display: flex;
-  width:100%;
-  flex-direction: row;
-  position: relative;
-  background-image:url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2Ffond2.png?alt=media&token=fa6bbf8e-fa9a-49e2-85d4-4861fdec223d');
-  align-items: center;
-  /* margin: .8rem 0; */
-  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-`;
-export const ProjectLinksContainer = styled.div`
-    justify-content: center;
-    width: 100%;
-    height: 3rem;;
-    
-`;
-export const LinksWrapper = styled.ul`
- /* position: relative; */
-  box-shadow: 2px #222;
-  margin: 0 auto;
-  height: 100%;
-  list-style: none;
-  display:flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content:space-around;
-`;
-export const LinkItem = styled.li`
-  height: 100%;
-  margin: 1rem 0;
-`;
-export const ProjectMenuLinks = styled.a`
-  font-family: ${props => props.theme.textFont};
-  color: ${props => props.theme.color4};
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  font-size: 1.1rem;
-  transition: all 220ms ease-in-out;
-  text-decoration: none;
-  padding: 0 0.5rem;
-  height:100%;
-  cursor:pointer;
 
-  &:hover {
-    transition: all, 240ms ease-in-out;
-    border-bottom: 3px solid ${props => props.theme.color1};
-    color: ${props => props.theme.color1};
-  }
-  &.active {
-    border-bottom: 2px solid ${props => props.theme.color1};
-  }
-`;
 
 export const AddReturnButtonContainer = styled.div`
-  /* display: block; */
-  /* position: relative; */
   display: flex;
-
-  /* background-color: red; */
 `;
 
 export const AddButton = styled(PatchPlusFill)`
   display: flex;
-  /* position:absolute; */
-  /* bottom: 0%;
-  right: -10%; */
   cursor: pointer;
   width:10%;
   color: ${(props) => props.theme.color1};
@@ -192,30 +139,54 @@ export const ReturnButton = styled(ArrowLeftCircleFill)`
   }
 `;
 
+export const MinusIcon = styled(MinusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
+export const PlusIcon = styled(PlusSm)`
+    cursor: pointer;
+    color: ${props => props.theme.color4};
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    z-index: 100;
+`;
+
 export const CardsContainer = styled.div`
- display: flex;
-  flex-direction: column;
-  width:45%;
-  margin: .5rem;
-  margin-bottom:1em;
-  /* height:100%; */
-  /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  &[class~="cout"] {
-    width:98%;
-    margin-bottom: .5rem;
-  }
-  @media screen and (min-width:601px) { 
-    width:20%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 85%;
+  justify-content: space-evenly;
+  margin-bottom:1rem;
+  &[class~="Cost"] {
+    height:auto;
   }
 `;
+
 export const CardContainer = styled.div`
 display: flex;
 flex-direction: column;
-height:30vh;
-overflow-y: scroll;
+width:45%;
+margin: 1rem .5rem;
+/* margin-bottom:1em; */
+box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+height:46%;
 background-color: ${(props) => props.theme.color4};
+&[class~="otherHeight"] {
+    height: 78%;
+  }
+&[class~="fabric"] {
+  height: 11rem;
+}
 &[class~="cout"] {
+    width:98%;
+    margin-bottom: .5rem;
     height: 100%;
   }
 @media screen and (min-width:601px) { 
@@ -226,7 +197,10 @@ background-color: ${(props) => props.theme.color4};
 export const ModifyDeleteContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   margin: .5rem 1rem .5rem .5rem;
+  height: 19px;
+
   @media screen and (min-width: 601px) {
     margin-top: 1em;
   }
@@ -273,7 +247,7 @@ export const Status = styled.p`
 `;
 
 export const Section = styled.section`
-   height: 90vh;
+   /* height: 90vh; */
   display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -281,6 +255,7 @@ export const Section = styled.section`
     justify-content: space-evenly;
     width:98%;
     margin:0.2rem;
+    padding-bottom:0.5rem;
     scroll-margin-top:2rem;
     /* &[class~="tissus"] {
     margin-top: 1rem;
@@ -293,7 +268,7 @@ export const Section = styled.section`
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
   }
   &[class~="cout"] {
-    margin-bottom: 3rem;
+    /* margin-bottom: 3rem; */
     height: 100rem;
     background-image: none;
 
@@ -315,15 +290,21 @@ font : 1.2rem/1.5 '${props => props.theme.textFont}';
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
 
   }
-  
-
-  
+ 
 `;
+
+export const InfoCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 10rem;
+  justify-content: center;
+`;
+
 export const ImgContainer = styled.div`
-  height:60%;
-  &[class~="patron"] {
+  height:70%;
+  /* &[class~="patron"] {
     height: 50%;
-  }
+  } */
   &[class~="notes"] {
     height: 50%;
   }
@@ -337,16 +318,17 @@ export const CardImg = styled.img`
 `;
 
 export const CardText = styled.h3`
-  text-align: center;
   display: flex;
+  justify-content:center;
   align-items: center;
   background-color: ${props => props.theme.color4};
-  height: 8rem;
+  height: 45%;
   width:100%;
   padding: 0 .3rem;
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
-  border-bottom: 2px solid ${props => props.theme.color2} ;
+  //border-bottom: 2px solid ${props => props.theme.color2} ;
+  text-align:center;
 
   @media screen and (min-width:601px) { 
     justify-content:center;
@@ -355,83 +337,93 @@ export const CardText = styled.h3`
 `;
 
 export const CardParagraph = styled.p`
-  text-align: center;
   display: flex;
+  justify-content:center;
   align-items: center;
   background-color: ${props => props.theme.color4};
-  height: 8rem;
+  height: 50%;
   width:100%;
-  padding: 0 .3rem;
+  /* padding: 0 .3rem; */
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
-  border-bottom: 2px solid ${props => props.theme.color2} ;
+  /* border-bottom: 2px solid ${props => props.theme.color2} ; */
+  text-align:center;
+  &[class~="notes"] {
+  height: 100%;
+  }
+
   @media screen and (min-width:601px) { 
     justify-content:center;
     text-align: center;
   }
 `;
 
-export const CostTab = styled.table`
-  display: flex;
-  flex-direction: column;
-  /* overflow-y: scroll; */
-`;
-export const CostTabRow = styled.tr`
-display: flex;
-  flex-direction: row;
-  border: 1px solid ${props => props.theme.color4};
- background-color: ${props => props.theme.color2};
 
- &[class~="info"] {
+// Cost Table
+export const CostTable = styled.div`
+  /* border: 1px solid ${props => props.theme.color3}; */
+  width:100%;
+  height: auto;
+  
+
+`;
+
+export const RowTable = styled.div`
+  display : flex;
+  width:100%;
+  justify-content: space-between;
+  font : 1rem/1.5 '${props => props.theme.textFont}';
+  color: ${props => props.theme.color4};
+  background-color : ${props => props.theme.color2};
+  
+  &[class~="title"] {
+    font : 1rem/1.5 '${props => props.theme.textFont}';
+  font-weight: 600;
   padding: 0.3rem 0;
-  align-items: center;
+  background-color : ${props => props.theme.color3};
   }
   &[class~="totalCost"] {
-  justify-content: flex-end;
-  align-items: center;
-  }
-`;
-
-export const CostTabHeadCell = styled.th`
-display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width:20%;
-  
-  background-color: ${props => props.theme.color3};
-  font : 1rem/1.5 '${props => props.theme.textFont}';
+    font : 1rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color4};
   font-weight: 600;
   padding: 0.3rem 0;
-  &[class~="name"] {
-    width: auto;
-    flex-grow: 1;
   }
- 
-`; 
+`;
 
-export const CostTabCell = styled.td`
+export const ColTable = styled.div`
 display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font : 0.9rem/1.5 '${props => props.theme.textFont}';
-  color: ${props => props.theme.color4};
-  width:20%;
-
-  
-  &[class~="name"] {
-    width: auto;
-    flex-grow: 1;
-    margin-left: .3rem;
-
-  }
+  border-bottom: 2px solid ${props => props.theme.color4};
+  padding: .3em;
+  width:100%;
+  &[class~="title"] {
+    border-bottom: none;
+  };
+  &[class~="number"] {
+    justify-content: flex-end;
+    padding-right: 1em;
+  };
+  &[class~="totalCost"] {
+    border-bottom: none;
+    justify-content: flex-end;
+    padding-right: 1em;
+  };
 
 `;
 
+export const CostPictureContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+
+
+`;
 export const CostPicture = styled.img`
-  object-fit: cover;
-  width:100%;
-  margin-left: .3rem;
+  object-fit: fill;
+  border-radius: 50%;
+  border: 1px solid ${props => props.theme.color4};
+  width: 4rem;
+  height: 4rem;
 `;
