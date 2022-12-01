@@ -21,10 +21,13 @@ import {
     InfoCardContainer,
     MinusIcon,
     PlusIcon,
-    TitleContainer
+    TitleContainer,
+    AddButton,
+    AddReturnButtonContainer,
 } from "./style";
 
 import { UpdateArticle } from "./UpdateModal/UpdateArticle";
+import { AddArticleModal } from "./AddArticleModal";
 
 export const FabricProject = (props) => {
     const {
@@ -32,13 +35,20 @@ export const FabricProject = (props) => {
         fabricOnChange,
         fabricValues,
         setFabricValues,
+        handleAddFabricSubmit,
+        addFabricOnChange,
+        addFabricValues,
+        setAddFabricValues,
         fabricArray
     } = props;
 
+    // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
-    }
+    };
+
+    //UPDATE FABRIC
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = (id, used_size, article_cost) => {
         setFabricValues({
@@ -49,29 +59,84 @@ export const FabricProject = (props) => {
             used_size: ""
         });
         setShowUpdateModal(!showUpdateModal);
+    };
+
+    //ADD FABRIC
+    const { persistedReducer } = useSelector((state) => state);
+    const fabrics = persistedReducer.fabrics;
+    const [showAddArticleModal, setShowAddArticleModal] = useState(false);
+    const isOpeningAddFabricModal = () => {
+        setShowAddArticleModal(!showAddArticleModal);
+    };
+    const fabricsStock = fabrics.value.map(fabric => fabric.id);
+
+
+    const [fabricsFiltered, setFabricsFiltered] = useState([]);
+
+
+    const removeFabricsUsed = () => {
+        // Create array with all fabrics remaining 
+        if (fabricsStock.length > 0) {
+            let fabricsFilteredArray = [];
+            let selectedFabricIdsArray = fabricArray.map(elem => elem.id);
+
+            fabrics.value.map(fabric => {
+                !selectedFabricIdsArray.includes(fabric.id) && fabricsFilteredArray.push(fabric);
+            })
+
+            setFabricsFiltered(fabricsFilteredArray);
+        }
     }
+
 
     return (
         <Section
             id='"tissus'
             className="tissus"
         >
+            <AddReturnButtonContainer>
             <TitleContainer
                 className="showSection"
             >
-                <SectionTitle>
+                <SectionTitle
+                    className="addArticle"
+                >
                     TISSUS
                 </SectionTitle>
+                <AddButton
+                        onClick={() => {
+                            isOpeningAddFabricModal();
+                            removeFabricsUsed();
+                        }}
+                        className="AddOneMoreNote"
+                    />
+                    <AddArticleModal
+                        setShowAddArticleModal={setShowAddArticleModal}
+                        showAddArticleModal={showAddArticleModal}
+                        word={'AJOUTER UN TISSU'}
+                        addFabricOnChange={addFabricOnChange}
+                        addFabricValues={addFabricValues}
+                        setAddFabricValues={setAddFabricValues}
+                        handleAddFabricSubmit={handleAddFabricSubmit}
+                        fabricsFiltered={fabricsFiltered}
+                    />
                 {showSection ? (
                     <MinusIcon onClick={isOpeningSection} />
                 ) : (
                     <PlusIcon onClick={isOpeningSection} />
                 )}
             </TitleContainer>
+            </AddReturnButtonContainer>
+ 
             {showSection && (
-                <CardsContainer>
+                <CardsContainer
+                    className="fabric"
+                >
                     {fabricArray.map((fabric) => (
-                        <CardContainer key={fabric.id}>
+                        <CardContainer 
+                            key={fabric.id}
+                            className="fabric"
+                        >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
                                     <ModifyButton

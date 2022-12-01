@@ -40,6 +40,9 @@ export const FormContainer = styled.div`
     width: 100%;
     margin: 0 1.3rem;
     font-family:'${props => props.theme.textFont}';
+    &[class~="addArticle"] {
+    overflow-y: scroll;
+  }
     @media screen and (min-width:601px) { 
         /* width: 90%;
         height:100%; */
@@ -304,6 +307,9 @@ export const AllFabricsContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  &[class~="addArticle"] {
+    width:98%;
+  }
 `;
 
 export const CardsContainer = styled.div`
@@ -320,6 +326,9 @@ export const CardsContainer = styled.div`
     height:auto;
     width:100%;
     margin-bottom:1.5em;
+    &[class~="AddArticle"] {
+      width:90%;
+  }
    
     @media screen and (min-width:601px) { 
       height:100%;

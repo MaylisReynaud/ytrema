@@ -40,7 +40,7 @@ export const UpdateArticle = (props) => {
     } = props
 
     const { persistedReducer } = useSelector((state) => state);
-;
+
     const fabrics = persistedReducer.fabrics;
     const fabricCard = fabrics.value.find((fabric) => fabric.id == fabricValues.fabricId);
 

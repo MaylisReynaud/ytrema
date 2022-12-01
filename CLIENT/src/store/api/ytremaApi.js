@@ -334,6 +334,21 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Project', 'Fabric'],
   }),
+  addOneFabricProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      console.log(arg, "<--arg dans addOneFabricProject")
+      return {
+        url: `/project/${projectId}/add/fabric/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project', 'Fabric'],
+  }),
   })
 });
 
@@ -363,5 +378,6 @@ export const {
               useDeleteAllProjectsMutation, 
               useUpdateOneProjectMutation,
               useUpdateOneFabricProjectMutation,
+              useAddOneFabricProjectMutation
              } = ytremaApi;
 
