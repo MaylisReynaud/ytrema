@@ -350,6 +350,80 @@ const projectDataMapper = {
         return allProject;
     },
 
+    async addNewPattern(patternInfoToAdd, projectId, id) {
+        // pattern info to add
+        const { pattern_id: patternId, pattern_price: price } = patternInfoToAdd;
+
+        // Check if this project belongs to this member
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
+
+        if (!existingProject) {
+            return null;
+        }
+
+        // Check if this pattern belongs to this member
+        let query = {
+            text: `SELECT * FROM "pattern" WHERE "id" = $1 AND "member_id" = $2`,
+            values: [patternId, id],
+        };
+
+        // Send query to DB
+        const doesThisPatternBelongToThisMember = await client.query(query);
+
+        // This pattern has not been found  --error404
+        if (doesThisPatternBelongToThisMember == 0) {
+            return null;
+        }
+
+        // Check if this project already has this pattern
+        query = {
+            text: `SELECT * FROM "project_has_pattern" WHERE "pattern_id" = $1 AND "project_id" = $2`,
+            values: [patternId, projectId],
+        };
+
+        // Send query to DB
+        const doesThisProjectHasThisPattern = await client.query(query);
+
+        // This project has already contain this pattern  --error409
+        if (doesThisProjectHasThisPattern.rowCount == 1) {
+            return "pattern already used";
+        }
+
+        // Convert the cost of pattern used
+        const articleCost = Number(price.toFixed(2));
+
+        // Query to add the pattern in project_has_pattern
+        query = {
+            text: `INSERT INTO "project_has_pattern"("project_id", "pattern_id", "article_cost") VALUES ($1, $2, $3)`,
+            values: [projectId, patternId, articleCost],
+        };
+
+        // Send query to DB
+        await client.query(query);
+
+        // Query to update in DB the field cost_price in the table project
+        query = {
+            text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric + $2::numeric) WHERE "id" = $1 RETURNING *`,
+            values: [projectId, articleCost],
+        };
+
+        // Send query to DB
+        // const updatedProjectResult = await client.query(query);
+        await client.query(query);
+
+        const allProject = await this.getAllProjects(id);
+        // Get request result
+        // const { rows: updatedProject } = updatedProjectResult;
+
+        // Return result
+        // return updatedProject[0];
+        return allProject;
+    },
+
     async getAllProjects(id) {
         // Query to get allproject in DB without
         const query = {
