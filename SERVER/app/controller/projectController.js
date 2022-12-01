@@ -83,6 +83,14 @@ const projectController = {
                 return next();
             }
 
+            // In this case, the haberdashery is already used in this project, so the client must use "updateHaberdasheryUsed" not "addHaberdashery"
+            if (addHaberdashery === "Update haberdashery") {
+                response.locals.type = 409;
+                response.locals.conflict =
+                    "Désolé, cet article de mercerie est déjà présent dans votre projet, nous ne pouvons pas l'ajouter une nouvelle fois. En cas de modification de la quantité utilisée merci de bien vouloir modifier la fiche directement.";
+                return next();
+            }
+
             // Here, the haberdashery has been added to the project
             response.status(200).json({ addHaberdashery });
 
