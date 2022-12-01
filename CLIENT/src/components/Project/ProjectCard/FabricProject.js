@@ -28,7 +28,7 @@ import {
 import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
 import { addAllFabrics } from "../../../store/state/fabricSlice";
 import { UpdateFabric } from "./UpdateModal/UpdateFabric";
-import { AddArticleModal } from "./AddArticleModal";
+import { AddFabricModal } from "./AddArticleModal/AddFabricModal";
 
 export const FabricProject = (props) => {
     const {
@@ -125,7 +125,7 @@ export const FabricProject = (props) => {
                         }}
                         className="AddOneMoreNote"
                     />
-                    <AddArticleModal
+                    <AddFabricModal
                         setShowAddArticleModal={setShowAddArticleModal}
                         showAddArticleModal={showAddArticleModal}
                         word={'AJOUTER UN TISSU'}
