@@ -310,7 +310,35 @@ const projectController = {
         } catch (error) {
             next(error)
         }
-    }
+    },
+
+    async deleteArticle(request, response, next) {
+        try {
+            // User ID, project ID, article category and article ID targeted
+            const { userId: id, projectId, entity, entityId } = request.params;
+
+            if (entity !== "fabric" && entity !== "haberdashery" && entity !== "pattern") {
+                response.locals.notFound =
+                    `Une erreur est survenue : ${entity} ne correspond à aucune catégorie d'articles. Aucune suppression n'a été effectuée dans votre projet.`;
+                return next();
+            }
+
+            // Delete the article in this project
+            const articleToDelete = await projectDataMapper.deleteArticleInProject(id, projectId, entity, entityId);
+
+            // No data deleted because this project does not contain this article
+            if (!articleToDelete) {
+                response.locals.notFound =
+                    "Une erreur est survenue : cet article n'est pas répertorié dans votre projet. Il n'a pas pu être supprimé.";
+                return next();
+            }
+
+            // Here, the article is deleted in the project
+            return response.status(204).json();
+        } catch (error) {
+            next(error);
+        }
+    },
 };
 
 
