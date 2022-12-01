@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-import { DeviceSize } from "../../Navbar/Responsive";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
 
 import {
     CardsContainer,
@@ -27,7 +24,7 @@ import {
 } from "./style";
 
 import { UpdateHaberdashery } from "./UpdateModal/UpdateHaberdashery";
-import { AddArticleModal } from "./AddArticleModal";
+import { AddHaberdasheryModal } from "./AddArticleModal/AddHaberdasheryModal";
 import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
 
@@ -55,17 +52,21 @@ export const HaberdasheryProject = (props) => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const isOpeningUpdateModal = (id, used_size, article_cost) => {
+    const isOpeningUpdateModal = (id, is_cut, is_a_set, size, price, used_size) => {
         setHaberdasheryValues({
             ...haberdasheryValues,
-            old_used_size: used_size,
-            old_article_cost: article_cost,
-            haberdasheryId: id,
-            used_size: ""
+            haberdashery_id: id,
+            haberdashery_is_cut: is_cut,
+            haberdashery_is_a_set: is_a_set,
+            haberdashery_article_qty: "",
+            haberdashery_size: size,
+            haberdashery_price: price,
+            haberdashery_used_size: "",
         });
         setShowUpdateModal(!showUpdateModal);
     };
 
+    // ADD HABERDASHERY
     const { data, isSuccess } = useGetAllHaberdasheriesQuery(auth.id);
     useEffect(() => {
         if ((isSuccess) && data) {
@@ -73,7 +74,29 @@ export const HaberdasheryProject = (props) => {
         }
     }, [data]);
 
+    const haberdasheries = persistedReducer.haberdasheries;
+    const [showAddArticleModal, setShowAddArticleModal] = useState(false);
+    const isOpeningAddHaberdasheryModal = () => {
+        setShowAddArticleModal(!showAddArticleModal);
+    };
+    const haberdasheriesStock = haberdasheries.value.map(haberdashery => haberdashery.id);
 
+    const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
+
+
+    const removeHaberdasheriesUsed = () => {
+        // Create array with all haberdasheries remaining 
+        if (haberdasheriesStock.length > 0) {
+            let haberdasheriesFilteredArray = [];
+            let selectedHaberdasheryIdsArray = haberdasheryArray.map(elem => elem.id);
+
+            haberdasheries.value.map(haberdashery => {
+                !selectedHaberdasheryIdsArray.includes(haberdashery.id) && haberdasheriesFilteredArray.push(haberdashery);
+            })
+
+            setHaberdasheriesFiltered(haberdasheriesFilteredArray);
+        }
+    }
     return (
         <Section
             id='mercerie'
@@ -88,11 +111,21 @@ export const HaberdasheryProject = (props) => {
                         MERCERIE
                     </SectionTitle>
                     <AddButton
-                        // onClick={() => {
-                        //     isOpeningAddFabricModal();
-                        //     removeFabricsUsed();
-                        // }}
+                        onClick={() => {
+                            isOpeningAddHaberdasheryModal();
+                            removeHaberdasheriesUsed();
+                        }}
                         className="AddOneMoreNote"
+                    />
+                    <AddHaberdasheryModal
+                        setShowAddArticleModal={setShowAddArticleModal}
+                        showAddArticleModal={showAddArticleModal}
+                        word={'AJOUTER UNE MERCERIE'}
+                        addHaberdasheryOnChange={addHaberdasheryOnChange}
+                        addHaberdasheryValues={addHaberdasheryValues}
+                        setAddHaberdasheryValues={setAddHaberdasheryValues}
+                        handleAddHaberdasherySubmit={handleAddHaberdasherySubmit}
+                        haberdasheriesFiltered={haberdasheriesFiltered}
                     />
                     {showSection ? (
                         <MinusIcon onClick={isOpeningSection} />

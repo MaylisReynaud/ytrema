@@ -45,7 +45,6 @@ export const projectSlice = createSlice({
       );
     },
     addFabricProject: (state, action) => {
-      console.log("coucou dans addFabric Projectslice")
       state.value.push(action.payload);
     },
     updateHaberdasheryProject: (state, action) => {
@@ -63,6 +62,9 @@ export const projectSlice = createSlice({
       }
 
       );
+    },
+    addHaberdasheryProject: (state, action) => {
+      state.value.push(action.payload);
     },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
@@ -82,6 +84,7 @@ export const {
   updateFabricProject,
   addFabricProject,
   updateHaberdasheryProject,
+  addHaberdasheryProject,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;

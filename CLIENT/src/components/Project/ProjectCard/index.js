@@ -41,13 +41,10 @@ import { CostProject } from "./CostProject";
 
 import { useUpdateOneFabricProjectMutation } from "../../../store/api/ytremaApi";
 import { updateFabricProject } from "../../../store/state/projectSlice";
-
 import { useAddOneFabricProjectMutation } from "../../../store/api/ytremaApi";
-
-
 import { useUpdateOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
-
 import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
+import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -191,8 +188,6 @@ const handleFabricSubmit = async (event) => {
 const fabricArray = projectCard.fabric_array;
 
 // ADD A NEW FABRIC TO PROJECT
-
-
 const [addFabricValues, setAddFabricValues] = useState({
     fabric_used_size: "",
     fabric_price: "",
@@ -221,7 +216,6 @@ const handleAddFabricSubmit = async (event) => {
     if(addFabric) {
       
         const projectUsed = addFabric.find((project) => project.id == projectCard.id)
-        console.log(projectUsed, "projectUsed dans ProjectCard")
         dispatch(updateFabricProject(projectUsed));
 
         toast.success('Projet modifié avec succès👌', {
@@ -240,8 +234,6 @@ const handleAddFabricSubmit = async (event) => {
 };
 
 // UPDATE HABERDASHERY CARD
-
-
 const [haberdasheryValues, setHaberdasheryValues] = useState({
     used_size: "",
     old_used_size: "",
@@ -254,7 +246,7 @@ const [updateOneHaberdasheryProject] = useUpdateOneHaberdasheryProjectMutation(p
 const haberdasheryOnChange = (event) => {
     setHaberdasheryValues({ ...haberdasheryValues, [event.target.name]: event.target.value });
 };
-console.log(haberdasheryValues, "<--hab values sur index")
+
 
 const handleHaberdasherySubmit = async (event) => {
     event.preventDefault();
@@ -291,6 +283,59 @@ const handleHaberdasherySubmit = async (event) => {
 };
 
 const haberdasheryArray = projectCard.haberdashery_array;
+
+// ADD A NEW HABERDASHERY TO PROJECT
+const [addHaberdasheryValues, setAddHaberdasheryValues] = useState({
+    haberdashery_id: "",
+    haberdashery_is_cut: "",
+    haberdashery_is_a_set: "",
+    haberdashery_article_qty: "",
+    haberdashery_size: "",
+    haberdashery_price: "",
+    haberdashery_used_size: ""
+});
+
+console.log(addHaberdasheryValues, "<--addHaberdasheryValues")
+
+const [addHaberdasheryProject] = useAddOneHaberdasheryProjectMutation(projectCard.id, auth.id, addHaberdasheryValues.haberdashery_id);
+
+const addHaberdasheryOnChange = (event) => {
+    setAddHaberdasheryValues({ ...addHaberdasheryValues, [event.target.name]: event.target.value });
+};
+
+const handleAddHaberdasherySubmit = async (event) => {
+    event.preventDefault();
+
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        // fabricId: addFabricValues.fabric_id,
+        body: addHaberdasheryValues,
+    };
+
+   const { addHaberdashery } = await addHaberdasheryProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    if(addHaberdashery) {
+      
+        const projectUsed = addHaberdashery.find((project) => project.id == projectCard.id)
+        console.log(projectUsed, "projectUsed dans ProjectCard")
+        dispatch(updateHaberdasheryProject(projectUsed));
+
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
+    
+};
 
 
     return (
@@ -369,10 +414,10 @@ const haberdasheryArray = projectCard.haberdashery_array;
                             haberdasheryValues={ haberdasheryValues}
                             setHaberdasheryValues={setHaberdasheryValues}
                             haberdasheryArray={ haberdasheryArray}
-                            // handleAddHaberdasherySubmit={handleAddHaberdasherySubmit}
-                            // addHaberdasheryOnChange={addHaberdasheryOnChange}
-                            // addHaberdasheryValues={addHaberdasheryValues}
-                            // setAddHaberdasheryValues={setAddHaberdasheryValues}
+                            handleAddHaberdasherySubmit={handleAddHaberdasherySubmit}
+                            addHaberdasheryOnChange={addHaberdasheryOnChange}
+                            addHaberdasheryValues={addHaberdasheryValues}
+                            setAddHaberdasheryValues={setAddHaberdasheryValues}
                         />
                         <PatternProject />
                        <NoteProject/>
