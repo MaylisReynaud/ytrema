@@ -40,6 +40,9 @@ export const FormContainer = styled.div`
     width: 100%;
     margin: 0 1.3rem;
     font-family:'${props => props.theme.textFont}';
+    &[class~="addArticle"] {
+    overflow-y: scroll;
+  }
     @media screen and (min-width:601px) { 
         /* width: 90%;
         height:100%; */
@@ -93,6 +96,10 @@ export const InformationLabel = styled.label`
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
   background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G7.png?alt=media&token=fe02984f-e05b-4dc3-8184-3276784c56d0');
+  &[class~="update"] {
+    width: 25%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
+  }
   @media screen and (min-width: 601px) {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/brush%2Fbrush-G10.png?alt=media&token=f322f2cd-7985-40a4-b9fb-ed75bc1c18fe');
     width: 20%;
@@ -126,6 +133,13 @@ export const InformationInput = styled.input`
     border: 1px solid red;
     background-color: #ffe0d3;
   }
+  &[class~="update"] {
+    
+    width: 57%;
+    ::placeholder {
+      color:  ${(props) => props.theme.color4};
+  }
+  }
 `;
 
 export const InformationSelect = styled.select`
@@ -148,6 +162,9 @@ export const InformationSelect = styled.select`
   }
   ::placeholder {
     color: grey;
+  }
+  &[class~="update"] {
+    width: 57%;
   }
 `;
 
@@ -213,6 +230,9 @@ export const PreviewContainer = styled.div`
   &[class~="haberdashery"] {
     background-image: url('https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/projet%2FhaberdasheryBackground2.png?alt=media&token=43265e04-592d-4b90-81bb-6053557c8868');
   }
+  &[class~="articleUpdate"] {
+    width: 89%;
+  }
 `;
 
 export const PreviewButtonContainer = styled.div`
@@ -221,6 +241,7 @@ export const PreviewButtonContainer = styled.div`
   &[class~="firstShow"] {
     padding-bottom: 3rem;
   }
+
 `;
 
 export const Preview = styled.img`
@@ -286,6 +307,9 @@ export const AllFabricsContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
+  &[class~="addArticle"] {
+    width:98%;
+  }
 `;
 
 export const CardsContainer = styled.div`
@@ -302,6 +326,9 @@ export const CardsContainer = styled.div`
     height:auto;
     width:100%;
     margin-bottom:1.5em;
+    &[class~="AddArticle"] {
+      width:90%;
+  }
    
     @media screen and (min-width:601px) { 
       height:100%;

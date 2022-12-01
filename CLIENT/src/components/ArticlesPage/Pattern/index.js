@@ -142,7 +142,7 @@ export function Pattern(props, index) {
     //show one filter
     let newCategory = [];
     let uniqueObject = {};
-console.log(categoryObject, 'categoryObject');
+
     categoryObject.map((el, index) => {
       let objName = el["name"];
 
@@ -313,7 +313,6 @@ console.log(categoryObject, 'categoryObject');
               filterByCategory.length == 0 ? (
               <>
                 <CardsContainer>
-                  {console.log(patterns, 'patterns')}
                   {patterns.value.map((pattern) => (
                     <CardsMapContainer key={pattern.id}>
                       <Link to={`/patrons/${pattern.id}`} >
