@@ -125,7 +125,7 @@ export const AddFabricModal = (props) => {
                                                                             setAddFabricValues({
                                                                                 ...addFabricValues,
                                                                                 fabric_id: fabric.id,
-                                                                                fabric_price: fabric.price
+                                                                                fabric_price: Number(fabric.price)
                                                                             })
 
                                                                     }}

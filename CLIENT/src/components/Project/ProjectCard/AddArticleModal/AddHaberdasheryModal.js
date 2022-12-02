@@ -144,7 +144,7 @@ export const AddHaberdasheryModal = (props) => {
                                                                     haberdashery_is_a_set: haberdashery.is_a_set,
                                                                     haberdashery_article_qty: haberdashery.article_qty,
                                                                     haberdashery_size: haberdashery.size,
-                                                                    haberdashery_price: haberdashery.price
+                                                                    haberdashery_price: Number(haberdashery.price)
 
                                                                 })
 
