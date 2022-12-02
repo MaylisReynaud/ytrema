@@ -144,7 +144,7 @@ export const AddHaberdasheryModal = (props) => {
                                                                     haberdashery_is_a_set: haberdashery.is_a_set,
                                                                     haberdashery_article_qty: haberdashery.article_qty,
                                                                     haberdashery_size: haberdashery.size,
-                                                                    haberdashery_price: haberdashery.price
+                                                                    haberdashery_price: Number(haberdashery.price)
 
                                                                 })
 
@@ -173,7 +173,10 @@ export const AddHaberdasheryModal = (props) => {
                                                 className='articleUpdate'
                                             >
                                                 <PreviewButtonContainer>
-                                                    <Preview src={selectedHaberdashery.photo}></Preview>
+                                                    <Preview 
+                                                        className='project'
+                                                        src={selectedHaberdashery.photo}
+                                                    ></Preview>
 
                                                 </PreviewButtonContainer>
 
