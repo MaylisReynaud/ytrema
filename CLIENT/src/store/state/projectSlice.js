@@ -45,7 +45,44 @@ export const projectSlice = createSlice({
       );
     },
     addFabricProject: (state, action) => {
-      console.log("coucou dans addFabric Projectslice")
+      state.value.push(action.payload);
+    },
+    updateHaberdasheryProject: (state, action) => {
+      state.value = state.value.map((project) => {
+        if (project.id === action.payload.id) {
+          return {
+            ...project,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...project
+          }
+        }
+      }
+
+      );
+    },
+    addHaberdasheryProject: (state, action) => {
+      state.value.push(action.payload);
+    },
+    updatePatternProject: (state, action) => {
+      state.value = state.value.map((project) => {
+        if (project.id === action.payload.id) {
+          return {
+            ...project,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...project
+          }
+        }
+      }
+
+      );
+    },
+    addPatternProject: (state, action) => {
       state.value.push(action.payload);
     },
     deleteProject: (state, action) => {
@@ -65,6 +102,10 @@ export const {
   updateProject,
   updateFabricProject,
   addFabricProject,
+  updateHaberdasheryProject,
+  addHaberdasheryProject,
+  updatePatternProject,
+  addPatternProject,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;

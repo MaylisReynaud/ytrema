@@ -28,21 +28,21 @@ import {
 
 import { useSelector } from "react-redux";
 
-export const UpdateArticle = (props) => {
+export const UpdateHaberdashery = (props) => {
     const { 
         showUpdateModal, 
         setShowUpdateModal, 
         word, 
-        fabricOnChange, 
-        fabricValues, 
-        setFabricValues, 
-        handleFabricSubmit, 
+        haberdasheryOnChange, 
+        haberdasheryValues, 
+        setHaberdasheryValues, 
+        handleHaberdasherySubmit, 
     } = props
 
     const { persistedReducer } = useSelector((state) => state);
 
-    const fabrics = persistedReducer.fabrics;
-    const fabricCard = fabrics.value.find((fabric) => fabric.id == fabricValues.fabricId);
+    const haberdasheries = persistedReducer.haberdasheries;
+    const haberdasheryCard = haberdasheries.value.find((haberdashery) => haberdashery.id == haberdasheryValues.haberdasheryId);
 
 
     const closeUpdateModal = () => {
@@ -75,24 +75,24 @@ export const UpdateArticle = (props) => {
                             showUpdateModal={showUpdateModal}
                         >
                             <ModalContent
-                                className='articleUpdate       '
+                                className='articleUpdate'
                             >
                                 <UpdateTitle>{word}</UpdateTitle>
 
                                 <FormContainer>
                                     <Form>
-                                        <AddOneArticleContainer key={fabricCard.id}>
+                                        <AddOneArticleContainer key={haberdasheryCard.id}>
                                             <PreviewContainer
                                                 className='articleUpdate'
                                             >
                                                 <PreviewButtonContainer>
-                                                    <Preview src={fabricCard.photo}></Preview>
+                                                    <Preview src={haberdasheryCard.photo}></Preview>
                                                     
                                                 </PreviewButtonContainer>
 
                                                 <SelectedArticleInfo>
-                                                    {fabricCard.name} - {fabricCard.designer} - quantité en stock : {" "}
-                                                    {fabricCard.stock_qty} cm
+                                                    {haberdasheryCard.name} - quantité en stock : {" "}
+                                                    {haberdasheryCard.stock_qty}
                                                 </SelectedArticleInfo>
                                                 <QuantityContainer>
                                                     <QuantityLabel htmlFor="fabric_used_size">
@@ -101,15 +101,15 @@ export const UpdateArticle = (props) => {
                                                     <QuantityInput
                                                         type="number"
                                                         mobile
-                                                        id="fabric_used_size"
-                                                        data-selectedfabricid={fabricCard.id}
+                                                        id="haberdashery_used_size"
+                                                        data-selectedfabricid={haberdasheryCard.id}
                                                         name="used_size"
-                                                        max={fabricCard.stock_qty}
+                                                        max={haberdasheryCard.stock_qty}
                                                         step="1"
                                                         placeholder={
-                                                            fabricValues.old_used_size
+                                                            haberdasheryValues.old_used_size
                                                         }
-                                                        onChange={fabricOnChange}
+                                                        onChange={haberdasheryOnChange}
                                                     ></QuantityInput>
                                                 </QuantityContainer>
                                             </PreviewContainer>
@@ -127,7 +127,7 @@ export const UpdateArticle = (props) => {
                                     <UpdateContainer>
                                         <UpdateButton
                                             onClick={(event) => {
-                                                handleFabricSubmit(event);
+                                                handleHaberdasherySubmit(event);
                                                 closeUpdateModal();
                                             }}
 

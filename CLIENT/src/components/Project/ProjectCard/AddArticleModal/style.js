@@ -38,10 +38,10 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     &[class~="updateArticle"] {
-    height: 60%;
+    height: 63%;
   }
   &[class~="addArticle"] {
-    height: 60%;
+    height: 63%;
   }
     @media screen and (min-width:601px) { 
         height:27%;
@@ -125,6 +125,10 @@ export const ButtonsContainer = styled.div`
         margin:unset;
         margin-top:1rem;
   }
+  &[class~="noStock"] {
+        justify-content: center;
+        align-items: center;
+  }
 `;
 export const CancelContainer = styled.div`
     display: flex;
@@ -143,6 +147,11 @@ export const UpdateContainer = styled.div`
     display: flex;
     justify-content: flex-start;
     width: 75%;
+    &[class~="noStock"] {
+        justify-content: center;
+        margin-left: 3rem;
+        margin-bottom:1rem;
+  }
 
 
 `;
@@ -158,6 +167,9 @@ export const UpdateButton = styled.button`
         font-family: '${props => props.theme.textFont}';
         font-size: 1em;
         font-weight: 600;
+        &[class~="noStock"] {
+        justify-content: center;
+  }
 `;
 export const CloseModalButton = styled(Close)`
     cursor: pointer;
@@ -232,5 +244,30 @@ export const ProjectName = styled.textarea`
   }
   @media screen and (min-width: 601px) {
     width: 60%;
+  }
+`;
+
+export const NoStockContainer = styled.div`
+  display :flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
+`;
+
+export const NoStockImg = styled.img`
+width: 100%;
+object-fit: cover;
+`;
+export const NoStockText = styled.h3`
+  text-align: center;
+  width:100%;
+  font : 1rem/1.5 '${props => props.theme.textFont}';
+  font-weight: 600;
+  color: ${props => props.theme.color2};
+  margin-top: 2rem;
+
+  @media screen and (min-width:601px) { 
+    justify-content:center;
+    text-align: center;
   }
 `;

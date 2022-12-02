@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-import { DeviceSize } from "../../Navbar/Responsive";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    useDeleteOneProjectMutation,
-    useUpdateOneProjectMutation
-} from "../../../store/api/ytremaApi";
-import {
-    updateProject,
-    deleteProject
-} from "../../../store/state/projectSlice";
 
 import {
     CardsContainer,
@@ -28,71 +18,166 @@ import {
     InfoCardContainer,
     MinusIcon,
     PlusIcon,
-    TitleContainer
+    TitleContainer,
+    AddButton,
+    AddReturnButtonContainer,
 } from "./style";
-import { DeleteModal } from "../../DeleteModal";
 
-export const HaberdasheryProject = () => {
-    const { id } = useParams();
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-    let navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { persistedReducer } = useSelector((state) => state);
-    const auth = persistedReducer.auth;
-    const projects = persistedReducer.projects;
-    const projectCard = projects.value.find((project) => project.id == id);
+import { UpdateHaberdashery } from "./UpdateModal/UpdateHaberdashery";
+import { AddHaberdasheryModal } from "./AddArticleModal/AddHaberdasheryModal";
+import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
+import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
+
+export const HaberdasheryProject = (props) => {
+    const {
+        handleHaberdasherySubmit,
+        haberdasheryOnChange,
+        haberdasheryValues,
+        setHaberdasheryValues,
+        haberdasheryArray,
+        handleAddHaberdasherySubmit,
+        addHaberdasheryOnChange,
+        addHaberdasheryValues,
+        setAddHaberdasheryValues
+    } = props;
+
+    // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
-    }
+    };
 
+    //UPDATE HABERDASHERY
+    const dispatch = useDispatch();
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const isOpeningUpdateModal = (id, is_cut, is_a_set, size, price, used_size) => {
+        setHaberdasheryValues({
+            ...haberdasheryValues,
+            haberdashery_id: id,
+            haberdashery_is_cut: is_cut,
+            haberdashery_is_a_set: is_a_set,
+            haberdashery_article_qty: "",
+            haberdashery_size: size,
+            haberdashery_price: price,
+            haberdashery_used_size: "",
+        });
+        setShowUpdateModal(!showUpdateModal);
+    };
+
+    // ADD HABERDASHERY
+    const { data, isSuccess } = useGetAllHaberdasheriesQuery(auth.id);
+    useEffect(() => {
+        if ((isSuccess) && data) {
+            dispatch(addAllHaberdasheries(data.haberdasheries));
+        }
+    }, [data]);
+
+    const haberdasheries = persistedReducer.haberdasheries;
+    const [showAddArticleModal, setShowAddArticleModal] = useState(false);
+    const isOpeningAddHaberdasheryModal = () => {
+        setShowAddArticleModal(!showAddArticleModal);
+    };
+    const haberdasheriesStock = haberdasheries.value.map(haberdashery => haberdashery.id);
+
+    const [haberdasheriesFiltered, setHaberdasheriesFiltered] = useState([]);
+
+
+    const removeHaberdasheriesUsed = () => {
+        // Create array with all haberdasheries remaining 
+        if (haberdasheriesStock.length > 0) {
+            let haberdasheriesFilteredArray = [];
+            let selectedHaberdasheryIdsArray = haberdasheryArray.map(elem => elem.id);
+
+            haberdasheries.value.map(haberdashery => {
+                !selectedHaberdasheryIdsArray.includes(haberdashery.id) && haberdasheriesFilteredArray.push(haberdashery);
+            })
+
+            setHaberdasheriesFiltered(haberdasheriesFilteredArray);
+        }
+    }
     return (
         <Section
             id='mercerie'
             className="mercerie"
         >
-             <TitleContainer
-                className="showSection"
-            >
-            <SectionTitle
-                className="mercerie">
-                MERCERIE
-            </SectionTitle>
-            {showSection ? (
-                <MinusIcon onClick={isOpeningSection} />
-            ) : (
-                <PlusIcon onClick={isOpeningSection} />
-            )}
-            </TitleContainer>
+            <AddReturnButtonContainer>
+                <TitleContainer
+                    className="showSection"
+                >
+                    <SectionTitle
+                        className="mercerie">
+                        MERCERIE
+                    </SectionTitle>
+                    <AddButton
+                        onClick={() => {
+                            isOpeningAddHaberdasheryModal();
+                            removeHaberdasheriesUsed();
+                        }}
+                        className="AddOneMoreNote"
+                    />
+                    <AddHaberdasheryModal
+                        setShowAddArticleModal={setShowAddArticleModal}
+                        showAddArticleModal={showAddArticleModal}
+                        word={'AJOUTER UNE MERCERIE'}
+                        addHaberdasheryOnChange={addHaberdasheryOnChange}
+                        addHaberdasheryValues={addHaberdasheryValues}
+                        setAddHaberdasheryValues={setAddHaberdasheryValues}
+                        handleAddHaberdasherySubmit={handleAddHaberdasherySubmit}
+                        haberdasheriesFiltered={haberdasheriesFiltered}
+                    />
+                    {showSection ? (
+                        <MinusIcon onClick={isOpeningSection} />
+                    ) : (
+                        <PlusIcon onClick={isOpeningSection} />
+                    )}
+                </TitleContainer>
+            </AddReturnButtonContainer>
             {showSection && (
-            <CardsContainer>
-                {projectCard.haberdashery_array.map((haberdashery) => (
-                    <CardContainer key={haberdashery.id}>
-                        <ModifyDeleteContainer>
-                            <ModifyContainer>
-                                <ModifyButton />
-                            </ModifyContainer>
-                            <TrashContainer>
-                                <TrashButton />
-                            </TrashContainer>
-                        </ModifyDeleteContainer>
-                        <Link to={`/mercerie/${haberdashery.id}`}>
-                            <InfoCardContainer>
-                                <ImgContainer>
-                                    <CardImg
-                                        src={haberdashery.photo}
-                                        alt={haberdashery.name}
+                <CardsContainer>
+
+                    {haberdasheryArray.map((haberdashery) => (
+                        <CardContainer key={haberdashery.id}>
+                            <ModifyDeleteContainer>
+                                <ModifyContainer>
+                                    <ModifyButton
+                                        aria-label="Modifier cet article"
+                                        onClick={() => {
+                                            isOpeningUpdateModal(haberdashery.id, haberdashery.used_size, haberdashery.article_cost)
+                                        }}
                                     />
-                                </ImgContainer>
-                                <CardText
-                                    className="mercerie"
-                                >quantité : {haberdashery.used_size}</CardText>
-                            </InfoCardContainer>
-                        </Link>
-                    </CardContainer>
-                ))}
-            </CardsContainer>
+                                </ModifyContainer>
+                                <TrashContainer>
+                                    <TrashButton />
+                                </TrashContainer>
+                            </ModifyDeleteContainer>
+                            <Link to={`/mercerie/${haberdashery.id}`}>
+                                <InfoCardContainer>
+                                    <ImgContainer>
+                                        <CardImg
+                                            src={haberdashery.photo}
+                                            alt={haberdashery.name}
+                                        />
+                                    </ImgContainer>
+                                    <CardText
+                                        className="mercerie"
+                                    >quantité : {haberdashery.used_size}</CardText>
+                                </InfoCardContainer>
+                            </Link>
+                        </CardContainer>
+                    ))
+                    }
+                    <UpdateHaberdashery
+                        setShowUpdateModal={setShowUpdateModal}
+                        showUpdateModal={showUpdateModal}
+                        word={'MODIFIER CET ARTICLE'}
+                        haberdasheryOnChange={haberdasheryOnChange}
+                        haberdasheryValues={haberdasheryValues}
+                        setHaberdasheryValues={setHaberdasheryValues}
+                        handleHaberdasherySubmit={handleHaberdasherySubmit}
+                    />
+                </CardsContainer>
             )}
         </Section>
     )

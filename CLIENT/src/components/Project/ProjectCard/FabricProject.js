@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
@@ -25,9 +25,10 @@ import {
     AddButton,
     AddReturnButtonContainer,
 } from "./style";
-
-import { UpdateArticle } from "./UpdateModal/UpdateArticle";
-import { AddArticleModal } from "./AddArticleModal";
+import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
+import { addAllFabrics } from "../../../store/state/fabricSlice";
+import { UpdateFabric } from "./UpdateModal/UpdateFabric";
+import { AddFabricModal } from "./AddArticleModal/AddFabricModal";
 
 export const FabricProject = (props) => {
     const {
@@ -49,6 +50,15 @@ export const FabricProject = (props) => {
     };
 
     //UPDATE FABRIC
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const dispatch = useDispatch();
+    const { data, isSuccess } = useGetAllFabricsQuery(auth.id);
+    useEffect(() => {
+        if (isSuccess && data) {
+          dispatch(addAllFabrics(data.fabrics));
+        }
+      }, [data]);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = (id, used_size, article_cost) => {
         setFabricValues({
@@ -62,7 +72,12 @@ export const FabricProject = (props) => {
     };
 
     //ADD FABRIC
-    const { persistedReducer } = useSelector((state) => state);
+    useEffect(() => {
+        if (isSuccess && data) {
+          dispatch(addAllFabrics(data.fabrics));
+        }
+      }, [data]);
+
     const fabrics = persistedReducer.fabrics;
     const [showAddArticleModal, setShowAddArticleModal] = useState(false);
     const isOpeningAddFabricModal = () => {
@@ -110,7 +125,7 @@ export const FabricProject = (props) => {
                         }}
                         className="AddOneMoreNote"
                     />
-                    <AddArticleModal
+                    <AddFabricModal
                         setShowAddArticleModal={setShowAddArticleModal}
                         showAddArticleModal={showAddArticleModal}
                         word={'AJOUTER UN TISSU'}
@@ -140,7 +155,7 @@ export const FabricProject = (props) => {
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
                                     <ModifyButton
-                                        aria-label="Modifier ce projet"
+                                        aria-label="Modifier ce tissu"
                                         onClick={() => {
                                             isOpeningUpdateModal(fabric.id, fabric.used_size, fabric.article_cost)
                                         }}
@@ -167,7 +182,7 @@ export const FabricProject = (props) => {
 
                         </CardContainer>
                     ))}
-                    <UpdateArticle
+                    <UpdateFabric
                         setShowUpdateModal={setShowUpdateModal}
                         showUpdateModal={showUpdateModal}
                         word={'MODIFIER CE TISSU'}
