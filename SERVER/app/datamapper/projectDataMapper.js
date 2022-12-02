@@ -184,7 +184,7 @@ const projectDataMapper = {
         const doesThisFabricBelongToThisMember = await client.query(query);
 
         // This fabric has not been found  --error404
-        if (doesThisFabricBelongToThisMember == 0) {
+        if (doesThisFabricBelongToThisMember.rowCount == 0) {
             return null;
         }
 
@@ -275,7 +275,7 @@ const projectDataMapper = {
         const doesThisHaberdasheryBelongToThisMember = await client.query(query);
 
         // This haberdashery has not been found  --error404
-        if (doesThisHaberdasheryBelongToThisMember == 0) {
+        if (doesThisHaberdasheryBelongToThisMember.rowCount == 0) {
             return null;
         }
 
@@ -375,7 +375,7 @@ const projectDataMapper = {
         const doesThisPatternBelongToThisMember = await client.query(query);
 
         // This pattern has not been found  --error404
-        if (doesThisPatternBelongToThisMember == 0) {
+        if (doesThisPatternBelongToThisMember.rowCount == 0) {
             return null;
         }
 
@@ -793,6 +793,102 @@ const projectDataMapper = {
         // Here, all projects data have been deleted
         return true;
     },
+
+    async deleteArticleInProject(id, projectId, entity, entityId) {
+        // console.log(id, projectId, entity, entityId);
+        // Check if this project belongs to this member
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
+
+        if (!existingProject) {
+            return null;
+        }
+
+        // Replace the user input of the entity field to protect the DB
+        let entityTable = "";
+
+        if (entity === "fabric") {
+            entityTable = "fabric";
+        } else if (entity === "haberdashery") {
+            entityTable = "haberdashery";
+        } else {
+            entityTable = "pattern";
+        }
+        
+        // Check if this article belongs to this member
+        let query = {
+            text: `SELECT * FROM "${entityTable}" WHERE "id" = $1 AND "member_id" = $2`,
+            values: [entityId, id],
+        };
+
+        // Send query to DB
+        const doesThisArticleBelongToThisMember = await client.query(query);
+
+        // This article has not been found  --error404
+        if (doesThisArticleBelongToThisMember.rowCount == 0) {
+            return null;
+        }
+        
+        // 4 - Check if this project has this article and get the used_size and the article_cost
+        query = {
+            text: `SELECT * FROM "project_has_${entityTable}" WHERE "${entityTable}_id" = $1 AND "project_id" = $2`,
+            values: [entityId, projectId],
+        };
+
+        // Send query to DB
+        const doesThisProjectHasThisArticle = await client.query(query);
+        
+        // This project has already contain this fabric  --error409
+        if (doesThisProjectHasThisArticle.rowCount == 0) {
+            return null;
+        }
+        
+        // Save the used_size and the article_cost
+        const {article_cost: articleCost, used_size: used} = doesThisProjectHasThisArticle.rows[0];
+
+        // If the article is from the Fabric or Haberdashery table, update the "stock_qty" field to increase it
+        if (entityTable !== "pattern") {
+            query = {
+                text: `UPDATE "${entityTable}" SET "stock_qty" = ("stock_qty"::numeric + $2::numeric) WHERE "id" = $1`,
+                values: [entityId, used],
+            };
+    
+            // Send query to DB
+            await client.query(query);
+        }
+
+        // Delete the article in the association table targeted
+        query = {
+            text: `DELETE FROM "project_has_${entityTable}" WHERE "${entityTable}_id" = $1 AND "project_id" = $2`,
+            values: [entityId, projectId],
+        }
+
+        // Send query to DB
+        await client.query(query);
+
+        // Update the "cost_price" field to decrease it in "project" table
+        query = {
+            text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric - $2::numeric) WHERE "id" = $1 RETURNING *`,
+            values: [projectId, articleCost],
+        };
+
+        // Send query to DB
+        const updatedCostPriceResult = await client.query(query);
+        
+        // Get request result
+        const { rowCount } = updatedCostPriceResult;
+        
+        // The "cost_price" was not deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here the article data has been deleted from the project and the "cost_price" has been updated
+        return true;
+    }
 };
 
 module.exports = projectDataMapper;
