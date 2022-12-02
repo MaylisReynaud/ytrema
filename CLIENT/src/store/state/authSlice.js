@@ -25,7 +25,6 @@ const authSlice = createSlice({
         ...action.payload,
       };
       userData.isLogged = true;
-      console.log(userData,'userdata slice');
       return {
         ...userData
       }

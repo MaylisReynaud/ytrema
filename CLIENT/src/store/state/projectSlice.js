@@ -66,6 +66,9 @@ export const projectSlice = createSlice({
     addHaberdasheryProject: (state, action) => {
       state.value.push(action.payload);
     },
+    addPatternProject: (state, action) => {
+      state.value.push(action.payload);
+    },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
         return project.id !== action.payload;
@@ -85,6 +88,7 @@ export const {
   addFabricProject,
   updateHaberdasheryProject,
   addHaberdasheryProject,
+  addPatternProject,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;

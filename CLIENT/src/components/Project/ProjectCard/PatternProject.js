@@ -3,14 +3,6 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    useDeleteOneProjectMutation,
-    useUpdateOneProjectMutation
-} from "../../../store/api/ytremaApi";
-import {
-    updateProject,
-    deleteProject
-} from "../../../store/state/projectSlice";
 
 import {
     CardsContainer,
@@ -28,11 +20,21 @@ import {
     InfoCardContainer,
     MinusIcon,
     PlusIcon,
-    TitleContainer
+    TitleContainer,
+    AddButton,
+    AddReturnButtonContainer,
 } from "./style";
-import { DeleteModal } from "../../DeleteModal";
+import { AddPatternModal } from "./AddArticleModal/AddPatternModal";
+import { addPatternProject } from "../../../store/state/projectSlice";
 
-export const PatternProject = () => {
+export const PatternProject = (props) => {
+    const {
+        patternArray,
+        handleAddPatternSubmit,
+        addPatternOnChange,
+        addPatternValues,
+        setAddPatternValues
+    } = props;
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -42,16 +44,46 @@ export const PatternProject = () => {
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
+
+       // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
+    };
+
+    //ADD PATTERN
+    const patterns = persistedReducer.patterns;
+    const [showAddArticleModal, setShowAddArticleModal] = useState(false);
+    const isOpeningAddPatternModal = () => {
+        setShowAddArticleModal(!showAddArticleModal);
+    };
+    const patternsStock = patterns.value.map(pattern => pattern.id);
+
+
+    const [patternsFiltered, setPatternsFiltered] = useState([]);
+
+
+    const removePatternsUsed = () => {
+        // Create array with all fabrics remaining 
+        if (patternsStock.length > 0) {
+            let patternsFilteredArray = [];
+            let selectedPatternIdsArray = patternArray.map(elem => elem.id);
+
+            patterns.value.map(pattern => {
+                !selectedPatternIdsArray.includes(pattern.id) && patternsFilteredArray.push(pattern);
+            })
+
+            setPatternsFiltered(patternsFilteredArray);
+        }
     }
+
 
     return (
         <Section
             id='patron'
             className="patron"
         >
+             <AddReturnButtonContainer>
             <TitleContainer
                 className="showSection"
             >
@@ -59,15 +91,33 @@ export const PatternProject = () => {
                     className="patron">
                     PATRON
                 </SectionTitle>
+                <AddButton
+                        onClick={() => {
+                            isOpeningAddPatternModal();
+                            removePatternsUsed();
+                        }}
+                        className="AddOneMoreNote"
+                    />
+                    <AddPatternModal
+                        setShowAddArticleModal={setShowAddArticleModal}
+                        showAddArticleModal={showAddArticleModal}
+                        word={'AJOUTER UN PATRON'}
+                        addPatternOnChange={addPatternOnChange}
+                        addPatternValues={addPatternValues}
+                        setAddPatternValues={setAddPatternValues}
+                        handleAddPatternSubmit={handleAddPatternSubmit}
+                        patternsFiltered={patternsFiltered}
+                    />
                 {showSection ? (
                     <MinusIcon onClick={isOpeningSection} />
                 ) : (
                     <PlusIcon onClick={isOpeningSection} />
                 )}
             </TitleContainer>
+            </AddReturnButtonContainer>
             {showSection && (
                 <CardsContainer>
-                    {projectCard.pattern_array.map((pattern) => (
+                    {patternArray.map((pattern) => (
                         <CardContainer 
                             key={pattern.id}
                             className="otherHeight"
