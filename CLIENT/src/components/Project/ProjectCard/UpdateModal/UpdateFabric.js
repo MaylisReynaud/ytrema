@@ -11,6 +11,7 @@ import {
     ButtonsContainer,
     CancelContainer,
     CancelButton,
+    UpdateTitleContainer
 } from './style';
 
 import {
@@ -77,11 +78,17 @@ export const UpdateFabric = (props) => {
                             <ModalContent
                                 className='articleUpdate       '
                             >
+                                <UpdateTitleContainer>
                                 <UpdateTitle>{word}</UpdateTitle>
-
+                        
+                                </UpdateTitleContainer>
                                 <FormContainer>
                                     <Form>
-                                        <AddOneArticleContainer key={fabricCard.id}>
+                                        <AddOneArticleContainer 
+                                            key={fabricCard.id}
+                                            className='articleUpdate'
+                                        >
+                                                
                                             <PreviewContainer
                                                 className='articleUpdate'
                                             >

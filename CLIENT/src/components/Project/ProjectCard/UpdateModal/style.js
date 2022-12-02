@@ -59,6 +59,7 @@ export const ModalContent = styled.div`
     height:86%;
     &[class~="articleUpdate"] {
     height: 97%;
+    align-items:center;
   }
 `;
 export const TextContainer = styled.div`
@@ -70,9 +71,18 @@ export const TextContainer = styled.div`
     color: ${props => props.theme.color3};
     font-size: 1.5em;
 `;
+export const UpdateTitleContainer = styled.div`
+  display: flex;
+  background-color: red;
+  height:20%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+`;
 export const UpdateTitle = styled.h1`
     font-family: '${props => props.theme.titleFont}';
-    margin: 0 1.5em 0.5em;
+    /* margin: 0 1.5em 0.5em; */
     font-weight: bold;
     color: ${props => props.theme.color3};
     font-size: 1.5em;
