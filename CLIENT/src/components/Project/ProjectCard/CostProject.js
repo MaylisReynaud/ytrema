@@ -29,9 +29,6 @@ import {
 
 export const CostProject = () => {
     const { id } = useParams();
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-    let navigate = useNavigate();
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
@@ -93,7 +90,7 @@ export const CostProject = () => {
                                 <ColTable>
                                     <CostPicture src={fabric.photo !== undefined ? fabric.photo : null} />  </ColTable>
                                 <ColTable className="number"> {fabric.used_size} </ColTable>
-                                <ColTable className="number"> {fabric.article_cost} €</ColTable>
+                                <ColTable className="number"> {Number(fabric.article_cost).toFixed(2)} €</ColTable>
                             </RowTable>
                         ))
                             : null}
@@ -106,7 +103,7 @@ export const CostProject = () => {
                                     </CostPictureContainer>
                                 </ColTable>
                                 <ColTable className="number"> {haberdashery.used_size} </ColTable>
-                                <ColTable className="number"> {haberdashery.article_cost} €</ColTable>
+                                <ColTable className="number"> {Number(haberdashery.article_cost).toFixed(2)} €</ColTable>
                             </RowTable>
                         ))
                             : null}
@@ -118,7 +115,7 @@ export const CostProject = () => {
                                     </CostPictureContainer>
                                 </ColTable>
                                 <ColTable className="number"> 1 </ColTable>
-                                <ColTable className="number"> {pattern.article_cost} €</ColTable>
+                                <ColTable className="number"> {Number(pattern.article_cost).toFixed(2)} €</ColTable>
                             </RowTable>
                         ))
                             : null}
@@ -130,7 +127,7 @@ export const CostProject = () => {
 
                             </ColTable>
                             <ColTable className="number totalCost">
-                                {projectCard.cost_price} €
+                                {Number(projectCard.cost_price).toFixed(2)} €
                             </ColTable>
                         </RowTable>
                     </CostTable>
