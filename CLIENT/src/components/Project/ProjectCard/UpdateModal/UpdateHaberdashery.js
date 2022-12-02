@@ -95,14 +95,14 @@ export const UpdateHaberdashery = (props) => {
                                                     {haberdasheryCard.stock_qty}
                                                 </SelectedArticleInfo>
                                                 <QuantityContainer>
-                                                    <QuantityLabel htmlFor="fabric_used_size">
+                                                    <QuantityLabel htmlFor="haberdashery_used_size">
                                                         Quantité
                                                     </QuantityLabel>
                                                     <QuantityInput
                                                         type="number"
                                                         mobile
                                                         id="haberdashery_used_size"
-                                                        data-selectedfabricid={haberdasheryCard.id}
+                                                        data-selectedhaberdasheryid={haberdasheryCard.id}
                                                         name="used_size"
                                                         max={haberdasheryCard.stock_qty}
                                                         step="1"

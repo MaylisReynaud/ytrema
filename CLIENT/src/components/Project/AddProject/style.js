@@ -253,6 +253,9 @@ export const Preview = styled.img`
   object-fit:cover;
   border: .5rem solid ${(props) => props.theme.color4};
   background-color:  ${(props) => props.theme.color4};
+  &[class~="project"] {
+    height: 20vh;
+  }
 `;
 
 export const RemoveButton = styled(PatchMinusFill)`
@@ -367,6 +370,7 @@ export const CardImg = styled.img`
   object-fit: cover;
   width:100%;
   height:100%;
+
 `
 
 export const CardText = styled.h3`

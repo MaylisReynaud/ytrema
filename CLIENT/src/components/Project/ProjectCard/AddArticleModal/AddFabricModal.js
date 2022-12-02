@@ -125,14 +125,15 @@ export const AddFabricModal = (props) => {
                                                                             setAddFabricValues({
                                                                                 ...addFabricValues,
                                                                                 fabric_id: fabric.id,
-                                                                                fabric_price: fabric.price
+                                                                                fabric_price: Number(fabric.price)
                                                                             })
 
                                                                     }}
                                                                 >
                                                                     <CardContainer key={fabric.id}>
                                                                         <ImgContainer>
-                                                                            <CardImg src={fabric.photo} alt={fabric.alt} />
+                                                                            <CardImg 
+                                                                            src={fabric.photo} alt={fabric.alt} />
                                                                         </ImgContainer>
 
                                                                         <CardText>
@@ -150,7 +151,9 @@ export const AddFabricModal = (props) => {
                                                             className='articleUpdate'
                                                         >
                                                             <PreviewButtonContainer>
-                                                                <Preview src={selectedFabric.photo}></Preview>
+                                                                <Preview 
+                                                                className='project'
+                                                                src={selectedFabric.photo}></Preview>
 
                                                             </PreviewButtonContainer>
 

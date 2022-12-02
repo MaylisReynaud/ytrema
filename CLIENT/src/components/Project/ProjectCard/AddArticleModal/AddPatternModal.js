@@ -121,7 +121,7 @@ export const AddPatternModal = (props) => {
                                                                             setAddPatternValues({
                                                                                 ...addPatternValues,
                                                                                 pattern_id: pattern.id,
-                                                                                pattern_price: pattern.price
+                                                                                pattern_price: Number(pattern.price)
                                                                             })
 
                                                                     }}
@@ -132,7 +132,7 @@ export const AddPatternModal = (props) => {
                                                                         </ImgContainer>
 
                                                                         <CardText>
-                                                                            {pattern.name} -  {pattern.brand} - {pattern.clothing} 
+                                                                            {pattern.name} -  {pattern.brand} - {pattern.clothing}
                                                                         </CardText>
                                                                     </CardContainer>
                                                                 </CardsMapContainer>
@@ -146,7 +146,9 @@ export const AddPatternModal = (props) => {
                                                             className='articleUpdate'
                                                         >
                                                             <PreviewButtonContainer>
-                                                                <Preview src={selectedPattern.photo}></Preview>
+                                                                <Preview
+                                                                    className='project'
+                                                                    src={selectedPattern.photo}></Preview>
 
                                                             </PreviewButtonContainer>
 
@@ -156,18 +158,6 @@ export const AddPatternModal = (props) => {
                                                                 {selectedPattern.clothing}
                                                             </SelectedArticleInfo>
                                                             <QuantityContainer>
-                                                                {/* <QuantityLabel htmlFor="fabric_used_size">
-                                                                    Quantité
-                                                                </QuantityLabel>
-                                                                <QuantityInput
-                                                                    type="number"
-                                                                    mobile
-                                                                    id="fabric_used_size"
-                                                                    name="fabric_used_size"
-                                                                    max={selectedFabric.stock_qty}
-                                                                    step="1"
-                                                                    onChange={addFabricOnChange}
-                                                                ></QuantityInput> */}
                                                             </QuantityContainer>
                                                         </PreviewContainer>
                                                     </AddOneArticleContainer>
