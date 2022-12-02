@@ -99,13 +99,20 @@ export const AddHaberdasheryModal = (props) => {
 
                 >
                     <Background>
+                    <div>
+                            <CloseModalButton
+                                aria-label='Close modal'
+                                onClick={closeAddArticleModal}
+                            />
+                            </div>
                         <ModalWrapper
                             className='addArticle'
                             showAddArticleModal={showAddArticleModal}
                         >
-                            <ModalContent
+
+                            {/* <ModalContent
                                 className='addArticle'
-                            >
+                            > */}
                                 {haberdasheriesFiltered.length !== 0 ? (
                                     <>
                                 <UpdateTitle>{word}</UpdateTitle>
@@ -264,11 +271,7 @@ export const AddHaberdasheryModal = (props) => {
 
                                 
 
-                            </ModalContent>
-                            <CloseModalButton
-                                aria-label='Close modal'
-                                onClick={closeAddArticleModal}
-                            />
+                            {/* </ModalContent> */}
                         </ModalWrapper>
                     </Background>
                 </Container>
