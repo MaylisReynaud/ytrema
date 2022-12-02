@@ -120,7 +120,6 @@ export const PatternProject = (props) => {
                     {patternArray.map((pattern) => (
                         <CardContainer 
                             key={pattern.id}
-                            className="otherHeight"
                         >
                             <ModifyDeleteContainer>
                                 <TrashContainer>

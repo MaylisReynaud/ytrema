@@ -45,6 +45,7 @@ import { useUpdateOneHaberdasheryProjectMutation } from "../../../store/api/ytre
 import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
 import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
 import { useAddOnePatternProjectMutation } from "../../../store/api/ytremaApi";
+import { updatePatternProject } from "../../../store/state/projectSlice";
 
 
 export const ProjectCard = () => {

@@ -181,9 +181,6 @@ background-color: ${(props) => props.theme.color4};
 &[class~="otherHeight"] {
     height: 78%;
   }
-&[class~="fabric"] {
-  height: 11rem;
-}
 &[class~="cout"] {
     width:98%;
     margin-bottom: .5rem;
