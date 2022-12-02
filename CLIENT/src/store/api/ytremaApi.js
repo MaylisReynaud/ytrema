@@ -378,6 +378,20 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Project', 'Haberdashery'],
   }),
+  addOnePatternProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      return {
+        url: `/project/${projectId}/add/pattern/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
   })
 });
 
@@ -409,6 +423,7 @@ export const {
               useUpdateOneFabricProjectMutation,
               useAddOneFabricProjectMutation,
               useUpdateOneHaberdasheryProjectMutation,
-              useAddOneHaberdasheryProjectMutation
+              useAddOneHaberdasheryProjectMutation,
+              useAddOnePatternProjectMutation
              } = ytremaApi;
 

@@ -13,7 +13,6 @@ import {
     deleteProject
 } from "../../../store/state/projectSlice";
 
-import { addAllFabrics } from "../../../store/state/fabricSlice";
 
 import {
     ArrowContainer,
@@ -45,6 +44,9 @@ import { useAddOneFabricProjectMutation } from "../../../store/api/ytremaApi";
 import { useUpdateOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
 import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
 import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
+import { useAddOnePatternProjectMutation } from "../../../store/api/ytremaApi";
+import { updatePatternProject } from "../../../store/state/projectSlice";
+
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -337,6 +339,52 @@ const handleAddHaberdasherySubmit = async (event) => {
     
 };
 
+// ADD A NEW PATTERN TO PROJECT
+const [addPatternValues, setAddPatternValues] = useState({
+    pattern_id: "",
+    pattern_price: "",
+});
+
+console.log(addPatternValues, "<--addpatternValues")
+
+const [addPatternProject] = useAddOnePatternProjectMutation(projectCard.id, auth.id, addPatternValues.pattern_id);
+
+const addPatternOnChange = (event) => {
+    setAddPatternValues({ ...addPatternValues, [event.target.name]: event.target.value });
+};
+
+const handleAddPatternSubmit = async (event) => {
+    event.preventDefault();
+
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        body: addPatternValues,
+    };
+
+   const { addPattern } = await addPatternProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    if(addPattern) {
+      
+        const projectUsed = addPattern.find((project) => project.id == projectCard.id)
+        dispatch(updatePatternProject(projectUsed));
+
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
+    
+};
+const patternArray = projectCard.pattern_array;
 
     return (
         <>
@@ -419,7 +467,13 @@ const handleAddHaberdasherySubmit = async (event) => {
                             addHaberdasheryValues={addHaberdasheryValues}
                             setAddHaberdasheryValues={setAddHaberdasheryValues}
                         />
-                        <PatternProject />
+                        <PatternProject 
+                            patternArray={patternArray}
+                            handleAddPatternSubmit={handleAddPatternSubmit}
+                            addPatternOnChange={addPatternOnChange}
+                            addPatternValues={addPatternValues}
+                            setAddPatternValues={setAddPatternValues}
+                        />
                        <NoteProject/>
                        <CostProject />
                     </>
