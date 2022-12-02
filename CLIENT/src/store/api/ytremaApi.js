@@ -7,7 +7,6 @@ let token = sessionStorage.getItem("token");
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
-  // baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
   tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth', 'Project'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({

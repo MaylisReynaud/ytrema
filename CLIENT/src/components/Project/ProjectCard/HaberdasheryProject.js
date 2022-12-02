@@ -52,16 +52,13 @@ export const HaberdasheryProject = (props) => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const [showUpdateModal, setShowUpdateModal] = useState(false);
-    const isOpeningUpdateModal = (id, is_cut, is_a_set, size, price, used_size) => {
+    const isOpeningUpdateModal = (id, used_size, article_cost) => {
         setHaberdasheryValues({
             ...haberdasheryValues,
-            haberdashery_id: id,
-            haberdashery_is_cut: is_cut,
-            haberdashery_is_a_set: is_a_set,
-            haberdashery_article_qty: "",
-            haberdashery_size: size,
-            haberdashery_price: price,
-            haberdashery_used_size: "",
+            old_used_size: used_size,
+            old_article_cost: article_cost,
+            haberdasheryId: id,
+            used_size: ""
         });
         setShowUpdateModal(!showUpdateModal);
     };
