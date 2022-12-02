@@ -349,6 +349,49 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Project', 'Fabric'],
   }),
+  updateOneHaberdasheryProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, haberdasheryId, body} = arg;
+    return {
+      url: `/project/${projectId}/haberdashery/${haberdasheryId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project', 'Haberdashery'],
+  }),
+  addOneHaberdasheryProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      console.log(arg, "<--arg dans addOneHaberProject")
+      return {
+        url: `/project/${projectId}/add/haberdashery/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project', 'Haberdashery'],
+  }),
+  addOnePatternProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      return {
+        url: `/project/${projectId}/add/pattern/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
   })
 });
 
@@ -378,6 +421,9 @@ export const {
               useDeleteAllProjectsMutation, 
               useUpdateOneProjectMutation,
               useUpdateOneFabricProjectMutation,
-              useAddOneFabricProjectMutation
+              useAddOneFabricProjectMutation,
+              useUpdateOneHaberdasheryProjectMutation,
+              useAddOneHaberdasheryProjectMutation,
+              useAddOnePatternProjectMutation
              } = ytremaApi;
 

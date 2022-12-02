@@ -83,8 +83,54 @@ const projectController = {
                 return next();
             }
 
+            // In this case, the haberdashery is already used in this project, so the client must use "updateHaberdasheryUsed" not "addHaberdashery"
+            if (addHaberdashery === "Update haberdashery") {
+                response.locals.type = 409;
+                response.locals.conflict =
+                    "Désolé, cet article de mercerie est déjà présent dans votre projet, nous ne pouvons pas l'ajouter une nouvelle fois. En cas de modification de la quantité utilisée merci de bien vouloir modifier la fiche directement.";
+                return next();
+            }
+
             // Here, the haberdashery has been added to the project
             response.status(200).json({ addHaberdashery });
+
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    async addPattern (request, response, next) {
+        try {
+            // User ID targeted
+            const { userId: id, projectId } = request.params;
+
+            // New pattern's data
+            const patternInfo = request.body;
+
+            // Create the project in DB
+            const addPattern = await projectDataMapper.addNewPattern(
+                patternInfo,
+                projectId,
+                id
+            );
+
+            // The pattern has not been added
+            if (!addPattern) {
+                response.locals.notFound =
+                    "Une erreur est survenue : ce patron n'a pas pu être ajouté au projet.";
+                return next();
+            }
+
+            // In this case, the pattern is already used in this project"
+            if (addPattern === "pattern already used") {
+                response.locals.type = 409;
+                response.locals.conflict =
+                    "Désolé, ce patron est déjà présent dans votre projet, nous ne pouvons pas l'ajouter une nouvelle fois.";
+                return next();
+            }
+
+            // Here, the pattern has been added to the project
+            response.status(200).json({ addPattern });
 
         } catch (error) {
             next(error);
@@ -264,7 +310,35 @@ const projectController = {
         } catch (error) {
             next(error)
         }
-    }
+    },
+
+    async deleteArticle(request, response, next) {
+        try {
+            // User ID, project ID, article category and article ID targeted
+            const { userId: id, projectId, entity, entityId } = request.params;
+
+            if (entity !== "fabric" && entity !== "haberdashery" && entity !== "pattern") {
+                response.locals.notFound =
+                    `Une erreur est survenue : ${entity} ne correspond à aucune catégorie d'articles. Aucune suppression n'a été effectuée dans votre projet.`;
+                return next();
+            }
+
+            // Delete the article in this project
+            const articleToDelete = await projectDataMapper.deleteArticleInProject(id, projectId, entity, entityId);
+
+            // No data deleted because this project does not contain this article
+            if (!articleToDelete) {
+                response.locals.notFound =
+                    "Une erreur est survenue : cet article n'est pas répertorié dans votre projet. Il n'a pas pu être supprimé.";
+                return next();
+            }
+
+            // Here, the article is deleted in the project
+            return response.status(204).json();
+        } catch (error) {
+            next(error);
+        }
+    },
 };
 
 

@@ -7,9 +7,10 @@ const router = express.Router();
 
 router.post('/member/:userId(\\d+)', projectController.create);
 
-// ADD NEW FABRIC AND HABERDASHERY IN A PROJECT
+// ADD ARTICLE IN A PROJECT
 router.post('/:projectId(\\d+)/add/fabric/member/:userId(\\d+)', projectController.addFabric);
-// router.post('/:projectId(\\d+)/add/haberdashery/member/:userId(\\d+)', projectController.addHaberdashery);
+router.post('/:projectId(\\d+)/add/haberdashery/member/:userId(\\d+)', projectController.addHaberdashery);
+router.post('/:projectId(\\d+)/add/pattern/member/:userId(\\d+)', projectController.addPattern);
 
 router.get('/all/member/:userId(\\d+)', projectController.findAll);
 router.get('/:projectId(\\d+)/member/:userId(\\d+)', projectController.findById);
@@ -21,6 +22,9 @@ router.patch('/:projectId(\\d+)/haberdashery/:haberdasheryId(\\d+)/member/:userI
 
 router.delete('/all/member/:userId(\\d+)', projectController.deleteAll);
 router.delete('/:projectId(\\d+)/member/:userId(\\d+)', projectController.delete);
+
+// DELETE ARTICLE IN A PROJECT
+router.delete('/:projectId(\\d+)/delete/:entity/:entityId(\\d+)/member/:userId(\\d+)', projectController.deleteArticle);
 
 
 module.exports = router;
