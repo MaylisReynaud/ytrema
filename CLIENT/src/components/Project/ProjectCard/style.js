@@ -161,7 +161,7 @@ export const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 85%;
+  /* height: 85%; */
   justify-content: space-evenly;
   margin-bottom:1rem;
   &[class~="Cost"] {
@@ -176,14 +176,11 @@ width:45%;
 margin: 1rem .5rem;
 /* margin-bottom:1em; */
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-height:46%;
+height: 11rem;
 background-color: ${(props) => props.theme.color4};
 &[class~="otherHeight"] {
     height: 78%;
   }
-&[class~="fabric"] {
-  height: 11rem;
-}
 &[class~="cout"] {
     width:98%;
     margin-bottom: .5rem;

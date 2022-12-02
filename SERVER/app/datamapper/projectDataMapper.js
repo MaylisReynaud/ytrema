@@ -1,6 +1,6 @@
 const client = require("./client");
 
-const photoDataMapper = require('./photoDataMapper');
+const photoDataMapper = require("./photoDataMapper");
 
 const projectDataMapper = {
     async createProject(projectInfo, id) {
@@ -13,7 +13,7 @@ const projectDataMapper = {
             haberdasheries,
             patterns,
         } = projectInfo;
-        
+
         // 1/ CALCULATE THE PROJECT'S COST OF PRODUCTION AND THE COSTS BY ARTICLE
         let projectCost = 0;
 
@@ -97,11 +97,12 @@ const projectDataMapper = {
         };
 
         // Query to send when any photo isn't sent
-        !photo && (query = {
-            text: `INSERT INTO "photo"("personal_notes", "project_id") VALUES($1, $2)`,
-            values: [personal_notes, projectId],
-        });
-        
+        !photo &&
+            (query = {
+                text: `INSERT INTO "photo"("personal_notes", "project_id") VALUES($1, $2)`,
+                values: [personal_notes, projectId],
+            });
+
         // Send query to DB
         await client.query(query);
 
@@ -123,7 +124,11 @@ const projectDataMapper = {
 
         // Add in project_has_haberdashery and update stock in haberdashery
         haberdasheries.map(
-            async ({ haberdashery_id: id, haberdashery_used_size: used, article_cost }) => {
+            async ({
+                haberdashery_id: id,
+                haberdashery_used_size: used,
+                article_cost,
+            }) => {
                 await client.query(
                     `INSERT INTO "project_has_haberdashery"("project_id", "haberdashery_id", "used_size", "article_cost") VALUES ($1, $2, $3, $4)`,
                     [projectId, id, used, article_cost]
@@ -152,13 +157,18 @@ const projectDataMapper = {
 
     async addNewFabric(fabricInfoToAdd, projectId, id) {
         // project info to add
-        const { fabric_id: fabricId, fabric_price: price, fabric_used_size: used } = fabricInfoToAdd;
+        const {
+            fabric_id: fabricId,
+            fabric_price: price,
+            fabric_used_size: used,
+        } = fabricInfoToAdd;
 
         // Check if this project belongs to this member
-        const existingProject = await photoDataMapper.doesThisProjectBelongToThisMember(
-            projectId,
-            id
-        );
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
 
         if (!existingProject) {
             return null;
@@ -167,22 +177,22 @@ const projectDataMapper = {
         // Check if this fabric belongs to this member
         let query = {
             text: `SELECT * FROM "fabric" WHERE "id" = $1 AND "member_id" = $2`,
-            values: [fabricId, id]
+            values: [fabricId, id],
         };
 
         // Send query to DB
         const doesThisFabricBelongToThisMember = await client.query(query);
 
         // This fabric has not been found  --error404
-        if (doesThisFabricBelongToThisMember == 0) {
+        if (doesThisFabricBelongToThisMember.rowCount == 0) {
             return null;
         }
 
         // Check if this project already has this fabric
         query = {
             text: `SELECT * FROM "project_has_fabric" WHERE "fabric_id" = $1 AND "project_id" = $2`,
-            values: [fabricId, projectId]
-        }
+            values: [fabricId, projectId],
+        };
 
         // Send query to DB
         const doesThisProjectHasThisFabric = await client.query(query);
@@ -198,19 +208,16 @@ const projectDataMapper = {
         // Query to add the fabric in project_has_fabric
         query = {
             text: `INSERT INTO "project_has_fabric"("project_id", "fabric_id", "used_size", "article_cost") VALUES ($1, $2, $3, $4)`,
-            values: [projectId, fabricId, used, articleCost]
+            values: [projectId, fabricId, used, articleCost],
         };
 
         // Send query to DB
         await client.query(query);
-        
-        // Query to update in DB the field stock_qty in the table fabric 
+
+        // Query to update in DB the field stock_qty in the table fabric
         query = {
             text: `UPDATE "fabric" SET "stock_qty" = ("stock_qty"::numeric - $2::numeric) WHERE "id" = $1`,
-            values: [
-                fabricId,
-                used
-            ],
+            values: [fabricId, used],
         };
 
         // Send query to DB
@@ -219,12 +226,9 @@ const projectDataMapper = {
         // Query to update in DB the field cost_price in the table project
         query = {
             text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric + $2::numeric) WHERE "id" = $1 RETURNING *`,
-            values: [
-                projectId,
-                articleCost
-            ],
+            values: [projectId, articleCost],
         };
-                
+
         // Send query to DB
         // const updatedProjectResult = await client.query(query);
         await client.query(query);
@@ -234,8 +238,190 @@ const projectDataMapper = {
         // const { rows: updatedProject } = updatedProjectResult;
 
         // Return result
-        // return updatedProject[0];     
-        return allProject;   
+        // return updatedProject[0];
+        return allProject;
+    },
+
+    async addNewHaberdashery(haberdasheryInfoToAdd, projectId, id) {
+        // haberdashery info to add
+        const {
+            haberdashery_id: haberdasheryId,
+            haberdashery_is_cut: isCut,
+            haberdashery_is_a_set: isASet,
+            haberdashery_article_qty: article_qty,
+            haberdashery_size: size,
+            haberdashery_price: price,
+            haberdashery_used_size: used,
+        } = haberdasheryInfoToAdd;
+
+        // Check if this project belongs to this member
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
+
+        if (!existingProject) {
+            return null;
+        }
+
+        // Check if this haberdashery belongs to this member
+        let query = {
+            text: `SELECT * FROM "haberdashery" WHERE "id" = $1 AND "member_id" = $2`,
+            values: [haberdasheryId, id],
+        };
+
+        // Send query to DB
+        const doesThisHaberdasheryBelongToThisMember = await client.query(query);
+
+        // This haberdashery has not been found  --error404
+        if (doesThisHaberdasheryBelongToThisMember.rowCount == 0) {
+            return null;
+        }
+
+        // Check if this project already has this haberdashery
+        query = {
+            text: `SELECT * FROM "project_has_haberdashery" WHERE "haberdashery_id" = $1 AND "project_id" = $2`,
+            values: [haberdasheryId, projectId],
+        };
+
+        // Send query to DB
+        const doesThisProjectHasThisHaberdashery = await client.query(query);
+
+        // This project has already contain this haberdashery  --error409
+        if (doesThisProjectHasThisHaberdashery.rowCount == 1) {
+            return "Update haberdashery";
+        }
+
+        // Calculate the cost of haberdashery used
+        let articleCost = 0;
+
+        if (!isCut && !isASet) {
+                // Haberdashery CASE 1
+                articleCost = Number((used * price).toFixed(2));
+            }
+
+            if (!isCut && isASet) {
+                // Haberdashery CASE 2
+                articleCost = Number(
+                    ((used * price) / article_qty).toFixed(2)
+                );
+            }
+
+            if (isCut) {
+                // Haberdashery CASE 3
+                articleCost = Number(((used * price) / size).toFixed(2));
+            }
+
+        // Query to add the haberdashery in project_has_haberdashery
+        query = {
+            text: `INSERT INTO "project_has_haberdashery"("project_id", "haberdashery_id", "used_size", "article_cost") VALUES ($1, $2, $3, $4)`,
+            values: [projectId, haberdasheryId, used, articleCost],
+        };
+
+        // Send query to DB
+        await client.query(query);
+
+        // Query to update in DB the field stock_qty in the table haberdashery
+        query = {
+            text: `UPDATE "haberdashery" SET "stock_qty" = ("stock_qty"::numeric - $2::numeric) WHERE "id" = $1`,
+            values: [haberdasheryId, used],
+        };
+
+        // Send query to DB
+        await client.query(query);
+
+        // Query to update in DB the field cost_price in the table project
+        query = {
+            text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric + $2::numeric) WHERE "id" = $1 RETURNING *`,
+            values: [projectId, articleCost],
+        };
+
+        // Send query to DB
+        // const updatedProjectResult = await client.query(query);
+        await client.query(query);
+
+        const allProject = await this.getAllProjects(id);
+        // Get request result
+        // const { rows: updatedProject } = updatedProjectResult;
+
+        // Return result
+        // return updatedProject[0];
+        return allProject;
+    },
+
+    async addNewPattern(patternInfoToAdd, projectId, id) {
+        // pattern info to add
+        const { pattern_id: patternId, pattern_price: price } = patternInfoToAdd;
+
+        // Check if this project belongs to this member
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
+
+        if (!existingProject) {
+            return null;
+        }
+
+        // Check if this pattern belongs to this member
+        let query = {
+            text: `SELECT * FROM "pattern" WHERE "id" = $1 AND "member_id" = $2`,
+            values: [patternId, id],
+        };
+
+        // Send query to DB
+        const doesThisPatternBelongToThisMember = await client.query(query);
+
+        // This pattern has not been found  --error404
+        if (doesThisPatternBelongToThisMember.rowCount == 0) {
+            return null;
+        }
+
+        // Check if this project already has this pattern
+        query = {
+            text: `SELECT * FROM "project_has_pattern" WHERE "pattern_id" = $1 AND "project_id" = $2`,
+            values: [patternId, projectId],
+        };
+
+        // Send query to DB
+        const doesThisProjectHasThisPattern = await client.query(query);
+
+        // This project has already contain this pattern  --error409
+        if (doesThisProjectHasThisPattern.rowCount == 1) {
+            return "pattern already used";
+        }
+
+        // Convert the cost of pattern used
+        const articleCost = Number(price.toFixed(2));
+
+        // Query to add the pattern in project_has_pattern
+        query = {
+            text: `INSERT INTO "project_has_pattern"("project_id", "pattern_id", "article_cost") VALUES ($1, $2, $3)`,
+            values: [projectId, patternId, articleCost],
+        };
+
+        // Send query to DB
+        await client.query(query);
+
+        // Query to update in DB the field cost_price in the table project
+        query = {
+            text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric + $2::numeric) WHERE "id" = $1 RETURNING *`,
+            values: [projectId, articleCost],
+        };
+
+        // Send query to DB
+        // const updatedProjectResult = await client.query(query);
+        await client.query(query);
+
+        const allProject = await this.getAllProjects(id);
+        // Get request result
+        // const { rows: updatedProject } = updatedProjectResult;
+
+        // Return result
+        // return updatedProject[0];
+        return allProject;
     },
 
     async getAllProjects(id) {
@@ -367,10 +553,11 @@ const projectDataMapper = {
         const { name, status } = projectInfoToUpdate;
 
         // Check if this project belongs to this member
-        const existingProject = await photoDataMapper.doesThisProjectBelongToThisMember(
-            projectId,
-            id
-        );
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
 
         if (!existingProject) {
             return null;
@@ -379,12 +566,7 @@ const projectDataMapper = {
         // Query to update project in DB
         const query = {
             text: `UPDATE "project" SET "name" = $1, "status" = $2 WHERE "id" = $3 AND "member_id" = $4 RETURNING *`,
-            values: [
-                name,
-                status,
-                projectId,
-                id
-            ],
+            values: [name, status, projectId, id],
         };
 
         // Send query to DB
@@ -400,17 +582,27 @@ const projectDataMapper = {
 
         // Return result
         return updatedProject[0];
-    },  
-    
-    async updateFabricInProject(id, projectId, fabricId, projectFabricInfoToUpdate) {
+    },
+
+    async updateFabricInProject(
+        id,
+        projectId,
+        fabricId,
+        projectFabricInfoToUpdate
+    ) {
         // project info to update
-        const { old_used_size: oldSize, old_article_cost: oldPrice, used_size } = projectFabricInfoToUpdate;
+        const {
+            old_used_size: oldSize,
+            old_article_cost: oldPrice,
+            used_size,
+        } = projectFabricInfoToUpdate;
 
         // Check if this project belongs to this member
-        const existingProject = await photoDataMapper.doesThisProjectBelongToThisMember(
-            projectId,
-            id
-        );
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
 
         if (!existingProject) {
             return null;
@@ -419,8 +611,8 @@ const projectDataMapper = {
         // Check if this project has this fabric
         let query = {
             text: `SELECT * FROM "project_has_fabric" WHERE "fabric_id" = $1 AND "project_id" = $2`,
-            values: [fabricId, projectId]
-        }
+            values: [fabricId, projectId],
+        };
 
         // Send query to DB
         const doesThisProjectHasThisFabric = await client.query(query);
@@ -431,32 +623,26 @@ const projectDataMapper = {
         }
 
         // Calculate the new cost of fabric used
-        const newArticleCost = Number(((oldPrice / oldSize) * used_size).toFixed(2));
+        const newArticleCost = Number(
+            ((oldPrice / oldSize) * used_size).toFixed(2)
+        );
 
         // Calculate the delta between the old an the new quantity used
-        const delta = (used_size - oldSize);
+        const delta = used_size - oldSize;
 
-        // Query to update in DB the fields used_size and article_cost in the table project_has_fabric 
+        // Query to update in DB the fields used_size and article_cost in the table project_has_fabric
         query = {
             text: `UPDATE "project_has_fabric" SET "used_size" = $1, "article_cost" = $2 WHERE "project_id" = $3 AND "fabric_id" = $4`,
-            values: [
-                used_size,
-                newArticleCost,
-                projectId,
-                fabricId
-            ],
+            values: [used_size, newArticleCost, projectId, fabricId],
         };
 
         // Send query to DB
         await client.query(query);
-        
-        // Query to update in DB the field stock_qty in the table fabric 
+
+        // Query to update in DB the field stock_qty in the table fabric
         query = {
             text: `UPDATE "fabric" SET "stock_qty" = ("stock_qty"::numeric - $2::numeric) WHERE "id" = $1`,
-            values: [
-                fabricId,
-                delta
-            ],
+            values: [fabricId, delta],
         };
 
         // Send query to DB
@@ -465,13 +651,9 @@ const projectDataMapper = {
         // Query to update in DB the field cost_price in the table project
         query = {
             text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric - $2::numeric + $3::numeric) WHERE "id" = $1 RETURNING *`,
-            values: [
-                projectId,
-                oldPrice,
-                newArticleCost
-            ],
+            values: [projectId, oldPrice, newArticleCost],
         };
-                
+
         // Send query to DB
         // const updatedProjectResult = await client.query(query);
         await client.query(query);
@@ -483,17 +665,27 @@ const projectDataMapper = {
         // Return result
         // return updatedProject[0];
         return allProject;
-    }, 
+    },
 
-    async updateHaberdasheryInProject(id, projectId, haberdasheryId, projectHaberdasheryInfoToUpdate) {
+    async updateHaberdasheryInProject(
+        id,
+        projectId,
+        haberdasheryId,
+        projectHaberdasheryInfoToUpdate
+    ) {
         // project info to update
-        const { old_used_size: oldSize, old_article_cost: oldPrice, used_size } = projectHaberdasheryInfoToUpdate;
+        const {
+            old_used_size: oldSize,
+            old_article_cost: oldPrice,
+            used_size,
+        } = projectHaberdasheryInfoToUpdate;
 
         // Check if this project belongs to this member
-        const existingProject = await photoDataMapper.doesThisProjectBelongToThisMember(
-            projectId,
-            id
-        );
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
 
         if (!existingProject) {
             return null;
@@ -502,8 +694,8 @@ const projectDataMapper = {
         // Check if this project has this haberdashery
         let query = {
             text: `SELECT * FROM "project_has_haberdashery" WHERE "haberdashery_id" = $1 AND "project_id" = $2`,
-            values: [haberdasheryId, projectId]
-        }
+            values: [haberdasheryId, projectId],
+        };
 
         // Send query to DB
         const doesThisProjectHasThisHaberdashery = await client.query(query);
@@ -514,32 +706,26 @@ const projectDataMapper = {
         }
 
         // Calculate the new cost of haberdashery used
-        const newArticleCost = Number(((oldPrice / oldSize) * used_size).toFixed(2));
+        const newArticleCost = Number(
+            ((oldPrice / oldSize) * used_size).toFixed(2)
+        );
 
         // Calculate the delta between the old an the new quantity used
-        const delta = (used_size - oldSize);
+        const delta = used_size - oldSize;
 
         // Query to update in DB the fields used_size and article_cost in the table project_has_haberdashery
         query = {
             text: `UPDATE "project_has_haberdashery" SET "used_size" = $1, "article_cost" = $2 WHERE "project_id" = $3 AND "haberdashery_id" = $4`,
-            values: [
-                used_size,
-                newArticleCost,
-                projectId,
-                haberdasheryId
-            ],
+            values: [used_size, newArticleCost, projectId, haberdasheryId],
         };
 
         // Send query to DB
         await client.query(query);
-        
-        // Query to update in DB the field stock_qty in the table haberdashery 
+
+        // Query to update in DB the field stock_qty in the table haberdashery
         query = {
             text: `UPDATE "haberdashery" SET "stock_qty" = ("stock_qty"::numeric - $2::numeric) WHERE "id" = $1`,
-            values: [
-                haberdasheryId,
-                delta
-            ],
+            values: [haberdasheryId, delta],
         };
 
         // Send query to DB
@@ -548,13 +734,9 @@ const projectDataMapper = {
         // Query to update in DB the field cost_price in the table project
         query = {
             text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric - $2::numeric + $3::numeric) WHERE "id" = $1 RETURNING *`,
-            values: [
-                projectId,
-                oldPrice,
-                newArticleCost
-            ],
+            values: [projectId, oldPrice, newArticleCost],
         };
-                
+
         // Send query to DB
         // const updatedProjectResult = await client.query(query);
         await client.query(query);
@@ -566,7 +748,7 @@ const projectDataMapper = {
         /// Return result
         // return updatedProject[0];
         return allProject;
-    }, 
+    },
 
     async deleteProjectById(id, projectId) {
         //  Query to delete the project data
@@ -583,7 +765,6 @@ const projectDataMapper = {
 
         // Any rows weren't deleted in DB --error404
         if (rowCount == 0) {
-
             return null;
         }
 
@@ -610,6 +791,102 @@ const projectDataMapper = {
         }
 
         // Here, all projects data have been deleted
+        return true;
+    },
+
+    async deleteArticleInProject(id, projectId, entity, entityId) {
+        // console.log(id, projectId, entity, entityId);
+        // Check if this project belongs to this member
+        const existingProject =
+            await photoDataMapper.doesThisProjectBelongToThisMember(
+                projectId,
+                id
+            );
+
+        if (!existingProject) {
+            return null;
+        }
+
+        // Replace the user input of the entity field to protect the DB
+        let entityTable = "";
+
+        if (entity === "fabric") {
+            entityTable = "fabric";
+        } else if (entity === "haberdashery") {
+            entityTable = "haberdashery";
+        } else {
+            entityTable = "pattern";
+        }
+        
+        // Check if this article belongs to this member
+        let query = {
+            text: `SELECT * FROM "${entityTable}" WHERE "id" = $1 AND "member_id" = $2`,
+            values: [entityId, id],
+        };
+
+        // Send query to DB
+        const doesThisArticleBelongToThisMember = await client.query(query);
+
+        // This article has not been found  --error404
+        if (doesThisArticleBelongToThisMember.rowCount == 0) {
+            return null;
+        }
+        
+        // 4 - Check if this project has this article and get the used_size and the article_cost
+        query = {
+            text: `SELECT * FROM "project_has_${entityTable}" WHERE "${entityTable}_id" = $1 AND "project_id" = $2`,
+            values: [entityId, projectId],
+        };
+
+        // Send query to DB
+        const doesThisProjectHasThisArticle = await client.query(query);
+        
+        // This project has already contain this fabric  --error409
+        if (doesThisProjectHasThisArticle.rowCount == 0) {
+            return null;
+        }
+        
+        // Save the used_size and the article_cost
+        const {article_cost: articleCost, used_size: used} = doesThisProjectHasThisArticle.rows[0];
+
+        // If the article is from the Fabric or Haberdashery table, update the "stock_qty" field to increase it
+        if (entityTable !== "pattern") {
+            query = {
+                text: `UPDATE "${entityTable}" SET "stock_qty" = ("stock_qty"::numeric + $2::numeric) WHERE "id" = $1`,
+                values: [entityId, used],
+            };
+    
+            // Send query to DB
+            await client.query(query);
+        }
+
+        // Delete the article in the association table targeted
+        query = {
+            text: `DELETE FROM "project_has_${entityTable}" WHERE "${entityTable}_id" = $1 AND "project_id" = $2`,
+            values: [entityId, projectId],
+        }
+
+        // Send query to DB
+        await client.query(query);
+
+        // Update the "cost_price" field to decrease it in "project" table
+        query = {
+            text: `UPDATE "project" SET "cost_price" = ("cost_price"::numeric - $2::numeric) WHERE "id" = $1 RETURNING *`,
+            values: [projectId, articleCost],
+        };
+
+        // Send query to DB
+        const updatedCostPriceResult = await client.query(query);
+        
+        // Get request result
+        const { rowCount } = updatedCostPriceResult;
+        
+        // The "cost_price" was not deleted in DB --error404
+        if (rowCount == 0) {
+            return null;
+        }
+
+        // Here the article data has been deleted from the project and the "cost_price" has been updated
         return true;
     }
 };
