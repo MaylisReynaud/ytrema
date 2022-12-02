@@ -29,9 +29,6 @@ import {
 
 export const CostProject = () => {
     const { id } = useParams();
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-    let navigate = useNavigate();
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
