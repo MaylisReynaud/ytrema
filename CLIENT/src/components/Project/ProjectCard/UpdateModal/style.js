@@ -37,7 +37,7 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     &[class~="updateArticle"] {
-    height: 63%;
+    height: 70%;
   }
     @media screen and (min-width:601px) { 
         height:27%;
