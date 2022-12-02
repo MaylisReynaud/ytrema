@@ -73,7 +73,6 @@ export const TextContainer = styled.div`
 `;
 export const UpdateTitleContainer = styled.div`
   display: flex;
-  background-color: red;
   height:20%;
   flex-direction: column;
   align-items: center;
@@ -122,6 +121,7 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     margin: 0 1.5em 0.5em;
     height:4em;
+    width:100%;
 `;
 export const CancelContainer = styled.div`
     display: flex;
