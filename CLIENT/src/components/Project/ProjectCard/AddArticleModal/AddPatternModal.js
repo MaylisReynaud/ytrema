@@ -132,7 +132,7 @@ export const AddPatternModal = (props) => {
                                                                         </ImgContainer>
 
                                                                         <CardText>
-                                                                            {pattern.name} -  {pattern.brand} - {pattern.clothing} 
+                                                                            {pattern.name} -  {pattern.brand} - {pattern.clothing}
                                                                         </CardText>
                                                                     </CardContainer>
                                                                 </CardsMapContainer>
@@ -146,7 +146,9 @@ export const AddPatternModal = (props) => {
                                                             className='articleUpdate'
                                                         >
                                                             <PreviewButtonContainer>
-                                                                <Preview src={selectedPattern.photo}></Preview>
+                                                                <Preview
+                                                                    className='project'
+                                                                    src={selectedPattern.photo}></Preview>
 
                                                             </PreviewButtonContainer>
 

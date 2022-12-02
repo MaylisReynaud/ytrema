@@ -173,7 +173,10 @@ export const AddHaberdasheryModal = (props) => {
                                                 className='articleUpdate'
                                             >
                                                 <PreviewButtonContainer>
-                                                    <Preview src={selectedHaberdashery.photo}></Preview>
+                                                    <Preview 
+                                                        className='project'
+                                                        src={selectedHaberdashery.photo}
+                                                    ></Preview>
 
                                                 </PreviewButtonContainer>
 
