@@ -33,7 +33,7 @@ import {
     PlusIcon,
     TitleContainer
 } from "./style";
-import { NoteModal } from "./NoteModal";
+import { AddNoteModal } from "./AddArticleModal/AddNoteModal";
 
 export const NoteProject = () => {
     const { id } = useParams();
@@ -46,9 +46,9 @@ export const NoteProject = () => {
     const projects = persistedReducer.projects;
     const projectCard = projects.value.find((project) => project.id == id);
     //Show adding note modal
-    const [showNoteModal, setShowNoteModal] = useState(false);
+    const [showAddNoteModal, setShowAddNoteModal] = useState(false);
     const isOpeningNoteModal = () => {
-        setShowNoteModal((prev) => !prev);
+        setShowAddNoteModal((prev) => !prev);
     }
 
     const [showSection, setShowSection] = useState(true);
@@ -74,9 +74,10 @@ export const NoteProject = () => {
                         onClick={isOpeningNoteModal}
                         className="AddOneMoreNote"
                     />
-                    <NoteModal
-                        showNoteModal={showNoteModal}
-                        setShowNoteModal={setShowNoteModal}
+                    <AddNoteModal
+                        showAddNoteModal={showAddNoteModal}
+                        setShowAddNoteModal={setShowAddNoteModal}
+                        word={"AJOUTER UNE NOTE"}
                     />
                     {showSection ? (
                         <MinusIcon onClick={isOpeningSection} />

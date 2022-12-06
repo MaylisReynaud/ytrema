@@ -46,10 +46,19 @@ export const ModalWrapper = styled.div`
   &[class~="addHabArticle"] {
     height: 68%;
   }
+  &[class~="addNote"] {
+    height: 83%;
+  }
     @media screen and (min-width:601px) { 
         height:27%;
         width: 35%;       
   }
+`;
+export const CloseButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  background-color: violet;
+  height:7%;
 `;
 
 export const ModalContent = styled.div`
@@ -69,6 +78,10 @@ export const ModalContent = styled.div`
   }
   &[class~="addArticle"] {
     width: 90%;
+    height:95%;
+  }
+  &[class~="addNote"] {
+    align-items:center;
     height:95%;
   }
 `;
@@ -95,6 +108,13 @@ export const UpdateTitle = styled.h1`
   }
 `;
 
+export const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  height: 20%;
+`;
 export const InformationContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -102,6 +122,7 @@ export const InformationContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
+  background-color: red;
   @media screen and (min-width: 601px) {
     /* height: 92%; */
     width: 60%;

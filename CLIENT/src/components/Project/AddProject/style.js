@@ -56,6 +56,9 @@ export const Form = styled.form`
     font-family:'${props => props.theme.textFont}';
    
     overflow-y: scroll;
+    &[class~="addNote"] {
+    height:100%;
+  }
     @media screen and (min-width:601px) { 
         width: 90%;
         height:100%;
