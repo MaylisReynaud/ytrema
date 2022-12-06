@@ -24,8 +24,6 @@ import {
     Preview,
     SelectedArticleInfo,
     QuantityContainer,
-    QuantityInput,
-    QuantityLabel,
     AllFabricsContainer,
     CardsMapContainer,
     CardContainer,

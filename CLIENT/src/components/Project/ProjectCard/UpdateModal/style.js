@@ -37,7 +37,7 @@ export const ModalWrapper = styled.div`
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
     &[class~="updateArticle"] {
-    height: 63%;
+    height: 70%;
   }
     @media screen and (min-width:601px) { 
         height:27%;
@@ -59,6 +59,7 @@ export const ModalContent = styled.div`
     height:86%;
     &[class~="articleUpdate"] {
     height: 97%;
+    align-items:center;
   }
 `;
 export const TextContainer = styled.div`
@@ -70,9 +71,17 @@ export const TextContainer = styled.div`
     color: ${props => props.theme.color3};
     font-size: 1.5em;
 `;
+export const UpdateTitleContainer = styled.div`
+  display: flex;
+  height:20%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+`;
 export const UpdateTitle = styled.h1`
     font-family: '${props => props.theme.titleFont}';
-    margin: 0 1.5em 0.5em;
+    /* margin: 0 1.5em 0.5em; */
     font-weight: bold;
     color: ${props => props.theme.color3};
     font-size: 1.5em;
@@ -112,6 +121,7 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     margin: 0 1.5em 0.5em;
     height:4em;
+    width:100%;
 `;
 export const CancelContainer = styled.div`
     display: flex;
