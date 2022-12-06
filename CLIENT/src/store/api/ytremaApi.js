@@ -1,5 +1,4 @@
 // Appel relatif à la connexion, ici tu dois recevoir un token
-// import { api } from './api';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 let token = sessionStorage.getItem("token");

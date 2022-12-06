@@ -212,6 +212,9 @@ export const AddOneArticleContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top:.5rem;
+  &[class~="articleUpdate"] {
+    align-items:center;
+  }
 `;
 
 export const Text = styled.p`
