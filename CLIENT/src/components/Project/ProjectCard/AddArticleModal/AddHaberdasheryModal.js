@@ -101,7 +101,7 @@ export const AddHaberdasheryModal = (props) => {
                     <Background>
                       
                         <ModalWrapper
-                            className='addArticle'
+                            className='addHabArticle'
                             showAddArticleModal={showAddArticleModal}
                         >
 
