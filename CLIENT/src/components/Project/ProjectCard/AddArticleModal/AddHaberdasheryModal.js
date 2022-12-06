@@ -99,10 +99,12 @@ export const AddHaberdasheryModal = (props) => {
 
                 >
                     <Background>
+                      
                         <ModalWrapper
-                            className='addArticle'
+                            className='addHabArticle'
                             showAddArticleModal={showAddArticleModal}
                         >
+
                             <ModalContent
                                 className='addArticle'
                             >
@@ -260,10 +262,6 @@ export const AddHaberdasheryModal = (props) => {
                                 </ButtonsContainer>
                                     </>
                                 )}
-
-
-                                
-
                             </ModalContent>
                             <CloseModalButton
                                 aria-label='Close modal'
