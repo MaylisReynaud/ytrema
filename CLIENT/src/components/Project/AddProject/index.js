@@ -228,7 +228,7 @@ export const AddProject = (props) => {
             },
             () => {
                 storage
-                    .ref("images")
+                    .ref("projet")
                     .child(picture.name)
                     .getDownloadURL()
                     .then((url) => {

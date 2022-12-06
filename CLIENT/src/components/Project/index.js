@@ -368,12 +368,14 @@ export const Project = (props, index) => {
             ) : (data && projects && !filterByCategory) ||
               filterByCategory.length == 0 ? (
               <>
+              
                 <CardsContainer>
                   {projects.value.map((project) => (
                     <CardsMapContainer key={project.id}>
                       <Link to={`/projets/${project.id}`}>
                         <CardContainer key={project.id}>
                           <ImgContainer>
+                          {console.log(project, "<--project")}
                             <CardImg
                               src={project.photos_array[0].photo}
                               alt={project.alt}
