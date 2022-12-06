@@ -60,7 +60,6 @@ export const ProjectCard = () => {
 
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
-
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
