@@ -6,7 +6,8 @@ let token = sessionStorage.getItem("token");
 // Define a service using a base URL and expected endpoints
 export const ytremaApi = createApi({
   reducerPath:'ytremaApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
+  // baseQuery: fetchBaseQuery({ baseUrl: 'https://ytrema.herokuapp.com/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
   tagTypes: ['Fabric', 'Haberdashery', 'Pattern', 'Auth', 'Project'],
   endpoints: (builder) => ({
     signinUser: builder.mutation({
