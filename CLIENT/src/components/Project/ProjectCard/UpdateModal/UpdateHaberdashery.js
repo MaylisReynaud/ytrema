@@ -81,7 +81,10 @@ export const UpdateHaberdashery = (props) => {
 
                                 <FormContainer>
                                     <Form>
-                                        <AddOneArticleContainer key={haberdasheryCard.id}>
+                                        <AddOneArticleContainer 
+                                            key={haberdasheryCard.id}
+                                            className='articleUpdate'
+                                        >
                                             <PreviewContainer
                                                 className='articleUpdate'
                                             >

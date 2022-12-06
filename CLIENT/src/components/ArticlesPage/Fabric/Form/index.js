@@ -81,7 +81,6 @@ export function FabricForm({ setShowModal, showModal }) {
 
   useEffect(() => {
     if (!selectedFile) {
-      console.log('dan sif de use effect')
       setPreview(undefined);
       return
     }

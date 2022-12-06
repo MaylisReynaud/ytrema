@@ -43,6 +43,9 @@ export const ModalWrapper = styled.div`
   &[class~="addArticle"] {
     height: 63%;
   }
+  &[class~="addHabArticle"] {
+    height: 68%;
+  }
     @media screen and (min-width:601px) { 
         height:27%;
         width: 35%;       
