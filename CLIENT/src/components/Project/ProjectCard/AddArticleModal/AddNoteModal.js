@@ -25,7 +25,8 @@ import {
     UpdateTitle,
     InformationContainer,
     TitleContainer,
-    CloseButtonContainer
+    CloseButtonContainer,
+    NoteTextArea
 } from './style';
 
 import YtremaLogo from "../../../../assets/images/logo.png";
@@ -35,7 +36,7 @@ import YtremaLogo from "../../../../assets/images/logo.png";
 
 export const AddNoteModal = (props) => {
     const {
-        showAddNoteModal, 
+        showAddNoteModal,
         setShowAddNoteModal,
         word
     } = props;
@@ -77,39 +78,47 @@ export const AddNoteModal = (props) => {
                             showNoteModal={showAddNoteModal}
                         >
                             <CloseButtonContainer>
-                             <CloseModalButton
-                                aria-label='Close modal'
-                                onClick={() => setShowAddNoteModal(prev => !prev)}
-                            />
+                                <CloseModalButton
+                                    aria-label='Close modal'
+                                    onClick={() => setShowAddNoteModal(prev => !prev)}
+                                />
                             </CloseButtonContainer>
                             <ModalContent
-                            className='addNote'
+                                className='addNote'
                             >
 
-                                <TitleContainer>
-                                <UpdateTitle>{word}</UpdateTitle>
+                                <TitleContainer
+                                    className='addNote'
+                                >
+                                    <UpdateTitle>{word}</UpdateTitle>
                                 </TitleContainer>
-                                
-                                <FormContainer>
+
+                                <FormContainer
+                                    className='addNote'
+                                >
                                     <Form>
-                                    <AddOneArticleContainer>
+                                        {/* <AddOneArticleContainer> */}
                                         {/* CHOISIR UNE PHOTO DE PROFIL AU PROJET */}
                                         <PreviewContainer>
 
-<Text>Choisissez une photo pour illustrer votre note</Text>
-                                        
+                                            <Text>Illustrer avec une photo (optionnel)</Text>
+
                                             <PreviewButtonContainer
                                             // className="firstShow"
                                             >
                                                 {/* {values.photo ?
                                                     <Preview src={preview}></Preview>
                                                     : */}
-                                                    <Preview src={YtremaLogo}></Preview>
+                                                <Preview
+                                                    className='addNote'
+                                                    src={YtremaLogo}></Preview>
                                                 {/* } */}
-                            
+
 
                                             </PreviewButtonContainer>
-                                            <PictureInputContainer>
+                                            <PictureInputContainer
+                                                className='addNote'
+                                            >
                                                 <label htmlFor="projectPicture"></label>
                                                 <PictureInput
                                                     htmlFor="projectPicture"
@@ -117,41 +126,53 @@ export const AddNoteModal = (props) => {
                                                     placeholder="Photo du projet"
                                                     type="file"
                                                     name="photo"
-                                                    // onChange={onChange}
+                                                // onChange={onChange}
                                                 >
                                                 </PictureInput>
                                             </PictureInputContainer>
                                         </PreviewContainer>
-                                        <InformationContainer>
-                                                
-                                            </InformationContainer>
-                                    </AddOneArticleContainer>
+                                        <InformationContainer
+                                            className='addNote'
+                                        >
+                                            <NoteTextArea
+                                                rows={'10'}
+                                                placeholder={'écrivez votre note ici ...'}
+                                            >
+
+                                            </NoteTextArea>
+                                        </InformationContainer>
+                                        {/* </AddOneArticleContainer> */}
                                     </Form>
                                 </FormContainer>
                                 <ButtonsContainer
-                                    className='addArticle'
+                                    className='addNote'
                                 >
-                                    <CancelContainer>
+                                    <CancelContainer
+                                        className='addNote'
+                                    >
                                         <CancelButton
                                             onClick={closeModal}
                                         >
                                             Annuler
                                         </CancelButton>
                                     </CancelContainer>
-                                    <UpdateContainer>
+                                    <UpdateContainer
+                                        className='addNote'
+                                    >
                                         <UpdateButton
+                                            className='addNote'
                                             onClick={(event) => {
                                                 // handleAddFabricSubmit(event);
                                                 closeModal();
                                             }}
 
                                         >
-                                            Ajouter cette note
+                                            Ajouter
                                         </UpdateButton>
                                     </UpdateContainer>
                                 </ButtonsContainer>
                             </ModalContent>
-                           
+
                         </ModalWrapper>
                     </Background>
                 </Container>

@@ -83,6 +83,7 @@ export const ModalContent = styled.div`
   &[class~="addNote"] {
     align-items:center;
     height:95%;
+    justify-content:flex-start;
   }
 `;
 export const TextContainer = styled.div`
@@ -114,6 +115,9 @@ export const TitleContainer = styled.div`
   align-items:center;
   justify-content: center;
   height: 20%;
+  &[class~="addNote"] {
+    height:unset;
+  }
 `;
 export const InformationContainer = styled.div`
   height: 100%;
@@ -122,13 +126,24 @@ export const InformationContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
-  background-color: red;
+  /* &[class~="addNote"] {
+    height:100%;
+  } */
   @media screen and (min-width: 601px) {
     /* height: 92%; */
     width: 60%;
     margin-left: 2.5rem;
  
   }
+`;
+export const NoteTextArea = styled.textarea`
+  width:100%;
+  height: 100%;
+  resize: none;
+  font-family: "${(props) => props.theme.textFont}";
+  font-size: 1rem;
+  border: 2px solid ${(props) => props.theme.color2};
+  padding: 0.5rem;
 `;
 
 export const RowContainer = styled.div`
@@ -153,12 +168,20 @@ export const ButtonsContainer = styled.div`
         justify-content: center;
         align-items: center;
   }
+  &[class~="addNote"] {
+        margin:unset;
+        margin-top:.5rem;
+  }
 `;
 export const CancelContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 60%;
     margin-right: 1em;
+    &[class~="addNote"] {
+        width:unset;
+        justify-content: flex-start;
+  }
 
 `;
 export const CancelButton = styled.p`
@@ -175,6 +198,10 @@ export const UpdateContainer = styled.div`
         justify-content: center;
         margin-left: 3rem;
         margin-bottom:1rem;
+  }
+  &[class~="addNote"] {
+      justify-content: flex-end;
+
   }
 
 
@@ -193,6 +220,10 @@ export const UpdateButton = styled.button`
         font-weight: 600;
         &[class~="noStock"] {
         justify-content: center;
+  }
+  &[class~="addNote"] {
+      padding: .5em 2em;
+
   }
 `;
 export const CloseModalButton = styled(Close)`
