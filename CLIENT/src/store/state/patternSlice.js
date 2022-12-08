@@ -9,7 +9,6 @@ export const patternSlice = createSlice({
   initialState,
   reducers: {
     addAllPatterns: (state, action) => {
-      console.log('dans addAllPatterns')
       state.value = action.payload;
     },
     addPattern: (state, action) => {

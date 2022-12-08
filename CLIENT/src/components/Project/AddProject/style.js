@@ -43,6 +43,9 @@ export const FormContainer = styled.div`
     &[class~="addArticle"] {
     overflow-y: scroll;
   }
+  &[class~="addNote"] {
+    width: 93%;
+  }
     @media screen and (min-width:601px) { 
         /* width: 90%;
         height:100%; */
@@ -56,6 +59,9 @@ export const Form = styled.form`
     font-family:'${props => props.theme.textFont}';
    
     overflow-y: scroll;
+    &[class~="addNote"] {
+    height:100%;
+  }
     @media screen and (min-width:601px) { 
         width: 90%;
         height:100%;
@@ -223,6 +229,7 @@ export const Text = styled.p`
   font-size: 1rem;
   margin-top: 1rem;
   text-align: center;
+  width:93%;
 `;
 
 export const PreviewContainer = styled.div`
@@ -258,6 +265,9 @@ export const Preview = styled.img`
   background-color:  ${(props) => props.theme.color4};
   &[class~="project"] {
     height: 20vh;
+  }
+  &[class~="addNote"] {
+    height: 16vh;
   }
 `;
 
@@ -506,6 +516,9 @@ export const PictureInputContainer = styled.div`
   width: 100%;
   font-family: "${(props) => props.theme.textFont}";
   font-size: 1rem;
+  &[class~="addNote"] {
+    margin:0;
+  }
 `;
 
 export const PictureInput = styled.input`
