@@ -27,6 +27,7 @@ import {
     TitleContainer
 } from "./style";
 import { AddNoteModal } from "./AddArticleModal/AddNoteModal";
+import { UpdateNote } from "./UpdateModal/UpdateNote";
 import { useGetAllPhotosQuery } from "../../../store/api/ytremaApi";
 import { addAllPhotos } from "../../../store/state/projectSlice";
 
@@ -38,15 +39,13 @@ export const NoteProject = (props) => {
         setAddNoteValues,
         pictureURL,
         setPictureURL,
-        preview
+        preview,
+        handleNoteSubmit,
+        noteOnChange,
+        noteValues,
+        setNoteValues,
+        photosArrayId
     } = props;
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const { persistedReducer } = useSelector((state) => state);
-    const auth = persistedReducer.auth;
-    const projects = persistedReducer.projects;
-    const projectCard = projects.value.find((project) => project.id == id);
-
 
     //Show adding note modal
     const [showAddNoteModal, setShowAddNoteModal] = useState(false);
@@ -58,33 +57,44 @@ export const NoteProject = (props) => {
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
-    }
+    };
 
 
-     // ADD NOTE
-     const urlParams = {
+    // ADD NOTE
+    const dispatch = useDispatch();
+    const { persistedReducer } = useSelector((state) => state);
+    const auth = persistedReducer.auth;
+    const { id } = useParams();
+    const projects = persistedReducer.projects;
+    const projectCard = projects.value.find((project) => project.id == id);
+    const urlParams = {
         projectId: projectCard.id,
         memberId: auth.id,
     };
-     const { data, isSuccess } = useGetAllPhotosQuery(urlParams);
+    const { data, isSuccess } = useGetAllPhotosQuery(urlParams);
 
+    useEffect(() => {
+        if ((isSuccess) && data) {
+            dispatch(addAllPhotos(data.photos));
+        }
+    }, [data]);
 
-
-    //  console.log(useGetAllPhotosQuery(urlParams), "<--useGetAllNotesQuery(projectCard.id, auth.id)")
-     useEffect(() => {
-         if ((isSuccess) && data) {
-            console.log(dispatch(addAllPhotos(data.photos)),"<-- dispatch(addAllPhotos(data.photos))")
-             dispatch(addAllPhotos(data.photos));
-             const photos = data.photos;
-         }
-     }, [data]);
-
+     //UPDATE NOTE
+     const photo = projectCard.photos_array.map(photo => photo)
+     console.log(photo, "<--photo")
+     const [showUpdateModal, setShowUpdateModal] = useState(false);
+     const [noteInfo, setNoteInfo] = useState();
+     const isOpeningUpdateModal = (id, photo, personal_notes) => {
+         setNoteValues({
+             ...noteValues,
+             id: id,
+             photo: photo,
+             personal_notes: personal_notes
+         })
+         setShowUpdateModal(!showUpdateModal);
+     };
     return (
-        <Section
-            // id='notes'
-            // className="notes"
-        >
-
+        <Section>
             <AddReturnButtonContainer>
                 <TitleContainer
                     className="showSection"
@@ -119,11 +129,16 @@ export const NoteProject = (props) => {
                     {data.photos.map((notes, index) => (
                         <CardContainer
                             key={notes.id}
-                          
+
                         >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
-                                    <ModifyButton />
+                                    <ModifyButton
+                                        aria-label="Modifier cette note"
+                                        onClick={( ) => {
+                                            isOpeningUpdateModal(notes.id, notes.photo, notes.personal_notes)
+                                        }}
+                                    />
                                 </ModifyContainer>
 
                                 {index !== 0 && (
@@ -180,8 +195,22 @@ export const NoteProject = (props) => {
                         </CardContainer>
                     ))
                     }
-                </CardsContainer >
+                </CardsContainer >  
             )}
+            <UpdateNote
+                setShowUpdateModal={setShowUpdateModal}
+                showUpdateModal={showUpdateModal}
+                word={'MODIFIER LA NOTE'}
+                noteOnChange={noteOnChange}
+                noteValues={noteValues}
+                setNoteValues={setNoteValues}
+                handleNoteSubmit={handleNoteSubmit}
+                pictureURL={pictureURL}
+                setPictureURL={setPictureURL}
+                preview={preview}
+                photosArrayId={photosArrayId}
+
+            />
 
         </Section >
     )

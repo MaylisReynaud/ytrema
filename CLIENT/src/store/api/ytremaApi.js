@@ -403,7 +403,7 @@ export const ytremaApi = createApi({
     },
     providesTags: ['Project'],
   }),
-  addOneNoteProject: builder.mutation({
+  addOnePhotoProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
       return {
@@ -411,6 +411,20 @@ export const ytremaApi = createApi({
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  updateOnePhotoProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, photoId, body} = arg;
+    return {
+      url: `photo/${photoId}/project/${projectId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
         },
         body
       }
@@ -450,7 +464,8 @@ export const {
               useUpdateOneHaberdasheryProjectMutation,
               useAddOneHaberdasheryProjectMutation,
               useAddOnePatternProjectMutation,
-              useAddOneNoteProjectMutation,
+              useAddOnePhotoProjectMutation,
               useGetAllPhotosQuery,
+              useUpdateOnePhotoProjectMutation,
              } = ytremaApi;
 

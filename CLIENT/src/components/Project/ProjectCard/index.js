@@ -47,8 +47,10 @@ import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
 import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
 import { useAddOnePatternProjectMutation } from "../../../store/api/ytremaApi";
 import { updatePatternProject } from "../../../store/state/projectSlice";
-import { useAddOneNoteProjectMutation } from "../../../store/api/ytremaApi";
-import { updateNoteProject } from "../../../store/state/projectSlice";
+import { useAddOnePhotoProjectMutation } from "../../../store/api/ytremaApi";
+import { useUpdateOnePhotoProjectMutation } from "../../../store/api/ytremaApi";
+import { updatePhotoProject } from "../../../store/state/projectSlice";
+
 
 
 export const ProjectCard = () => {
@@ -441,7 +443,7 @@ const onSelectPicture = (event) => {
 }
 
 
-const [addNoteProject] = useAddOneNoteProjectMutation(projectCard.id, auth.id, photosArrayId);
+const [addPhotoProject] = useAddOnePhotoProjectMutation(projectCard.id, auth.id, photosArrayId);
 
 const addNoteOnChange = (event) => {
     setAddNoteValues({ ...addNoteValues, [event.target.name]: event.target.value });
@@ -464,7 +466,7 @@ const handleAddNoteSubmit = async (event) => {
         body: valuesToSend,
     };
 
-   const { savedPhoto } = await addNoteProject(urlParams).unwrap();
+   const { savedPhoto } = await addPhotoProject(urlParams).unwrap();
 
     //  Mettre à jour le store
     if(savedPhoto) {
@@ -484,6 +486,62 @@ const handleAddNoteSubmit = async (event) => {
     }
     
 };
+
+// UPDATE NOTE CARD
+const [noteValues, setNoteValues] = useState({
+    id:"",
+    photo:"",
+    personal_notes:""
+});
+console.log(noteValues, "<--note values")
+
+const [updateOnePhotoProject] = useUpdateOnePhotoProjectMutation(projectCard.id, auth.id, haberdasheryValues.haberdasheryId);
+
+const noteOnChange = (event) => {
+    setNoteValues({ ...noteValues, [event.target.name]: event.target.value });
+    if (event.target.name === 'photo') {
+        onSelectPicture(event);
+        if (!event.target.files || event.target.files.length > 0) {
+            handleUpload(event.target.files[0]);
+        }
+    }
+};
+
+
+const handleNoteSubmit = async (event) => {
+    event.preventDefault();
+    const valuesToSend = noteValues;
+    valuesToSend.photo = pictureURL;
+    console.log(auth.id, "<--auth.id")
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        photoId: valuesToSend.id,
+        body: valuesToSend,
+    };
+
+    const { updatedPhotoData } = await updateOnePhotoProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    if(updatedPhotoData) {
+        dispatch(updateHaberdasheryProject(projectCard.id));
+
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
+    
+};
+
+const photosArray = projectCard.photos_array;
 
     return (
         <>
@@ -581,6 +639,11 @@ const handleAddNoteSubmit = async (event) => {
                             pictureURL={pictureURL}
                             setPictureURL={setPictureURL}
                             preview={preview}
+                            handleNoteSubmit={handleNoteSubmit}
+                            noteOnChange={noteOnChange}
+                            noteValues={noteValues}
+                            setNoteValues={setNoteValues}
+                            photosArrayId={photosArrayId}
                        />
                        <CostProject />
                     </>
