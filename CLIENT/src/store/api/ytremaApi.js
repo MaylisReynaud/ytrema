@@ -336,7 +336,6 @@ export const ytremaApi = createApi({
   addOneFabricProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
-      console.log(arg, "<--arg dans addOneFabricProject")
       return {
         url: `/project/${projectId}/add/fabric/member/${memberId}`,
         method: "POST",
@@ -365,7 +364,6 @@ export const ytremaApi = createApi({
   addOneHaberdasheryProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
-      console.log(arg, "<--arg dans addOneHaberProject")
       return {
         url: `/project/${projectId}/add/haberdashery/member/${memberId}`,
         method: "POST",
@@ -382,6 +380,34 @@ export const ytremaApi = createApi({
       const {memberId, projectId, body} = arg;
       return {
         url: `/project/${projectId}/add/pattern/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  getAllNotes: builder.query({
+    query: (arg) => {
+      const {projectId, memberId} = arg;
+      console.log(projectId, memberId, "dansGetAll notes")
+      return {
+        url: `/photo/all/project/${projectId}/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Project'],
+  }),
+  addOneNoteProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      return {
+        url: `photo/project/${projectId}/member/${memberId}`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -423,6 +449,8 @@ export const {
               useAddOneFabricProjectMutation,
               useUpdateOneHaberdasheryProjectMutation,
               useAddOneHaberdasheryProjectMutation,
-              useAddOnePatternProjectMutation
+              useAddOnePatternProjectMutation,
+              useAddOneNoteProjectMutation,
+              useGetAllNotesQuery,
              } = ytremaApi;
 

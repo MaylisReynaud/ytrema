@@ -4,13 +4,14 @@ import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { storage } from "../../../Firebase";
 import {
     useDeleteOneProjectMutation,
     useUpdateOneProjectMutation
 } from "../../../store/api/ytremaApi";
 import {
     updateProject,
-    deleteProject
+    deleteProject,
 } from "../../../store/state/projectSlice";
 
 
@@ -46,6 +47,8 @@ import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
 import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
 import { useAddOnePatternProjectMutation } from "../../../store/api/ytremaApi";
 import { updatePatternProject } from "../../../store/state/projectSlice";
+import { useAddOneNoteProjectMutation } from "../../../store/api/ytremaApi";
+import { updateNoteProject } from "../../../store/state/projectSlice";
 
 
 export const ProjectCard = () => {
@@ -57,7 +60,7 @@ export const ProjectCard = () => {
     const isLogged = auth.isLogged;
     const activeSession = sessionStorage.getItem("token");
     const projects = persistedReducer.projects;
-
+console.log(projects, "projects.value")
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
@@ -296,8 +299,6 @@ const [addHaberdasheryValues, setAddHaberdasheryValues] = useState({
     haberdashery_used_size: ""
 });
 
-console.log(addHaberdasheryValues, "<--addHaberdasheryValues")
-
 const [addHaberdasheryProject] = useAddOneHaberdasheryProjectMutation(projectCard.id, auth.id, addHaberdasheryValues.haberdashery_id);
 
 const addHaberdasheryOnChange = (event) => {
@@ -319,8 +320,7 @@ const handleAddHaberdasherySubmit = async (event) => {
     //  Mettre à jour le store
     if(addHaberdashery) {
       
-        const projectUsed = addHaberdashery.find((project) => project.id == projectCard.id)
-        console.log(projectUsed, "projectUsed dans ProjectCard")
+        const projectUsed = addHaberdashery.find((project) => project.id == projectCard.id);
         dispatch(updateHaberdasheryProject(projectUsed));
 
         toast.success('Projet modifié avec succès👌', {
@@ -343,8 +343,6 @@ const [addPatternValues, setAddPatternValues] = useState({
     pattern_id: "",
     pattern_price: "",
 });
-
-console.log(addPatternValues, "<--addpatternValues")
 
 const [addPatternProject] = useAddOnePatternProjectMutation(projectCard.id, auth.id, addPatternValues.pattern_id);
 
@@ -384,6 +382,108 @@ const handleAddPatternSubmit = async (event) => {
     
 };
 const patternArray = projectCard.pattern_array;
+
+
+
+// ADD A NEW NOTE TO PROJECT
+const [addNoteValues, setAddNoteValues] = useState({
+    personal_notes:"",
+    photo:"",
+});
+const photosArrayId = projectCard.photos_array.map((photoId) => photoId.id);
+
+ //PICTURE
+const [pictureURL, setPictureURL] = useState();
+const [selectedPicture, setSelectedPicture] = useState();
+const [preview, setPreview] = useState();
+
+
+ useEffect(() => {
+     if (!selectedPicture) {
+         setPreview(undefined);
+         return;
+     }
+     const objectUrl = URL.createObjectURL(selectedPicture);
+
+     // free memory when ever this component is unmounted
+     return () => URL.revokeObjectURL(objectUrl);
+ }, [selectedPicture]);
+
+ //propre a firebase
+ const handleUpload = (picture) => {
+
+     const uploadTask = storage.ref(`projet/${picture.name}`).put(picture);
+     uploadTask.on(
+         "state_changed",
+         (snapshot) => { },
+         (error) => {
+             console.log(error);
+         },
+         () => {
+             storage
+                 .ref("projet")
+                 .child(picture.name)
+                 .getDownloadURL()
+                 .then((url) => {
+                     setPictureURL(url);
+                     setPreview(url);
+                 });
+         }
+     );
+ };
+const onSelectPicture = (event) => {
+    if (!event.target.files || event.target.files.length === 0) {
+        setSelectedPicture(undefined);
+        return
+    }
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedPicture(event.target.files[0]);
+}
+
+
+const [addNoteProject] = useAddOneNoteProjectMutation(projectCard.id, auth.id, photosArrayId);
+
+const addNoteOnChange = (event) => {
+    setAddNoteValues({ ...addNoteValues, [event.target.name]: event.target.value });
+    if (event.target.name === 'photo') {
+
+        onSelectPicture(event);
+        if (!event.target.files || event.target.files.length > 0) {
+            handleUpload(event.target.files[0]);
+        }
+    }
+};
+
+const handleAddNoteSubmit = async (event) => {
+    event.preventDefault();
+    const valuesToSend = addNoteValues;
+    valuesToSend.photo = pictureURL;
+    const urlParams = {
+        memberId: auth.id,
+        projectId: projectCard.id,
+        body: valuesToSend,
+    };
+
+   const { savedPhoto } = await addNoteProject(urlParams).unwrap();
+
+    //  Mettre à jour le store
+    if(savedPhoto) {
+        // dispatch(updateNoteProject(savedPhoto.project_id));
+
+        toast.success('Projet modifié avec succès👌', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            role: "alert"
+        });
+    }
+    
+};
 
     return (
         <>
@@ -473,7 +573,15 @@ const patternArray = projectCard.pattern_array;
                             addPatternValues={addPatternValues}
                             setAddPatternValues={setAddPatternValues}
                         />
-                       <NoteProject/>
+                       <NoteProject
+                            handleAddNoteSubmit={handleAddNoteSubmit}
+                            addNoteOnChange={addNoteOnChange}
+                            addNoteValues={addNoteValues}
+                            setAddNoteValues={setAddNoteValues}
+                            pictureURL={pictureURL}
+                            setPictureURL={setPictureURL}
+                            preview={preview}
+                       />
                        <CostProject />
                     </>
                 )

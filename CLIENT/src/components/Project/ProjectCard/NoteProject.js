@@ -3,14 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    useDeleteOneProjectMutation,
-    useUpdateOneProjectMutation
-} from "../../../store/api/ytremaApi";
-import {
-    updateProject,
-    deleteProject
-} from "../../../store/state/projectSlice";
+
 
 import {
     CardsContainer,
@@ -34,8 +27,19 @@ import {
     TitleContainer
 } from "./style";
 import { AddNoteModal } from "./AddArticleModal/AddNoteModal";
+import { useGetAllNotesQuery } from "../../../store/api/ytremaApi";
+import { addAllNotes } from "../../../store/state/projectSlice";
 
-export const NoteProject = () => {
+export const NoteProject = (props) => {
+    const {
+        handleAddNoteSubmit,
+        addNoteOnChange,
+        addNoteValues,
+        setAddNoteValues,
+        pictureURL,
+        setPictureURL,
+        preview
+    } = props;
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
     const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
@@ -44,40 +48,67 @@ export const NoteProject = () => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
+    // const photos = persistedReducer.photos;
+    console.log(projects, "<--projects")
     const projectCard = projects.value.find((project) => project.id == id);
+
+
     //Show adding note modal
     const [showAddNoteModal, setShowAddNoteModal] = useState(false);
     const isOpeningNoteModal = () => {
         setShowAddNoteModal((prev) => !prev);
     }
 
+    // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
     }
 
+
+     // ADD NOTE
+     const urlParams = {
+        projectId: projectCard.id,
+        memberId: auth.id,
+    };
+    console.log(urlParams, "<-- url params auth.id,projectCard.id" )
+    //  const { data, isSuccess } = useGetAllNotesQuery(urlParams);
+    //  console.log(data, "<--data all notes")
+
+    //  console.log(useGetAllNotesQuery(urlParams), "<--useGetAllNotesQuery(projectCard.id, auth.id)")
+    //  useEffect(() => {
+    //      if ((isSuccess) && data) {
+    //          dispatch(addAllNotes(data.notes));
+    //      }
+    //  }, [data]);
+
     return (
         <Section
-            id='notes'
-            className="notes"
+            // id='notes'
+            // className="notes"
         >
 
             <AddReturnButtonContainer>
                 <TitleContainer
                     className="showSection"
                 >
-                    <SectionTitle
-                        className="notes">
+                    <SectionTitle>
                         NOTES
                     </SectionTitle>
                     <AddButton
                         onClick={isOpeningNoteModal}
-                        className="AddOneMoreNote"
                     />
                     <AddNoteModal
                         showAddNoteModal={showAddNoteModal}
                         setShowAddNoteModal={setShowAddNoteModal}
                         word={"AJOUTER UNE NOTE"}
+                        addNoteOnChange={addNoteOnChange}
+                        addNoteValues={addNoteValues}
+                        setAddNoteValues={setAddNoteValues}
+                        handleAddNoteSubmit={handleAddNoteSubmit}
+                        pictureURL={pictureURL}
+                        setPictureURL={setPictureURL}
+                        preview={preview}
                     />
                     {showSection ? (
                         <MinusIcon onClick={isOpeningSection} />
@@ -91,7 +122,7 @@ export const NoteProject = () => {
                     {projectCard.photos_array.map((notes, index) => (
                         <CardContainer
                             key={notes.id}
-                            className="otherHeight"
+                          
                         >
                             <ModifyDeleteContainer>
                                 <ModifyContainer>
@@ -147,7 +178,7 @@ export const NoteProject = () => {
                                         </CardParagraph>
                                     </InfoCardContainer>
                                 )}
-                           
+
 
                         </CardContainer>
                     ))

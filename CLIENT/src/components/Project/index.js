@@ -66,9 +66,8 @@ export const Project = (props, index) => {
   const haberdasheries = persistedReducer.haberdasheries;
   const patterns = persistedReducer.patterns;
   const isLogged = auth.isLogged;
-  const { data, error, isLoading, isSuccess, isError } = useGetAllProjectsQuery(
-    auth.id
-  );
+  const { data, error, isLoading, isSuccess, isError } = useGetAllProjectsQuery(auth.id);
+  console.log(auth.id, "<--auth.id")
 
   //Set a filter array
   let fabricsFilter = [];
@@ -94,6 +93,7 @@ export const Project = (props, index) => {
       dispatch(addAllProjects(data.projects));
     }
   }, [data, projects]);
+  // console.log(data, projects, "<--data, projects")
 
   const mapFilteredCards = (filteredCategory) => {
     // Object which representes the selected values by category

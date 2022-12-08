@@ -85,6 +85,31 @@ export const projectSlice = createSlice({
     addPatternProject: (state, action) => {
       state.value.push(action.payload);
     },
+    addNoteProject: (state, action) => {
+      state.value.push(action.payload);
+    },
+    // updateNoteProject: (state, action) => {
+    //   console.log(state, action, "state action updateNoteProject slice")
+    //   state.value = state.value.map((project) => {
+    //     if (project.id === action.payload.id) {
+    //       return {
+    //         ...project,
+    //         ...action.payload,
+    //       };
+    //     } else {
+    //       return {
+    //         ...project
+    //       }
+    //     }
+    //   }
+
+    //   );
+    // },
+    addAllNotes: (state, action) => {
+      console.log("dans add all notes")
+      console.log(state, action, "state // action dans projectSlice AddAllNotes")
+      state.value = action.payload;
+    },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
         return project.id !== action.payload;
@@ -106,6 +131,9 @@ export const {
   addHaberdasheryProject,
   updatePatternProject,
   addPatternProject,
+  addNoteProject,
+  updateNoteProject,
+  addAllNotes,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;

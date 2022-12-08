@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import {
     AddOneArticleContainer,
     FormContainer,
@@ -38,14 +38,18 @@ export const AddNoteModal = (props) => {
     const {
         showAddNoteModal,
         setShowAddNoteModal,
-        word
+        word,
+        addNoteOnChange,
+        addNoteValues,
+        setAddNoteValues,
+        handleAddNoteSubmit,
+        preview,
+        pictureURL,
+        setPictureURL
     } = props;
 
-    const modalRef = useRef();
-    const closeModal = (event) => {
-        if (modalRef.current === event.target) {
-            setShowAddNoteModal(false);
-        }
+    const closeAddNoteModal = () => {
+        setShowAddNoteModal(false);
     };
 
     const keyPress = useCallback(event => {
@@ -60,6 +64,7 @@ export const AddNoteModal = (props) => {
     }, [keyPress]);
 
 
+
     return (
         <>
             {showAddNoteModal ? (
@@ -69,10 +74,7 @@ export const AddNoteModal = (props) => {
                     exit={{ opacity: 0 }}
 
                 >
-                    <Background
-                        ref={modalRef}
-                        onClick={closeModal}
-                    >
+                    <Background>
                         <ModalWrapper
                             className='addNote'
                             showNoteModal={showAddNoteModal}
@@ -103,30 +105,29 @@ export const AddNoteModal = (props) => {
 
                                             <Text>Illustrer avec une photo (optionnel)</Text>
 
-                                            <PreviewButtonContainer
-                                            // className="firstShow"
-                                            >
-                                                {/* {values.photo ?
-                                                    <Preview src={preview}></Preview>
-                                                    : */}
-                                                <Preview
-                                                    className='addNote'
-                                                    src={YtremaLogo}></Preview>
-                                                {/* } */}
-
+                                            <PreviewButtonContainer>
+                                                {addNoteValues.photo ?
+                                                    <Preview
+                                                        className='addNote'
+                                                        src={preview}></Preview>
+                                                    :
+                                                    <Preview
+                                                        className='addNote'
+                                                        src={YtremaLogo}></Preview>
+                                                }
 
                                             </PreviewButtonContainer>
                                             <PictureInputContainer
                                                 className='addNote'
                                             >
-                                                <label htmlFor="projectPicture"></label>
+                                                <label htmlFor="photo"></label>
                                                 <PictureInput
-                                                    htmlFor="projectPicture"
+                                                    htmlFor="photo"
                                                     accept="image/*"
                                                     placeholder="Photo du projet"
                                                     type="file"
                                                     name="photo"
-                                                // onChange={onChange}
+                                                    onChange={addNoteOnChange}
                                                 >
                                                 </PictureInput>
                                             </PictureInputContainer>
@@ -135,8 +136,12 @@ export const AddNoteModal = (props) => {
                                             className='addNote'
                                         >
                                             <NoteTextArea
+                                                htmlFor="personal_notes"
+                                                name="personal_notes"
                                                 rows={'10'}
+                                                onChange={addNoteOnChange}
                                                 placeholder={'écrivez votre note ici ...'}
+
                                             >
 
                                             </NoteTextArea>
@@ -151,7 +156,7 @@ export const AddNoteModal = (props) => {
                                         className='addNote'
                                     >
                                         <CancelButton
-                                            onClick={closeModal}
+                                            onClick={closeAddNoteModal}
                                         >
                                             Annuler
                                         </CancelButton>
@@ -162,8 +167,8 @@ export const AddNoteModal = (props) => {
                                         <UpdateButton
                                             className='addNote'
                                             onClick={(event) => {
-                                                // handleAddFabricSubmit(event);
-                                                closeModal();
+                                                handleAddNoteSubmit(event);
+                                                closeAddNoteModal();
                                             }}
 
                                         >
