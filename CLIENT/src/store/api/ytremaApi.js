@@ -336,7 +336,6 @@ export const ytremaApi = createApi({
   addOneFabricProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
-      console.log(arg, "<--arg dans addOneFabricProject")
       return {
         url: `/project/${projectId}/add/fabric/member/${memberId}`,
         method: "POST",
@@ -365,7 +364,6 @@ export const ytremaApi = createApi({
   addOneHaberdasheryProject: builder.mutation({
     query: (arg) =>{
       const {memberId, projectId, body} = arg;
-      console.log(arg, "<--arg dans addOneHaberProject")
       return {
         url: `/project/${projectId}/add/haberdashery/member/${memberId}`,
         method: "POST",
@@ -385,6 +383,48 @@ export const ytremaApi = createApi({
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  getAllPhotos: builder.query({
+    query: (arg) => {
+      const {projectId, memberId} = arg;
+      console.log(projectId, memberId, "dansGetAll photo")
+      return {
+        url: `/photo/all/project/${projectId}/member/${memberId}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    providesTags: ['Project'],
+  }),
+  addOnePhotoProject: builder.mutation({
+    query: (arg) =>{
+      const {memberId, projectId, body} = arg;
+      return {
+        url: `photo/project/${projectId}/member/${memberId}`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  updateOnePhotoProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, photoId, body} = arg;
+    return {
+      url: `photo/${photoId}/project/${projectId}/member/${memberId}`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
         },
         body
       }
@@ -423,6 +463,9 @@ export const {
               useAddOneFabricProjectMutation,
               useUpdateOneHaberdasheryProjectMutation,
               useAddOneHaberdasheryProjectMutation,
-              useAddOnePatternProjectMutation
+              useAddOnePatternProjectMutation,
+              useAddOnePhotoProjectMutation,
+              useGetAllPhotosQuery,
+              useUpdateOnePhotoProjectMutation,
              } = ytremaApi;
 

@@ -85,6 +85,40 @@ export const projectSlice = createSlice({
     addPatternProject: (state, action) => {
       state.value.push(action.payload);
     },
+    addNoteProject: (state, action) => {
+      state.value.push(action.payload);
+    },
+    updatePhotoProject: (state, action) => {
+      console.log(state, action, "state action updateNoteProject slice")
+      state.value = state.value.map((project) => {
+        if (project.id === action.payload_id) {
+          return {
+            ...project,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...project
+          }
+        }
+      }
+
+      );
+    },
+    addAllPhotos: (state, action) => {
+      state.value = state.value.map((project) => {
+        if (project.id === action.payload.project_id) {
+          return {
+            ...project,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...project
+          };
+        }
+      });
+    },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
         return project.id !== action.payload;
@@ -106,6 +140,9 @@ export const {
   addHaberdasheryProject,
   updatePatternProject,
   addPatternProject,
+  addNoteProject,
+  updatePhotoProject,
+  addAllPhotos,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;
