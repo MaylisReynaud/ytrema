@@ -31,7 +31,7 @@ import { UpdateNote } from "./UpdateModal/UpdateNote";
 import { useGetAllPhotosQuery } from "../../../store/api/ytremaApi";
 import { addAllPhotos } from "../../../store/state/projectSlice";
 
-export const NoteProject = (props) => {
+export const NoteProject = (props, index) => {
     const {
         handleAddNoteSubmit,
         addNoteOnChange,
@@ -147,14 +147,12 @@ export const NoteProject = (props) => {
                                     </TrashContainer>
                                 )}
                             </ModifyDeleteContainer>
-                            {index !== 0 ? (
-                                notes.photo !== "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4" ? (
                                     <InfoCardContainer>
                                         <ImgContainer
                                             className="notes"
                                         >
                                             <CardImg
-                                                src={notes.photo}
+                                                src={notes.photo !== null ? notes.photo : "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4"}
                                                 alt={notes.name}
                                             />
                                         </ImgContainer>
@@ -163,35 +161,6 @@ export const NoteProject = (props) => {
                                             {notes.personal_notes}
                                         </CardParagraph>
                                     </InfoCardContainer>
-
-                                ) : (
-                                    <InfoCardContainer>
-                                        <CardParagraph
-                                            className="notes"
-                                        >
-                                            {notes.personal_notes}
-                                        </CardParagraph>
-                                    </InfoCardContainer>
-                                )
-                            ) :
-                                (
-                                    <InfoCardContainer>
-                                        <ImgContainer
-                                            className="notes"
-                                        >
-                                            <CardImg
-                                                src={notes.photo}
-                                                alt={notes.name}
-                                            />
-                                        </ImgContainer>
-
-                                        <CardParagraph>
-                                            {notes.personal_notes}
-                                        </CardParagraph>
-                                    </InfoCardContainer>
-                                )}
-
-
                         </CardContainer>
                     ))
                     }

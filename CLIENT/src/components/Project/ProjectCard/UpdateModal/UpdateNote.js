@@ -31,7 +31,7 @@ import {
 
 import { useSelector } from "react-redux";
 
-export const UpdateNote = (props) => {
+export const UpdateNote = (props, index) => {
     const {
         showUpdateModal,
         setShowUpdateModal,
@@ -103,10 +103,10 @@ export const UpdateNote = (props) => {
                                             <Text>Illustrer avec une photo (optionnel)</Text>
 
                                             <PreviewButtonContainer>
-                                                
-                                                    <Preview
-                                                        className='addNote'
-                                                        src={preview ? preview : noteValues.photo}></Preview>
+
+                                                <Preview
+                                                    className='addNote'
+                                                    src={preview ? preview : noteValues.photo}></Preview>
                                             </PreviewButtonContainer>
                                             <PictureInputContainer
                                                 className='addNote'
@@ -126,17 +126,29 @@ export const UpdateNote = (props) => {
                                         <InformationContainer
                                             className='addNote'
                                         >
-                                            <NoteTextArea
-                                                htmlFor="personal_notes"
-                                                name="personal_notes"
-                                                rows={'10'}
-                                                onChange={noteOnChange}
-                                                placeholder={noteValues.personal_notes}
-                                                values={noteValues.personal_notes}
+                                            {noteValues.personal_notes == "Demarrage projet" ? (
+                                                <NoteTextArea
+                                                    htmlFor="personal_notes"
+                                                    name="personal_notes"
+                                                    rows={'10'}
+                                                    onChange={noteOnChange}
+                                                    placeholder={`${"Cette note : "} "${noteValues.personal_notes}" ${"est créée automatiquement à la création du projet, elle n'est pas éditable. Seule la photo de couverture du projet est modifiable sur cette note. "} `}
+                                                    disabled
+                                                >
+                                                </NoteTextArea>
+                                            ) :
+                                                (
+                                                    <NoteTextArea
+                                                        htmlFor="personal_notes"
+                                                        name="personal_notes"
+                                                        rows={'10'}
+                                                        onChange={noteOnChange}
+                                                        placeholder={noteValues.personal_notes}
+                                                    // values={noteValues.personal_notes}
+                                                    >
+                                                    </NoteTextArea>
+                                                )}
 
-                                            >
-
-                                            </NoteTextArea>
                                         </InformationContainer>
                                         {/* </AddOneArticleContainer> */}
                                     </Form>
