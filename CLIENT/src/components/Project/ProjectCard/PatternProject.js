@@ -26,7 +26,8 @@ import {
 } from "./style";
 import { AddPatternModal } from "./AddArticleModal/AddPatternModal";
 import { addPatternProject } from "../../../store/state/projectSlice";
-
+import { useGetAllPatternsQuery } from "../../../store/api/ytremaApi";
+import { addAllPatterns } from "../../../store/state/patternSlice";
 export const PatternProject = (props) => {
     const {
         patternArray,
@@ -43,7 +44,14 @@ export const PatternProject = (props) => {
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
-    const projectCard = projects.value.find((project) => project.id == id);
+    const { data, isSuccess } = useGetAllPatternsQuery(auth.id);
+
+    //LOAD ALL PATTERNS 
+    useEffect(() => {
+        if (isSuccess && data) {
+          dispatch(addAllPatterns(data.patterns));
+        }
+      }, [data]);
 
        // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
