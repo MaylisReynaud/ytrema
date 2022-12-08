@@ -344,9 +344,11 @@ export const CardParagraph = styled.p`
   font : 0.9rem/1.5 '${props => props.theme.textFont}';
   color: ${props => props.theme.color5};
   /* border-bottom: 2px solid ${props => props.theme.color2} ; */
+  overflow: hidden;
   text-align:center;
   &[class~="notes"] {
   height: 100%;
+  overflow: hidden;
   }
 
   @media screen and (min-width:601px) { 

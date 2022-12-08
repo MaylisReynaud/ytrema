@@ -389,10 +389,10 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Project'],
   }),
-  getAllNotes: builder.query({
+  getAllPhotos: builder.query({
     query: (arg) => {
       const {projectId, memberId} = arg;
-      console.log(projectId, memberId, "dansGetAll notes")
+      console.log(projectId, memberId, "dansGetAll photo")
       return {
         url: `/photo/all/project/${projectId}/member/${memberId}`,
         method: "GET",
@@ -451,6 +451,6 @@ export const {
               useAddOneHaberdasheryProjectMutation,
               useAddOnePatternProjectMutation,
               useAddOneNoteProjectMutation,
-              useGetAllNotesQuery,
+              useGetAllPhotosQuery,
              } = ytremaApi;
 

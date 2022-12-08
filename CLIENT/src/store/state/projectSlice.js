@@ -105,10 +105,22 @@ export const projectSlice = createSlice({
 
     //   );
     // },
-    addAllNotes: (state, action) => {
-      console.log("dans add all notes")
+    addAllPhotos: (state, action) => {
       console.log(state, action, "state // action dans projectSlice AddAllNotes")
-      state.value = action.payload;
+      console.log(state.value, action.payload, "state // action dans projectSlice AddAllNotes")
+      state.value = state.value.map((project) => {
+        if (project.id === action.payload.project_id) {
+          console.log("coucou dans AddAllPhoto slice")
+          return {
+            ...project,
+            ...action.payload,
+          };
+        } else {
+          return {
+            ...project
+          };
+        }
+      });
     },
     deleteProject: (state, action) => {
       state.value = state.value.filter((project) => {
@@ -133,7 +145,7 @@ export const {
   addPatternProject,
   addNoteProject,
   updateNoteProject,
-  addAllNotes,
+  addAllPhotos,
   deleteProject,
   projectsDefaultState,
 } = projectSlice.actions;

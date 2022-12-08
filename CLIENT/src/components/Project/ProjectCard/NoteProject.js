@@ -27,8 +27,8 @@ import {
     TitleContainer
 } from "./style";
 import { AddNoteModal } from "./AddArticleModal/AddNoteModal";
-import { useGetAllNotesQuery } from "../../../store/api/ytremaApi";
-import { addAllNotes } from "../../../store/state/projectSlice";
+import { useGetAllPhotosQuery } from "../../../store/api/ytremaApi";
+import { addAllPhotos } from "../../../store/state/projectSlice";
 
 export const NoteProject = (props) => {
     const {
@@ -72,15 +72,16 @@ export const NoteProject = (props) => {
         memberId: auth.id,
     };
     console.log(urlParams, "<-- url params auth.id,projectCard.id" )
-    //  const { data, isSuccess } = useGetAllNotesQuery(urlParams);
-    //  console.log(data, "<--data all notes")
+     const { data, isSuccess } = useGetAllPhotosQuery(urlParams);
+     console.log(data, "<--data all notes")
 
-    //  console.log(useGetAllNotesQuery(urlParams), "<--useGetAllNotesQuery(projectCard.id, auth.id)")
-    //  useEffect(() => {
-    //      if ((isSuccess) && data) {
-    //          dispatch(addAllNotes(data.notes));
-    //      }
-    //  }, [data]);
+    //  console.log(useGetAllPhotosQuery(urlParams), "<--useGetAllNotesQuery(projectCard.id, auth.id)")
+     useEffect(() => {
+         if ((isSuccess) && data) {
+            console.log("coucou dans useEffect NoteProject")
+             dispatch(addAllPhotos(data.photos));
+         }
+     }, [data]);
 
     return (
         <Section
