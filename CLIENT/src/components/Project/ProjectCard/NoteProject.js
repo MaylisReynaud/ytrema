@@ -41,15 +41,10 @@ export const NoteProject = (props) => {
         preview
     } = props;
     const { id } = useParams();
-    const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
-    const isDesktop = useMediaQuery({ minWidth: DeviceSize.tablet });
-    let navigate = useNavigate();
     const dispatch = useDispatch();
     const { persistedReducer } = useSelector((state) => state);
     const auth = persistedReducer.auth;
     const projects = persistedReducer.projects;
-    // const photos = persistedReducer.photos;
-    console.log(projects, "<--projects")
     const projectCard = projects.value.find((project) => project.id == id);
 
 
@@ -71,15 +66,16 @@ export const NoteProject = (props) => {
         projectId: projectCard.id,
         memberId: auth.id,
     };
-    console.log(urlParams, "<-- url params auth.id,projectCard.id" )
      const { data, isSuccess } = useGetAllPhotosQuery(urlParams);
-     console.log(data, "<--data all notes")
+
+
 
     //  console.log(useGetAllPhotosQuery(urlParams), "<--useGetAllNotesQuery(projectCard.id, auth.id)")
      useEffect(() => {
          if ((isSuccess) && data) {
-            console.log("coucou dans useEffect NoteProject")
+            console.log(dispatch(addAllPhotos(data.photos)),"<-- dispatch(addAllPhotos(data.photos))")
              dispatch(addAllPhotos(data.photos));
+             const photos = data.photos;
          }
      }, [data]);
 
@@ -118,9 +114,9 @@ export const NoteProject = (props) => {
                     )}
                 </TitleContainer>
             </AddReturnButtonContainer>
-            {showSection && (
+            {showSection && data && (
                 <CardsContainer >
-                    {projectCard.photos_array.map((notes, index) => (
+                    {data.photos.map((notes, index) => (
                         <CardContainer
                             key={notes.id}
                           
