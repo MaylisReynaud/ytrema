@@ -57,8 +57,9 @@ export const ModalWrapper = styled.div`
 export const CloseButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  background-color: violet;
   height:7%;
+  /* background-color: red;
+  width:100%; */
 `;
 
 export const ModalContent = styled.div`
@@ -188,6 +189,7 @@ export const CancelButton = styled.p`
         color: grey;
         font-family: '${props => props.theme.textFont}';
         font-size: 1em;
+        cursor:pointer;
 
 `;
 export const UpdateContainer = styled.div`
@@ -235,7 +237,7 @@ export const CloseModalButton = styled(Close)`
     width: 25px;
     height: 25px;
     padding: 0;
-    z-index: 10;
+    z-index: 100;
 `;
 
 export const InformationForm = styled.form`
