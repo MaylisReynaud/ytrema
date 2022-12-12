@@ -5,16 +5,7 @@ import { DeviceSize } from "../../Navbar/Responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { storage } from "../../../Firebase";
-import {
-    useDeleteOneProjectMutation,
-    useUpdateOneProjectMutation
-} from "../../../store/api/ytremaApi";
-import {
-    updateProject,
-    deleteProject,
-} from "../../../store/state/projectSlice";
-
-
+import YtremaLogo from "../../../assets/images/logo.png";
 import {
     ArrowContainer,
     Container,
@@ -38,20 +29,28 @@ import { HaberdasheryProject } from "./HaberdasheryProject";
 import { PatternProject } from "./PatternProject";
 import { NoteProject } from "./NoteProject";
 import { CostProject } from "./CostProject";
-
-import { useUpdateOneFabricProjectMutation } from "../../../store/api/ytremaApi";
-import { updateFabricProject } from "../../../store/state/projectSlice";
-import { useAddOneFabricProjectMutation } from "../../../store/api/ytremaApi";
-import { useUpdateOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
-import { updateHaberdasheryProject } from "../../../store/state/projectSlice";
-import { useAddOneHaberdasheryProjectMutation } from "../../../store/api/ytremaApi";
-import { useAddOnePatternProjectMutation } from "../../../store/api/ytremaApi";
-import { updatePatternProject } from "../../../store/state/projectSlice";
-import { useAddOnePhotoProjectMutation } from "../../../store/api/ytremaApi";
-import { useUpdateOnePhotoProjectMutation } from "../../../store/api/ytremaApi";
-import { updatePhotoProject } from "../../../store/state/projectSlice";
-
-
+import {
+    useDeleteOneProjectMutation,
+    useUpdateOneProjectMutation,
+    useUpdateOneFabricProjectMutation,
+    useAddOneFabricProjectMutation,
+    useUpdateOneHaberdasheryProjectMutation,
+    useAddOneHaberdasheryProjectMutation,
+    useAddOnePatternProjectMutation,
+    useAddOnePhotoProjectMutation,
+    useUpdateOnePhotoProjectMutation,
+    useDeleteOnePhotoProjectMutation,
+    
+} from "../../../store/api/ytremaApi";
+import {
+    updateProject,
+    deleteProject,
+    updateFabricProject,
+    updateHaberdasheryProject,
+    updatePatternProject,
+    updatePhotoProject,
+    deletePhotoProject
+} from "../../../store/state/projectSlice";
 
 export const ProjectCard = () => {
     const { id } = useParams();
@@ -62,7 +61,7 @@ export const ProjectCard = () => {
     const isLogged = auth.isLogged;
     const activeSession = sessionStorage.getItem("token");
     const projects = persistedReducer.projects;
-console.log(projects, "projects.value")
+
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
@@ -484,6 +483,7 @@ const handleAddNoteSubmit = async (event) => {
             role: "alert"
         });
     }
+    setPreview(YtremaLogo);
     
 };
 
@@ -493,7 +493,6 @@ const [noteValues, setNoteValues] = useState({
     photo:"",
     personal_notes:""
 });
-console.log(noteValues, "<--note values")
 
 const [updateOnePhotoProject] = useUpdateOnePhotoProjectMutation(projectCard.id, auth.id, haberdasheryValues.haberdasheryId);
 
@@ -512,7 +511,6 @@ const handleNoteSubmit = async (event) => {
     event.preventDefault();
     const valuesToSend = noteValues;
     valuesToSend.photo = pictureURL;
-    console.log(auth.id, "<--auth.id")
     const urlParams = {
         memberId: auth.id,
         projectId: projectCard.id,
@@ -537,8 +535,33 @@ const handleNoteSubmit = async (event) => {
             theme: "colored",
             role: "alert"
         });
+        
     }
     
+};
+
+ //DELETE ONE NOTE
+ 
+ const [deleteOnePhotoProject] = useDeleteOnePhotoProjectMutation(projectCard.id, auth.id, noteValues.id );
+ const deletePhotoProject = () => {
+    const urlParams = {
+        memberId: auth.id,
+        photoId: noteValues.id,
+        projectId: projectCard.id,
+    };
+    deleteOnePhotoProject(urlParams);
+    navigate(`${"/projets/"}${projectCard.id}`);
+    toast.success('Note supprimée avec succès👌', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        role: "alert"
+    });
 };
 
 const photosArray = projectCard.photos_array;
@@ -639,11 +662,14 @@ const photosArray = projectCard.photos_array;
                             pictureURL={pictureURL}
                             setPictureURL={setPictureURL}
                             preview={preview}
+                            setPreview={setPreview}
                             handleNoteSubmit={handleNoteSubmit}
                             noteOnChange={noteOnChange}
                             noteValues={noteValues}
                             setNoteValues={setNoteValues}
                             photosArrayId={photosArrayId}
+                            deleteAction={deletePhotoProject}
+                        
                        />
                        <CostProject />
                     </>
