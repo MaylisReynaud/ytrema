@@ -3,6 +3,7 @@ const express = require('express');
 // Controller import
 const authController = require('../controller/authController');
 const errorController = require('../controller/errorController');
+const { findAll: findAllReviews } = require('../controller/reviewController');
 
 // Router import
 const memberRouter = require('./memberRouter');
@@ -18,6 +19,9 @@ const auth = require('../middleware/auth');
 const checkMember = require('../middleware/checkMember');
 
 const router = express.Router();
+
+// Get all reviews from home
+router.get('/', findAllReviews);
 
 // auth router
 router.post('/login', authController.handleLoginForm);
