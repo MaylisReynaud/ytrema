@@ -126,13 +126,13 @@ export const UpdateNote = (props, index) => {
                                         <InformationContainer
                                             className='addNote'
                                         >
-                                            {noteValues.personal_notes == "Demarrage projet" ? (
+                                            {noteValues.personal_notes == "Photo du projet" ? (
                                                 <NoteTextArea
                                                     htmlFor="personal_notes"
                                                     name="personal_notes"
                                                     rows={'10'}
                                                     onChange={noteOnChange}
-                                                    placeholder={`${"Cette note : "} "${noteValues.personal_notes}" ${"est créée automatiquement à la création du projet, elle n'est pas éditable. Seule la photo de couverture du projet est modifiable sur cette note. "} `}
+                                                    placeholder={`${"Cette note : "} "${noteValues.personal_notes}" ${"est générée automatiquement à la création du projet, elle n'est pas éditable. Seule la photo de couverture du projet est modifiable sur cette note. "} `}
                                                     disabled
                                                 >
                                                 </NoteTextArea>
@@ -150,7 +150,6 @@ export const UpdateNote = (props, index) => {
                                                 )}
 
                                         </InformationContainer>
-                                        {/* </AddOneArticleContainer> */}
                                     </Form>
                                 </FormContainer>
                                 <ButtonsContainer
