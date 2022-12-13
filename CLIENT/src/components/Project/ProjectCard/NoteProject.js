@@ -28,9 +28,9 @@ import {
 } from "./style";
 import { AddNoteModal } from "./AddArticleModal/AddNoteModal";
 import { UpdateNote } from "./UpdateModal/UpdateNote";
-import { useGetAllPhotosQuery } from "../../../store/api/ytremaApi";
+import { useDeleteOnePhotoProjectMutation, useGetAllPhotosQuery } from "../../../store/api/ytremaApi";
 import { addAllPhotos } from "../../../store/state/projectSlice";
-
+import { DeleteModal } from "../../DeleteModal";
 export const NoteProject = (props, index) => {
     const {
         handleAddNoteSubmit,
@@ -40,11 +40,13 @@ export const NoteProject = (props, index) => {
         pictureURL,
         setPictureURL,
         preview,
+        setPreview,
         handleNoteSubmit,
         noteOnChange,
         noteValues,
         setNoteValues,
-        photosArrayId
+        photosArrayId,
+        deleteAction,
     } = props;
 
     //Show adding note modal
@@ -79,20 +81,31 @@ export const NoteProject = (props, index) => {
         }
     }, [data]);
 
-     //UPDATE NOTE
-     const photo = projectCard.photos_array.map(photo => photo)
-     console.log(photo, "<--photo")
-     const [showUpdateModal, setShowUpdateModal] = useState(false);
-     const [noteInfo, setNoteInfo] = useState();
-     const isOpeningUpdateModal = (id, photo, personal_notes) => {
-         setNoteValues({
-             ...noteValues,
-             id: id,
-             photo: photo,
-             personal_notes: personal_notes
-         })
-         setShowUpdateModal(!showUpdateModal);
-     };
+    //UPDATE NOTE
+    const photo = projectCard.photos_array.map(photo => photo)
+
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [noteInfo, setNoteInfo] = useState();
+    const isOpeningUpdateModal = (id, photo, personal_notes) => {
+        setNoteValues({
+            ...noteValues,
+            id: id,
+            photo: photo,
+            personal_notes: personal_notes
+        })
+        setShowUpdateModal(!showUpdateModal);
+    };
+
+    //DELETE NOTE
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const isOpeningDeleteModal = (id) => {
+        setNoteValues({
+            ...noteValues,
+            id: id,
+        })
+        setShowDeleteModal(!showDeleteModal);
+    };
+
     return (
         <Section>
             <AddReturnButtonContainer>
@@ -135,36 +148,42 @@ export const NoteProject = (props, index) => {
                                 <ModifyContainer>
                                     <ModifyButton
                                         aria-label="Modifier cette note"
-                                        onClick={( ) => {
+                                        onClick={() => {
                                             isOpeningUpdateModal(notes.id, notes.photo, notes.personal_notes)
                                         }}
                                     />
                                 </ModifyContainer>
 
                                 {index !== 0 && (
+
                                     <TrashContainer>
-                                        <TrashButton />
+                                        <TrashButton
+                                            aria-label="Supprimer cette note"
+                                            onClick={() => { isOpeningDeleteModal(notes.id) }}
+                                        />
                                     </TrashContainer>
+
+
                                 )}
                             </ModifyDeleteContainer>
-                                    <InfoCardContainer>
-                                        <ImgContainer
-                                            className="notes"
-                                        >
-                                            <CardImg
-                                                src={notes.photo !== null ? notes.photo : "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4"}
-                                                alt={notes.name}
-                                            />
-                                        </ImgContainer>
+                            <InfoCardContainer>
+                                <ImgContainer
+                                    className="notes"
+                                >
+                                    <CardImg
+                                        src={notes.photo !== null ? notes.photo : "https://firebasestorage.googleapis.com/v0/b/ytrema-f6e59.appspot.com/o/Illustrations%2Fdefault-photo-project-ytrema.png?alt=media&token=8e94edb2-aedd-49cc-9519-0242941d6fc4"}
+                                        alt={notes.name}
+                                    />
+                                </ImgContainer>
 
-                                        <CardParagraph>
-                                            {notes.personal_notes}
-                                        </CardParagraph>
-                                    </InfoCardContainer>
+                                <CardParagraph>
+                                    {notes.personal_notes}
+                                </CardParagraph>
+                            </InfoCardContainer>
                         </CardContainer>
                     ))
                     }
-                </CardsContainer >  
+                </CardsContainer >
             )}
             <UpdateNote
                 setShowUpdateModal={setShowUpdateModal}
@@ -180,7 +199,12 @@ export const NoteProject = (props, index) => {
                 photosArrayId={photosArrayId}
 
             />
-
+            <DeleteModal
+                setShowDeleteModal={setShowDeleteModal}
+                showDeleteModal={showDeleteModal}
+                deleteAction={deleteAction}
+                word={'SUPPRIMER CETTE NOTE'}
+            />
         </Section >
     )
 } 

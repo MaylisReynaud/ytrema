@@ -389,10 +389,22 @@ export const ytremaApi = createApi({
     },
     invalidatesTags: ['Project'],
   }),
+  deleteOneArticleProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, entity, entityId} = arg;
+    return {
+      url: `/project/${projectId}/delete/${entity}/${entityId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
+      }
+    },
+    invalidatesTags: ['Project', 'Fabric', 'Haberdashery'],
+  }),
   getAllPhotos: builder.query({
     query: (arg) => {
       const {projectId, memberId} = arg;
-      console.log(projectId, memberId, "dansGetAll photo")
       return {
         url: `/photo/all/project/${projectId}/member/${memberId}`,
         method: "GET",
@@ -427,6 +439,19 @@ export const ytremaApi = createApi({
         Authorization: `Bearer ${token}`,
         },
         body
+      }
+    },
+    invalidatesTags: ['Project'],
+  }),
+  deleteOnePhotoProject: builder.mutation({
+    query: (arg) => {
+      const {memberId, projectId, photoId} = arg;
+    return {
+      url: `photo/${photoId}/project/${projectId}/member/${memberId}`,
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        },
       }
     },
     invalidatesTags: ['Project'],
@@ -467,5 +492,7 @@ export const {
               useAddOnePhotoProjectMutation,
               useGetAllPhotosQuery,
               useUpdateOnePhotoProjectMutation,
+              useDeleteOnePhotoProjectMutation,
+              useDeleteOneArticleProjectMutation,
              } = ytremaApi;
 
