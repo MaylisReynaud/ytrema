@@ -403,6 +403,10 @@ display: flex;
     justify-content: flex-end;
     padding-right: 1em;
   };
+  &[class~="totalCostTitle"] {
+    border-bottom: none;
+    margin-right:3.5rem;
+  };
   &[class~="totalCost"] {
     border-bottom: none;
     justify-content: flex-end;

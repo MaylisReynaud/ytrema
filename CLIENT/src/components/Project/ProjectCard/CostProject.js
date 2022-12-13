@@ -120,12 +120,12 @@ export const CostProject = () => {
                         ))
                             : null}
                         <RowTable className="totalCost">
-                            <ColTable className="totalCost " >
+                            <ColTable className="totalCostTitle " >
                                 COÛT TOTAL
                             </ColTable>
-                            <ColTable className="totalCost " >
+                            {/* <ColTable className="totalCost " >
 
-                            </ColTable>
+                            </ColTable> */}
                             <ColTable className="number totalCost">
                                 {Number(projectCard.cost_price).toFixed(2)} €
                             </ColTable>

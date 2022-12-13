@@ -29,6 +29,7 @@ import { useGetAllFabricsQuery } from "../../../store/api/ytremaApi";
 import { addAllFabrics } from "../../../store/state/fabricSlice";
 import { UpdateFabric } from "./UpdateModal/UpdateFabric";
 import { AddFabricModal } from "./AddArticleModal/AddFabricModal";
+import { DeleteModal } from "../../DeleteModal";
 
 export const FabricProject = (props) => {
     const {
@@ -40,7 +41,11 @@ export const FabricProject = (props) => {
         addFabricOnChange,
         addFabricValues,
         setAddFabricValues,
-        fabricArray
+        fabricArray,
+        setEntityValues,
+        entityValues,
+        deleteAction,
+        projectCard
     } = props;
 
     // SHOW SECTION
@@ -56,9 +61,9 @@ export const FabricProject = (props) => {
     const { data, isSuccess } = useGetAllFabricsQuery(auth.id);
     useEffect(() => {
         if (isSuccess && data) {
-          dispatch(addAllFabrics(data.fabrics));
+            dispatch(addAllFabrics(data.fabrics));
         }
-      }, [data]);
+    }, [data]);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = (id, used_size, article_cost) => {
         setFabricValues({
@@ -72,12 +77,6 @@ export const FabricProject = (props) => {
     };
 
     //ADD FABRIC
-    useEffect(() => {
-        if (isSuccess && data) {
-          dispatch(addAllFabrics(data.fabrics));
-        }
-      }, [data]);
-
     const fabrics = persistedReducer.fabrics;
     const [showAddArticleModal, setShowAddArticleModal] = useState(false);
     const isOpeningAddFabricModal = () => {
@@ -101,8 +100,18 @@ export const FabricProject = (props) => {
 
             setFabricsFiltered(fabricsFilteredArray);
         }
-    }
+    };
 
+    //DELETE ARTICLE
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const isOpeningDeleteModal = (id) => {
+        setEntityValues({
+            ...entityValues,
+            entity: "fabric",
+            entityId: id
+        })
+        setShowDeleteModal(!showDeleteModal);
+    };
 
     return (
         <Section
@@ -110,15 +119,15 @@ export const FabricProject = (props) => {
             className="tissus"
         >
             <AddReturnButtonContainer>
-            <TitleContainer
-                className="showSection"
-            >
-                <SectionTitle
-                    className="addArticle"
+                <TitleContainer
+                    className="showSection"
                 >
-                    TISSUS
-                </SectionTitle>
-                <AddButton
+                    <SectionTitle
+                        className="addArticle"
+                    >
+                        TISSUS
+                    </SectionTitle>
+                    <AddButton
                         onClick={() => {
                             isOpeningAddFabricModal();
                             removeFabricsUsed();
@@ -135,20 +144,20 @@ export const FabricProject = (props) => {
                         handleAddFabricSubmit={handleAddFabricSubmit}
                         fabricsFiltered={fabricsFiltered}
                     />
-                {showSection ? (
-                    <MinusIcon onClick={isOpeningSection} />
-                ) : (
-                    <PlusIcon onClick={isOpeningSection} />
-                )}
-            </TitleContainer>
+                    {showSection ? (
+                        <MinusIcon onClick={isOpeningSection} />
+                    ) : (
+                        <PlusIcon onClick={isOpeningSection} />
+                    )}
+                </TitleContainer>
             </AddReturnButtonContainer>
- 
+
             {showSection && (
                 <CardsContainer
                     className="fabric"
                 >
                     {fabricArray.map((fabric) => (
-                        <CardContainer 
+                        <CardContainer
                             key={fabric.id}
                             className="fabric"
                         >
@@ -162,7 +171,10 @@ export const FabricProject = (props) => {
                                     />
                                 </ModifyContainer>
                                 <TrashContainer>
-                                    <TrashButton />
+                                    <TrashButton
+                                        aria-label="Supprimer ce tissu"
+                                        onClick={() => { isOpeningDeleteModal(fabric.id) }}
+                                    />
                                 </TrashContainer>
                             </ModifyDeleteContainer>
                             <Link to={`/tissus/${fabric.id}`} >
@@ -190,6 +202,12 @@ export const FabricProject = (props) => {
                         fabricValues={fabricValues}
                         setFabricValues={setFabricValues}
                         handleFabricSubmit={handleFabricSubmit}
+                    />
+                    <DeleteModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        showDeleteModal={showDeleteModal}
+                        deleteAction={deleteAction}
+                        word={'SUPPRIMER CE TISSU'}
                     />
                 </CardsContainer>
             )}
