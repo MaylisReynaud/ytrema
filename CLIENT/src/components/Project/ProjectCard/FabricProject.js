@@ -45,7 +45,6 @@ export const FabricProject = (props) => {
         setEntityValues,
         entityValues,
         deleteAction,
-        projectCard
     } = props;
 
     // SHOW SECTION

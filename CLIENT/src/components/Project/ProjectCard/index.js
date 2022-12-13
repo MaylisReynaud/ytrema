@@ -688,6 +688,9 @@ export const ProjectCard = () => {
                             addHaberdasheryOnChange={addHaberdasheryOnChange}
                             addHaberdasheryValues={addHaberdasheryValues}
                             setAddHaberdasheryValues={setAddHaberdasheryValues}
+                            setEntityValues={setEntityValues}
+                            entityValues={entityValues}
+                            deleteAction={deleteArticleProject}
                         />
                         <PatternProject
                             patternArray={patternArray}
