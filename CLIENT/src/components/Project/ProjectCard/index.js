@@ -698,6 +698,9 @@ export const ProjectCard = () => {
                             addPatternOnChange={addPatternOnChange}
                             addPatternValues={addPatternValues}
                             setAddPatternValues={setAddPatternValues}
+                            setEntityValues={setEntityValues}
+                            entityValues={entityValues}
+                            deleteAction={deleteArticleProject}
                         />
                         <NoteProject
                             handleAddNoteSubmit={handleAddNoteSubmit}
