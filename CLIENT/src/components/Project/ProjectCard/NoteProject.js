@@ -158,7 +158,7 @@ export const NoteProject = (props, index) => {
 
                                     <TrashContainer>
                                         <TrashButton
-                                            aria-label="Supprimer ce projet"
+                                            aria-label="Supprimer cette note"
                                             onClick={() => { isOpeningDeleteModal(notes.id) }}
                                         />
                                     </TrashContainer>

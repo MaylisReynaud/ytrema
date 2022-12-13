@@ -128,6 +128,11 @@ export const projectSlice = createSlice({
         return project.id !== action.payload.id;
       });
     },
+    deleteArticleProject:(state, action) => {
+      state.value = state.value.filter((project) => {
+        return project.id !== action.payload.id;
+      })
+    },
     projectsDefaultState: (state) => {
       state = initialState;
     }
@@ -149,6 +154,7 @@ export const {
   addAllPhotos,
   deleteProject,
   deletePhotoProject,
+  deleteArticleProject,
   projectsDefaultState,
 } = projectSlice.actions;
 
