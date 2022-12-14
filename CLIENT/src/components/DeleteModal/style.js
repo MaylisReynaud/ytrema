@@ -36,6 +36,9 @@ export const ModalWrapper = styled.div`
     color: #000;
     background-color: ${props => props.theme.color4};     
     border-radius: 10px;
+    &[class~="deleteAll"] {
+        height:45%;
+  }
     @media screen and (min-width:601px) { 
         height:27%;
         width: 35%;       
@@ -92,6 +95,9 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     margin: 0 1.5em 0.5em;
     height:4em;
+    &[class~="deleteAll"] {
+       margin-top:1rem;
+  }
 `;
 export const CancelContainer = styled.div`
     display: flex;
@@ -104,7 +110,6 @@ export const CancelButton = styled.p`
         color: grey;
         font-family: '${props => props.theme.textFont}';
         font-size: 1em;
-
 `;
 export const DeleteContainer = styled.div`
     display: flex;
@@ -125,6 +130,10 @@ export const DeleteButton = styled.button`
         font-family: '${props => props.theme.textFont}';
         font-size: 1em;
         font-weight: 600;
+        &[class~="returnStock"] {
+            background-color: ${props => props.theme.color2};
+            border: 1px solid ${props => props.theme.color2};
+  }
 `;
 export const CloseModalButton = styled(Close)`
     cursor: pointer;

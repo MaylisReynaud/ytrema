@@ -22,7 +22,7 @@ import {
     StatusContainer,
     Status,
 } from "./style";
-import { DeleteModal } from "../../DeleteModal";
+import { DeleteAllProject } from "../../DeleteModal/DeleteAllProject";
 import { UpdateModal } from "./UpdateModal";
 import { FabricProject } from "./FabricProject";
 import { HaberdasheryProject } from "./HaberdasheryProject";
@@ -75,14 +75,20 @@ export const ProjectCard = () => {
 
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
-    const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
+
+    // UPDATE ONE PROJECT
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = () => {
         setShowUpdateModal(!showUpdateModal);
     }
+
+    // DELETE ONE PROJECT
+    const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    console.log(showDeleteModal, "<--show deleteModal");
+    const [deleteAll, setDeleteAll] = useState(false);
     const isOpeningDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     }
@@ -186,7 +192,7 @@ export const ProjectCard = () => {
 
             dispatch(updateFabricProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Tissu modifié avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -233,7 +239,7 @@ export const ProjectCard = () => {
             const projectUsed = addFabric.find((project) => project.id == projectCard.id)
             dispatch(updateFabricProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Tissu ajouté avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -282,7 +288,7 @@ export const ProjectCard = () => {
 
             dispatch(updateHaberdasheryProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Mercerie modifiée avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -333,7 +339,7 @@ export const ProjectCard = () => {
             const projectUsed = addHaberdashery.find((project) => project.id == projectCard.id);
             dispatch(updateHaberdasheryProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Mercerie ajoutée avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -377,7 +383,7 @@ export const ProjectCard = () => {
             const projectUsed = addPattern.find((project) => project.id == projectCard.id)
             dispatch(updatePatternProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Patron ajouté avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -644,11 +650,14 @@ export const ProjectCard = () => {
                                             onClick={isOpeningDeleteModal}
                                         />
                                     </TrashContainer>
-                                    <DeleteModal
+                                    <DeleteAllProject
                                         setShowDeleteModal={setShowDeleteModal}
                                         showDeleteModal={showDeleteModal}
                                         deleteAction={deleteCard}
                                         word={'SUPPRIMER CE PROJET'}
+                                        setDeleteAll={setDeleteAll}
+                                        deleteAll={deleteAll}
+                                        isOpeningDeleteModal={isOpeningDeleteModal}
                                     />
                                 </ModifyDeleteContainer>
 
