@@ -57,7 +57,7 @@ import {
 } from "../../../store/state/projectSlice";
 
 export const ProjectCard = () => {
-   
+
     const { id } = useParams();
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -76,6 +76,7 @@ export const ProjectCard = () => {
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
 
+
     // UPDATE ONE PROJECT
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
@@ -87,21 +88,20 @@ export const ProjectCard = () => {
     // DELETE ONE PROJECT
     const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    console.log(showDeleteModal, "<--show deleteModal");
     const [deleteAll, setDeleteAll] = useState(false);
     const isOpeningDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     }
 
-    const deleteCard = () => {
+    const deleteCard = async() => {
         const urlParams = {
             memberId: auth.id,
             projectId: projectCard.id,
         };
         deleteOneProject(urlParams);
-        dispatch(deleteProject(projectCard.id));
         setShowDeleteModal(!showDeleteModal);
         navigate("/projets");
+
         toast.success('Projet supprimé avec succès👌', {
             position: "top-right",
             autoClose: 3000,
@@ -584,8 +584,10 @@ export const ProjectCard = () => {
         entity: "",
         entityId: "",
     })
+
     const [deleteOneArticleProject] = useDeleteOneArticleProjectMutation(projectCard.id, auth.id, entityValues.entity, entityValues.entityId);
     const deleteArticleProject = () => {
+        
         const urlParams = {
             memberId: auth.id,
             projectId: projectCard.id,
@@ -608,6 +610,32 @@ export const ProjectCard = () => {
         });
     };
 
+    //DELETE AND RESTORE ARTICLES
+    const deleteRestoreArticleProject= async () => {
+        await fabricArray.map((item) => {
+             const urlParams = {
+                memberId: auth.id,
+                projectId: projectCard.id,
+                entity: "fabric",
+                entityId: item.id
+            }
+            
+           deleteOneArticleProject(urlParams);
+           
+    } );
+    await haberdasheryArray.map((item) => {
+        const urlParams = {
+           memberId: auth.id,
+           projectId: projectCard.id,
+           entity: "haberdashery",
+           entityId: item.id
+       }
+
+       deleteOneArticleProject(urlParams);
+      
+} );
+
+};
 
 
     return (
@@ -654,10 +682,13 @@ export const ProjectCard = () => {
                                         setShowDeleteModal={setShowDeleteModal}
                                         showDeleteModal={showDeleteModal}
                                         deleteAction={deleteCard}
+                                        restoreAction={deleteRestoreArticleProject}
                                         word={'SUPPRIMER CE PROJET'}
                                         setDeleteAll={setDeleteAll}
                                         deleteAll={deleteAll}
-                                        isOpeningDeleteModal={isOpeningDeleteModal}
+                                        projectCard={projectCard}
+                                        setEntityValues={setEntityValues}
+                                        entityValues={entityValues}
                                     />
                                 </ModifyDeleteContainer>
 

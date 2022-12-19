@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { DeleteModal } from '.';
 import {
     Background,
@@ -18,16 +18,54 @@ import {
 
 
 
-export const DeleteAllProject = ({ showDeleteModal, setShowDeleteModal, deleteAction, word, deleteAll, setDeleteAll, isOpeningDeleteModal }) => {
+export const DeleteAllProject = (props) => {
+    const {
+        showDeleteModal, 
+        setShowDeleteModal, 
+        deleteAction, 
+        word, 
+        deleteAll, 
+        setDeleteAll, 
+        restoreAction,
+        projectCard,
+        entityValues,
+        setEntityValues 
+    } = props;
+
     useEffect(() => {
         if(deleteAll) {
-            console.log("coucou dans use effect")
             setShowDeleteModal(true)
         }
-    }, [deleteAll])
+    }, [deleteAll]);
+
+    // useEffect(()=> {
+    //     projectCard.fabric_array.map((article) => {
+    //          setEntityValues({
+    //              ...entityValues,
+    //              entity: "fabric",
+    //              entityId: article.id
+    //          })
+    //      }) 
+    //  }, [projectCard.fabric_array]);
+   
+  
+   
+    // const haberdasheryMap = projectCard.haberdashery_array.map((id) => {
+    //     setEntityValues({
+    //         ...entityValues,
+    //         entity: "haberdashery",
+    //         entityId: id
+    //     })
+    // });
+    // const patternMap = projectCard.pattern_array.map((id) => {
+    //     setEntityValues({
+    //         ...entityValues,
+    //         entity: "pattern",
+    //         entityId: id
+    //     })
+    // });
 
 
-    console.log(deleteAll, "<--deleteAll")
     const closeDeleteModal = () => {
         setShowDeleteModal(false);
     };
@@ -52,7 +90,6 @@ export const DeleteAllProject = ({ showDeleteModal, setShowDeleteModal, deleteAc
 
                 >
                     <Background
-                        // ref={deleteModalRef}
                         onClick={closeDeleteModal}
                     >
                         <ModalWrapper
@@ -60,9 +97,7 @@ export const DeleteAllProject = ({ showDeleteModal, setShowDeleteModal, deleteAc
                             showDeleteModal={showDeleteModal}
                         >
                             <ModalContent>
-
                                 <DeleteTitle>{word}</DeleteTitle>
-                                
                                     <>
                                         <DeleteParagraph>
                                             Souhaitez-vous remettre dans votre stock l'ensemble des articles utilisés sur ce projet?
@@ -72,9 +107,11 @@ export const DeleteAllProject = ({ showDeleteModal, setShowDeleteModal, deleteAc
                                         >
                                             <CancelContainer>
                                                 <DeleteButton
-                                                    onClick={() => {
-                                                        setDeleteAll(false)
-                                                    }}
+                                                    onClick={async() => {
+                                                           await setDeleteAll(false);
+                                                           await restoreAction();
+                                                           await deleteAction();
+                                                        }}
                                                     className="returnStock"
                                                 >
                                                     Remettre en stock
@@ -90,12 +127,6 @@ export const DeleteAllProject = ({ showDeleteModal, setShowDeleteModal, deleteAc
                                                 >
                                                     Supprimer tout
                                                 </DeleteButton>
-                                               
-                                              
-                                                
-
-
-
                                             </DeleteContainer>
                                         </ButtonsContainer>
                                   </>
