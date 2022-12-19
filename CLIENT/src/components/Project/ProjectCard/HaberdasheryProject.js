@@ -27,6 +27,7 @@ import { UpdateHaberdashery } from "./UpdateModal/UpdateHaberdashery";
 import { AddHaberdasheryModal } from "./AddArticleModal/AddHaberdasheryModal";
 import { useGetAllHaberdasheriesQuery } from "../../../store/api/ytremaApi";
 import { addAllHaberdasheries } from "../../../store/state/haberdasherySlice";
+import { DeleteModal } from "../../DeleteModal";
 
 export const HaberdasheryProject = (props) => {
     const {
@@ -38,7 +39,10 @@ export const HaberdasheryProject = (props) => {
         handleAddHaberdasherySubmit,
         addHaberdasheryOnChange,
         addHaberdasheryValues,
-        setAddHaberdasheryValues
+        setAddHaberdasheryValues,
+        setEntityValues,
+        entityValues,
+        deleteAction,
     } = props;
 
     // SHOW SECTION
@@ -93,7 +97,18 @@ export const HaberdasheryProject = (props) => {
 
             setHaberdasheriesFiltered(haberdasheriesFilteredArray);
         }
-    }
+    };
+
+    //DELETE ARTICLE
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const isOpeningDeleteModal = (id) => {
+        setEntityValues({
+            ...entityValues,
+            entity: "haberdashery",
+            entityId: id
+        })
+        setShowDeleteModal(!showDeleteModal);
+    };
     return (
         <Section
             id='mercerie'
@@ -146,7 +161,10 @@ export const HaberdasheryProject = (props) => {
                                     />
                                 </ModifyContainer>
                                 <TrashContainer>
-                                    <TrashButton />
+                                    <TrashButton
+                                        aria-label="Supprimer cet article"
+                                        onClick={() => { isOpeningDeleteModal(haberdashery.id) }}
+                                    />
                                 </TrashContainer>
                             </ModifyDeleteContainer>
                             <Link to={`/mercerie/${haberdashery.id}`}>
@@ -173,6 +191,12 @@ export const HaberdasheryProject = (props) => {
                         haberdasheryValues={haberdasheryValues}
                         setHaberdasheryValues={setHaberdasheryValues}
                         handleHaberdasherySubmit={handleHaberdasherySubmit}
+                    />
+                    <DeleteModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        showDeleteModal={showDeleteModal}
+                        deleteAction={deleteAction}
+                        word={'SUPPRIMER CET ARTICLE'}
                     />
                 </CardsContainer>
             )}

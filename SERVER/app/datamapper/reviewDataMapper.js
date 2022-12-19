@@ -41,6 +41,27 @@ const reviewDataMapper = {
         return { status: "created", data: createdReview[0] };
     },
 
+    async getAllReviews() {
+        // Query to get all reviews
+        const query = {
+            text: `SELECT * FROM "review" ORDER BY id ASC`,
+        };
+
+        // Send query to DB
+        const getAllReviewsResult = await client.query(query);
+
+        // If no review yet -- success 204
+        if (getAllReviewsResult.rowCount == 0) {
+            return "No data";
+        }
+
+        // Get request result
+        const { rows: allReviews } = getAllReviewsResult;
+
+        // Return result
+        return allReviews;
+    },
+
     async getReviewByUserId(id) {
         // Query to get the review in DB
         const query = {
