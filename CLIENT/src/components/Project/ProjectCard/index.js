@@ -22,7 +22,7 @@ import {
     StatusContainer,
     Status,
 } from "./style";
-import { DeleteModal } from "../../DeleteModal";
+import { DeleteAllProject } from "../../DeleteModal/DeleteAllProject";
 import { UpdateModal } from "./UpdateModal";
 import { FabricProject } from "./FabricProject";
 import { HaberdasheryProject } from "./HaberdasheryProject";
@@ -57,7 +57,7 @@ import {
 } from "../../../store/state/projectSlice";
 
 export const ProjectCard = () => {
-   
+
     const { id } = useParams();
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -75,27 +75,33 @@ export const ProjectCard = () => {
 
     // ACCESS ONE PROJECT
     const projectCard = projects.value.find((project) => project.id == id);
-    const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
+
+
+    // UPDATE ONE PROJECT
     const [updateOneProject] = useUpdateOneProjectMutation(projectCard.id, auth.id);
     const [updateProjectInfo, setUpdateProjectInfo] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const isOpeningUpdateModal = () => {
         setShowUpdateModal(!showUpdateModal);
     }
+
+    // DELETE ONE PROJECT
+    const [deleteOneProject] = useDeleteOneProjectMutation(projectCard.id, auth.id);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteAll, setDeleteAll] = useState(false);
     const isOpeningDeleteModal = () => {
         setShowDeleteModal(!showDeleteModal);
     }
 
-    const deleteCard = () => {
+    const deleteCard = async() => {
         const urlParams = {
             memberId: auth.id,
             projectId: projectCard.id,
         };
         deleteOneProject(urlParams);
-        dispatch(deleteProject(projectCard.id));
         setShowDeleteModal(!showDeleteModal);
         navigate("/projets");
+
         toast.success('Projet supprimé avec succès👌', {
             position: "top-right",
             autoClose: 3000,
@@ -186,7 +192,7 @@ export const ProjectCard = () => {
 
             dispatch(updateFabricProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Tissu modifié avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -233,7 +239,7 @@ export const ProjectCard = () => {
             const projectUsed = addFabric.find((project) => project.id == projectCard.id)
             dispatch(updateFabricProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Tissu ajouté avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -282,7 +288,7 @@ export const ProjectCard = () => {
 
             dispatch(updateHaberdasheryProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Mercerie modifiée avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -333,7 +339,7 @@ export const ProjectCard = () => {
             const projectUsed = addHaberdashery.find((project) => project.id == projectCard.id);
             dispatch(updateHaberdasheryProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Mercerie ajoutée avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -377,7 +383,7 @@ export const ProjectCard = () => {
             const projectUsed = addPattern.find((project) => project.id == projectCard.id)
             dispatch(updatePatternProject(projectUsed));
 
-            toast.success('Projet modifié avec succès👌', {
+            toast.success('Patron ajouté avec succès👌', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -578,8 +584,10 @@ export const ProjectCard = () => {
         entity: "",
         entityId: "",
     })
+
     const [deleteOneArticleProject] = useDeleteOneArticleProjectMutation(projectCard.id, auth.id, entityValues.entity, entityValues.entityId);
     const deleteArticleProject = () => {
+        
         const urlParams = {
             memberId: auth.id,
             projectId: projectCard.id,
@@ -602,6 +610,32 @@ export const ProjectCard = () => {
         });
     };
 
+    //DELETE AND RESTORE ARTICLES
+    const deleteRestoreArticleProject= async () => {
+        await fabricArray.map((item) => {
+             const urlParams = {
+                memberId: auth.id,
+                projectId: projectCard.id,
+                entity: "fabric",
+                entityId: item.id
+            }
+            
+           deleteOneArticleProject(urlParams);
+           
+    } );
+    await haberdasheryArray.map((item) => {
+        const urlParams = {
+           memberId: auth.id,
+           projectId: projectCard.id,
+           entity: "haberdashery",
+           entityId: item.id
+       }
+
+       deleteOneArticleProject(urlParams);
+      
+} );
+
+};
 
 
     return (
@@ -644,11 +678,17 @@ export const ProjectCard = () => {
                                             onClick={isOpeningDeleteModal}
                                         />
                                     </TrashContainer>
-                                    <DeleteModal
+                                    <DeleteAllProject
                                         setShowDeleteModal={setShowDeleteModal}
                                         showDeleteModal={showDeleteModal}
                                         deleteAction={deleteCard}
+                                        restoreAction={deleteRestoreArticleProject}
                                         word={'SUPPRIMER CE PROJET'}
+                                        setDeleteAll={setDeleteAll}
+                                        deleteAll={deleteAll}
+                                        projectCard={projectCard}
+                                        setEntityValues={setEntityValues}
+                                        entityValues={entityValues}
                                     />
                                 </ModifyDeleteContainer>
 
@@ -688,6 +728,9 @@ export const ProjectCard = () => {
                             addHaberdasheryOnChange={addHaberdasheryOnChange}
                             addHaberdasheryValues={addHaberdasheryValues}
                             setAddHaberdasheryValues={setAddHaberdasheryValues}
+                            setEntityValues={setEntityValues}
+                            entityValues={entityValues}
+                            deleteAction={deleteArticleProject}
                         />
                         <PatternProject
                             patternArray={patternArray}
@@ -695,6 +738,9 @@ export const ProjectCard = () => {
                             addPatternOnChange={addPatternOnChange}
                             addPatternValues={addPatternValues}
                             setAddPatternValues={setAddPatternValues}
+                            setEntityValues={setEntityValues}
+                            entityValues={entityValues}
+                            deleteAction={deleteArticleProject}
                         />
                         <NoteProject
                             handleAddNoteSubmit={handleAddNoteSubmit}
