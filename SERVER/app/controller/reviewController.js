@@ -36,6 +36,21 @@ const reviewController = {
         }
     },
 
+    async findAll(_, response, next) {
+        try {
+            // Get all reviews
+            const reviews = await reviewDataMapper.getAllReviews();
+
+            // send 
+            reviews === "No data"
+                ? response.status(204).json()
+                : // Send data to the client
+                  response.status(200).json({ reviews });
+        } catch (error) {
+            next(error);
+        }
+    },    
+
     async findByUserId(request, response, next) {
         try {
             // User ID targeted

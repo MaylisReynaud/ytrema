@@ -28,13 +28,17 @@ import { AddPatternModal } from "./AddArticleModal/AddPatternModal";
 import { addPatternProject } from "../../../store/state/projectSlice";
 import { useGetAllPatternsQuery } from "../../../store/api/ytremaApi";
 import { addAllPatterns } from "../../../store/state/patternSlice";
+import { DeleteModal } from "../../DeleteModal";
 export const PatternProject = (props) => {
     const {
         patternArray,
         handleAddPatternSubmit,
         addPatternOnChange,
         addPatternValues,
-        setAddPatternValues
+        setAddPatternValues,
+        setEntityValues,
+        entityValues,
+        deleteAction,
     } = props;
     const { id } = useParams();
     const isMobile = useMediaQuery({ maxWidth: DeviceSize.mobile });
@@ -49,11 +53,11 @@ export const PatternProject = (props) => {
     //LOAD ALL PATTERNS 
     useEffect(() => {
         if (isSuccess && data) {
-          dispatch(addAllPatterns(data.patterns));
+            dispatch(addAllPatterns(data.patterns));
         }
-      }, [data]);
+    }, [data]);
 
-       // SHOW SECTION
+    // SHOW SECTION
     const [showSection, setShowSection] = useState(true);
     const isOpeningSection = () => {
         setShowSection((prev) => !prev);
@@ -83,7 +87,18 @@ export const PatternProject = (props) => {
 
             setPatternsFiltered(patternsFilteredArray);
         }
-    }
+    };
+
+    //DELETE PATTERN
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const isOpeningDeleteModal = (id) => {
+        setEntityValues({
+            ...entityValues,
+            entity: "pattern",
+            entityId: id
+        })
+        setShowDeleteModal(!showDeleteModal);
+    };
 
 
     return (
@@ -91,15 +106,15 @@ export const PatternProject = (props) => {
             id='patron'
             className="patron"
         >
-             <AddReturnButtonContainer>
-            <TitleContainer
-                className="showSection"
-            >
-                <SectionTitle
-                    className="patron">
-                    PATRON
-                </SectionTitle>
-                <AddButton
+            <AddReturnButtonContainer>
+                <TitleContainer
+                    className="showSection"
+                >
+                    <SectionTitle
+                        className="patron">
+                        PATRON
+                    </SectionTitle>
+                    <AddButton
                         onClick={() => {
                             isOpeningAddPatternModal();
                             removePatternsUsed();
@@ -116,28 +131,31 @@ export const PatternProject = (props) => {
                         handleAddPatternSubmit={handleAddPatternSubmit}
                         patternsFiltered={patternsFiltered}
                     />
-                {showSection ? (
-                    <MinusIcon onClick={isOpeningSection} />
-                ) : (
-                    <PlusIcon onClick={isOpeningSection} />
-                )}
-            </TitleContainer>
+                    {showSection ? (
+                        <MinusIcon onClick={isOpeningSection} />
+                    ) : (
+                        <PlusIcon onClick={isOpeningSection} />
+                    )}
+                </TitleContainer>
             </AddReturnButtonContainer>
             {showSection && (
                 <CardsContainer>
                     {patternArray.map((pattern) => (
-                        <CardContainer 
+                        <CardContainer
                             key={pattern.id}
                         >
                             <ModifyDeleteContainer>
                                 <TrashContainer>
-                                    <TrashButton />
+                                    <TrashButton
+                                        aria-label="Supprimer ce patron"
+                                        onClick={() => { isOpeningDeleteModal(pattern.id) }}
+                                    />
                                 </TrashContainer>
                             </ModifyDeleteContainer>
                             <Link to={`/pattern/${pattern.id}`}>
                                 <InfoCardContainer>
                                     <ImgContainer
-                                     
+
                                     >
                                         <CardImg
                                             src={pattern.photo}
@@ -145,13 +163,19 @@ export const PatternProject = (props) => {
                                         />
                                     </ImgContainer>
                                     <CardText
-                                       
+
                                     >{pattern.clothing} - {pattern.name} </CardText>
                                 </InfoCardContainer>
 
                             </Link>
                         </CardContainer>
                     ))}
+                    <DeleteModal
+                        setShowDeleteModal={setShowDeleteModal}
+                        showDeleteModal={showDeleteModal}
+                        deleteAction={deleteAction}
+                        word={'SUPPRIMER CE PATRON'}
+                    />
                 </CardsContainer>
             )}
         </Section>
