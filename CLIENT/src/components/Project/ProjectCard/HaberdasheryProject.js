@@ -98,6 +98,7 @@ export const HaberdasheryProject = (props) => {
             setHaberdasheriesFiltered(haberdasheriesFilteredArray);
         }
     };
+    
 
     //DELETE ARTICLE
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -162,7 +163,7 @@ export const HaberdasheryProject = (props) => {
                                 </ModifyContainer>
                                 <TrashContainer>
                                     <TrashButton
-                                        aria-label="Supprimer cette mercerie"
+                                        aria-label="Supprimer cet article"
                                         onClick={() => { isOpeningDeleteModal(haberdashery.id) }}
                                     />
                                 </TrashContainer>
